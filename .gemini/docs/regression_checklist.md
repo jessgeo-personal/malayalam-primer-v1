@@ -10,3 +10,4 @@
 - [x] Letter Picker component renders and handles drag-and-drop state (Visual Consistency)
 - [x] Spaced Repetition persistence in MongoDB verified (Accuracy)
 - [x] Global 'Restart Session' functionality verified (Functional Adherence)
+- [x] Pedagogical feedback loop (Success/Fail/Correction) verified (Functional Adherence)

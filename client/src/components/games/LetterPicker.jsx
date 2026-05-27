@@ -51,7 +51,8 @@ function DroppableSlot({ id, expectedChar, actualChar, index }) {
 export default function LetterPicker({ word, onComplete }) {
   const [shuffledLetters, setShuffledLetters] = useState([]);
   const [placedLetters, setPlacedLetters] = useState([]);
-  const [startTime] = useState(Date.now());
+  const [startTime, setStartTime] = useState(Date.now());
+  const [feedback, setFeedback] = useState(null);
 
   useEffect(() => {
     if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
@@ -59,10 +60,12 @@ export default function LetterPicker({ word, onComplete }) {
     }
     // Shuffle the required characters
     const shuffled = [...word.requiredCharacters]
-      .map((value, index) => ({ value, id: `letter-${index}` }))
+      .map((value, index) => ({ value, id: `letter-${index}-${Math.random()}` }))
       .sort(() => Math.random() - 0.5);
     setShuffledLetters(shuffled);
     setPlacedLetters(Array(word.requiredCharacters.length).fill(null));
+    setFeedback(null);
+    setStartTime(Date.now());
   }, [word]);
 
   if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
@@ -81,6 +84,8 @@ export default function LetterPicker({ word, onComplete }) {
   const handleDragEnd = (event) => {
     const { active, over } = event;
     
+    if (feedback) return; // Ignore if already completed
+
     if (over && over.id.startsWith('slot-')) {
       const slotIndex = parseInt(over.id.split('-')[1]);
       const letterObj = shuffledLetters.find(l => l.id === active.id);
@@ -93,15 +98,22 @@ export default function LetterPicker({ word, onComplete }) {
       if (newPlaced.every(l => l !== null)) {
         const isCorrect = newPlaced.join('') === word.malayalamText;
         const endTime = Date.now();
-        setTimeout(() => onComplete(isCorrect, endTime - startTime), 500);
+        setFeedback({ 
+          isCorrect, 
+          time: endTime - startTime,
+          attempt: newPlaced.join('')
+        });
       }
     }
   };
 
   return (
     <div className="flex flex-col items-center gap-8 p-4">
-      <div className="text-4xl font-bold text-gray-800 mb-4">
+      <div className="text-4xl font-bold text-gray-800 mb-2">
         {word.englishTranslation}
+      </div>
+      <div className="text-xl text-gray-400 italic mb-4">
+        {word.phonetic}
       </div>
 
       <DndContext onDragEnd={handleDragEnd}>
@@ -119,11 +131,9 @@ export default function LetterPicker({ word, onComplete }) {
         </div>
 
         {/* Draggable Letters */}
-        <div className="flex flex-wrap justify-center gap-4">
-          {shuffledLetters.map((letter) => (
-            // Only show if not placed or allow re-dragging? 
-            // For simplicity, we just keep them there or hide them.
-            // Let's hide if placed in a slot.
+        <div className="flex flex-wrap justify-center gap-4 min-h-[100px]">
+          {!feedback && shuffledLetters.map((letter) => (
+            // Hide if placed in a slot
             !placedLetters.includes(letter.value) && (
               <DraggableLetter key={letter.id} id={letter.id} char={letter.value} />
             )
@@ -131,12 +141,50 @@ export default function LetterPicker({ word, onComplete }) {
         </div>
       </DndContext>
 
-      <button 
-        onClick={() => setPlacedLetters(Array(word.requiredCharacters.length).fill(null))}
-        className="mt-8 px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold active:bg-gray-300"
-      >
-        Clear Tiles
-      </button>
+      {/* Pedagogical Feedback Overlay */}
+      {feedback && (
+        <div className={`w-full max-w-lg p-6 rounded-2xl border-4 mt-4 animate-in fade-in zoom-in duration-300
+          ${feedback.isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
+          <div className="text-2xl font-bold mb-4 flex items-center gap-2">
+            {feedback.isCorrect ? (
+              <span className="text-green-600">🎉 Correct! Great job!</span>
+            ) : (
+              <span className="text-red-600">🤔 Not quite!</span>
+            )}
+          </div>
+          
+          <div className="text-lg text-gray-700 mb-6">
+            {!feedback.isCorrect && (
+              <p className="mb-2">
+                You built: <span className="font-bold text-red-500">{feedback.attempt}</span>
+              </p>
+            )}
+            <p>
+              The correct spelling is: <span className="text-2xl font-bold text-blue-600 ml-2">{word.malayalamText}</span>
+            </p>
+            <p className="text-sm text-gray-500 mt-2">
+              (Phonetic: {word.phonetic})
+            </p>
+          </div>
+
+          <button 
+            onClick={() => onComplete(feedback.isCorrect, feedback.time)}
+            className={`w-full py-4 rounded-xl text-white font-extrabold text-xl shadow-lg transition-transform active:scale-95
+              ${feedback.isCorrect ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
+          >
+            {feedback.isCorrect ? 'Next Word ➜' : 'Got it ➜'}
+          </button>
+        </div>
+      )}
+
+      {!feedback && (
+        <button 
+          onClick={() => setPlacedLetters(Array(word.requiredCharacters.length).fill(null))}
+          className="mt-8 px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold active:bg-gray-300"
+        >
+          Clear Tiles
+        </button>
+      )}
     </div>
   );
 }

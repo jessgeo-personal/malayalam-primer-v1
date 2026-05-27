@@ -1,5 +1,12 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.009] - 2026-05-27
+### Added
+- Implemented pedagogical feedback loop in `LetterPicker.jsx`.
+- Game now halts on completion to show Success/Failure status and correct spelling.
+- Added phonetic and Malayalam corrections for wrong answers.
+- Added manual "Next Word" / "Got it" confirmation to resume the learning loop.
+
 ## [2026.05.27.008] - 2026-05-27
 ### Added
 - Implemented global "Restart Session" feature to prevent users from getting stuck on misconfigured words.

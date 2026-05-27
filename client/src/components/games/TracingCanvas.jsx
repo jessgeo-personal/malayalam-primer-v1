@@ -95,7 +95,8 @@ export default function TracingCanvas({ word, onComplete }) {
     <div className="flex flex-col items-center gap-6 w-full max-w-2xl mx-auto">
       <div className="text-center">
         <h2 className="text-4xl font-bold text-gray-800">{word.englishTranslation}</h2>
-        <p className="text-gray-500 italic mt-2">Trace the character and listen to the sound</p>
+        <p className="text-2xl text-blue-600 font-semibold mt-2">{word.phonetic}</p>
+        <p className="text-gray-500 italic mt-1">Trace the character and listen to the sound</p>
       </div>
 
       <div className="relative aspect-square w-full bg-white rounded-3xl shadow-inner border-4 border-gray-100 overflow-hidden touch-none">

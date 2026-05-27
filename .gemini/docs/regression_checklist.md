@@ -13,3 +13,5 @@
 - [x] Pedagogical feedback loop (Success/Fail/Correction) verified (Functional Adherence)
 - [x] Alphabet tracing canvas verified with touch/mouse events (Visual Consistency)
 - [x] Phonetic audio playback (TTS placeholder) verified (Functional Adherence)
+- [x] Pedagogical prerequisite system (Trace before Build) verified (Accuracy)
+- [x] Visual phonetics on tracing canvas verified (Visual Consistency)

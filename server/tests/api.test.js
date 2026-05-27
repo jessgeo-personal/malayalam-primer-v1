@@ -26,8 +26,7 @@ describe('API Routes Integration', () => {
     await Progress.deleteMany({});
   });
 
-  test('GET /api/words/next should return a word', async () => {
-    // Seed a word
+  test('GET /api/words/next should return a word if no prerequisites', async () => {
     await Word.create({
       wordId: 'w001',
       malayalamText: 'അമ്മ',
@@ -35,6 +34,68 @@ describe('API Routes Integration', () => {
       phonetic: 'Amma',
       bucketId: 10,
       unlockCycle: 1
+    });
+
+    const response = await request(app).get('/api/words/next?userId=test_user&cycle=1');
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('wordId', 'w001');
+  });
+
+  test('GET /api/words/next should NOT return a word if prerequisites unmet', async () => {
+    await Word.create({
+      wordId: 't001',
+      malayalamText: 'അ',
+      englishTranslation: 'A',
+      phonetic: 'A',
+      bucketId: 0,
+      unlockCycle: 1,
+      lessonType: 'trace'
+    });
+
+    await Word.create({
+      wordId: 'w001',
+      malayalamText: 'അമ്മ',
+      englishTranslation: 'Mother',
+      phonetic: 'Amma',
+      bucketId: 10,
+      unlockCycle: 1,
+      prerequisites: ['t001']
+    });
+
+    // Requesting next word, should return t001, not w001
+    const response = await request(app).get('/api/words/next?userId=test_user&cycle=1');
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty('wordId', 't001');
+  });
+
+  test('GET /api/words/next should return word if prerequisites ARE met', async () => {
+    await Word.create({
+      wordId: 't001',
+      malayalamText: 'അ',
+      englishTranslation: 'A',
+      phonetic: 'A',
+      bucketId: 0,
+      unlockCycle: 1,
+      lessonType: 'trace'
+    });
+
+    await Word.create({
+      wordId: 'w001',
+      malayalamText: 'അമ്മ',
+      englishTranslation: 'Mother',
+      phonetic: 'Amma',
+      bucketId: 10,
+      unlockCycle: 1,
+      prerequisites: ['t001']
+    });
+
+    // Add progress for t001
+    await Progress.create({
+      userId: 'test_user',
+      wordId: 't001',
+      encounters: 1,
+      correctCount: 1,
+      srsWeight: 1.5
     });
 
     const response = await request(app).get('/api/words/next?userId=test_user&cycle=1');

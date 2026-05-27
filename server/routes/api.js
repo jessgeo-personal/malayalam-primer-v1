@@ -24,17 +24,34 @@ router.get('/words/next', async (req, res) => {
     const wordsWithProgressIds = progressList.map(p => p.wordId);
     const newWords = availableWords.filter(w => !wordsWithProgressIds.includes(w.wordId));
 
+    // Helper: Check if prerequisites are met
+    const arePrerequisitesMet = (word) => {
+      if (!word.prerequisites || word.prerequisites.length === 0) return true;
+      return word.prerequisites.every(preId => wordsWithProgressIds.includes(preId));
+    };
+
     if (newWords.length > 0) {
-      // Prioritize new words (pick the first one)
-      return res.json(newWords[0]);
+      // Find the first new word whose prerequisites are met
+      const nextNewWord = newWords.find(arePrerequisitesMet);
+      if (nextNewWord) return res.json(nextNewWord);
     }
 
-    // 4. If all words have been encountered, pick the one with the lowest SRS weight
-    progressList.sort((a, b) => a.srsWeight - b.srsWeight);
-    const nextWordId = progressList[0].wordId;
-    const nextWord = availableWords.find(w => w.wordId === nextWordId);
+    // 4. If all accessible words have been encountered, pick the one with the lowest SRS weight
+    // Only sort and pick from words whose prerequisites are met
+    const accessibleProgress = progressList.filter(p => {
+      const word = availableWords.find(w => w.wordId === p.wordId);
+      return word && arePrerequisitesMet(word);
+    });
 
-    res.json(nextWord);
+    if (accessibleProgress.length > 0) {
+      accessibleProgress.sort((a, b) => a.srsWeight - b.srsWeight);
+      const nextWordId = accessibleProgress[0].wordId;
+      const nextWord = availableWords.find(w => w.wordId === nextWordId);
+      return res.json(nextWord);
+    }
+
+    // If absolutely nothing is accessible (edge case), return null or first word
+    res.json(newWords[0] || availableWords[0]);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

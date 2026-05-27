@@ -1,5 +1,12 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.011] - 2026-05-27
+### Added
+- Implemented pedagogical Prerequisite System: users must now complete character tracing before building words with those characters.
+- Enhanced `TracingCanvas.jsx` to display phonetic text visually under the English translation.
+- Restructured `seed-100.json` to link base consonants, vowel signs, and chillus to their respective words (e.g. tracing "ഞ", "ാ", "ൻ" before building "ഞാൻ").
+- Updated backend API and unit tests to enforce prerequisite logic.
+
 ## [2026.05.27.010] - 2026-05-27
 ### Added
 - Implemented Phase 0: Alphabet Foundation (Tracing & Phonetics).

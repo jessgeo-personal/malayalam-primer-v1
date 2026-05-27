@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: malayalam_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+    restart: unless-stopped
+
+  backend:
+    build: ./server
+    container_name: malayalam_api
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/malayalam_decode
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  frontend:
+    build: ./client
+    container_name: malayalam_web
+    ports:
+      - "3000:80" # Nginx serves the built Vite app
+    depends_on:
+      - backend
+    restart: unless-stopped

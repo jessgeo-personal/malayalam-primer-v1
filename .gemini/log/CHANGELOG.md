@@ -1,5 +1,25 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.007] - 2026-05-27
+### Changed
+- Shifted pedagogical splitting protocol to strictly detach dependent vowel signs (e.g., ാ, ി, ീ) from base consonants to teach character modification.
+- Updated `seed-100.json` for "നീ" (You) to follow the new 2-piece split (`["ന", "ീ"]`).
+- Updated official `.gemini/docs/word_splitting_protocol.md` with the new rules and examples.
+
+## [2026.05.27.006] - 2026-05-27
+### Fixed
+- Resolved styling issue where Tailwind CSS utility classes were not being applied (added `@import "tailwindcss"` to `index.css`).
+- Cleaned up legacy Vite boilerplate CSS to prevent layout interference.
+- Updated pedagogical split for "ഞാൻ" (w001) to 3 pieces (`["ഞ", "ാ", "ൻ"]`) as per user request.
+
+## [2026.05.27.005] - 2026-05-27
+### Fixed
+- Resolved blank screen in `LetterPicker` by populating `requiredCharacters` for initial seed words.
+- Added UI fallback/error message for words with missing grapheme splits.
+### Added
+- Created `.gemini/docs/word_splitting_protocol.md` to document the AI-assisted Malayalam splitting process.
+- Initialized Git repository and created a checkpoint commit on the `dev` branch.
+
 ## [2026.05.27.004] - 2026-05-27
 ### Added
 - Phase 1 Milestone 1.2 (Frontend Foundation) completed.

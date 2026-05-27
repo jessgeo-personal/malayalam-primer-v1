@@ -50,10 +50,13 @@ function DroppableSlot({ id, expectedChar, actualChar, index }) {
 
 export default function LetterPicker({ word, onComplete }) {
   const [shuffledLetters, setShuffledLetters] = useState([]);
-  const [placedLetters, setPlacedLetters] = useState(Array(word.requiredCharacters.length).fill(null));
+  const [placedLetters, setPlacedLetters] = useState([]);
   const [startTime] = useState(Date.now());
 
   useEffect(() => {
+    if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
+      return;
+    }
     // Shuffle the required characters
     const shuffled = [...word.requiredCharacters]
       .map((value, index) => ({ value, id: `letter-${index}` }))
@@ -61,6 +64,19 @@ export default function LetterPicker({ word, onComplete }) {
     setShuffledLetters(shuffled);
     setPlacedLetters(Array(word.requiredCharacters.length).fill(null));
   }, [word]);
+
+  if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
+    return (
+      <div className="flex flex-col items-center gap-4 text-center">
+        <div className="text-4xl font-bold text-gray-800">{word.englishTranslation}</div>
+        <div className="p-6 bg-red-100 border-2 border-red-500 rounded-2xl text-red-700 font-medium">
+          ⚠️ Grapheme pieces (requiredCharacters) are not defined for "{word.malayalamText}".
+          <br />
+          Please refer to the Word Splitting Protocol.
+        </div>
+      </div>
+    );
+  }
 
   const handleDragEnd = (event) => {
     const { active, over } = event;

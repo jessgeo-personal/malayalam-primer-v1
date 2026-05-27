@@ -1,5 +1,9 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.012] - 2026-05-27
+### Added
+- Created `.gemini/docs/future_enhancements.md` to track user feedback regarding pedagogical pacing (tracing ratio), learner dashboard UI, and daily revision planning.
+
 ## [2026.05.27.011] - 2026-05-27
 ### Added
 - Implemented pedagogical Prerequisite System: users must now complete character tracing before building words with those characters.

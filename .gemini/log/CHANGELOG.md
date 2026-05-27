@@ -1,5 +1,13 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.010] - 2026-05-27
+### Added
+- Implemented Phase 0: Alphabet Foundation (Tracing & Phonetics).
+- Created `TracingCanvas.jsx` with HTML5 Canvas and touch event support.
+- Developed `audioEngine.js` for phonetic audio playback using Web Speech TTS.
+- Updated `Word` schema and seed data to support `lessonType: 'trace'`.
+- Added initial tracing lessons for vowels and chillus.
+
 ## [2026.05.27.009] - 2026-05-27
 ### Added
 - Implemented pedagogical feedback loop in `LetterPicker.jsx`.

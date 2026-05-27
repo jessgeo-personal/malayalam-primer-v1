@@ -1,6 +1,7 @@
 import React from 'react';
 import { useProgress } from './context';
 import LetterPicker from './components/games/LetterPicker';
+import TracingCanvas from './components/games/TracingCanvas';
 import { APP_VERSION } from './config/version';
 import './App.css';
 
@@ -34,20 +35,28 @@ function App() {
 
       <header className="mb-12 text-center">
         <h1 className="text-4xl font-extrabold text-orange-600 mb-2">Malayalam Prime</h1>
-        <p className="text-gray-600">Let's build some words!</p>
+        <p className="text-gray-600">Learning individual sounds and building words!</p>
       </header>
 
-      <main className="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-8 min-h-[500px] flex items-center justify-center">
+      <main className="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-8 min-h-[600px] flex items-center justify-center">
         {currentWord ? (
-          <LetterPicker 
-            word={currentWord} 
-            onComplete={(isCorrect, responseTimeMs) => {
-              console.log('Result:', isCorrect, 'Time:', responseTimeMs);
-              updateProgress(isCorrect, responseTimeMs);
-            }} 
-          />
+          currentWord.lessonType === 'trace' ? (
+            <TracingCanvas 
+              word={currentWord} 
+              onComplete={(isCorrect, responseTimeMs) => {
+                updateProgress(isCorrect, responseTimeMs);
+              }} 
+            />
+          ) : (
+            <LetterPicker 
+              word={currentWord} 
+              onComplete={(isCorrect, responseTimeMs) => {
+                updateProgress(isCorrect, responseTimeMs);
+              }} 
+            />
+          )
         ) : (
-          <div className="text-xl text-gray-500 italic">No more words in this cycle. Great job!</div>
+          <div className="text-xl text-gray-500 italic">No more lessons in this cycle. Great job!</div>
         )}
       </main>
 

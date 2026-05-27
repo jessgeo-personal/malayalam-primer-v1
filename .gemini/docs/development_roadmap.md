@@ -2,6 +2,12 @@
 
 This document outlines the strategic progression from our current scaffolding to a functional, gamified literacy app for an 8-year-old.
 
+## Phase 0: The "Alphabet Foundation" (Tracing & Phonetics)
+*Goal: Teach the shape and phonetic sound of individual graphemes before word building.*
+1.  **The Tracing Canvas**: Build an HTML5 `<canvas>` optimized for tablet touch events, allowing the child to trace large Malayalam characters.
+2.  **Phonetic Integration**: Provide audio hints (phonetic pronunciations) as the child interacts with the graphemes.
+3.  **Core Lessons**: Group the graphemes into manageable pedagogical blocks (Base Consonants, Vowels, Chillus, Modifiers).
+
 ## Phase 1: The "Foundation" (The Core Loop)
 *Goal: Establish the basic "Fetch Word -> Show Puzzle -> Submit Answer -> Update SRS" cycle.*
 1.  **Database Seeding**: Finalize the `Word` schema and seed the first 100 words (Cycle 1).

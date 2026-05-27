@@ -8,7 +8,8 @@ const wordItemSchema = new mongoose.Schema({
   bucketId: { type: Number, required: true },
   isSuffix: { type: Boolean, default: false },
   requiredCharacters: [{ type: String }], 
-  unlockCycle: { type: Number, required: true }
+  unlockCycle: { type: Number, required: true },
+  lessonType: { type: String, enum: ['trace', 'build'], default: 'build' }
 });
 
 module.exports = mongoose.model('Word', wordItemSchema);

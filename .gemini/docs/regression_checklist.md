@@ -15,4 +15,7 @@
 - [x] Phonetic audio playback (TTS placeholder) verified (Functional Adherence)
 - [x] Pedagogical prerequisite system (Trace before Build) verified (Accuracy)
 - [x] Visual phonetics on tracing canvas verified (Visual Consistency)
+- [x] Mastery Strip UI displaying learned letters verified (Visual Consistency)
+- [x] Global score tracking and gamification (Stars/Points) verified (Functional Adherence)
+- [x] Phase badges (New vs Revision) verified (Pedagogical Alignment)
 - [x] Future enhancements and pacing adjustments documented (Process Adherence)

@@ -8,8 +8,22 @@ export const ProgressProvider = ({ children }) => {
   const [userId] = useState('default_user');
   const [currentCycle, setCurrentCycle] = useState(1);
   const [currentWord, setCurrentWord] = useState(null);
+  const [masteredCharacters, setMasteredCharacters] = useState([]);
+  const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const fetchStats = async () => {
+    try {
+      const response = await fetch(`/api/progress/stats?userId=${userId}`);
+      if (!response.ok) throw new Error('Failed to fetch stats');
+      const data = await response.json();
+      setMasteredCharacters(data.masteredCharacters || []);
+      setScore(data.score || 0);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const fetchNextWord = async () => {
     setLoading(true);
@@ -41,7 +55,12 @@ export const ProgressProvider = ({ children }) => {
       });
 
       if (!response.ok) throw new Error('Failed to update progress');
+      const data = await response.json();
       
+      // Update local stats from response
+      setScore(data.score);
+      setMasteredCharacters(data.masteredCharacters);
+
       // Fetch next word after update
       await fetchNextWord();
     } catch (err) {
@@ -59,7 +78,9 @@ export const ProgressProvider = ({ children }) => {
       });
       if (!response.ok) throw new Error('Failed to reset session');
       
-      // Reset local state and fetch word #1
+      // Reset local state
+      setScore(0);
+      setMasteredCharacters([]);
       setCurrentWord(null);
       await fetchNextWord();
     } catch (err) {
@@ -70,12 +91,15 @@ export const ProgressProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    fetchStats();
     fetchNextWord();
   }, [currentCycle]);
 
   return (
     <ProgressContext.Provider value={{
       currentWord,
+      masteredCharacters,
+      score,
       loading,
       error,
       currentCycle,

@@ -91,7 +91,38 @@ router.post('/progress/update', async (req, res) => {
 
     await progress.save();
 
-    res.json({ success: true, newWeight });
+    // Calculate total score and get mastered characters for immediate UI update
+    const allProgress = await Progress.find({ userId });
+    const score = allProgress.reduce((sum, p) => sum + (p.correctCount * 10), 0);
+    
+    const masteredWords = await Word.find({ wordId: { $in: allProgress.map(p => p.wordId) }, lessonType: 'trace' });
+    const masteredCharacters = masteredWords.map(w => w.malayalamText);
+
+    res.json({ 
+      success: true, 
+      newWeight, 
+      score, 
+      masteredCharacters 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/progress/stats
+ * Returns the user's mastered characters and total score.
+ */
+router.get('/progress/stats', async (req, res) => {
+  try {
+    const { userId } = req.query;
+    const allProgress = await Progress.find({ userId });
+    const score = allProgress.reduce((sum, p) => sum + (p.correctCount * 10), 0);
+
+    const masteredWords = await Word.find({ wordId: { $in: allProgress.map(p => p.wordId) }, lessonType: 'trace' });
+    const masteredCharacters = masteredWords.map(w => w.malayalamText);
+
+    res.json({ score, masteredCharacters });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

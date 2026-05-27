@@ -2,11 +2,20 @@ import React from 'react';
 import { useProgress } from './context';
 import LetterPicker from './components/games/LetterPicker';
 import TracingCanvas from './components/games/TracingCanvas';
+import { MasteryStrip } from './components/ui';
 import { APP_VERSION } from './config/version';
 import './App.css';
 
 function App() {
-  const { currentWord, loading, error, updateProgress, resetSession } = useProgress();
+  const { 
+    currentWord, 
+    masteredCharacters, 
+    score, 
+    loading, 
+    error, 
+    updateProgress, 
+    resetSession 
+  } = useProgress();
 
   if (loading) {
     return (
@@ -25,20 +34,37 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-yellow-50 flex flex-col items-center py-10 px-4 relative">
-      <button 
-        onClick={resetSession}
-        className="fixed top-4 right-4 px-4 py-2 bg-red-500 text-white rounded-lg font-bold shadow-md active:bg-red-600 transition-colors z-50"
-      >
-        Restart Session
-      </button>
+    <div className="min-h-screen bg-yellow-50 flex flex-col items-center relative">
+      {/* Header Info */}
+      <div className="w-full flex justify-between items-center p-4 z-50">
+        <div className="flex items-center gap-3">
+          <div className="bg-white px-4 py-2 rounded-full shadow-md border-2 border-yellow-400 flex items-center gap-2">
+            <span className="text-2xl">⭐</span>
+            <span className="text-xl font-bold text-orange-600">{score}</span>
+          </div>
+        </div>
+        
+        <button 
+          onClick={resetSession}
+          className="px-4 py-2 bg-red-500 text-white rounded-lg font-bold shadow-md active:bg-red-600 transition-colors"
+        >
+          Restart Session
+        </button>
+      </div>
 
-      <header className="mb-12 text-center">
+      <header className="mb-8 text-center px-4">
         <h1 className="text-4xl font-extrabold text-orange-600 mb-2">Malayalam Prime</h1>
-        <p className="text-gray-600">Learning individual sounds and building words!</p>
+        
+        {/* Phase Badge */}
+        {currentWord && (
+          <div className={`inline-block px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider shadow-sm
+            ${currentWord.wordId.startsWith('t') ? 'bg-purple-100 text-purple-600 border border-purple-200' : 'bg-blue-100 text-blue-600 border border-blue-200'}`}>
+            {currentWord.wordId.startsWith('t') ? '✨ New Sound' : '🌟 Revision'}
+          </div>
+        )}
       </header>
 
-      <main className="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-8 min-h-[600px] flex items-center justify-center">
+      <main className="w-full max-w-4xl bg-white rounded-3xl shadow-xl p-8 min-h-[550px] flex items-center justify-center mx-4 mb-12">
         {currentWord ? (
           currentWord.lessonType === 'trace' ? (
             <TracingCanvas 
@@ -60,8 +86,11 @@ function App() {
         )}
       </main>
 
-      <footer className="mt-auto py-8 text-gray-400 text-sm">
-        Malayalam Prime v{APP_VERSION}
+      <footer className="mt-auto w-full flex flex-col items-center">
+        <MasteryStrip characters={masteredCharacters} />
+        <div className="py-4 text-gray-400 text-xs">
+          Malayalam Prime v{APP_VERSION}
+        </div>
       </footer>
     </div>
   );

@@ -1,5 +1,13 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.013] - 2026-05-27
+### Added
+- Implemented **Mastery Strip**: A persistent UI element at the bottom of the screen showing all learned alphabets/chillus.
+- Implemented **Gamification (Points)**: Users now earn 10 points for every correct answer, displayed in a persistent header counter.
+- Implemented **Phase Badges**: Added visual badges to distinguish between "✨ New Sound" and "🌟 Revision" puzzles.
+- Added `/api/progress/stats` backend endpoint to track global user achievements.
+- Updated `ProgressContext` to manage global score and mastered character states.
+
 ## [2026.05.27.012] - 2026-05-27
 ### Added
 - Created `.gemini/docs/future_enhancements.md` to track user feedback regarding pedagogical pacing (tracing ratio), learner dashboard UI, and daily revision planning.

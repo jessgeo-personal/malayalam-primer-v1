@@ -116,5 +116,33 @@ describe('API Routes Integration', () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('success', true);
     expect(response.body).toHaveProperty('newWeight');
+    expect(response.body).toHaveProperty('score');
+  });
+
+  test('GET /api/progress/stats should return user score and mastered characters', async () => {
+    // 1. Trace a character
+    await Word.create({
+      wordId: 't001',
+      malayalamText: 'അ',
+      englishTranslation: 'A',
+      phonetic: 'A',
+      bucketId: 0,
+      unlockCycle: 1,
+      lessonType: 'trace'
+    });
+
+    await request(app)
+      .post('/api/progress/update')
+      .send({
+        userId: 'test_user',
+        wordId: 't001',
+        isCorrect: true,
+        responseTimeMs: 2000
+      });
+
+    const response = await request(app).get('/api/progress/stats?userId=test_user');
+    expect(response.status).toBe(200);
+    expect(response.body.score).toBe(10);
+    expect(response.body.masteredCharacters).toContain('അ');
   });
 });

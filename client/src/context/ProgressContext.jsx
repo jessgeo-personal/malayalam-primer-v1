@@ -49,6 +49,26 @@ export const ProgressProvider = ({ children }) => {
     }
   };
 
+  const resetSession = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('/api/progress/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId })
+      });
+      if (!response.ok) throw new Error('Failed to reset session');
+      
+      // Reset local state and fetch word #1
+      setCurrentWord(null);
+      await fetchNextWord();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchNextWord();
   }, [currentCycle]);
@@ -61,7 +81,8 @@ export const ProgressProvider = ({ children }) => {
       currentCycle,
       setCurrentCycle,
       fetchNextWord,
-      updateProgress
+      updateProgress,
+      resetSession
     }}>
       {children}
     </ProgressContext.Provider>

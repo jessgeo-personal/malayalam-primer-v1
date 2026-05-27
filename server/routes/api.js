@@ -80,6 +80,20 @@ router.post('/progress/update', async (req, res) => {
   }
 });
 
+/**
+ * POST /api/progress/reset
+ * Wipes all progress for the user to restart testing.
+ */
+router.post('/progress/reset', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    await Progress.deleteMany({ userId });
+    res.json({ success: true, message: "Progress reset successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Keep existing routes if they are needed, but we focus on these for Phase 1.
 router.get('/user/progress', async (req, res) => {
   // Existing placeholder

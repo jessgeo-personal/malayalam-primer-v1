@@ -5,7 +5,7 @@ import { APP_VERSION } from './config/version';
 import './App.css';
 
 function App() {
-  const { currentWord, loading, error, updateProgress } = useProgress();
+  const { currentWord, loading, error, updateProgress, resetSession } = useProgress();
 
   if (loading) {
     return (
@@ -24,7 +24,14 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-yellow-50 flex flex-col items-center py-10 px-4">
+    <div className="min-h-screen bg-yellow-50 flex flex-col items-center py-10 px-4 relative">
+      <button 
+        onClick={resetSession}
+        className="fixed top-4 right-4 px-4 py-2 bg-red-500 text-white rounded-lg font-bold shadow-md active:bg-red-600 transition-colors z-50"
+      >
+        Restart Session
+      </button>
+
       <header className="mb-12 text-center">
         <h1 className="text-4xl font-extrabold text-orange-600 mb-2">Malayalam Prime</h1>
         <p className="text-gray-600">Let's build some words!</p>

@@ -1,5 +1,14 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.008] - 2026-05-27
+### Added
+- Implemented global "Restart Session" feature to prevent users from getting stuck on misconfigured words.
+- Added `POST /api/progress/reset` backend endpoint.
+- Added `resetSession` to `ProgressContext` for dynamic session clearing.
+- Placed a persistent "Restart Session" button in the top-right corner of the app, visible in all states (including error fallbacks).
+### Changed
+- Renamed internal puzzle "Reset" button to "Clear Tiles" to distinguish it from the session restart.
+
 ## [2026.05.27.007] - 2026-05-27
 ### Changed
 - Shifted pedagogical splitting protocol to strictly detach dependent vowel signs (e.g., ാ, ി, ീ) from base consonants to teach character modification.

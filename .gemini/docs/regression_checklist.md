@@ -9,3 +9,4 @@
 - [x] Backend API routes for next word and progress update verified (Functional Adherence)
 - [x] Letter Picker component renders and handles drag-and-drop state (Visual Consistency)
 - [x] Spaced Repetition persistence in MongoDB verified (Accuracy)
+- [x] Global 'Restart Session' functionality verified (Functional Adherence)

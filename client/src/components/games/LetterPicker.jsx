@@ -9,32 +9,53 @@ import {
   useSensors,
   closestCenter
 } from '@dnd-kit/core';
+import { audioEngine } from '../../utils/audioEngine';
 
 /**
  * LetterPicker Mini-game
  * Teaching: Basic Phonics and Word Building (Bucket 11/10 Foundation)
+ * Refactored: Added Phonetic Audio Buttons to individual tiles.
  */
 
-function DraggableLetter({ id, char }) {
+function DraggableLetter({ id, char, phonetic }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: id,
   });
   
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+    zIndex: isDragging ? 100 : 1,
     opacity: isDragging ? 0.5 : 1,
-  } : undefined;
+  } : {
+    zIndex: 1
+  };
+
+  const playSound = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    audioEngine.speak(char);
+  };
 
   return (
-    <button
+    <div
       ref={setNodeRef}
       style={style}
       {...listeners}
       {...attributes}
-      className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-blue-500 text-white text-2xl sm:text-3xl rounded-xl shadow-lg touch-none active:scale-95 transition-transform"
+      className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600 text-white text-2xl sm:text-3xl rounded-xl shadow-lg touch-none active:scale-95 transition-transform border-b-4 border-blue-700"
     >
       {char}
-    </button>
+      
+      {/* Audio Button Overlay */}
+      <button
+        onPointerDown={playSound}
+        onMouseDown={playSound}
+        className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 border-2 border-white rounded-full flex items-center justify-center text-sm shadow-md active:scale-90 transition-transform pointer-events-auto"
+        title="Hear sound"
+      >
+        🔊
+      </button>
+    </div>
   );
 }
 
@@ -51,7 +72,7 @@ function DroppableSlot({ id, expectedChar, actualChar, index }) {
       ref={setNodeRef}
       className={`w-16 h-16 sm:w-20 sm:h-20 border-4 border-dashed rounded-xl flex items-center justify-center text-2xl sm:text-3xl transition-colors
         ${isOver ? 'bg-blue-100 border-blue-400' : ''}
-        ${isFilled ? (isCorrect ? 'bg-green-100 border-green-500' : 'bg-red-100 border-red-500') : 'border-gray-300 bg-gray-50'}`}
+        ${isFilled ? (isCorrect ? 'bg-green-100 border-green-500 shadow-inner' : 'bg-red-100 border-red-500') : 'border-gray-300 bg-gray-50 shadow-inner'}`}
     >
       {actualChar}
     </div>
@@ -205,7 +226,7 @@ export default function LetterPicker({ word, onComplete }) {
       {!feedback && (
         <button 
           onClick={() => setPlacedLetters(Array(word.requiredCharacters.length).fill(null))}
-          className="mt-8 px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold active:bg-gray-300"
+          className="mt-8 px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold active:bg-gray-300 transition-colors"
         >
           Clear Tiles
         </button>

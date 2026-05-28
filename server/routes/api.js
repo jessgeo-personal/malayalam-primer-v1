@@ -78,6 +78,20 @@ router.post('/session/revision/complete', async (req, res) => {
 });
 
 /**
+ * GET /api/session/lesson/preview
+ * Returns a list of items in a lesson for the 'i' info popup.
+ */
+router.get('/session/lesson/preview', async (req, res) => {
+  try {
+    const { userId, lessonId } = req.query;
+    const items = await srsEngine.generateLessonPayload(userId, parseInt(lessonId) || 1);
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
  * GET /api/words/next
  * Fetches the next word for the user based on SRS weight.
  */

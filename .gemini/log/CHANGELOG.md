@@ -1,5 +1,13 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.003] - 2026-05-28
+### Added
+- **Malayalam Express UI:** Reskinned Adventure Map with a Train-and-Bogeys aesthetic.
+- **Phonetic Audio Tiles:** Added "🔊" buttons to individual letter tiles in the Word Building game to help children map sound to position.
+- **Lesson Info Popups:** Added an 'i' info dot to each lesson bogey that shows the Malayalam text and translations covered in that lesson.
+- **Replayable Bogeys:** Confirmed and styled replayability for all completed lessons to allow star improvement.
+- **Backend Preview API:** Added `/api/session/lesson/preview` to serve lesson content summaries.
+
 ## [2026.05.28.002] - 2026-05-28
 ### Added
 - **Adventure Map Dashboard:** Implemented a visual, winding path UI (`AdventureMap.jsx`) for progress tracking.

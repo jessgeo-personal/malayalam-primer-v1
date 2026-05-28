@@ -32,3 +32,11 @@
 - [x] **Session Summary:** Reward screen for Revision (Prize) and Lessons (Stars) verified (Visual Consistency).
 - [x] **Concurrent Access:** Lessons and Revision are simultaneously clickable on the map verified (UX Flow).
 - [x] **Backend API:** Lesson history and current lesson progress persistence verified (Accuracy).
+
+## 🚂 Phase 3: Train UI & Audio Tiles
+- [x] **Malayalam Express UI:** Adventure Map reskinned as a train with Engine (Revision) and Bogeys (Lessons) verified (Visual Consistency).
+- [x] **Info Popup ('i'):** Lesson preview modal correctly displays content before starting verified (Functional Adherence).
+- [x] **Audio Tiles:** Individual letter tiles in Word Building now have functional "🔊" buttons verified (UX Enhancement).
+- [x] **Replayability:** Completed lesson bogeys are clickable and allow star improvement verified (Functional Adherence).
+- [x] **Dictionary Audit:** Current dictionary supports 23 lessons (~118 items) verified (Resource Audit).
+

@@ -1,5 +1,9 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.015] - 2026-05-27
+### Fixed
+- Resolved schema validation error during seeding by adding `match` to the `lessonType` enum in `server/models/Word.js`.
+
 ## [2026.05.27.014] - 2026-05-27
 ### Fixed
 - Improved tablet DND UX: Added `TouchSensor` with activation constraints and switched to `closestCenter` collision for smoother snapping.

@@ -51,6 +51,8 @@ Before completing any build or declaring a task finished, you must execute the e
 * **Goal:** Map PRD requirements to code changes and ensure the 300-word curriculum remains intact.
 * **Requirement:** Before proposing any database changes, explicitly check the 11 Grammatical Buckets and 4 Cycles defined in the PRD.
 * **Dependency Audit:** Ensure `vite-plugin-pwa` is active for the frontend, and `mongoose` is active for the backend. 
+* **Pedagogical Sequence (STRICT):** All vocabulary MUST be taught in a 3-step sequence defined in the Word schema `lessonType`: Trace (`trace`) -> Sound Match (`match`) -> Word Build (`build`). Word building puzzles must list the component characters as `prerequisites`.
+* **Grapheme Splitting:** NEVER use standard JavaScript string splitting for Malayalam. Always refer to `.gemini/docs/word_splitting_protocol.md` and manually define `requiredCharacters` (detaching dependent vowel signs from base consonants).
 * **Audit Requirement:** For every plan, you MUST perform an Architectural Integrity Check:
   * **PWA Safety:** Verify that the frontend can be installed to the Android home screen (manifest/service worker parity).
   * **Local Pathing:** Verify that frontend-to-backend API calls use environment-based local IPs (e.g., hitting the NAS IP `192.168.x.x`), NOT `localhost` (which fails on a tablet).
@@ -90,4 +92,5 @@ Before completing any build or declaring a task finished, you must execute the e
 ## A. Technical Debt Definitions
 * **API Breakage:** Any backend route that does not handle a Gemini API timeout gracefully (e.g., falling back to a hardcoded local puzzle) is high-risk debt.
 * **State Corruption:** Any frontend drag-and-drop game that does not correctly reset its state after a successful/failed answer is critical debt.
-* **Schema Violation:** Adding a word to the database without assigning it an `unlockCycle` and `bucketId` is a violation of the pedagogy.
+* **Schema Violation:** Adding a word to the database without assigning it an `unlockCycle`, `bucketId`, or correct `lessonType` sequence is a violation of the pedagogy.
+* **Data Violation:** Using an empty `requiredCharacters` array for a word-building puzzle is critical technical debt.

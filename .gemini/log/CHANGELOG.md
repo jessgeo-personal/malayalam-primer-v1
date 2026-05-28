@@ -1,5 +1,15 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.27.014] - 2026-05-27
+### Fixed
+- Improved tablet DND UX: Added `TouchSensor` with activation constraints and switched to `closestCenter` collision for smoother snapping.
+- Added active highlighting to drop zones when a tile is hovered over them (`isOver`).
+- Relocated **Mastery Strip** to the top of the screen to serve as a constant achievement indicator.
+### Added
+- Implemented **SoundMatcher** mini-game (`lessonType: 'match'`): A multiple-choice game where the child identifies characters based on sound.
+- Refined pedagogical sequence: **Trace -> Match -> Build**. Word building now requires completion of the Sound Match lesson for every component character.
+- Updated `seed-100.json` to support the new prerequisite chain.
+
 ## [2026.05.27.013] - 2026-05-27
 ### Added
 - Implemented **Mastery Strip**: A persistent UI element at the bottom of the screen showing all learned alphabets/chillus.

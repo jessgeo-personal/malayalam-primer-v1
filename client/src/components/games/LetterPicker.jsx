@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
+import { 
+  DndContext, 
+  useDraggable, 
+  useDroppable, 
+  TouchSensor, 
+  MouseSensor, 
+  useSensor, 
+  useSensors,
+  closestCenter
+} from '@dnd-kit/core';
 
 /**
  * LetterPicker Mini-game
@@ -30,7 +39,7 @@ function DraggableLetter({ id, char }) {
 }
 
 function DroppableSlot({ id, expectedChar, actualChar, index }) {
-  const { setNodeRef } = useDroppable({
+  const { setNodeRef, isOver } = useDroppable({
     id: id,
   });
 
@@ -40,7 +49,8 @@ function DroppableSlot({ id, expectedChar, actualChar, index }) {
   return (
     <div
       ref={setNodeRef}
-      className={`w-16 h-16 sm:w-20 sm:h-20 border-4 border-dashed rounded-xl flex items-center justify-center text-2xl sm:text-3xl
+      className={`w-16 h-16 sm:w-20 sm:h-20 border-4 border-dashed rounded-xl flex items-center justify-center text-2xl sm:text-3xl transition-colors
+        ${isOver ? 'bg-blue-100 border-blue-400' : ''}
         ${isFilled ? (isCorrect ? 'bg-green-100 border-green-500' : 'bg-red-100 border-red-500') : 'border-gray-300 bg-gray-50'}`}
     >
       {actualChar}
@@ -53,6 +63,17 @@ export default function LetterPicker({ word, onComplete }) {
   const [placedLetters, setPlacedLetters] = useState([]);
   const [startTime, setStartTime] = useState(Date.now());
   const [feedback, setFeedback] = useState(null);
+
+  // Configure sensors for touch and mouse
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
+    })
+  );
 
   useEffect(() => {
     if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
@@ -116,7 +137,11 @@ export default function LetterPicker({ word, onComplete }) {
         {word.phonetic}
       </div>
 
-      <DndContext onDragEnd={handleDragEnd}>
+      <DndContext 
+        sensors={sensors} 
+        collisionDetection={closestCenter} 
+        onDragEnd={handleDragEnd}
+      >
         {/* Drop Zones */}
         <div className="flex gap-4 mb-12">
           {word.requiredCharacters.map((char, index) => (
@@ -162,7 +187,7 @@ export default function LetterPicker({ word, onComplete }) {
             <p>
               The correct spelling is: <span className="text-2xl font-bold text-blue-600 ml-2">{word.malayalamText}</span>
             </p>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-400 mt-2">
               (Phonetic: {word.phonetic})
             </p>
           </div>

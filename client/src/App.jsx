@@ -1,7 +1,6 @@
 import React from 'react';
 import { useProgress } from './context';
-import LetterPicker from './components/games/LetterPicker';
-import TracingCanvas from './components/games/TracingCanvas';
+import { LetterPicker, TracingCanvas, SoundMatcher } from './components/games';
 import { MasteryStrip } from './components/ui';
 import { APP_VERSION } from './config/version';
 import './App.css';
@@ -52,14 +51,21 @@ function App() {
         </button>
       </div>
 
-      <header className="mb-8 text-center px-4">
+      {/* Mastery Achievement Strip at the TOP */}
+      <MasteryStrip characters={masteredCharacters} />
+
+      <header className="mt-8 mb-8 text-center px-4">
         <h1 className="text-4xl font-extrabold text-orange-600 mb-2">Malayalam Prime</h1>
         
         {/* Phase Badge */}
         {currentWord && (
           <div className={`inline-block px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider shadow-sm
-            ${currentWord.wordId.startsWith('t') ? 'bg-purple-100 text-purple-600 border border-purple-200' : 'bg-blue-100 text-blue-600 border border-blue-200'}`}>
-            {currentWord.wordId.startsWith('t') ? '✨ New Sound' : '🌟 Revision'}
+            ${currentWord.lessonType === 'trace' ? 'bg-purple-100 text-purple-600 border border-purple-200' : 
+              currentWord.lessonType === 'match' ? 'bg-yellow-100 text-yellow-700 border border-yellow-300' : 
+              'bg-blue-100 text-blue-600 border border-blue-200'}`}>
+            {currentWord.lessonType === 'trace' ? '✨ New Sound' : 
+             currentWord.lessonType === 'match' ? '🧩 Sound Match' :
+             '🌟 Revision'}
           </div>
         )}
       </header>
@@ -73,6 +79,13 @@ function App() {
                 updateProgress(isCorrect, responseTimeMs);
               }} 
             />
+          ) : currentWord.lessonType === 'match' ? (
+            <SoundMatcher
+              word={currentWord}
+              onComplete={(isCorrect, responseTimeMs) => {
+                updateProgress(isCorrect, responseTimeMs);
+              }}
+            />
           ) : (
             <LetterPicker 
               word={currentWord} 
@@ -82,15 +95,15 @@ function App() {
             />
           )
         ) : (
-          <div className="text-xl text-gray-500 italic">No more lessons in this cycle. Great job!</div>
+          <div className="text-xl text-gray-500 italic text-center">
+            <p className="text-3xl mb-4">🎉</p>
+            You've completed all lessons for now!
+          </div>
         )}
       </main>
 
-      <footer className="mt-auto w-full flex flex-col items-center">
-        <MasteryStrip characters={masteredCharacters} />
-        <div className="py-4 text-gray-400 text-xs">
-          Malayalam Prime v{APP_VERSION}
-        </div>
+      <footer className="mt-auto py-4 text-gray-400 text-xs">
+        Malayalam Prime v{APP_VERSION}
       </footer>
     </div>
   );

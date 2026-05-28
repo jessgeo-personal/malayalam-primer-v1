@@ -1,5 +1,15 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.002] - 2026-05-28
+### Added
+- **Adventure Map Dashboard:** Implemented a visual, winding path UI (`AdventureMap.jsx`) for progress tracking.
+- **3-Tier SRS Engine:** Refactored backend to track Letter, Word, and Sentence levels independently.
+- **Graduation Logic:** Mastered letters used successfully in words are automatically removed from isolated letter revision.
+- **Lesson System:** Renamed "Bundles" to "Lessons" and added a 1-3 star rating system for each lesson completion.
+- **Session Complete Screen:** Added a high-engagement reward screen for Revision (Daily Prize) and Lessons (Stars).
+- **Empty Revision Auto-Fix:** Logic to detect empty revision payloads and auto-complete them to prevent user lockout.
+- **Star Persistence:** User history now tracks and saves stars earned for every lesson.
+
 ## [2026.05.28.001] - 2026-05-28
 ### Added
 - Created `.geminiignore` file at the root to optimize agent context usage by ignoring dependencies, build artifacts, environment secrets, and binary assets.

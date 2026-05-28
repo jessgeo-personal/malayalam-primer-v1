@@ -1,1 +1,87 @@
-/* Base App styles */
+/* App.css - "Cyber-Pop" Rebuild (Tailwind v4 Kebab-Case) */
+
+@reference "./index.css";
+
+body {
+  margin: 0;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply bg-app-bg text-app-text-main;
+  overflow-x: hidden;
+}
+
+/* Cyber-Pop Neon Grid Effect for Map Background */
+.neon-grid {
+  background-image: 
+    linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Professional Arcade Button System */
+.btn-arcade {
+  @apply relative inline-flex items-center justify-center font-black uppercase tracking-wider transition-all duration-75 select-none;
+  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.5);
+  border-radius: 0.75rem;
+  touch-action: manipulation;
+}
+
+.btn-arcade:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.5);
+}
+
+.btn-arcade-primary {
+  @apply bg-app-primary text-white border-b-2 border-violet-800;
+}
+
+.btn-arcade-primary:hover:not(:disabled) {
+  @apply bg-app-primary-hover;
+}
+
+.btn-arcade-success {
+  @apply bg-app-success text-slate-900 border-b-2 border-emerald-600;
+}
+
+.btn-arcade-error {
+  @apply bg-app-error text-white border-b-2 border-rose-700;
+}
+
+.btn-arcade-surface {
+  @apply bg-app-surface text-app-text-main border-b-2 border-slate-700;
+}
+
+/* Card Style for Games */
+.cyber-card {
+  @apply bg-app-surface border-4 border-slate-700 rounded-[2.5rem] shadow-2xl;
+}
+
+/* Custom Scrollbar for Cyber Theme */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-slate-900/50 rounded-full;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-app-primary/40 rounded-full border-2 border-transparent bg-clip-padding;
+}
+
+/* Animations from Theme */
+.animate-wiggle {
+  @apply animate-wiggle;
+}
+
+.animate-pop {
+  @apply animate-pop;
+}
+
+.animate-bounce-slow {
+  @apply animate-bounce-slow;
+}
+
+.text-neon {
+  text-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+}

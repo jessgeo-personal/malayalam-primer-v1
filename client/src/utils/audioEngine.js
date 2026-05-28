@@ -14,6 +14,9 @@ class AudioEngine {
   }
 
   loadVoice() {
+    if (!this.synth || typeof this.synth.getVoices !== 'function') {
+      return;
+    }
     const voices = this.synth.getVoices();
     // Try to find a voice that supports Malayalam or a generic Indian English one as fallback
     this.voice = voices.find(v => v.lang.includes('ml')) || voices.find(v => v.lang.includes('hi')) || voices[0];

@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+@theme {
+  --color-app-bg: #0f172a;
+  --color-app-surface: #1e293b;
+  --color-app-primary: #7c3aed;
+  --color-app-primary-hover: #6d28d9;
+  --color-app-success: #34d399;
+  --color-app-error: #f43f5e;
+  --color-app-text-main: #f8fafc;
+  --color-app-text-muted: #94a3b8;
+
+  --shadow-arcade: 0 4px 0 0 rgba(0, 0, 0, 0.5);
+
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+  --animate-pop: pop 0.25s ease-out forwards;
+  --animate-bounce-slow: bounce-slow 3s infinite ease-in-out;
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.95); }
+    40% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+}

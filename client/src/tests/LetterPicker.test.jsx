@@ -7,6 +7,11 @@ vi.mock('@dnd-kit/core', () => ({
   DndContext: ({ children }) => <div>{children}</div>,
   useDraggable: () => ({ attributes: {}, listeners: {}, setNodeRef: () => {} }),
   useDroppable: () => ({ setNodeRef: () => {} }),
+  TouchSensor: vi.fn(),
+  MouseSensor: vi.fn(),
+  useSensor: vi.fn(),
+  useSensors: vi.fn(),
+  closestCenter: vi.fn()
 }));
 
 describe('LetterPicker Component', () => {

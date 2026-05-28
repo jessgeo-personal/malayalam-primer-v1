@@ -13,11 +13,10 @@ import { audioEngine } from '../../utils/audioEngine';
 
 /**
  * LetterPicker Mini-game
- * Teaching: Basic Phonics and Word Building (Bucket 11/10 Foundation)
- * Refactored: Added Phonetic Audio Buttons to individual tiles.
+ * UI: Cyber-Pop arcade blocks.
  */
 
-function DraggableLetter({ id, char, phonetic }) {
+function DraggableLetter({ id, char }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: id,
   });
@@ -25,7 +24,7 @@ function DraggableLetter({ id, char, phonetic }) {
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
     zIndex: isDragging ? 100 : 1,
-    opacity: isDragging ? 0.5 : 1,
+    opacity: isDragging ? 0.4 : 1,
   } : {
     zIndex: 1
   };
@@ -42,16 +41,18 @@ function DraggableLetter({ id, char, phonetic }) {
       style={style}
       {...listeners}
       {...attributes}
-      className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600 text-white text-2xl sm:text-3xl rounded-xl shadow-lg touch-none active:scale-95 transition-transform border-b-4 border-blue-700"
+      className="relative group shrink-0"
     >
-      {char}
+      <div className="w-16 h-16 sm:w-20 sm:h-20 btn-arcade btn-arcade-primary text-3xl font-black rounded-xl">
+        {char}
+      </div>
       
-      {/* Audio Button Overlay */}
+      {/* HUD-style Audio Button */}
       <button
         onPointerDown={playSound}
         onMouseDown={playSound}
-        className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 border-2 border-white rounded-full flex items-center justify-center text-sm shadow-md active:scale-90 transition-transform pointer-events-auto"
-        title="Hear sound"
+        className="absolute -top-2 -right-2 w-8 h-8 bg-app-surface text-app-success border border-slate-700 rounded-lg flex items-center justify-center text-sm shadow-arcade active:scale-90 transition-transform pointer-events-auto z-20"
+        title="Decrypt"
       >
         🔊
       </button>
@@ -59,7 +60,7 @@ function DraggableLetter({ id, char, phonetic }) {
   );
 }
 
-function DroppableSlot({ id, expectedChar, actualChar, index }) {
+function DroppableSlot({ id, expectedChar, actualChar }) {
   const { setNodeRef, isOver } = useDroppable({
     id: id,
   });
@@ -70,11 +71,11 @@ function DroppableSlot({ id, expectedChar, actualChar, index }) {
   return (
     <div
       ref={setNodeRef}
-      className={`w-16 h-16 sm:w-20 sm:h-20 border-4 border-dashed rounded-xl flex items-center justify-center text-2xl sm:text-3xl transition-colors
-        ${isOver ? 'bg-blue-100 border-blue-400' : ''}
-        ${isFilled ? (isCorrect ? 'bg-green-100 border-green-500 shadow-inner' : 'bg-red-100 border-red-500') : 'border-gray-300 bg-gray-50 shadow-inner'}`}
+      className={`w-16 h-16 sm:w-20 sm:h-20 border-2 border-dashed rounded-xl flex items-center justify-center text-2xl font-black transition-all
+        ${isOver ? 'bg-app-primary/10 border-app-primary scale-105 shadow-[0_0_20px_rgba(124,58,237,0.2)]' : 'border-slate-800 bg-slate-900/40'}
+        ${isFilled ? (isCorrect ? 'bg-app-success/10 border-app-success text-app-success shadow-inner' : 'bg-app-error/10 border-app-error text-app-error shadow-inner') : 'text-transparent'}`}
     >
-      {actualChar}
+      {actualChar || '0'}
     </div>
   );
 }
@@ -85,25 +86,23 @@ export default function LetterPicker({ word, onComplete }) {
   const [startTime, setStartTime] = useState(Date.now());
   const [feedback, setFeedback] = useState(null);
 
-  // Configure sensors for touch and mouse
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 250,
+        delay: 150,
         tolerance: 5,
       },
     })
   );
 
   useEffect(() => {
-    if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
-      return;
-    }
-    // Shuffle the required characters
+    if (!word.requiredCharacters || word.requiredCharacters.length === 0) return;
+    
     const shuffled = [...word.requiredCharacters]
-      .map((value, index) => ({ value, id: `letter-${index}-${Math.random()}` }))
+      .map((value, index) => ({ value, id: `bit-${index}-${Math.random()}` }))
       .sort(() => Math.random() - 0.5);
+    
     setShuffledLetters(shuffled);
     setPlacedLetters(Array(word.requiredCharacters.length).fill(null));
     setFeedback(null);
@@ -112,21 +111,17 @@ export default function LetterPicker({ word, onComplete }) {
 
   if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-4 text-center">
-        <div className="text-4xl font-bold text-gray-800">{word.englishTranslation}</div>
-        <div className="p-6 bg-red-100 border-2 border-red-500 rounded-2xl text-red-700 font-medium">
-          ⚠️ Grapheme pieces (requiredCharacters) are not defined for "{word.malayalamText}".
-          <br />
-          Please refer to the Word Splitting Protocol.
-        </div>
+      <div className="flex flex-col items-center gap-4 text-center p-8">
+        <div className="text-6xl animate-wiggle">🛸</div>
+        <div className="text-xl font-black text-app-error uppercase tracking-[0.2em]">Data Missing</div>
+        <p className="text-app-textMuted font-bold text-sm italic">Manifest stream corrupted.</p>
       </div>
     );
   }
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    
-    if (feedback) return; // Ignore if already completed
+    if (feedback) return;
 
     if (over && over.id.startsWith('slot-')) {
       const slotIndex = parseInt(over.id.split('-')[1]);
@@ -136,13 +131,11 @@ export default function LetterPicker({ word, onComplete }) {
       newPlaced[slotIndex] = letterObj.value;
       setPlacedLetters(newPlaced);
 
-      // Check if word is complete
       if (newPlaced.every(l => l !== null)) {
         const isCorrect = newPlaced.join('') === word.malayalamText;
-        const endTime = Date.now();
         setFeedback({ 
           isCorrect, 
-          time: endTime - startTime,
+          time: Date.now() - startTime,
           attempt: newPlaced.join('')
         });
       }
@@ -150,12 +143,15 @@ export default function LetterPicker({ word, onComplete }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 p-4">
-      <div className="text-4xl font-bold text-gray-800 mb-2">
-        {word.englishTranslation}
-      </div>
-      <div className="text-xl text-gray-400 italic mb-4">
-        {word.phonetic}
+    <div className="flex flex-col items-center gap-8 w-full animate-pop">
+      
+      <div className="text-center">
+        <h2 className="text-3xl font-black text-app-textMain tracking-tighter uppercase mb-1">
+          {word.englishTranslation}
+        </h2>
+        <p className="text-base font-bold text-app-primary uppercase tracking-[0.3em] leading-none opacity-60">
+          DATA_{word.wordId} // {word.phonetic}
+        </p>
       </div>
 
       <DndContext 
@@ -163,23 +159,19 @@ export default function LetterPicker({ word, onComplete }) {
         collisionDetection={closestCenter} 
         onDragEnd={handleDragEnd}
       >
-        {/* Drop Zones */}
-        <div className="flex gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 p-6 bg-slate-900/60 rounded-[2rem] border-2 border-slate-800 shadow-inner">
           {word.requiredCharacters.map((char, index) => (
             <DroppableSlot 
               key={`slot-${index}`} 
               id={`slot-${index}`} 
               expectedChar={char}
               actualChar={placedLetters[index]}
-              index={index}
             />
           ))}
         </div>
 
-        {/* Draggable Letters */}
-        <div className="flex flex-wrap justify-center gap-4 min-h-[100px]">
+        <div className="flex flex-wrap justify-center gap-4 min-h-[100px] items-center">
           {!feedback && shuffledLetters.map((letter) => (
-            // Hide if placed in a slot
             !placedLetters.includes(letter.value) && (
               <DraggableLetter key={letter.id} id={letter.id} char={letter.value} />
             )
@@ -187,38 +179,27 @@ export default function LetterPicker({ word, onComplete }) {
         </div>
       </DndContext>
 
-      {/* Pedagogical Feedback Overlay */}
       {feedback && (
-        <div className={`w-full max-w-lg p-6 rounded-2xl border-4 mt-4 animate-in fade-in zoom-in duration-300
-          ${feedback.isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
-          <div className="text-2xl font-bold mb-4 flex items-center gap-2">
-            {feedback.isCorrect ? (
-              <span className="text-green-600">🎉 Correct! Great job!</span>
-            ) : (
-              <span className="text-red-600">🤔 Not quite!</span>
-            )}
-          </div>
+        <div className={`w-full max-w-sm p-8 rounded-[2rem] border-4 animate-pop shadow-[0_0_50px_rgba(0,0,0,0.5)]
+          ${feedback.isCorrect ? 'bg-app-success/10 border-app-success/40' : 'bg-app-error/10 border-app-error/40'}`}>
           
-          <div className="text-lg text-gray-700 mb-6">
-            {!feedback.isCorrect && (
-              <p className="mb-2">
-                You built: <span className="font-bold text-red-500">{feedback.attempt}</span>
-              </p>
-            )}
-            <p>
-              The correct spelling is: <span className="text-2xl font-bold text-blue-600 ml-2">{word.malayalamText}</span>
-            </p>
-            <p className="text-sm text-gray-400 mt-2">
-              (Phonetic: {word.phonetic})
-            </p>
+          <div className="flex items-center gap-4 mb-6">
+             <div className="text-5xl">{feedback.isCorrect ? '💎' : '⚠️'}</div>
+             <h3 className={`text-xl font-black uppercase tracking-[0.1em] ${feedback.isCorrect ? 'text-app-success' : 'text-app-error'}`}>
+               {feedback.isCorrect ? 'Checksum Match' : 'Mismatch'}
+             </h3>
+          </div>
+
+          <div className="bg-slate-900/80 p-6 rounded-2xl shadow-inner border border-slate-800 mb-8 text-center font-mono">
+            <div className="text-5xl font-black text-app-primary tracking-tighter mb-2">{word.malayalamText}</div>
+            <p className="text-xs font-bold text-app-textMuted uppercase tracking-widest">{word.phonetic}</p>
           </div>
 
           <button 
             onClick={() => onComplete(feedback.isCorrect, feedback.time)}
-            className={`w-full py-4 rounded-xl text-white font-extrabold text-xl shadow-lg transition-transform active:scale-95
-              ${feedback.isCorrect ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
+            className={`btn-arcade w-full py-4 text-xl ${feedback.isCorrect ? 'btn-arcade-success' : 'btn-arcade-primary'}`}
           >
-            {feedback.isCorrect ? 'Next Word ➜' : 'Got it ➜'}
+            {feedback.isCorrect ? 'CONTINUE ➜' : 'RETRY ➜'}
           </button>
         </div>
       )}
@@ -226,9 +207,9 @@ export default function LetterPicker({ word, onComplete }) {
       {!feedback && (
         <button 
           onClick={() => setPlacedLetters(Array(word.requiredCharacters.length).fill(null))}
-          className="mt-8 px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-semibold active:bg-gray-300 transition-colors"
+          className="btn-arcade btn-arcade-surface px-6 py-1 text-[10px] opacity-40 hover:opacity-100"
         >
-          Clear Tiles
+          Flush Buffer
         </button>
       )}
     </div>

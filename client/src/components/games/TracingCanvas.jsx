@@ -4,6 +4,7 @@ import { audioEngine } from '../../utils/audioEngine';
 /**
  * TracingCanvas Mini-game
  * Teaching: Grapheme shape and phonetics (Phase 0 Foundation)
+ * UI: High-visibility Cyber-Pop canvas.
  */
 
 export default function TracingCanvas({ word, onComplete }) {
@@ -14,6 +15,7 @@ export default function TracingCanvas({ word, onComplete }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    // Scaled for better tablet fit while maintaining internal detail
     canvas.width = 600;
     canvas.height = 600;
     canvas.style.width = `100%`;
@@ -21,13 +23,12 @@ export default function TracingCanvas({ word, onComplete }) {
 
     const context = canvas.getContext('2d');
     context.lineCap = 'round';
-    context.strokeStyle = '#3b82f6'; // Blue-500
-    context.lineWidth = 20;
+    context.lineJoin = 'round';
+    context.strokeStyle = '#34d399'; // app.success (Emerald)
+    context.lineWidth = 30;
     contextRef.current = context;
 
     drawGuide();
-    
-    // Announce the character
     audioEngine.speak(word.malayalamText);
   }, [word]);
 
@@ -36,12 +37,13 @@ export default function TracingCanvas({ word, onComplete }) {
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw Ghost Character
-    context.font = '300px serif';
+    // FIX: Professional ghost letter scaling
+    context.font = '900 400px sans-serif'; 
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    context.fillStyle = '#e5e7eb'; // Gray-200
+    context.fillStyle = '#1e293b'; // app.surface
     context.fillText(word.malayalamText, canvas.width / 2, canvas.height / 2);
+    setHasStarted(false);
   };
 
   const getCoordinates = (event) => {
@@ -50,17 +52,13 @@ export default function TracingCanvas({ word, onComplete }) {
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
-    if (event.touches) {
-      return {
-        x: (event.touches[0].clientX - rect.left) * scaleX,
-        y: (event.touches[0].clientY - rect.top) * scaleY
-      };
-    } else {
-      return {
-        x: (event.clientX - rect.left) * scaleX,
-        y: (event.clientY - rect.top) * scaleY
-      };
-    }
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+
+    return {
+      x: (clientX - rect.left) * scaleX,
+      y: (clientY - rect.top) * scaleY
+    };
   };
 
   const startDrawing = (event) => {
@@ -69,7 +67,7 @@ export default function TracingCanvas({ word, onComplete }) {
     contextRef.current.moveTo(x, y);
     setIsDrawing(true);
     setHasStarted(true);
-    event.preventDefault();
+    if (event.cancelable) event.preventDefault();
   };
 
   const draw = (event) => {
@@ -77,7 +75,7 @@ export default function TracingCanvas({ word, onComplete }) {
     const { x, y } = getCoordinates(event);
     contextRef.current.lineTo(x, y);
     contextRef.current.stroke();
-    event.preventDefault();
+    if (event.cancelable) event.preventDefault();
   };
 
   const stopDrawing = () => {
@@ -85,21 +83,19 @@ export default function TracingCanvas({ word, onComplete }) {
     setIsDrawing(false);
   };
 
-  const handleFinish = () => {
-    // For now, we assume success if they started drawing. 
-    // In a future update, we can add pixel-based verification.
-    onComplete(true, 5000); // Simulated time
-  };
-
   return (
-    <div className="flex flex-col items-center gap-6 w-full max-w-2xl mx-auto">
+    <div className="flex flex-col items-center gap-6 w-full max-w-lg animate-pop">
       <div className="text-center">
-        <h2 className="text-4xl font-bold text-gray-800">{word.englishTranslation}</h2>
-        <p className="text-2xl text-blue-600 font-semibold mt-2">{word.phonetic}</p>
-        <p className="text-gray-500 italic mt-1">Trace the character and listen to the sound</p>
+        <h2 className="text-3xl font-black text-app-success tracking-tighter uppercase mb-1">
+          Trace Matrix
+        </h2>
+        <p className="text-lg font-bold text-app-primary uppercase tracking-[0.3em] leading-none opacity-60">
+          {word.phonetic}
+        </p>
       </div>
 
-      <div className="relative aspect-square w-full bg-white rounded-3xl shadow-inner border-4 border-gray-100 overflow-hidden touch-none">
+      {/* Enlarged Canvas for better tracing experience */}
+      <div className="relative aspect-square w-full bg-slate-900 rounded-[2rem] shadow-[0_0_40px_rgba(0,0,0,0.5)] border-4 border-slate-800 overflow-hidden touch-none group">
         <canvas
           ref={canvasRef}
           onMouseDown={startDrawing}
@@ -109,30 +105,39 @@ export default function TracingCanvas({ word, onComplete }) {
           onTouchStart={startDrawing}
           onTouchMove={draw}
           onTouchEnd={stopDrawing}
-          className="cursor-crosshair"
+          className="cursor-crosshair w-full h-full"
         />
+        
+        {!hasStarted && (
+          <div className="absolute bottom-8 left-0 w-full flex justify-center pointer-events-none">
+            <div className="bg-app-primary/10 px-4 py-1 rounded-full border border-app-primary/20 text-[10px] font-black text-app-primary uppercase tracking-widest animate-pulse">
+              Calibrate Grapheme
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="flex gap-4 w-full">
+      <div className="flex gap-4 w-full px-2">
         <button
           onClick={drawGuide}
-          className="flex-1 py-4 bg-gray-200 text-gray-700 rounded-xl font-bold active:bg-gray-300 transition-colors"
+          className="btn-arcade btn-arcade-surface flex-1 py-3 text-xs"
         >
-          Clear
+          Reset
         </button>
+        
         <button
           onClick={() => audioEngine.speak(word.malayalamText)}
-          className="flex-1 py-4 bg-yellow-400 text-yellow-900 rounded-xl font-bold active:bg-yellow-500 transition-colors"
+          className="btn-arcade btn-arcade-primary flex-1 py-3 text-2xl shadow-violet-900/50"
         >
-          🔊 Hear Sound
+          🔊
         </button>
+
         <button
           disabled={!hasStarted}
-          onClick={handleFinish}
-          className={`flex-1 py-4 rounded-xl font-bold text-white transition-all shadow-lg active:scale-95
-            ${hasStarted ? 'bg-green-500' : 'bg-gray-300 cursor-not-allowed'}`}
+          onClick={() => onComplete(true, 5000)}
+          className={`btn-arcade flex-1 py-3 text-sm ${hasStarted ? 'btn-arcade-success' : 'opacity-20 cursor-not-allowed grayscale'}`}
         >
-          Done ➜
+          SYNC ➜
         </button>
       </div>
     </div>

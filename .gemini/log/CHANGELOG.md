@@ -1,5 +1,39 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.007] - 2026-05-28
+### Fixed
+- **Tailwind v4 Alignment:** Resolved a critical `compileCSS` error by migrating all theme configurations from the legacy `tailwind.config.js` to the native `@theme` directive in `index.css`.
+- **CSS Cross-Referencing:** Implemented `@reference` directives in `App.css` to ensure Tailwind v4 can correctly resolve custom utility classes during the compilation phase.
+
+## [2026.05.28.006] - 2026-05-28
+### Added
+- **Cyber-Pop UI Rebuild:** Complete frontend reconstruction adhering to the `UI_CHARTER.md` for a "Sleek Gamified" aesthetic.
+- **Dark Mode HUD:** Implemented a slate-900 based dark theme with high-contrast slate-50 text for better professional polish and visibility.
+- **Arcade Tactical UI:** Replaced the previous 3D buttons with a more professional "Arcade" button system (`.btn-arcade`) with sharp 4px shadows and precise hover/active states.
+- **Enlarged Tracing Matrix:** Increased the size of the tracing canvas and optimized the ghost letter scaling (400px) to ensure no clipping and a better drawing experience.
+- **Neon Grid Map:** Redesigned the Adventure Map with a subtle neon grid and blue/violet track lines, optimized to show 20+ lesson nodes per screen.
+- **Accessibility Sync:** Audited all new theme colors to ensure WCAG AA contrast compliance across the entire interface.
+
+## [2026.05.28.005] - 2026-05-28
+### Added
+- **Professional Refinement:** Migrated to a cleaner, more professional color palette with muted sky blues and refined button states.
+- **Tablet Optimization:** Scaled down global UI elements (fonts, buttons, cards) by ~50% to ensure high visibility and more content per screen on tablets.
+- **Improved Map View:** Reduced bogey sizes to show 15+ lessons on the tracks simultaneously.
+### Fixed
+- **Tracing Guide Bug:** Fixed a bug where the Malayalam character ghost guide was not rendering on the canvas due to an invalid font string.
+- **Repositioned Canvas Hints:** Moved the "Start Drawing" hint to the bottom of the canvas to prevent it from obscuring the character being traced.
+
+## [2026.05.28.004] - 2026-05-28
+### Added
+- **Consumer-Grade UI Overhaul:** Complete redesign of the app with a "game-first" aesthetic suitable for an 8-year-old.
+- **3D Chunky Buttons:** Implemented `.btn-3d` utility classes with thick borders and satisfying press-down animations.
+- **Game Background:** Added a vibrant sky/cloud patterned background to all screens.
+- **Railway Map Redesign:** Enhanced the Adventure Map with high-quality train car (bogey) graphics, wheels, and a stylized railway track.
+- **Polished Components:** Refactored all game screens (LetterPicker, TracingCanvas, SoundMatcher) to use high-contrast, rounded card layouts with improved typography.
+- **Badge Shelf:** Redesigned the Mastery Strip into a physical "Badge Shelf" with pop-in animations and better spacing.
+### Fixed
+- **Headless Test Support:** Updated `AudioEngine` to safely handle environments where `speechSynthesis` is missing, preventing Vitest crashes.
+
 ## [2026.05.28.003] - 2026-05-28
 ### Added
 - **Malayalam Express UI:** Reskinned Adventure Map with a Train-and-Bogeys aesthetic.

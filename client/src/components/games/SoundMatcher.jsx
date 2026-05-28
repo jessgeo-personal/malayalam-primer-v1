@@ -3,8 +3,7 @@ import { audioEngine } from '../../utils/audioEngine';
 
 /**
  * SoundMatcher Mini-game
- * Teaching: Phonetic recognition and Character identification (Phase 0+)
- * The student hears a sound and picks the correct Malayalam character from 3 choices.
+ * UI: Cyber-Pop chunky picks.
  */
 
 const DISTRACTORS = ['അ', 'ന', 'ൻ', 'ഞ', 'ാ', 'ീ', 'വ', 'ൾ', 'ർ', 'ക', 'ച', 'ട'];
@@ -15,60 +14,45 @@ export default function SoundMatcher({ word, onComplete }) {
   const [startTime] = useState(Date.now());
 
   useEffect(() => {
-    // Generate 2 random distractors that aren't the correct character
     const otherDistractors = DISTRACTORS.filter(d => d !== word.malayalamText);
     const shuffledDistractors = otherDistractors.sort(() => 0.5 - Math.random()).slice(0, 2);
-    
-    // Combine with correct answer and shuffle
-    const allOptions = [word.malayalamText, ...shuffledDistractors]
-      .sort(() => 0.5 - Math.random());
-    
+    const allOptions = [word.malayalamText, ...shuffledDistractors].sort(() => 0.5 - Math.random());
     setOptions(allOptions);
     setFeedback(null);
-    
-    // Play initial sound
     audioEngine.speak(word.malayalamText);
   }, [word]);
 
   const handleChoice = (choice) => {
     if (feedback) return;
-
     const isCorrect = choice === word.malayalamText;
-    const endTime = Date.now();
-    
-    setFeedback({
-      isCorrect,
-      time: endTime - startTime,
-      choice
-    });
+    setFeedback({ isCorrect, time: Date.now() - startTime, choice });
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 p-4 w-full max-w-2xl">
+    <div className="flex flex-col items-center gap-8 w-full max-w-md animate-pop">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2">Listen and Pick!</h2>
-        <p className="text-xl text-blue-600 font-semibold mb-2">"{word.phonetic}"</p>
-        <p className="text-gray-500 italic">Which character makes this sound?</p>
+        <h2 className="text-3xl font-black text-app-textMain tracking-tighter uppercase mb-1">Signal Match</h2>
+        <p className="text-lg font-bold text-app-primary uppercase tracking-[0.3em] leading-none opacity-60">ID_{word.wordId}</p>
       </div>
 
       <button 
         onClick={() => audioEngine.speak(word.malayalamText)}
-        className="w-24 h-24 bg-yellow-400 rounded-full flex items-center justify-center text-4xl shadow-lg active:scale-90 transition-transform mb-4"
+        className="btn-arcade btn-arcade-primary w-24 h-24 rounded-full text-4xl flex items-center justify-center animate-wiggle shadow-violet-900/50"
       >
         🔊
       </button>
 
-      <div className="grid grid-cols-3 gap-4 w-full">
+      <div className="grid grid-cols-3 gap-6 w-full px-2">
         {options.map((option, index) => (
           <button
             key={`${option}-${index}`}
             disabled={!!feedback}
             onClick={() => handleChoice(option)}
-            className={`aspect-square flex items-center justify-center text-4xl rounded-3xl border-4 transition-all shadow-md active:scale-95
+            className={`btn-arcade aspect-square text-4xl flex items-center justify-center transition-all
               ${feedback ? 
-                (option === word.malayalamText ? 'bg-green-100 border-green-500 scale-105' : 
-                 (option === feedback.choice ? 'bg-red-100 border-red-500 opacity-50' : 'bg-gray-50 border-gray-200 opacity-30'))
-                : 'bg-white border-blue-200 hover:border-blue-400'}`}
+                (option === word.malayalamText ? 'btn-arcade-success scale-110' : 
+                 (option === feedback.choice ? 'btn-arcade-error opacity-50' : 'bg-slate-900 border-2 border-slate-800 opacity-20'))
+                : 'btn-arcade-surface hover:border-app-primary'}`}
           >
             {option}
           </button>
@@ -76,20 +60,27 @@ export default function SoundMatcher({ word, onComplete }) {
       </div>
 
       {feedback && (
-        <div className={`w-full p-6 rounded-2xl border-4 animate-in fade-in zoom-in duration-300
-          ${feedback.isCorrect ? 'bg-green-50 border-green-500' : 'bg-red-50 border-red-500'}`}>
-          <div className="text-2xl font-bold mb-4">
-            {feedback.isCorrect ? '🌟 Spot on!' : '💡 Not that one!'}
+        <div className={`w-full p-8 rounded-[2rem] border-4 animate-pop shadow-[0_0_50px_rgba(0,0,0,0.5)] mt-4
+          ${feedback.isCorrect ? 'bg-app-success/10 border-app-success/40' : 'bg-app-error/10 border-app-error/40'}`}>
+          
+          <div className="flex items-center gap-4 mb-6">
+             <div className="text-5xl">{feedback.isCorrect ? '🛸' : '👽'}</div>
+             <h3 className={`text-xl font-black uppercase tracking-widest ${feedback.isCorrect ? 'text-app-success' : 'text-app-error'}`}>
+               {feedback.isCorrect ? 'Signal Valid' : 'Invalid Bit'}
+             </h3>
           </div>
-          <p className="text-lg text-gray-700 mb-6">
-            The character <span className="text-3xl font-bold text-blue-600 mx-1">{word.malayalamText}</span> makes the sound <span className="font-bold italic">"{word.phonetic}"</span>.
-          </p>
+
+          <div className="bg-slate-900 p-4 rounded-xl shadow-inner border border-slate-800 mb-6 text-center">
+            <p className="text-xl font-black text-app-primary tracking-tighter uppercase font-mono">
+              {word.malayalamText} == "{word.phonetic}"
+            </p>
+          </div>
+
           <button 
             onClick={() => onComplete(feedback.isCorrect, feedback.time)}
-            className={`w-full py-4 rounded-xl text-white font-extrabold text-xl shadow-lg
-              ${feedback.isCorrect ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
+            className={`btn-arcade w-full py-4 text-xl ${feedback.isCorrect ? 'btn-arcade-success' : 'btn-arcade-primary'}`}
           >
-            Next ➜
+            CONTINUE ➜
           </button>
         </div>
       )}

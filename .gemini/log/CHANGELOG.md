@@ -1,5 +1,9 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.001] - 2026-05-28
+### Added
+- Created `.geminiignore` file at the root to optimize agent context usage by ignoring dependencies, build artifacts, environment secrets, and binary assets.
+
 ## [2026.05.27.015] - 2026-05-27
 ### Fixed
 - Resolved schema validation error during seeding by adding `match` to the `lessonType` enum in `server/models/Word.js`.

@@ -3,10 +3,10 @@ import { audioEngine } from '../../utils/audioEngine';
 
 /**
  * SoundMatcher Mini-game
- * UI: Cyber-Pop chunky picks.
+ * UI: Neo-Bento Minimalism. Clean grid interaction and soft feedback.
  */
 
-const DISTRACTORS = ['അ', 'ന', 'ൻ', 'ഞ', 'ാ', 'ീ', 'വ', 'ൾ', 'ർ', 'ക', 'ച', 'ട'];
+const DISTRACTORS = ['അ', 'ന', 'ൻ', 'ഞ', 'ാ', 'ി', 'വ', 'ൾ', 'ർ', 'ക', 'ച', 'ട'];
 
 export default function SoundMatcher({ word, onComplete }) {
   const [options, setOptions] = useState([]);
@@ -29,30 +29,31 @@ export default function SoundMatcher({ word, onComplete }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 w-full max-w-md animate-pop">
+    <div className="flex flex-col items-center gap-10 w-full animate-pop">
       <div className="text-center">
-        <h2 className="text-3xl font-black text-app-textMain tracking-tighter uppercase mb-1">Signal Match</h2>
-        <p className="text-lg font-bold text-app-primary uppercase tracking-[0.3em] leading-none opacity-60">ID_{word.wordId}</p>
+        <h2 className="text-3xl font-black text-prime-dark-text tracking-tighter uppercase mb-1 italic">Sound Match</h2>
+        <p className="text-lg font-bold text-prime-coral-pink uppercase tracking-[0.3em] leading-none opacity-60">Module_{word.wordId}</p>
       </div>
+
 
       <button 
         onClick={() => audioEngine.speak(word.malayalamText)}
-        className="btn-arcade btn-arcade-primary w-24 h-24 rounded-full text-4xl flex items-center justify-center animate-wiggle shadow-violet-900/50"
+        className="w-24 h-24 bg-prime-action-dark text-white rounded-full text-4xl flex items-center justify-center animate-wiggle shadow-xl border-4 border-white/10"
       >
         🔊
       </button>
 
-      <div className="grid grid-cols-3 gap-6 w-full px-2">
+      <div className="grid grid-cols-3 gap-6 w-full max-w-sm px-4">
         {options.map((option, index) => (
           <button
             key={`${option}-${index}`}
             disabled={!!feedback}
             onClick={() => handleChoice(option)}
-            className={`btn-arcade aspect-square text-4xl flex items-center justify-center transition-all
+            className={`w-full aspect-square text-4xl font-black rounded-2xl transition-all shadow-sm flex items-center justify-center
               ${feedback ? 
-                (option === word.malayalamText ? 'btn-arcade-success scale-110' : 
-                 (option === feedback.choice ? 'btn-arcade-error opacity-50' : 'bg-slate-900 border-2 border-slate-800 opacity-20'))
-                : 'btn-arcade-surface hover:border-app-primary'}`}
+                (option === word.malayalamText ? 'bg-prime-teal-green text-white scale-110 shadow-lg' : 
+                 (option === feedback.choice ? 'bg-prime-error text-white opacity-50' : 'bg-slate-50 border border-slate-100 opacity-20'))
+                : 'bg-white border border-slate-100 text-prime-dark-text hover:border-prime-periwinkle active:scale-95'}`}
           >
             {option}
           </button>
@@ -60,25 +61,25 @@ export default function SoundMatcher({ word, onComplete }) {
       </div>
 
       {feedback && (
-        <div className={`w-full p-8 rounded-[2rem] border-4 animate-pop shadow-[0_0_50px_rgba(0,0,0,0.5)] mt-4
-          ${feedback.isCorrect ? 'bg-app-success/10 border-app-success/40' : 'bg-app-error/10 border-app-error/40'}`}>
+        <div className={`w-full max-w-md p-8 rounded-bento border-4 animate-pop shadow-2xl mt-4
+          ${feedback.isCorrect ? 'bg-prime-teal-green/5 border-prime-teal-green/20' : 'bg-prime-error/5 border-prime-error/20'}`}>
           
           <div className="flex items-center gap-4 mb-6">
-             <div className="text-5xl">{feedback.isCorrect ? '🛸' : '👽'}</div>
-             <h3 className={`text-xl font-black uppercase tracking-widest ${feedback.isCorrect ? 'text-app-success' : 'text-app-error'}`}>
-               {feedback.isCorrect ? 'Signal Valid' : 'Invalid Bit'}
+             <div className="text-5xl">{feedback.isCorrect ? '✅' : '❌'}</div>
+             <h3 className={`text-xl font-black uppercase tracking-widest ${feedback.isCorrect ? 'text-prime-teal-green' : 'text-prime-error'}`}>
+               {feedback.isCorrect ? 'Correct!' : 'Not Quite!'}
              </h3>
           </div>
 
-          <div className="bg-slate-900 p-4 rounded-xl shadow-inner border border-slate-800 mb-6 text-center">
-            <p className="text-xl font-black text-app-primary tracking-tighter uppercase font-mono">
-              {word.malayalamText} == "{word.phonetic}"
+          <div className="bg-white p-6 rounded-2xl shadow-inner border border-slate-50 mb-8 text-center font-sans">
+            <p className="text-2xl font-black text-prime-dark-text tracking-tight uppercase italic">
+              {word.malayalamText} <span className="text-slate-300 mx-2">==</span> "{word.phonetic}"
             </p>
           </div>
 
           <button 
             onClick={() => onComplete(feedback.isCorrect, feedback.time)}
-            className={`btn-arcade w-full py-4 text-xl ${feedback.isCorrect ? 'btn-arcade-success' : 'btn-arcade-primary'}`}
+            className={`btn-pill w-full justify-center py-4 text-xl ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-prime-action-dark'}`}
           >
             CONTINUE ➜
           </button>

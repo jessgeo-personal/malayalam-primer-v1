@@ -1,75 +1,56 @@
-/* App.css - "Cyber-Pop" Rebuild (Tailwind v4 Kebab-Case) */
+/* App.css - Soft Premium "Neo-Bento" UI */
 
 @reference "./index.css";
 
 body {
   margin: 0;
-  font-family: 'Nunito', 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply bg-app-bg text-app-text-main;
+  @apply bg-prime-canvas text-prime-dark-text font-sans;
   overflow-x: hidden;
 }
 
-/* Cyber-Pop Neon Grid Effect for Map Background */
-.neon-grid {
-  background-image: 
-    linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
+/* Primary Action Dark Pill */
+.btn-pill {
+  @apply bg-prime-action-dark text-white font-semibold px-5 py-2.5 rounded-pill shadow-sm hover:scale-[1.02] transition-transform flex items-center gap-2 max-w-max select-none cursor-pointer;
 }
 
-/* Professional Arcade Button System */
-.btn-arcade {
-  @apply relative inline-flex items-center justify-center font-black uppercase tracking-wider transition-all duration-75 select-none;
-  box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.5);
-  border-radius: 0.75rem;
-  touch-action: manipulation;
+.btn-pill:active {
+  @apply scale-[0.98] opacity-90;
 }
 
-.btn-arcade:active:not(:disabled) {
-  transform: translateY(2px);
-  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.5);
+/* Bento Card Variants */
+.card-bento {
+  @apply rounded-bento shadow-sm transition-all;
 }
 
-.btn-arcade-primary {
-  @apply bg-app-primary text-white border-b-2 border-violet-800;
+/* Type A: Vibrant Feature Block */
+.card-bento-pink {
+  @apply bg-prime-coral-pink text-white p-6 flex flex-col justify-between;
 }
 
-.btn-arcade-primary:hover:not(:disabled) {
-  @apply bg-app-primary-hover;
+.card-bento-teal {
+  @apply bg-prime-teal-green text-white p-6 flex flex-col justify-between;
 }
 
-.btn-arcade-success {
-  @apply bg-app-success text-slate-900 border-b-2 border-emerald-600;
+/* Type B: Clean Surface Container */
+.card-bento-surface {
+  @apply bg-white border border-orange-100/50 p-6 flex flex-col relative overflow-hidden;
 }
 
-.btn-arcade-error {
-  @apply bg-app-error text-white border-b-2 border-rose-700;
-}
-
-.btn-arcade-surface {
-  @apply bg-app-surface text-app-text-main border-b-2 border-slate-700;
-}
-
-/* Card Style for Games */
-.cyber-card {
-  @apply bg-app-surface border-4 border-slate-700 rounded-[2.5rem] shadow-2xl;
-}
-
-/* Custom Scrollbar for Cyber Theme */
+/* Custom Scrollbar - Soft */
 .custom-scrollbar::-webkit-scrollbar {
   height: 6px;
   width: 6px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-slate-900/50 rounded-full;
+  @apply bg-transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  @apply bg-app-primary/40 rounded-full border-2 border-transparent bg-clip-padding;
+  @apply bg-prime-dark-text/10 rounded-full;
 }
 
-/* Animations from Theme */
+/* Animations */
 .animate-wiggle {
   @apply animate-wiggle;
 }
@@ -82,6 +63,11 @@ body {
   @apply animate-bounce-slow;
 }
 
-.text-neon {
-  text-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+/* Typography Overrides */
+.text-hero {
+  @apply font-extrabold text-prime-dark-text text-7xl tracking-tight;
+}
+
+.text-section-header {
+  @apply font-bold text-prime-dark-text text-2xl lg:text-3xl tracking-normal;
 }

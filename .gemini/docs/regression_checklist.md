@@ -58,6 +58,50 @@
 - [x] **Tailwind v4 Alignment:** Legacy tailwind.config.js removed and @theme directive used in index.css verified (Technical Debt).
 - [x] **CSS Compilation:** Build succeeds without 'unknown utility' errors using @reference verified (Process Faultlines).
 
+## 🍱 Phase 7: Soft Premium "Neo-Bento" UI
+- [x] **Warm Canvas Backdrop**: Creamy #FFFDF6 background and high-contrast obsidian text verified.
+- [x] **Neo-Bento Layout**: Card-stack dashboard with Hero slot and Bento Grid stats verified.
+- [x] **Premium Dark Pills**: All primary actions migrated to bg-prime-action-dark capsules verified.
+- [x] **Dynamic Course Deck**: Adventure Map refactored into stacked cycle cards with alternating accents verified.
+- [x] **High-Res Tracing Hub**: Large, hyper-rounded tracing canvas with calibrated ghost guide verified.
+- [x] **Floating Nav Dock**: Floating dark navigation dock implemented at screen bottom verified.
+- [x] **Stability Fix**: Adventure Map JSX syntax error (missing closing tags/export) resolved and verified.
+- [x] **Accessibility (WCAG AA)**: Contrast ratios audited for Obsidian text on Pastel backgrounds verified.
+
+## 🗣️ Phase 8: Simple Language & High-Contrast Visuals
+- [x] **Terminology Simplification**: All technical/cyber-pop jargon (Sync, Grapheme, Deploys) replaced with simple terms (Practice, Letter, Lessons) verified.
+- [x] **Visual Clarity**: Drop zone borders darkened to Slate-400 for better visibility against white/light backgrounds verified.
+- [x] **Tracing Accessibility**: Ghost letter guide darkened to Slate-300 (#cbd5e1) for clearer target recognition verified.
+- [x] **Navigation Fix**: Settings button replaced with a functional "Restart Session" (🔄) button with confirmation safety verified.
+- [x] **Encouraging Feedback**: Game feedback banners updated to use learner-friendly language ("Correct!", "Try Again!") verified.
+
+## 🧠 Phase 9: Micro-Loop Refactor & HUD
+- [x] **Batch Acquisition Logic**: generateLessonPayload groups Tracing before Matching/Building verified.
+- [x] **Recall Challenge**: Matching and Building tasks are randomized after tracing verified.
+- [x] **Exit Strategy**: EXIT button moved to top-left verified.
+- [x] **Progress HUD**: "My Progress" strip implemented in top-right verified.
+- [x] **TDD Green State**: npm test in /server and /client 100% green verified.
+
+## 🗺️ Phase 10: Pedagogical Data Integrity (The Great Split)
+- [x] **Explicit Lesson ID Schema**: Word model updated with lessonId and sequence verified.
+- [x] **Curated Payload Engine**: generateLessonPayload fetches strictly by lessonId verified.
+- [x] **Cycle 1 Grapheme Splits**: requiredCharacters populated for w001-w050 using split protocol verified.
+- [x] **Dynamic Adventure Map**: Lesson nodes calculated based on database lessonId counts verified.
+- [x] **Zero-Empty-Boxes Rule**: All Cycle 1 build games verified to have non-empty character arrays.
+
+## 🔄 Phase 11: HUD Sync & Curriculum Consolidation
+- [x] **Phonetic Restoration**: Phonetic English labels restored in "Build" game verified (Accessibility).
+- [x] **Real-time HUD Update**: "My Progress" strip updates immediately after correct trace verified (UX Responsiveness).
+- [x] **Cycle 1 Consolidation**: Curriculum reduced from 14 fragments to 9 high-density lessons verified (Content Quality).
+- [x] **Missing Graphemes Added**: Traces for ൽ, ൂ, സ, ഷ, ഭ added to complete Cycle 1 dependencies verified.
+
+## 🎓 Phase 11: Curriculum Consolidation
+- [x] **Map Pacing**: Cycle 1 consolidated from 14 to 9 lessons for better content density verified.
+- [x] **Character Coverage**: Added 5 missing characters (ൽ, ൂ, സ, ഷ, ഭ) with trace/match support verified.
+- [x] **Vocabulary Completion**: All 100 core words now have verified `requiredCharacters` and `prerequisites` verified.
+- [x] **Seeder Validation**: Database updated via `seeder.js` and all words confirmed to have correct lesson assignments verified.
+
+
 
 
 

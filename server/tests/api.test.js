@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const apiRoutes = require('../routes/api');
 const Word = require('../models/Word');
 const Progress = require('../models/Progress');
+const User = require('../models/User');
 
 const app = express();
 app.use(express.json());
@@ -92,7 +93,8 @@ describe('API Routes Integration', () => {
     // Add progress for t001
     await Progress.create({
       userId: 'test_user',
-      wordId: 't001',
+      itemId: 't001',
+      itemType: 'word',
       encounters: 1,
       correctCount: 1,
       srsWeight: 1.5
@@ -108,7 +110,8 @@ describe('API Routes Integration', () => {
       .post('/api/progress/update')
       .send({
         userId: 'test_user',
-        wordId: 'w001',
+        itemId: 'w001',
+        itemType: 'word',
         isCorrect: true,
         responseTimeMs: 2000
       });
@@ -120,6 +123,9 @@ describe('API Routes Integration', () => {
   });
 
   test('GET /api/progress/stats should return user score and mastered characters', async () => {
+    // 0. Ensure user exists
+    await User.create({ userId: 'test_user', currentLevel: 1 });
+
     // 1. Trace a character
     await Word.create({
       wordId: 't001',
@@ -135,7 +141,8 @@ describe('API Routes Integration', () => {
       .post('/api/progress/update')
       .send({
         userId: 'test_user',
-        wordId: 't001',
+        itemId: 'അ',
+        itemType: 'letter',
         isCorrect: true,
         responseTimeMs: 2000
       });

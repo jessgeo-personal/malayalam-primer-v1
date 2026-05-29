@@ -6,6 +6,25 @@ const User = require('../models/User');
 const srsEngine = require('../services/srsEngine');
 
 /**
+ * GET /api/session/cycle/lessons
+ * Returns the total number of curated lessons in a cycle.
+ */
+router.get('/session/cycle/lessons', async (req, res) => {
+  try {
+    const { cycleId } = req.query;
+    const cid = parseInt(cycleId) || 1;
+    
+    // Find the highest lessonId assigned to any word in this cycle
+    const latestWord = await Word.findOne({ unlockCycle: cid }).sort({ lessonId: -1 });
+    const totalLessons = latestWord ? latestWord.lessonId : 0;
+    
+    res.json({ cycleId: cid, totalLessons });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
  * GET /api/session/revision
  * Fetches the daily revision payload.
  */
@@ -226,6 +245,20 @@ router.get('/progress/stats', async (req, res) => {
     const masteredTraces = await Progress.find({ userId, itemType: 'letter', correctCount: { $gt: 0 } });
     const masteredCharacters = masteredTraces.map(p => p.itemId);
 
+    // Calculate current cycle and progress
+    const activeCycle = user.currentCycle || 1;
+    const wordsInCycle = await Word.find({ unlockCycle: activeCycle, lessonType: 'build' });
+    const masteredInCycle = await Progress.find({ 
+      userId, 
+      itemId: { $in: wordsInCycle.map(w => w.wordId) },
+      itemType: 'word',
+      correctCount: { $gt: 0 }
+    });
+
+    const cycleProgress = wordsInCycle.length > 0 
+      ? Math.round((masteredInCycle.length / wordsInCycle.length) * 100) 
+      : 0;
+
     // Check if revision is needed
     const revisionItems = await srsEngine.generateRevisionPayload(userId);
     const hasItemsToRevise = revisionItems.length > 0;
@@ -239,7 +272,9 @@ router.get('/progress/stats', async (req, res) => {
       masteredCharacters,
       currentLesson: user.currentLesson,
       lessonHistory: user.lessonHistory,
-      needsRevision 
+      needsRevision,
+      currentCycle: activeCycle,
+      cycleProgress
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -254,6 +289,17 @@ router.post('/progress/reset', async (req, res) => {
   try {
     const { userId } = req.body;
     await Progress.deleteMany({ userId });
+    await User.updateOne({ userId }, {
+      $set: {
+        currentLevel: 1,
+        lastRevisionDate: null,
+        currentCycle: 1,
+        currentLesson: 1,
+        lessonHistory: [],
+        unlockedCharacters: [],
+        unlockedWords: []
+      }
+    });
     res.json({ success: true, message: "Progress reset successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });

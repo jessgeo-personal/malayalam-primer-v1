@@ -1,5 +1,43 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.014] - 2026-05-28
+### Changed
+- **Curriculum Consolidation:** Reduced Cycle 1 from 14 fragments to 9 intentional lessons to improve map pacing and content density.
+- **Character Expansion:** Added 5 missing characters (ൽ, ൂ, സ, ഷ, ഭ) with trace/match support to complete the Cycle 1 vocabulary.
+- **Data Integrity Fix:** Populated `requiredCharacters` and `prerequisites` for all 100 core words, ensuring 100% pedagogical adherence and preventing empty puzzle states.
+- **Re-mapping:** Re-assigned all 100 words and 44 characters to the new 9-lesson structure based on logical character introduction and word complexity.
+
+## [2026.05.28.012] - 2026-05-28
+### Changed
+- **Micro-Loop Pedagogical Refactor:** Grouped all 'Trace' tasks at the start of a lesson to introduce 5-6 characters as a batch. 'Match' and 'Build' tasks are now randomized afterwards to improve active recall and kill predictability.
+- **UI Layout Update:** Moved the "EXIT" button to the top-left for standard tablet navigation.
+- **My Progress HUD:** Implemented a new "My Progress" HUD in the top-right of the game screen, showing a high-contrast list of recently mastered letters.
+- **Increased Bundle Capacity:** Adjusted the backend to serve up to 8 items per lesson bundle to accommodate larger character sets.
+
+## [2026.05.28.011] - 2026-05-28
+### Changed
+- **Repositioned Tracing Hint:** Moved the "Trace the line" instructional pill from the center to the bottom-right corner of the tracing pad to prevent obscurement.
+- **Visual Cleanup:** Removed redundant background character from the tracing canvas hint for a cleaner workspace.
+
+## [2026.05.28.010] - 2026-05-28
+### Changed
+- **UI Language Simplification:** Replaced technical jargon (Daily Sync, Grapheme, Deploys, Calibrate) with friendly, learner-focused terms (Daily Practice, Letter, Lessons, Trace).
+- **Contrast Improvements:** Darkened drop zone borders and tracing ghost guides to Slate-400 for better visibility for children and accessibility compliance.
+- **Navigation Dock Fix:** Replaced non-functional Settings button with a "Restart Session" action featuring a safety confirmation dialog.
+- **Friendly Feedback:** Updated game success/fail messages to be more encouraging ("Excellent!", "Correct!", "Try Again!").
+
+## [2026.05.28.009] - 2026-05-28
+### Added
+- **Soft Premium "Neo-Bento" UI:** Complete visual overhaul based on the updated `UI_CHARTER.md`, featuring a "Sleek Minimalist" game aesthetic.
+- **Bento Dashboard:** Implemented a card-stack based home screen with Hero slots, profile indicators, and high-impact numeric stat cards.
+- **Premium Palette:** Migrated to a warm creamy canvas (`#FFFDF6`) with sophisticated Coral Pink, Teal Green, and Mango Orange accents.
+- **Action Pill Buttons:** Replaced arcade buttons with sleek, dark charcoal (`#1A1E26`) interactive capsules.
+- **Dynamic Course Deck:** Re-imagined the Adventure Map as a stack of Cycle cards with horizontal scrolling lesson nodes.
+- **High-Res Tracing Matrix:** Enlarged and centrally-aligned the tracing canvas within a premium feature block for better tablet usability.
+- **Floating Navigation Dock:** Added a persistent, dark floating menu capsule at the bottom of the screen for global navigation.
+### Fixed
+- **Typography Hierarchy:** Standardized all font weights and sizes to ensure numbers and metrics drive user confidence (7xl font-extrabold).
+
 ## [2026.05.28.007] - 2026-05-28
 ### Fixed
 - **Tailwind v4 Alignment:** Resolved a critical `compileCSS` error by migrating all theme configurations from the legacy `tailwind.config.js` to the native `@theme` directive in `index.css`.

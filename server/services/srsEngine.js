@@ -84,16 +84,27 @@ async function generateRevisionPayload(userId) {
 
 /**
  * Generate Lesson Payload:
- * Returns exactly 5 game payloads based on lessonId.
+ * Refactored Pedagogical Logic: 
+ * 1. Fetches items strictly by lessonId to ensure curated content.
+ * 2. Groups all 'trace' tasks first to introduce characters.
+ * 3. Randomizes 'match' and 'build' tasks to test recall.
  */
 async function generateLessonPayload(userId, lessonId) {
-  const skip = (lessonId - 1) * 5;
-  const words = await Word.find().skip(skip).limit(5);
-  return words.map(w => ({
+  const words = await Word.find({ lessonId: parseInt(lessonId) }).sort({ sequence: 1 });
+  
+  if (!words || words.length === 0) return [];
+
+  const payload = words.map(w => ({
     ...w.toObject(),
     itemId: w.wordId,
     itemType: 'word'
   }));
+
+  // Group by type: Tracing first, then randomized everything else
+  const tracing = payload.filter(p => p.lessonType === 'trace');
+  const others = payload.filter(p => p.lessonType !== 'trace').sort(() => Math.random() - 0.5);
+
+  return [...tracing, ...others];
 }
 
 module.exports = {

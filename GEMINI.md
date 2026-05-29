@@ -76,27 +76,33 @@ The app abandons traditional A-Z linear alphabet learning. Instead, it relies on
 This is the moment-to-moment interactive cycle. The gameplay is strictly structured into Sessions and Bundles to manage playtime and enforce active recall.
 
 1. **Mandatory Daily Revision:** Every day begins with a dynamic revision session containing items (letters, words, sentences) that need reinforcement based on the SRS algorithm.
-2. **5-Game Bundles:** New content is delivered in short, ~2-minute bundles (5 mini-games per bundle). The child can play multiple bundles a day if engaged, but the short bundle structure prevents fatigue.
-3. **Targeted Character Acquisition:** The app introduces only the 2 to 3 specific Malayalam characters required for the day's target words (e.g., tracing മ, ന, and the ാ modifier).
+2. **5-Game Bundles:** New content is delivered in short, ~4-minute bundles (3 mini-games per bundle). The child can play multiple bundles a day if engaged, but the short bundle structure prevents fatigue.
+3. **Targeted Character Acquisition:** The app introduces only the 5 to 6 specific Malayalam characters required for the day's target words (e.g., tracing മ, ന, and the ാ modifier).
 4. **Instant Word Blending:** The user immediately combines those characters into high-frequency structural words (e.g., building മാൻ - Deer) through puzzle mechanics.
 5. **Sentence Slotting (Contextualization):** The user drags newly built words into dynamic sentences (Mad Libs style) to decode grammar and intent. 
 
 ### 2.2 The 3-Tier Adaptive SRS & Graduation Logic
-The backend must actively monitor and track error rates at three distinct levels: Letter, Word, and Sentence.
-
+The backend tracks progress at three distinct levels: Letter, Word, and Sentence.
 * **The Hierarchy:** Learn Letter -> Revise Letter -> Use in Words -> Revise Words -> Use in Sentences -> Revise Sentences.
-* **Graduation Protocol:** The system must track the percentage of times a user misidentifies specific letters (base consonants, vowels, chillus). Once a user successfully identifies and uses a specific letter within a word-building context, that isolated letter must be "graduated" (removed from isolated letter revision). The revision engine must then focus strictly on misidentified letters and words containing known letters.
+* **Graduation Protocol:** Once a user successfully identifies and uses a specific letter within a word-building context, that isolated letter is **Graduated** (removed from isolated letter revision) to focus on higher-level recall.
 
 ### 2.3 The Macro-Loop (The Cyclic Curriculum Algorithm)
 The backend pulls words from 11 distinct grammatical "Buckets" across 4 distinct phases (Cycles). The AI is restricted to generating sentences using *only* the buckets allowed in the current cycle. Refer to the Product Brief for cycle definitions.
 
-## 4. UI/UX & Gamification Requirements
-The React frontend must implement touch-friendly, drag-and-drop mechanics suitable for an 8-year-old on an Android tablet.
+## 4. UI/UX & Gamification Requirements (Neo-Bento System)
+The React frontend implements a **Soft Premium Neo-Bento** aesthetic, optimized for Android tablets.
 
-### 4.1 Visual Progress: The Adventure Map
-The primary dashboard must be an "Adventure Map" visually depicting progress through the 4 Cycles and 300 words.
-* The first required stop on the map is always the **"Daily Revision"** node.
-* Subsequent unlocked nodes represent **"Game Bundles"** (5 mini-games each).
+### 4.1 Aesthetic Pillars
+* **Canvas:** Warm creamy off-white (`#FFFDF6`) backdrop.
+* **Bento Layout:** Card-stack dashboard with hyper-rounded corners (32px).
+* **Action Pills:** Primary buttons are dark charcoal (`#1A1E26`) capsules.
+* **Floating Dock:** A persistent navigation dock at the bottom of the screen.
+
+### 4.2 Visual Progress: The Adventure Map
+The primary dashboard is a **Dynamic Course Deck** visually depicting progress.
+* The first required stop is the **"Daily Sync"** (Revision) node.
+* Subsequent unlocked nodes represent **"Game Lessons"** (5 mini-games each).
+* Progress is visualized through Cycle cards that expand to show lesson horizontal scrolls.
 
 ## 📝 Coding Standards & AI Integration
 * **Styling:** Use standard Tailwind utility classes. Use bright, high-contrast colors suitable for an 8-year-old.

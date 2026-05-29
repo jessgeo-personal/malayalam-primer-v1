@@ -1,19 +1,19 @@
-# Future Enhancements Backlog
-
-This document tracks pedagogical refinements and feature requests identified during playtesting that fall outside the immediate scope of the current phase.
+# Completed Features
+- **Daily Revision Plan (Session Management)**: Mandatory revision block implemented to prevent rote burnout.
+- **Adventure Map Dashboard**: Visual winding path for progress tracking and lesson selection.
+- **Mastery Strip / Sticker Book**: Integrated as a persistent achievement indicator at the top of the UI.
 
 ## 1. Pedagogical Pacing & Sequencing
-**Observation:** The strict prerequisite system (tracing *every* character before building a word) can cause the tracing phase to feel too long and repetitive before the child gets to the "reward" of word building.
+**Observation:** The strict prerequisite system (tracing *every* character before building a word) can cause the tracing phase to feel too long.
 **Action Item:** Revisit the ratio of Tracing vs. Word Building. 
-- *Potential Solution A:* Allow partial building (e.g., if they know 'ന' but not 'ീ', give them 'ന' as a free tile).
-- *Potential Solution B:* Batch introductions (Trace 3 letters -> Build 1 word -> Trace 2 letters -> Build 1 word) rather than front-loading all traces.
+- *Potential Solution:* "Quick Trace" mode for letters already encountered in words.
 
 ## 2. Learner Dashboard & Progress Visualization
-**Observation:** The child (and parent) currently has no visual indicator of how many alphabets, chillus, or vowel signs they have successfully mastered.
-**Action Item:** Create a "Learned Letters" UI.
-- *Feature:* A digital "sticker book" or alphabet chart that fills in with colors as the SRS weight of individual graphemes increases.
+**Observation:** The child needs more "juicy" feedback on global mastery.
+**Action Item:** Create a "Mastery Gallery".
+- *Feature:* A digital environment (e.g., a garden or space station) that populates with items as the child learns words.
 
-## 3. Daily Revision Plan (Session Management)
-**Observation:** The current SRS loop runs infinitely. There is no concept of a "Daily Goal" or structured revision session.
-**Action Item:** Implement a Daily Revision mechanic.
-- *Feature:* Define a session as "10 Revision Words + 5 New Items". Provide a definitive "Session Complete" celebration screen to prevent burnout.
+## 3. AI-Assisted "Vibe Decoder"
+**Observation:** Intent recognition is a major milestone for Cycle 2.
+**Action Item:** Use Gemini to generate "vibes" (Statements vs. Questions).
+- *Feature:* A game where the child swipes sentences into "Talking" or "Asking" bins based on the ending sound/suffix.

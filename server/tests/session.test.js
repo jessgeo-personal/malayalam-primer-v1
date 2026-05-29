@@ -61,23 +61,32 @@ describe('Session & Graduation Logic', () => {
     expect(payload.length).toBe(2);
   });
 
-  test('generateLessonPayload should return exactly 5 items', async () => {
+  test('generateLessonPayload should return up to 8 items and group tracing first', async () => {
     const userId = 'user123';
     
-    // Mock Word.find().skip().limit()
-    const mockLimit = jest.fn().mockResolvedValue([
+    const mockData = [
       { wordId: 'w1', lessonType: 'build', toObject: () => ({ wordId: 'w1', lessonType: 'build' }) },
-      { wordId: 'w2', lessonType: 'build', toObject: () => ({ wordId: 'w2', lessonType: 'build' }) },
+      { wordId: 'w2', lessonType: 'trace', toObject: () => ({ wordId: 'w2', lessonType: 'trace' }) },
       { wordId: 'w3', lessonType: 'build', toObject: () => ({ wordId: 'w3', lessonType: 'build' }) },
-      { wordId: 'w4', lessonType: 'build', toObject: () => ({ wordId: 'w4', lessonType: 'build' }) },
-      { wordId: 'w5', lessonType: 'build', toObject: () => ({ wordId: 'w5', lessonType: 'build' }) }
-    ]);
-    const mockSkip = jest.fn().mockReturnValue({ limit: mockLimit });
-    Word.find.mockReturnValue({ skip: mockSkip });
+      { wordId: 'w4', lessonType: 'trace', toObject: () => ({ wordId: 'w4', lessonType: 'trace' }) },
+      { wordId: 'w5', lessonType: 'build', toObject: () => ({ wordId: 'w5', lessonType: 'build' }) },
+      { wordId: 'w6', lessonType: 'build', toObject: () => ({ wordId: 'w6', lessonType: 'build' }) },
+      { wordId: 'w7', lessonType: 'build', toObject: () => ({ wordId: 'w7', lessonType: 'build' }) },
+      { wordId: 'w8', lessonType: 'build', toObject: () => ({ wordId: 'w8', lessonType: 'build' }) }
+    ];
+
+    Word.find.mockReturnValue({
+      sort: jest.fn().mockResolvedValue(mockData)
+    });
 
     const bundle = await srsEngine.generateLessonPayload(userId, 1);
-    expect(bundle.length).toBe(5);
-    expect(mockSkip).toHaveBeenCalledWith(0);
-    expect(mockLimit).toHaveBeenCalledWith(5);
+    
+    expect(bundle.length).toBe(8);
+    expect(Word.find).toHaveBeenCalledWith({ lessonId: 1 });
+
+    // Verify ordering: Trace items MUST come first
+    expect(bundle[0].lessonType).toBe('trace');
+    expect(bundle[1].lessonType).toBe('trace');
+    expect(bundle[2].lessonType).not.toBe('trace');
   });
 });

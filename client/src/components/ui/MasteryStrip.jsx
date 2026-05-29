@@ -2,25 +2,26 @@ import React from 'react';
 
 /**
  * MasteryStrip Component
- * Displays a horizontal list of characters the user has successfully traced.
- * UI: Cyber-Pop status strip.
+ * UI: Neo-Bento minimalist status strip. High contrast indicators on warm canvas.
  */
 export default function MasteryStrip({ characters }) {
   if (!characters || characters.length === 0) return null;
 
   return (
-    <div className="w-full bg-slate-900/40 backdrop-blur-md border-y border-slate-800 py-3 px-6 overflow-hidden shadow-inner mb-4">
+    <div className="w-full bg-white border border-slate-100 p-4 rounded-bento shadow-sm overflow-hidden animate-pop">
       <div className="flex items-center gap-6">
         <div className="flex flex-col shrink-0">
-          <span className="text-app-primary font-black uppercase text-[10px] tracking-[0.3em] leading-none opacity-60">Archive</span>
-          <span className="text-app-success font-black text-2xl tracking-tighter leading-none font-mono">#{characters.length}</span>
+          <span className="text-slate-400 font-bold uppercase text-[9px] tracking-widest leading-none">Archive</span>
+          <span className="text-prime-coral-pink font-black text-3xl tracking-tighter leading-none mt-1">{characters.length}</span>
         </div>
         
-        <div className="flex gap-2 overflow-x-auto custom-scrollbar pb-2">
+        <div className="h-10 w-px bg-slate-100 shrink-0"></div>
+
+        <div className="flex gap-2.5 overflow-x-auto custom-scrollbar pb-1 grow">
           {characters.map((char, index) => (
             <div 
               key={`${char}-${index}`}
-              className="min-w-[36px] h-[36px] bg-app-surface rounded-lg flex items-center justify-center text-lg font-black text-app-primary shadow-arcade border border-slate-700 transform rotate-1 animate-pop"
+              className="min-w-[44px] h-[44px] bg-prime-warm-base rounded-2xl flex items-center justify-center text-xl font-black text-prime-dark-text border border-orange-100/50 shadow-sm transition-transform hover:scale-110 active:scale-95 cursor-default animate-pop"
               style={{ animationDelay: `${index * 0.02}s` }}
             >
               {char}

@@ -3,8 +3,7 @@ import { audioEngine } from '../../utils/audioEngine';
 
 /**
  * TracingCanvas Mini-game
- * Teaching: Grapheme shape and phonetics (Phase 0 Foundation)
- * UI: High-visibility Cyber-Pop canvas.
+ * UI: Neo-Bento Feature Block. Large, centered canvas for optimal tablet tracing.
  */
 
 export default function TracingCanvas({ word, onComplete }) {
@@ -15,17 +14,17 @@ export default function TracingCanvas({ word, onComplete }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    // Scaled for better tablet fit while maintaining internal detail
-    canvas.width = 600;
-    canvas.height = 600;
+    // High-resolution internal buffer for smooth curves
+    canvas.width = 1000;
+    canvas.height = 1000;
     canvas.style.width = `100%`;
     canvas.style.height = `100%`;
 
     const context = canvas.getContext('2d');
     context.lineCap = 'round';
     context.lineJoin = 'round';
-    context.strokeStyle = '#34d399'; // app.success (Emerald)
-    context.lineWidth = 30;
+    context.strokeStyle = '#E35973'; // prime.coralPink
+    context.lineWidth = 45;
     contextRef.current = context;
 
     drawGuide();
@@ -37,11 +36,11 @@ export default function TracingCanvas({ word, onComplete }) {
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     
-    // FIX: Professional ghost letter scaling
-    context.font = '900 400px sans-serif'; 
+    // Calibrated ghost guide - now on a darker background for contrast
+    context.font = '900 600px "Plus Jakarta Sans", sans-serif'; 
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    context.fillStyle = '#1e293b'; // app.surface
+    context.fillStyle = '#cbd5e1'; // slate-300 for better visibility
     context.fillText(word.malayalamText, canvas.width / 2, canvas.height / 2);
     setHasStarted(false);
   };
@@ -84,18 +83,18 @@ export default function TracingCanvas({ word, onComplete }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 w-full max-w-lg animate-pop">
+    <div className="flex flex-col items-center gap-10 w-full animate-pop">
       <div className="text-center">
-        <h2 className="text-3xl font-black text-app-success tracking-tighter uppercase mb-1">
-          Trace Matrix
+        <h2 className="text-4xl font-black text-prime-dark-text tracking-tight uppercase italic mb-1">
+          Trace the Letter
         </h2>
-        <p className="text-lg font-bold text-app-primary uppercase tracking-[0.3em] leading-none opacity-60">
+        <p className="text-xl font-bold text-prime-coral-pink uppercase tracking-[0.4em] leading-none opacity-60">
           {word.phonetic}
         </p>
       </div>
 
-      {/* Enlarged Canvas for better tracing experience */}
-      <div className="relative aspect-square w-full bg-slate-900 rounded-[2rem] shadow-[0_0_40px_rgba(0,0,0,0.5)] border-4 border-slate-800 overflow-hidden touch-none group">
+      {/* Main Tracing Hub - now with prime-warm-base background */}
+      <div className="w-full max-w-lg aspect-square bg-prime-warm-base rounded-bento shadow-2xl border-[16px] border-prime-warm-base overflow-hidden touch-none relative group transition-transform hover:scale-[1.01]">
         <canvas
           ref={canvasRef}
           onMouseDown={startDrawing}
@@ -105,29 +104,30 @@ export default function TracingCanvas({ word, onComplete }) {
           onTouchStart={startDrawing}
           onTouchMove={draw}
           onTouchEnd={stopDrawing}
-          className="cursor-crosshair w-full h-full"
+          className="cursor-crosshair w-full h-full relative z-10"
         />
         
         {!hasStarted && (
-          <div className="absolute bottom-8 left-0 w-full flex justify-center pointer-events-none">
-            <div className="bg-app-primary/10 px-4 py-1 rounded-full border border-app-primary/20 text-[10px] font-black text-app-primary uppercase tracking-widest animate-pulse">
-              Calibrate Grapheme
+          <div className="absolute bottom-8 right-8 flex flex-col items-end pointer-events-none z-20">
+            <div className="bg-prime-action-dark/10 px-6 py-2 rounded-pill text-[10px] font-black text-prime-action-dark uppercase tracking-widest animate-pulse border border-prime-action-dark/20 backdrop-blur-sm shadow-sm">
+              Trace the line
             </div>
           </div>
         )}
       </div>
 
-      <div className="flex gap-4 w-full px-2">
+      {/* Controls */}
+      <div className="flex gap-4 w-full max-w-lg px-4">
         <button
           onClick={drawGuide}
-          className="btn-arcade btn-arcade-surface flex-1 py-3 text-xs"
+          className="btn-pill bg-white border border-slate-200 text-slate-400 flex-1 justify-center"
         >
-          Reset
+          CLEAR
         </button>
         
         <button
           onClick={() => audioEngine.speak(word.malayalamText)}
-          className="btn-arcade btn-arcade-primary flex-1 py-3 text-2xl shadow-violet-900/50"
+          className="btn-pill bg-prime-action-dark flex-1 justify-center text-2xl"
         >
           🔊
         </button>
@@ -135,9 +135,9 @@ export default function TracingCanvas({ word, onComplete }) {
         <button
           disabled={!hasStarted}
           onClick={() => onComplete(true, 5000)}
-          className={`btn-arcade flex-1 py-3 text-sm ${hasStarted ? 'btn-arcade-success' : 'opacity-20 cursor-not-allowed grayscale'}`}
+          className={`btn-pill flex-1 justify-center text-lg ${hasStarted ? 'bg-prime-teal-green' : 'bg-slate-100 text-slate-300 cursor-not-allowed opacity-50'}`}
         >
-          SYNC ➜
+          DONE ➜
         </button>
       </div>
     </div>

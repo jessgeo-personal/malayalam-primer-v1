@@ -2,25 +2,26 @@
 
 This document outlines the strategic progression from our current scaffolding to a functional, gamified literacy app for an 8-year-old.
 
-## Phase 0: The "Alphabet Foundation" (Tracing & Phonetics)
+## Phase 0: The "Alphabet Foundation" (Tracing & Phonetics) [COMPLETED]
 *Goal: Teach the shape and phonetic sound of individual graphemes before word building.*
-1.  **The Tracing Canvas**: Build an HTML5 `<canvas>` optimized for tablet touch events, allowing the child to trace large Malayalam characters.
-2.  **Phonetic Integration**: Provide audio hints (phonetic pronunciations) as the child interacts with the graphemes.
-3.  **Core Lessons**: Group the graphemes into manageable pedagogical blocks (Base Consonants, Vowels, Chillus, Modifiers).
+- [x] **The Tracing Canvas**: Build an HTML5 `<canvas>` optimized for tablet touch events.
+- [x] **Phonetic Integration**: Provide audio hints (phonetic pronunciations).
+- [x] **Core Lessons**: Grouped graphemes into manageable pedagogical blocks.
 
-## Phase 1: The "Foundation" (The Core Loop)
+## Phase 1: The "Foundation" (The Core Loop) [COMPLETED]
 *Goal: Establish the basic "Fetch Word -> Show Puzzle -> Submit Answer -> Update SRS" cycle.*
-1.  **Database Seeding**: Finalize the `Word` schema and seed the first 100 words (Cycle 1).
-2.  **State Management**: Implement the `Progress` context to track unlocked words and current session state.
-3.  **The "Base" Mini-Game**: Build a simple "Letter Picker" (Drag-and-Drop) to verify the `@dnd-kit` integration and backend communication.
-4.  **SRS Logic**: Implement the 11-bucket scoring logic on the backend.
+- [x] **Database Seeding**: Finalized the `Word` schema and seeded initial word set.
+- [x] **State Management**: Implemented the `Progress` context.
+- [x] **The "Base" Mini-Game**: Built "Letter Picker" (Drag-and-Drop) with `@dnd-kit`.
+- [x] **SRS Logic**: Implemented 3-tier adaptive scoring (Letter/Word/Sentence).
+- [x] **Adventure Map**: Visual dashboard with lesson nodes and revision engine.
 
-## Phase 2: The "Grammar Factory" (The 11 Buckets)
+## Phase 2: The "Grammar Factory" (The 11 Buckets) [ACTIVE]
 *Goal: Build the specialized mini-games for different grammatical concepts.*
-*   **Cycle A: Basic Nouns & Verbs**: Simple object identification.
-*   **Cycle B: The Suffix Snapper**: Mini-game for plural markers and case endings (e.g., adding "-kal" to nouns).
-*   **Cycle C: Tense Transformations**: Mini-game for Past/Present/Future verb changes.
-*   **Cycle D: Sentence Scrambler**: Drag-and-drop words to form basic Malayalam sentences.
+1. **Milestone 2.1: Suffix Snapper**: Drag-and-drop plural markers (-ക്കൾ, -കൾ) and basic case markers (-ൽ, -ലേക്ക്).
+2. **Milestone 2.2: Tense Transformations**: Mini-game for Past/Present/Future verb changes.
+3. **Milestone 2.3: Sentence Scrambler**: Drag-and-drop words to form basic Malayalam sentences using Bucket 1 & 2.
+4. **Milestone 2.4: Vibe Decoder**: Use AI-generated sentences to test "Intent" recognition (Statement vs. Question).
 
 ## Phase 3: The "AI Tutor" (Gemini Integration)
 *Goal: Use AI to generate dynamic, non-repetitive challenges based on the user's unlocked vocabulary.*

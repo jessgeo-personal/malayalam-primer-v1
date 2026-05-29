@@ -1,17 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-app-bg: #0f172a;
-  --color-app-surface: #1e293b;
-  --color-app-primary: #7c3aed;
-  --color-app-primary-hover: #6d28d9;
-  --color-app-success: #34d399;
-  --color-app-error: #f43f5e;
-  --color-app-text-main: #f8fafc;
-  --color-app-text-muted: #94a3b8;
+  /* Soft Premium "Neo-Bento" Palette */
+  --color-prime-canvas: #FFFDF6;
+  --color-prime-warm-base: #FFF5E9;
+  --color-prime-dark-text: #111827;
+  --color-prime-action-dark: #1A1E26;
+  --color-prime-coral-pink: #E35973;
+  --color-prime-teal-green: #3C9E8D;
+  --color-prime-mango-orange: #F5A642;
+  --color-prime-periwinkle: #8F94FB;
 
-  --shadow-arcade: 0 4px 0 0 rgba(0, 0, 0, 0.5);
+  /* Sizing & Borders */
+  --radius-bento: 32px;
+  --radius-pill: 100px;
 
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans", "Nunito", system-ui, sans-serif;
+  
+  --font-size-hero-stat: 4.5rem;
+  --font-size-hero-stat--line-height: 1;
+  --font-size-hero-stat--font-weight: 800;
+
+  /* Legacy Compat/Animations */
   --animate-wiggle: wiggle 1s ease-in-out infinite;
   --animate-pop: pop 0.25s ease-out forwards;
   --animate-bounce-slow: bounce-slow 3s infinite ease-in-out;

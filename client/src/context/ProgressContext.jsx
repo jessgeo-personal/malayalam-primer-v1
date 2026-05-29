@@ -7,6 +7,7 @@ export const useProgress = () => useContext(ProgressContext);
 export const ProgressProvider = ({ children }) => {
   const [userId] = useState('default_user');
   const [currentCycle, setCurrentCycle] = useState(1);
+  const [cycleProgress, setCycleProgress] = useState(0);
   const [masteredCharacters, setMasteredCharacters] = useState([]);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -37,6 +38,8 @@ export const ProgressProvider = ({ children }) => {
       setNeedsRevision(data.needsRevision);
       setCurrentLesson(data.currentLesson || 1);
       setLessonHistory(data.lessonHistory || []);
+      setCurrentCycle(data.currentCycle || 1);
+      setCycleProgress(data.cycleProgress || 0);
     } catch (err) {
       console.error(err);
     }
@@ -108,7 +111,11 @@ export const ProgressProvider = ({ children }) => {
       const data = await response.json();
       
       setScore(data.score);
-      setMasteredCharacters(data.masteredCharacters);
+      
+      // HUD Sync: Immediately update mastered list in UI state
+      if (isCorrect) {
+        setMasteredCharacters(data.masteredCharacters);
+      }
 
       // Move to next item in session
       if (currentIndex < sessionItems.length - 1) {
@@ -154,6 +161,8 @@ export const ProgressProvider = ({ children }) => {
   };
 
   const resetSession = async () => {
+    if (!window.confirm('Are you sure you want to restart the whole game? All progress will be lost!')) return;
+    
     setLoading(true);
     try {
       const response = await fetch('/api/progress/reset', {
@@ -192,6 +201,8 @@ export const ProgressProvider = ({ children }) => {
       needsRevision,
       currentLesson,
       lessonHistory,
+      currentCycle,
+      cycleProgress,
       startRevision,
       startLesson,
       updateProgress,

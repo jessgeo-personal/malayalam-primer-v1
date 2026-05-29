@@ -166,14 +166,35 @@ const App = () => {
           </div>
         ) : (
           <div className="w-full max-w-4xl mx-auto card-bento-surface p-8 min-h-[550px] flex flex-col items-center justify-center relative animate-pop shadow-2xl border-orange-100">
-            {/* Header within game */}
+            {/* Header within game: Consolidated Controls */}
             <div className="absolute top-8 left-8 right-8 flex justify-between items-center pointer-events-none">
-              <button 
-                onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }}
-                className="btn-pill bg-white border border-slate-200 text-slate-400 py-1.5 px-4 text-[10px] pointer-events-auto shadow-sm"
-              >
-                EXIT
-              </button>
+              <div className="flex items-center gap-3 pointer-events-auto bg-prime-action-dark px-4 py-2 rounded-2xl shadow-lg border border-white/10 backdrop-blur-sm">
+                <button 
+                  onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }}
+                  className="text-xl hover:scale-110 transition-transform cursor-pointer"
+                  title="Home"
+                >
+                  🏠
+                </button>
+                <button 
+                  onClick={handleRestart}
+                  className="text-xl hover:scale-110 transition-transform cursor-pointer opacity-50 hover:opacity-100"
+                  title="Restart Session"
+                >
+                  🔄
+                </button>
+                <div className="h-6 w-px bg-white/20 mx-1"></div>
+                <div className="flex flex-col items-start leading-none">
+                  <span className="text-[7px] font-black text-white/40 uppercase tracking-widest mb-0.5">Status</span>
+                  <span className="text-prime-teal-green font-bold text-[10px] tracking-tighter uppercase">Active</span>
+                </div>
+                <button 
+                  onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }}
+                  className="ml-4 text-[9px] font-black text-white/60 hover:text-white uppercase tracking-widest border-l border-white/10 pl-4 py-1"
+                >
+                  EXIT
+                </button>
+              </div>
 
               <div className="flex items-center gap-4 pointer-events-auto">
                 <div className="flex flex-col items-end mr-2">
@@ -213,18 +234,20 @@ const App = () => {
         )}
       </main>
 
-      {/* 5. Global Navigation Dock */}
-      <nav className="fixed bottom-6 left-0 right-0 z-[100] px-6">
-        <div className="bg-prime-action-dark mx-auto max-w-md rounded-pill px-8 py-4 flex justify-between items-center text-white shadow-2xl border border-white/10 backdrop-blur-lg">
-          <button onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }} className="text-2xl hover:scale-110 transition-transform cursor-pointer" title="Home">🏠</button>
-          <button onClick={handleRestart} className="text-2xl hover:scale-110 transition-transform cursor-pointer opacity-40 hover:opacity-100" title="Restart Progress">🔄</button>
-          <div className="h-8 w-px bg-white/10 mx-2"></div>
-          <div className="flex flex-col items-end">
-            <span className="text-[9px] font-black text-white/40 uppercase tracking-widest leading-none">Status</span>
-            <span className="text-prime-teal-green font-bold text-sm tracking-tighter leading-tight">ACTIVE</span>
+      {/* 5. Global Navigation Dock (Map Only) */}
+      {sessionMode === 'map' && (
+        <nav className="fixed bottom-6 left-0 right-0 z-[100] px-6">
+          <div className="bg-prime-action-dark mx-auto max-w-md rounded-pill px-8 py-4 flex justify-between items-center text-white shadow-2xl border border-white/10 backdrop-blur-lg animate-fade-in">
+            <button onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }} className="text-2xl hover:scale-110 transition-transform cursor-pointer" title="Home">🏠</button>
+            <button onClick={handleRestart} className="text-2xl hover:scale-110 transition-transform cursor-pointer opacity-40 hover:opacity-100" title="Restart Progress">🔄</button>
+            <div className="h-8 w-px bg-white/10 mx-2"></div>
+            <div className="flex flex-col items-end">
+              <span className="text-[9px] font-black text-white/40 uppercase tracking-widest leading-none">Status</span>
+              <span className="text-prime-teal-green font-bold text-sm tracking-tighter leading-tight">ACTIVE</span>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      )}
 
       <footer className="py-12 text-center text-slate-300 font-bold text-[9px] tracking-[0.4em] uppercase">
         Malayalam_Prime_v{APP_VERSION}

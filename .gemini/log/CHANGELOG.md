@@ -1,5 +1,11 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.017] - 2026-05-28
+### Changed
+- **Nav Dock Relocation:** Moved the global bottom navigation dock (Home, Restart, Status) into the top header of the active lesson card to prevent visual obstruction on tablets.
+- **Header Consolidation:** Merged Home, Restart, and Status controls into a single dark capsule grouping in the top-left of the game card.
+- **Conditional Visibility:** Updated the bottom nav dock to only render when the user is on the Adventure Map.
+
 ## [2026.05.28.016] - 2026-05-28
 ### Changed
 - **Tracing Redesign:** Implemented a side-by-side layout for the tracing pad and control panel to eliminate scrolling on tablets.

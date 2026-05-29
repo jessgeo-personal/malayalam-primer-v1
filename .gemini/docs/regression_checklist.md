@@ -109,6 +109,12 @@
 - [x] **Progress Awareness**: Placeholder added for empty "My Progress" state verified.
 - [x] **Vertical Button Stack**: CLEAR and DONE buttons positioned for easy thumb-access on right side verified.
 
+## 🧭 Phase 14: Nav Dock Relocation
+- [x] **Unobstructed Gameplay**: Global navigation dock is conditionally hidden during active lessons verified.
+- [x] **Consolidated Header Controls**: Home, Restart, and Status controls relocated into the game card header verified.
+- [x] **Consistent Exit UX**: EXIT and Home actions consolidated into a clean dark-capsule grouping verified.
+- [x] **Conditional Rendering Tests**: Vitest component tests verify dock visibility across different modes verified.
+
 ## 🎓 Phase 11: Curriculum Consolidation
 - [x] **Map Pacing**: Cycle 1 consolidated from 14 to 9 lessons for better content density verified.
 - [x] **Character Coverage**: Added 5 missing characters (ൽ, ൂ, സ, ഷ, ഭ) with trace/match support verified.

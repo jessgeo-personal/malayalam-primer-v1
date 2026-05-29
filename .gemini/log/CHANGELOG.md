@@ -1,5 +1,15 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.015] - 2026-05-28
+### Added
+- **Multi-User Support:** Implemented independent progress tracking for up to 3 learners (Learner 1, 2, 3) with a top-right profile switcher.
+- **TDD Guardrails:** Created unit tests for context switching and integration tests for data isolation.
+
+### Changed
+- **Phonetic Restoration:** Restored English phonetic labels in the "Build" mini-game to assist auditory-visual mapping.
+- **Real-time HUD Update:** Refactored the progress context to update the "My Progress" strip immediately upon correct character tracing.
+- **Lesson Consolidation:** Re-mapped Cycle 1 into 9 robust lessons (down from 14 fragments) for better pedagogical density.
+
 ## [2026.05.28.014] - 2026-05-28
 ### Changed
 - **Curriculum Consolidation:** Reduced Cycle 1 from 14 fragments to 9 intentional lessons to improve map pacing and content density.

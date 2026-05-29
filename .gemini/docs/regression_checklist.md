@@ -90,10 +90,17 @@
 - [x] **Zero-Empty-Boxes Rule**: All Cycle 1 build games verified to have non-empty character arrays.
 
 ## 🔄 Phase 11: HUD Sync & Curriculum Consolidation
-- [x] **Phonetic Restoration**: Phonetic English labels restored in "Build" game verified (Accessibility).
-- [x] **Real-time HUD Update**: "My Progress" strip updates immediately after correct trace verified (UX Responsiveness).
-- [x] **Cycle 1 Consolidation**: Curriculum reduced from 14 fragments to 9 high-density lessons verified (Content Quality).
+- [x] **Phonetic Restoration**: Phonetic English labels restored in "Build" game verified.
+- [x] **Real-time HUD Update**: "My Progress" strip updates immediately after correct trace verified.
+- [x] **Cycle 1 Consolidation**: Curriculum reduced from 14 fragments to 9 high-density lessons verified.
 - [x] **Missing Graphemes Added**: Traces for ൽ, ൂ, സ, ഷ, ഭ added to complete Cycle 1 dependencies verified.
+
+## 👥 Phase 12: Multi-User Isolation
+- [x] **User Switcher UI**: Dropdown in top-right corner allows switching between 3 learners verified.
+- [x] **State Persistence**: Selected user persists across page refreshes via localStorage verified.
+- [x] **Data Isolation**: Progress, score, and mastered letters are strictly independent per userId verified.
+- [x] **Session Safety**: Switching users mid-lesson correctly resets the session and returns to the map verified.
+- [x] **Dynamic Previews**: Lesson info popups show data relevant to the currently active user verified.
 
 ## 🎓 Phase 11: Curriculum Consolidation
 - [x] **Map Pacing**: Cycle 1 consolidated from 14 to 9 lessons for better content density verified.

@@ -3,6 +3,7 @@ import { useProgress } from '../../context';
 
 const AdventureMap = () => {
   const { 
+    userId,
     needsRevision, 
     startRevision, 
     startLesson, 
@@ -41,7 +42,7 @@ const AdventureMap = () => {
     setPreviewLoading(true);
     setPreviewLesson(lessonId);
     try {
-      const response = await fetch(`/api/session/lesson/preview?userId=default_user&lessonId=${lessonId}`);
+      const response = await fetch(`/api/session/lesson/preview?userId=${userId}&lessonId=${lessonId}`);
       if (!response.ok) throw new Error('Failed to fetch preview');
       const data = await response.json();
       setPreviewData(data);

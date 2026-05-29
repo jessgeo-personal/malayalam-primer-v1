@@ -5,7 +5,7 @@ const ProgressContext = createContext();
 export const useProgress = () => useContext(ProgressContext);
 
 export const ProgressProvider = ({ children }) => {
-  const [userId] = useState('default_user');
+  const [userId, setUserId] = useState(() => localStorage.getItem('mp_userId') || 'Learner 1');
   const [currentCycle, setCurrentCycle] = useState(1);
   const [cycleProgress, setCycleProgress] = useState(0);
   const [masteredCharacters, setMasteredCharacters] = useState([]);
@@ -28,9 +28,9 @@ export const ProgressProvider = ({ children }) => {
 
   const currentItem = sessionItems[currentIndex] || null;
 
-  const fetchStats = async () => {
+  const fetchStats = async (id = userId) => {
     try {
-      const response = await fetch(`/api/progress/stats?userId=${userId}`);
+      const response = await fetch(`/api/progress/stats?userId=${id}`);
       if (!response.ok) throw new Error('Failed to fetch stats');
       const data = await response.json();
       setMasteredCharacters(data.masteredCharacters || []);
@@ -43,6 +43,20 @@ export const ProgressProvider = ({ children }) => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const switchUser = (newUserId) => {
+    setUserId(newUserId);
+    localStorage.setItem('mp_userId', newUserId);
+    
+    // Clear session state
+    setSessionMode('map');
+    setSessionStatus('idle');
+    setSessionItems([]);
+    setCurrentIndex(0);
+    
+    // Refresh stats for new user
+    fetchStats(newUserId);
   };
 
   const startRevision = async () => {
@@ -190,6 +204,9 @@ export const ProgressProvider = ({ children }) => {
 
   return (
     <ProgressContext.Provider value={{
+      userId,
+      switchUser,
+      sessionItems,
       currentItem,
       masteredCharacters,
       score,

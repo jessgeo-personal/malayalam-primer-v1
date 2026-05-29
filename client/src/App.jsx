@@ -5,34 +5,28 @@ import { MasteryStrip, AdventureMap } from './components/ui';
 import { APP_VERSION } from './config/version';
 import './App.css';
 
-function App() {
+const App = () => {
   const { 
+    userId,
+    switchUser,
     currentItem, 
+    updateProgress, 
     masteredCharacters, 
     score, 
-    loading, 
-    error, 
+    error,
     sessionMode,
     sessionStatus,
     lastStars,
     needsRevision,
+    startRevision,
     currentLesson,
+    lessonHistory,
     currentCycle,
     cycleProgress,
-    updateProgress, 
     resetSession,
     setSessionMode,
     setSessionStatus
   } = useProgress();
-
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-prime-canvas">
-        <div className="text-6xl animate-bounce-slow mb-6">🍱</div>
-        <div className="text-xl font-bold text-prime-teal-green uppercase tracking-widest">Organizing Bento...</div>
-      </div>
-    );
-  }
 
   if (error) {
     return (
@@ -71,12 +65,22 @@ function App() {
             </div>
             
             <div className="flex gap-4 items-center">
-              {/* Reset Button hidden in HUD */}
-              <button onClick={handleRestart} className="w-10 h-10 bg-white/20 hover:bg-prime-error text-white rounded-2xl flex items-center justify-center transition-colors border border-white/40 shadow-inner" title="Restart Progress">
-                ↻
-              </button>
+              {/* User Selection Dropdown */}
+              <div className="flex flex-col items-end">
+                <span className="text-[9px] font-black text-white/60 uppercase tracking-widest mb-1">Active Profile</span>
+                <select 
+                  value={userId} 
+                  onChange={(e) => switchUser(e.target.value)}
+                  className="bg-white/20 hover:bg-white/30 text-white font-bold text-sm py-2 px-4 rounded-2xl border border-white/40 shadow-inner outline-none cursor-pointer transition-all appearance-none text-center min-w-[140px]"
+                >
+                  <option value="Learner 1" className="text-prime-dark-text">Learner 1</option>
+                  <option value="Learner 2" className="text-prime-dark-text">Learner 2</option>
+                  <option value="Learner 3" className="text-prime-dark-text">Learner 3</option>
+                </select>
+              </div>
+
               <div className="w-16 h-16 bg-white/30 rounded-3xl backdrop-blur-md border border-white/40 flex items-center justify-center text-4xl shadow-inner">
-                🧒
+                {userId === 'Learner 1' ? '👦' : userId === 'Learner 2' ? '👧' : '🧒'}
               </div>
             </div>
           </div>

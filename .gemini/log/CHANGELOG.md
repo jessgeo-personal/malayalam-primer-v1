@@ -1,5 +1,20 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.021] - 2026-05-28
+### Fixed
+- **Lesson Pointer Logic:** Fixed a critical bug where replaying an old lesson would incorrectly unlock future lessons. Current progress is now safely tracked via `activeLessonId`.
+- **Bounded Scoring System:** Migrated from infinite point accumulation to a Star-based score: 1 Star = 100, 2 Stars = 200, 3 Stars = 300 (Max 300 per lesson).
+- **Passing Thresholds:** Implemented a strict 75% accuracy requirement to pass a lesson. Users with 3+ initial mistakes earn 0 Stars and the next lesson remains locked.
+- **Reinforcement Queue:** Incorrect answers are now automatically duplicated and pushed to the end of the current session, forcing the student to demonstrate mastery before completion.
+- **HUD Synchronization:** Updated the "Active Lesson" bubble to use the explicit lesson ID currently being played.
+
+## [2026.05.28.020] - 2026-05-28
+### Fixed
+- **Progress Integrity:** Fixed a bug where replaying a lesson would incorrectly increment the `currentLesson` pointer, marking future lessons as complete. 
+- **Accurate Mastery Calculation:** Refined the "Cycle Mastery" logic to include all mastered items (trace, match, build) within a cycle, ensuring the percentage reflects actual effort.
+- **Stat Box Correction:** Fixed the "Lessons Completed" dashboard statistic to show the count of unique completed lessons from history, rather than the next lesson index.
+- **TDD Guardrails:** Added backend unit tests to ensure idempotent lesson completion and accurate progress stats.
+
 ## [2026.05.28.019] - 2026-05-28
 ### Changed
 - **Word Assembly Refactor:** Rebranded "Letter Picker" to "Word Assembly" with a side-by-side tablet layout to eliminate scrolling.

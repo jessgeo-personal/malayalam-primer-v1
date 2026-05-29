@@ -121,12 +121,23 @@
 - [x] **TDD Validation**: New SoundMatcher.test.jsx unit tests verify interaction and button labels verified.
 
 ## 🧩 Phase 16: Word Assembly Ergonomics & DND
-- [x] **Side-by-Side Layout**: Assembly area (left) and Reference info (right) layout implemented verified (No-Scroll UX).
-- [x] **Pointer-Only Snapping**: `pointerWithin` collision detection prevents accidental snaps on simple taps verified.
-- [x] **Draggable Placed Tiles**: Tiles inside boxes remain draggable for easy mistake correction verified.
+- [x] **Side-by-Side Layout**: Assembly area (left) and Reference info (right) layout implemented verified.
+- [x] **Pointer-Only Snapping**: `pointerWithin` collision detection prevents accidental snaps verified.
+- [x] **Draggable Placed Tiles**: Tiles inside boxes remain draggable for correction verified.
 - [x] **Return to Pool**: Dragging tiles out of boxes returns them to the pool verified.
-- [x] **Instruction Header**: Compact "Word Assembly" title and punchy instructions added verified.
-- [x] **Clear Labels**: "English meaning:" and "Phonetic:" labels added for better reference verified.
+
+## 📊 Phase 17: Progress Tracking Integrity
+- [x] **Idempotent Lesson Completion**: Replaying a lesson no longer increments `currentLesson` beyond the next available one verified.
+- [x] **Accurate Stats Display**: "Lessons Completed" dashboard stat now correctly reflects `lessonHistory.length` verified.
+- [x] **Smoother Mastery Curve**: "Cycle Mastery" calculation now includes all items (trace, match, build) in the cycle verified.
+- [x] **Unit Testing**: Added specific tests for safe `currentLesson` incrementing and cycle progress calculation verified.
+
+## 🚀 Phase 18: Progression Accuracy & Thresholds
+- [x] **Bounded Scoring**: Total score strictly tied to lesson stars (1*=100, 2*=200, 3*=300). Replaying Lesson 1 cannot exceed 300 pts verified.
+- [x] **Reinforcement Queue**: Incorrect answers are automatically appended to the end of the session, forcing student to face them again verified.
+- [x] **Passing Threshold (75%)**: User must earn at least 1 star (no more than 2 initial mistakes) to unlock the next lesson verified.
+- [x] **Safe Lesson Pointers**: replaying Lesson 1 correctly updates Lesson 1 stats and DOES NOT unlock Lesson 3 verified.
+- [x] **TDD Verification**: All backend and client tests passed 100% green verified.
 
 ## 🎓 Phase 11: Curriculum Consolidation
 - [x] **Map Pacing**: Cycle 1 consolidated from 14 to 9 lessons for better content density verified.

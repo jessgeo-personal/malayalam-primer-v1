@@ -70,9 +70,10 @@ router.post('/session/lesson/complete', async (req, res) => {
       user.lessonHistory.push({ lessonId: lid, stars });
     }
 
-    // Increment currentLesson if this was the latest one
-    if (lid === user.currentLesson) {
-      user.currentLesson += 1;
+    // Safely increment currentLesson only if completing the current or future lesson
+    // AND user got at least 1 star (Threshold: 0 mistakes=3*, 1=2*, 2=1*, 3+=0*)
+    if (stars > 0) {
+      user.currentLesson = Math.max(user.currentLesson, lid + 1);
     }
 
     await user.save();
@@ -206,9 +207,9 @@ router.post('/progress/update', async (req, res) => {
 
     await progress.save();
 
-    // Calculate total score for immediate UI update
-    const allProgress = await Progress.find({ userId });
-    const score = allProgress.reduce((sum, p) => sum + (p.correctCount * 10), 0);
+    // Calculate total score based on Lesson Stars
+    const user = await User.findOne({ userId });
+    const score = user ? user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0) : 0;
     
     // For backwards compatibility/MasteryStrip: get letters (traces)
     const masteredTraces = await Progress.find({ userId, itemType: 'letter', correctCount: { $gt: 0 } });
@@ -239,24 +240,24 @@ router.get('/progress/stats', async (req, res) => {
       user = await User.create({ userId, currentLevel: 1 });
     }
 
-    const allProgress = await Progress.find({ userId });
-    const score = allProgress.reduce((sum, p) => sum + (p.correctCount * 10), 0);
+    // Calculate total score based on Lesson Stars (Max 300 per lesson)
+    // 3 Stars = 300, 2 Stars = 200, 1 Star = 100
+    const score = user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0);
 
     const masteredTraces = await Progress.find({ userId, itemType: 'letter', correctCount: { $gt: 0 } });
     const masteredCharacters = masteredTraces.map(p => p.itemId);
 
-    // Calculate current cycle and progress
+    // Calculate current cycle and progress based on ALL items in the cycle for a smoother mastery curve
     const activeCycle = user.currentCycle || 1;
-    const wordsInCycle = await Word.find({ unlockCycle: activeCycle, lessonType: 'build' });
+    const itemsInCycle = await Word.find({ unlockCycle: activeCycle });
     const masteredInCycle = await Progress.find({ 
       userId, 
-      itemId: { $in: wordsInCycle.map(w => w.wordId) },
-      itemType: 'word',
+      itemId: { $in: itemsInCycle.map(w => w.wordId) },
       correctCount: { $gt: 0 }
     });
 
-    const cycleProgress = wordsInCycle.length > 0 
-      ? Math.round((masteredInCycle.length / wordsInCycle.length) * 100) 
+    const cycleProgress = itemsInCycle.length > 0 
+      ? Math.round((masteredInCycle.length / itemsInCycle.length) * 100) 
       : 0;
 
     // Check if revision is needed

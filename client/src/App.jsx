@@ -9,6 +9,7 @@ const App = () => {
   const { 
     userId,
     switchUser,
+    activeLessonId,
     currentItem, 
     updateProgress, 
     masteredCharacters, 
@@ -114,7 +115,7 @@ const App = () => {
                 {/* Stat Box 1 */}
                 <div className="card-bento-surface flex-1">
                    <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Lessons</span>
-                   <div className="text-4xl font-extrabold text-prime-dark-text mt-1">{currentLesson}</div>
+                   <div className="text-4xl font-extrabold text-prime-dark-text mt-1">{lessonHistory.length}</div>
                    <p className="text-slate-500 text-xs font-medium mt-1">Completed</p>
                 </div>
                 {/* Stat Box 2 */}
@@ -214,7 +215,7 @@ const App = () => {
                 </div>
                 <span className={`px-4 py-1.5 rounded-pill text-[10px] font-black uppercase tracking-widest text-white shadow-sm
                   ${sessionMode === 'revision' ? 'bg-prime-periwinkle' : 'bg-prime-teal-green'}`}>
-                  {sessionMode === 'revision' ? `Daily Practice: Cycle ${currentCycle}` : `Active Lesson: ${currentLesson}`}
+                  {sessionMode === 'revision' ? `Daily Practice: Cycle ${currentCycle}` : `Active Lesson: ${activeLessonId}`}
                 </span>
               </div>
             </div>

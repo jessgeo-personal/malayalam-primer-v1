@@ -15,6 +15,7 @@ export const ProgressProvider = ({ children }) => {
 
   // Session State
   const [sessionMode, setSessionMode] = useState('map'); // 'map', 'revision', 'lesson'
+  const [activeLessonId, setActiveLessonId] = useState(null);
   const [sessionItems, setSessionItems] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [sessionErrors, setSessionErrors] = useState(0);
@@ -86,6 +87,7 @@ export const ProgressProvider = ({ children }) => {
   const startLesson = async (lessonId) => {
     setLoading(true);
     setSessionMode('lesson');
+    setActiveLessonId(lessonId);
     setSessionStatus('active');
     setSessionErrors(0);
     try {
@@ -105,7 +107,15 @@ export const ProgressProvider = ({ children }) => {
     if (!currentItem) return;
 
     if (!isCorrect) {
-      setSessionErrors(prev => prev + 1);
+      // Only count the error if this is the first time they see this item in the session
+      // (prevents double-counting errors for the same item in the reinforcement queue)
+      if (!currentItem.isReinforcement) {
+        setSessionErrors(prev => prev + 1);
+      }
+      
+      // Reinforcement Queue: Duplicate the failed item and push it to the end of the session
+      // This forces the student to encounter it again until they get it right.
+      setSessionItems(prev => [...prev, { ...currentItem, isReinforcement: true }]);
     }
 
     try {
@@ -156,12 +166,13 @@ export const ProgressProvider = ({ children }) => {
         setNeedsRevision(false);
         setLastStars(3); // Revision always counts as "perfect" for visuals
       } else if (mode === 'lesson') {
-        const stars = Math.max(1, 3 - errors);
+        // Star Mapping: 0 initial errors=3*, 1 error=2*, 2 errors=1*, 3+ errors=0*
+        const stars = Math.max(0, 3 - errors);
         setLastStars(stars);
         await fetch('/api/session/lesson/complete', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userId, lessonId, stars })
+          body: JSON.stringify({ userId, lessonId: activeLessonId, stars })
         });
       }
       
@@ -206,6 +217,7 @@ export const ProgressProvider = ({ children }) => {
     <ProgressContext.Provider value={{
       userId,
       switchUser,
+      activeLessonId,
       sessionItems,
       currentItem,
       masteredCharacters,

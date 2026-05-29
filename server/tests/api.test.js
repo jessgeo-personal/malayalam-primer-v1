@@ -149,7 +149,61 @@ describe('API Routes Integration', () => {
 
     const response = await request(app).get('/api/progress/stats?userId=test_user');
     expect(response.status).toBe(200);
-    expect(response.body.score).toBe(10);
+    // Score is 0 because no lessons were completed with stars yet
+    expect(response.body.score).toBe(0); 
     expect(response.body.masteredCharacters).toContain('അ');
+  });
+
+  test('POST /api/session/lesson/complete should be idempotent for currentLesson increment', async () => {
+    await User.create({ userId: 'test_idempotent', currentLesson: 1 });
+
+    // Complete lesson 1
+    await request(app)
+      .post('/api/session/lesson/complete')
+      .send({ userId: 'test_idempotent', lessonId: 1, stars: 3 });
+
+    let stats = await User.findOne({ userId: 'test_idempotent' });
+    expect(stats.currentLesson).toBe(2);
+
+    // Replay lesson 1
+    await request(app)
+      .post('/api/session/lesson/complete')
+      .send({ userId: 'test_idempotent', lessonId: 1, stars: 2 });
+
+    stats = await User.findOne({ userId: 'test_idempotent' });
+    expect(stats.currentLesson).toBe(2); // Should NOT have incremented to 3
+  });
+
+  test('POST /api/session/lesson/complete should enforce stricter thresholds (0 stars for 3+ errors)', async () => {
+    await User.create({ userId: 'test_threshold', currentLesson: 1 });
+
+    // 1 mistake = 2 stars (Pass)
+    await request(app)
+      .post('/api/session/lesson/complete')
+      .send({ userId: 'test_threshold', lessonId: 1, stars: 2 });
+
+    let stats = await User.findOne({ userId: 'test_threshold' });
+    expect(stats.currentLesson).toBe(2);
+
+    // 3 mistakes = 0 stars (Fail) - next lesson should NOT unlock
+    await request(app)
+      .post('/api/session/lesson/complete')
+      .send({ userId: 'test_threshold', lessonId: 2, stars: 0 });
+
+    stats = await User.findOne({ userId: 'test_threshold' });
+    expect(stats.currentLesson).toBe(2); // Remains at 2
+  });
+
+  test('GET /api/progress/stats should calculate score based on stars (300 per lesson max)', async () => {
+    await User.create({ 
+      userId: 'test_score', 
+      lessonHistory: [
+        { lessonId: 1, stars: 3 }, // 300 pts
+        { lessonId: 2, stars: 1 }  // 100 pts
+      ] 
+    });
+
+    const response = await request(app).get('/api/progress/stats?userId=test_score');
+    expect(response.body.score).toBe(400);
   });
 });

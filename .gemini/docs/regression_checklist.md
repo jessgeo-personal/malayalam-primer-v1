@@ -102,6 +102,13 @@
 - [x] **Session Safety**: Switching users mid-lesson correctly resets the session and returns to the map verified.
 - [x] **Dynamic Previews**: Lesson info popups show data relevant to the currently active user verified.
 
+## 📱 Phase 13: Tablet-First Layout & HUD Sync
+- [x] **Side-by-Side Tracing**: Drawing pad (left) and control panel (right) layout implemented verified (No-Scroll UX).
+- [x] **Interactive Controls**: Phonetic sound display and larger speaker replay button verified.
+- [x] **HUD Clarity**: Active Lesson bubble now includes specific lesson ID verified.
+- [x] **Progress Awareness**: Placeholder added for empty "My Progress" state verified.
+- [x] **Vertical Button Stack**: CLEAR and DONE buttons positioned for easy thumb-access on right side verified.
+
 ## 🎓 Phase 11: Curriculum Consolidation
 - [x] **Map Pacing**: Cycle 1 consolidated from 14 to 9 lessons for better content density verified.
 - [x] **Character Coverage**: Added 5 missing characters (ൽ, ൂ, സ, ഷ, ഭ) with trace/match support verified.

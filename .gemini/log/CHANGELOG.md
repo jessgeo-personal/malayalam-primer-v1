@@ -1,5 +1,13 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.016] - 2026-05-28
+### Changed
+- **Tracing Redesign:** Implemented a side-by-side layout for the tracing pad and control panel to eliminate scrolling on tablets.
+- **Phonetic Focus:** Added a prominent "Phonetic sound" section next to the tracing pad with a large replay speaker button.
+- **HUD Detail:** Updated the "Active Lesson" bubble to display the specific lesson ID (e.g., "Active Lesson: 1").
+- **Empty State UX:** Added a "No letters yet" placeholder to the Progress HUD to clarify initial empty states.
+- **Vertical Actions:** Optimized button placement for thumb-access, grouping CLEAR and DONE actions vertically on the right.
+
 ## [2026.05.28.015] - 2026-05-28
 ### Added
 - **Multi-User Support:** Implemented independent progress tracking for up to 3 learners (Learner 1, 2, 3) with a top-right profile switcher.

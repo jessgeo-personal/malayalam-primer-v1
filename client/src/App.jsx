@@ -179,17 +179,21 @@ const App = () => {
                 <div className="flex flex-col items-end mr-2">
                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">My Progress</span>
                   <div className="flex gap-1 mt-1">
-                    {masteredCharacters.slice(-6).map((char, i) => (
-                      <span key={i} className="w-6 h-6 bg-prime-canvas border border-slate-100 rounded-lg flex items-center justify-center text-[10px] font-black text-prime-teal-green shadow-sm">
-                        {char}
-                      </span>
-                    ))}
+                    {masteredCharacters.length > 0 ? (
+                      masteredCharacters.slice(-6).map((char, i) => (
+                        <span key={i} className="w-6 h-6 bg-prime-canvas border border-slate-100 rounded-lg flex items-center justify-center text-[10px] font-black text-prime-teal-green shadow-sm">
+                          {char}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-[9px] font-bold text-slate-300 italic">No letters yet</span>
+                    )}
                     {masteredCharacters.length > 6 && <span className="text-[10px] font-black text-slate-300 flex items-center">+</span>}
                   </div>
                 </div>
                 <span className={`px-4 py-1.5 rounded-pill text-[10px] font-black uppercase tracking-widest text-white shadow-sm
                   ${sessionMode === 'revision' ? 'bg-prime-periwinkle' : 'bg-prime-teal-green'}`}>
-                  {sessionMode === 'revision' ? 'Daily Practice' : 'Active Lesson'}
+                  {sessionMode === 'revision' ? `Daily Practice: Cycle ${currentCycle}` : `Active Lesson: ${currentLesson}`}
                 </span>
               </div>
             </div>

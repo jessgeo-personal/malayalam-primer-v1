@@ -116,9 +116,17 @@
 - [x] **Conditional Rendering Tests**: Vitest component tests verify dock visibility across different modes verified.
 
 ## 🎧 Phase 15: Sound Match Ergonomics
-- [x] **Feedback Button Relocation**: CONTINUE/RETRY button moved to the top header of the results box verified (No-Scroll UX).
+- [x] **Feedback Button Relocation**: CONTINUE/RETRY button moved to the top header of the results box verified.
 - [x] **Compact Layout**: Results box reduced in height to ensure all content fits "above the fold" on tablets verified.
 - [x] **TDD Validation**: New SoundMatcher.test.jsx unit tests verify interaction and button labels verified.
+
+## 🧩 Phase 16: Word Assembly Ergonomics & DND
+- [x] **Side-by-Side Layout**: Assembly area (left) and Reference info (right) layout implemented verified (No-Scroll UX).
+- [x] **Pointer-Only Snapping**: `pointerWithin` collision detection prevents accidental snaps on simple taps verified.
+- [x] **Draggable Placed Tiles**: Tiles inside boxes remain draggable for easy mistake correction verified.
+- [x] **Return to Pool**: Dragging tiles out of boxes returns them to the pool verified.
+- [x] **Instruction Header**: Compact "Word Assembly" title and punchy instructions added verified.
+- [x] **Clear Labels**: "English meaning:" and "Phonetic:" labels added for better reference verified.
 
 ## 🎓 Phase 11: Curriculum Consolidation
 - [x] **Map Pacing**: Cycle 1 consolidated from 14 to 9 lessons for better content density verified.

@@ -7,23 +7,24 @@ import {
   MouseSensor, 
   useSensor, 
   useSensors,
-  closestCenter
+  pointerWithin
 } from '@dnd-kit/core';
 import { audioEngine } from '../../utils/audioEngine';
 
 /**
- * LetterPicker Mini-game
- * UI: Neo-Bento Minimalism. Clean crisp tiles and smooth arcade interaction.
+ * Word Assembly Mini-game
+ * UI: Side-by-side tablet layout with high-contrast feedback and clear instructions.
  */
 
-function DraggableLetter({ id, char }) {
+function DraggableLetter({ id, char, isPlaced = false }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: id,
+    data: { char, isPlaced }
   });
   
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-    zIndex: isDragging ? 100 : 1,
+    zIndex: 100,
     opacity: isDragging ? 0.3 : 1,
   } : {
     zIndex: 1
@@ -41,47 +42,51 @@ function DraggableLetter({ id, char }) {
       style={style}
       {...listeners}
       {...attributes}
-      className="relative group shrink-0"
+      className={`relative group shrink-0 ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
     >
-      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-prime-action-dark text-white text-3xl font-black rounded-2xl shadow-lg border-b-4 border-slate-700 active:translate-y-1 active:border-b-0 transition-all flex items-center justify-center cursor-grab active:cursor-grabbing">
+      <div className={`w-14 h-14 sm:w-16 sm:h-16 text-2xl font-black rounded-2xl transition-all flex items-center justify-center shadow-lg
+        ${isPlaced ? 'bg-white text-prime-action-dark border-2 border-slate-100' : 'bg-prime-action-dark text-white border-b-4 border-slate-700 active:translate-y-0.5 active:border-b-0'}`}>
         {char}
       </div>
       
-      {/* Audio Button - Sleek */}
-      <button
-        onPointerDown={playSound}
-        onMouseDown={playSound}
-        className="absolute -top-2 -right-2 w-8 h-8 bg-prime-warm-base text-prime-action-dark border border-white/20 rounded-full flex items-center justify-center text-xs shadow-lg hover:scale-110 active:scale-90 transition-transform pointer-events-auto z-20"
-      >
-        🔊
-      </button>
+      {!isPlaced && (
+        <button
+          onPointerDown={playSound}
+          onMouseDown={playSound}
+          className="absolute -top-2 -right-2 w-7 h-7 bg-prime-warm-base text-prime-action-dark border border-white/20 rounded-full flex items-center justify-center text-[10px] shadow-lg hover:scale-110 active:scale-90 transition-transform pointer-events-auto z-20"
+        >
+          🔊
+        </button>
+      )}
     </div>
   );
 }
 
-function DroppableSlot({ id, expectedChar, actualChar }) {
+function DroppableSlot({ id, expectedChar, actualCharObj }) {
   const { setNodeRef, isOver } = useDroppable({
     id: id,
   });
 
-  const isFilled = !!actualChar;
-  const isCorrect = isFilled && actualChar === expectedChar;
+  const isFilled = !!actualCharObj;
+  const isCorrect = isFilled && actualCharObj.value === expectedChar;
 
   return (
     <div
       ref={setNodeRef}
       className={`w-16 h-16 sm:w-20 sm:h-20 border-2 border-dashed rounded-2xl flex items-center justify-center text-3xl font-black transition-all
-        ${isOver ? 'bg-prime-coral-pink/20 border-prime-coral-pink scale-105' : 'border-slate-400 bg-prime-canvas/50'}
-        ${isFilled ? (isCorrect ? 'bg-prime-teal-green/10 border-prime-teal-green text-prime-teal-green shadow-inner' : 'bg-prime-error/10 border-prime-error text-prime-error shadow-inner') : 'text-transparent'}`}
+        ${isOver ? 'bg-prime-coral-pink/10 border-prime-coral-pink scale-105' : 'border-slate-400 bg-prime-canvas/50 shadow-inner'}
+        ${isFilled && !isOver ? (isCorrect ? 'bg-prime-teal-green/5 border-prime-teal-green' : 'bg-prime-error/5 border-prime-error') : ''}`}
     >
-      {actualChar || '0'}
+      {isFilled ? (
+        <DraggableLetter id={actualCharObj.id} char={actualCharObj.value} isPlaced={true} />
+      ) : null}
     </div>
   );
 }
 
 export default function LetterPicker({ word, onComplete }) {
-  const [shuffledLetters, setShuffledLetters] = useState([]);
-  const [placedLetters, setPlacedLetters] = useState([]);
+  const [pool, setPool] = useState([]); // Tiles available to drag
+  const [slots, setSlots] = useState([]); // Tiles placed in boxes
   const [startTime, setStartTime] = useState(Date.now());
   const [feedback, setFeedback] = useState(null);
 
@@ -89,7 +94,7 @@ export default function LetterPicker({ word, onComplete }) {
     useSensor(MouseSensor),
     useSensor(TouchSensor, {
       activationConstraint: {
-        delay: 100,
+        delay: 50,
         tolerance: 5,
       },
     })
@@ -98,12 +103,14 @@ export default function LetterPicker({ word, onComplete }) {
   useEffect(() => {
     if (!word.requiredCharacters || word.requiredCharacters.length === 0) return;
     
-    const shuffled = [...word.requiredCharacters]
-      .map((value, index) => ({ value, id: `bit-${index}-${Math.random()}` }))
-      .sort(() => Math.random() - 0.5);
+    // Initialize pool with unique IDs
+    const initialPool = word.requiredCharacters.map((char, index) => ({
+      value: char,
+      id: `tile-${index}-${Math.random().toString(36).substr(2, 9)}`
+    })).sort(() => Math.random() - 0.5);
     
-    setShuffledLetters(shuffled);
-    setPlacedLetters(Array(word.requiredCharacters.length).fill(null));
+    setPool(initialPool);
+    setSlots(Array(word.requiredCharacters.length).fill(null));
     setFeedback(null);
     setStartTime(Date.now());
   }, [word]);
@@ -112,8 +119,8 @@ export default function LetterPicker({ word, onComplete }) {
     return (
       <div className="flex flex-col items-center gap-6 text-center p-8 bg-prime-warm-base rounded-bento">
         <div className="text-6xl animate-bounce-slow">📦</div>
-        <h3 className="text-xl font-black text-prime-dark-text uppercase tracking-tight">Cargo Unspecified</h3>
-        <p className="text-slate-500 font-medium text-sm">Please update the manifest for "{word.englishTranslation}".</p>
+        <h3 className="text-xl font-black text-prime-dark-text uppercase tracking-tight">Data Missing</h3>
+        <p className="text-slate-500 font-medium text-sm">Please update splits for "{word.englishTranslation}".</p>
       </div>
     );
   }
@@ -122,98 +129,157 @@ export default function LetterPicker({ word, onComplete }) {
     const { active, over } = event;
     if (feedback) return;
 
+    const tileId = active.id;
+    const isFromPlaced = active.data.current?.isPlaced;
+    const charValue = active.data.current?.char;
+
+    // 1. Dropped into a Slot
     if (over && over.id.startsWith('slot-')) {
       const slotIndex = parseInt(over.id.split('-')[1]);
-      const letterObj = shuffledLetters.find(l => l.id === active.id);
       
-      const newPlaced = [...placedLetters];
-      newPlaced[slotIndex] = letterObj.value;
-      setPlacedLetters(newPlaced);
+      // Prevent dropping into an already occupied slot unless it's the same tile
+      if (slots[slotIndex] && slots[slotIndex].id !== tileId) return;
 
-      if (newPlaced.every(l => l !== null)) {
-        const isCorrect = newPlaced.join('') === word.malayalamText;
+      const newSlots = [...slots];
+      
+      // If moving from another slot, clear the old one
+      if (isFromPlaced) {
+        const oldSlotIndex = slots.findIndex(s => s?.id === tileId);
+        if (oldSlotIndex !== -1) newSlots[oldSlotIndex] = null;
+      } else {
+        // If from pool, remove from pool
+        setPool(prev => prev.filter(t => t.id !== tileId));
+      }
+
+      newSlots[slotIndex] = { id: tileId, value: charValue };
+      setSlots(newSlots);
+
+      // Check Completion
+      if (newSlots.every(s => s !== null)) {
+        const attempt = newSlots.map(s => s.value).join('');
+        const isCorrect = attempt === word.malayalamText;
         setFeedback({ 
           isCorrect, 
           time: Date.now() - startTime,
-          attempt: newPlaced.join('')
+          attempt
         });
+      }
+    } 
+    // 2. Dropped outside (return to pool if it was placed)
+    else if (isFromPlaced) {
+      const oldSlotIndex = slots.findIndex(s => s?.id === tileId);
+      if (oldSlotIndex !== -1) {
+        const newSlots = [...slots];
+        newSlots[oldSlotIndex] = null;
+        setSlots(newSlots);
+        setPool(prev => [...prev, { id: tileId, value: charValue }]);
       }
     }
   };
 
+  const clearAll = () => {
+    // Return everything to pool
+    const placed = slots.filter(s => s !== null);
+    setPool(prev => [...prev, ...placed].sort(() => Math.random() - 0.5));
+    setSlots(Array(word.requiredCharacters.length).fill(null));
+    setFeedback(null);
+  };
+
   return (
-    <div className="flex flex-col items-center gap-12 w-full animate-pop">
+    <div className="flex flex-col items-center gap-8 w-full max-w-5xl animate-pop">
       
-      <div className="text-center">
-        <h2 className="text-4xl font-black text-prime-dark-text tracking-tighter uppercase italic mb-1">
-          {word.englishTranslation}
-        </h2>
-        <p className="text-xl font-extrabold text-prime-coral-pink uppercase tracking-[0.4em] leading-none opacity-80">
-          {word.phonetic}
-        </p>
+      {/* Title & Instructions */}
+      <div className="w-full flex flex-col items-center text-center">
+        <h2 className="text-4xl font-black text-prime-dark-text tracking-tight uppercase italic mb-2">Word Assembly</h2>
+        <div className="bg-prime-action-dark/5 border border-prime-action-dark/10 rounded-2xl px-6 py-2 shadow-sm">
+          <p className="text-[11px] font-black text-prime-action-dark uppercase tracking-widest">
+            Drag the tiles in the correct order to build the word.
+          </p>
+        </div>
       </div>
 
-      <DndContext 
-        sensors={sensors} 
-        collisionDetection={closestCenter} 
-        onDragEnd={handleDragEnd}
-      >
-        <div className="flex flex-wrap justify-center gap-4 p-8 bg-white/50 rounded-bento border border-slate-100 shadow-inner">
-          {word.requiredCharacters.map((char, index) => (
-            <DroppableSlot 
-              key={`slot-${index}`} 
-              id={`slot-${index}`} 
-              expectedChar={char}
-              actualChar={placedLetters[index]}
-            />
-          ))}
-        </div>
+      <div className="flex flex-col md:flex-row items-stretch gap-8 w-full">
+        {/* Left Column: Interactive Assembly */}
+        <DndContext 
+          sensors={sensors} 
+          collisionDetection={pointerWithin} 
+          onDragEnd={handleDragEnd}
+        >
+          <div className="flex-1 flex flex-col gap-8 p-10 bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base relative overflow-hidden min-h-[450px]">
+            
+            {/* Drop Zones */}
+            <div className="flex flex-wrap justify-center gap-4 py-8 border-b border-slate-100">
+              {word.requiredCharacters.map((char, index) => (
+                <DroppableSlot 
+                  key={`slot-${index}`} 
+                  id={`slot-${index}`} 
+                  expectedChar={char}
+                  actualCharObj={slots[index]}
+                />
+              ))}
+            </div>
 
-        <div className="flex flex-wrap justify-center gap-6 min-h-[120px] items-center">
-          {!feedback && shuffledLetters.map((letter) => (
-            !placedLetters.includes(letter.value) && (
-              <DraggableLetter key={letter.id} id={letter.id} char={letter.value} />
-            )
-          ))}
-        </div>
-      </DndContext>
+            {/* Tile Pool */}
+            <div className="flex-1 flex flex-wrap justify-center gap-6 content-center min-h-[160px]">
+              {!feedback && pool.map((tile) => (
+                <DraggableLetter key={tile.id} id={tile.id} char={tile.value} />
+              ))}
+            </div>
 
-      {feedback && (
-        <div className={`w-full max-w-md p-8 rounded-bento border-4 animate-pop shadow-xl
-          ${feedback.isCorrect ? 'bg-prime-teal-green/5 border-prime-teal-green/20' : 'bg-prime-error/5 border-prime-error/20'}`}>
-          
-          <div className="flex items-center gap-4 mb-6">
-             <div className="text-5xl">{feedback.isCorrect ? '✅' : '❌'}</div>
-             <div>
-               <h3 className={`text-xl font-black uppercase tracking-tight ${feedback.isCorrect ? 'text-prime-teal-green' : 'text-prime-error'}`}>
-                 {feedback.isCorrect ? 'Correct!' : 'Try Again!'}
-               </h3>
-               <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest">Check the spelling</p>
+            {/* Internal Reset */}
+            {!feedback && (
+              <button 
+                onClick={clearAll}
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] font-black text-slate-300 hover:text-prime-error transition-colors uppercase tracking-widest"
+              >
+                Clear All Tiles
+              </button>
+            )}
+          </div>
+        </DndContext>
+
+        {/* Right Column: Reference Info */}
+        <div className="w-full md:w-80 flex flex-col gap-6">
+          <div className="card-bento-surface flex-1 flex flex-col items-center justify-center p-8 text-center bg-prime-warm-base/30 relative overflow-hidden group">
+             {/* Feedback Overlay */}
+             {feedback && (
+               <div className={`absolute inset-0 z-50 p-6 flex flex-col items-center justify-center text-center animate-fade-in
+                 ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-prime-error'}`}>
+                 <div className="text-6xl mb-4">{feedback.isCorrect ? '✅' : '❌'}</div>
+                 <h3 className="text-2xl font-black text-white uppercase mb-6">
+                   {feedback.isCorrect ? 'Correct!' : 'Try Again!'}
+                 </h3>
+                 <button 
+                    onClick={() => onComplete(feedback.isCorrect, feedback.time)}
+                    className="btn-pill bg-white text-prime-dark-text px-8 py-4 font-black shadow-xl hover:scale-105 active:scale-95 transition-all"
+                  >
+                    {feedback.isCorrect ? 'CONTINUE ➜' : 'RETRY ➜'}
+                  </button>
+               </div>
+             )}
+
+             <div className="w-full mb-8">
+               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">English meaning:</span>
+               <div className="text-3xl font-black text-prime-dark-text italic leading-tight">{word.englishTranslation}</div>
+             </div>
+
+             <div className="w-full">
+               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Phonetic:</span>
+               <div className="text-xl font-bold text-prime-coral-pink uppercase tracking-[0.2em]">{word.phonetic}</div>
              </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-inner border border-slate-50 mb-8 text-center">
-            <div className="text-5xl font-black text-prime-dark-text tracking-tighter mb-2 italic uppercase">{word.malayalamText}</div>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{word.phonetic}</p>
+          {/* Progress Indicator */}
+          <div className="card-bento-surface py-6 px-8 flex justify-between items-center bg-white border border-slate-100">
+            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Accuracy Check</span>
+            <div className="flex gap-1">
+               {slots.map((s, i) => (
+                 <div key={i} className={`w-2 h-2 rounded-full ${s ? 'bg-prime-teal-green' : 'bg-slate-100'}`} />
+               ))}
+            </div>
           </div>
-
-          <button 
-            onClick={() => onComplete(feedback.isCorrect, feedback.time)}
-            className={`btn-pill w-full justify-center py-4 text-xl ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-prime-action-dark'}`}
-          >
-            {feedback.isCorrect ? 'CONTINUE ➜' : 'RETRY ➜'}
-          </button>
         </div>
-      )}
-
-      {!feedback && (
-        <button 
-          onClick={() => setPlacedLetters(Array(word.requiredCharacters.length).fill(null))}
-          className="btn-pill bg-white border border-slate-200 text-slate-300 py-1.5 px-4 text-[10px]"
-        >
-          CLEAR TILES
-        </button>
-      )}
+      </div>
     </div>
   );
 }

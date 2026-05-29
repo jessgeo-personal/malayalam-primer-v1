@@ -1,5 +1,15 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.019] - 2026-05-28
+### Changed
+- **Word Assembly Refactor:** Rebranded "Letter Picker" to "Word Assembly" with a side-by-side tablet layout to eliminate scrolling.
+- **Instructional Focus:** Added a compact instruction header: "Drag the tiles in the correct order to build the word."
+- **Improved Reference Info:** Added explicit "English meaning:" and "Phonetic:" labels in a dedicated reference column.
+- **DND UX Overhaul:** 
+    - Switched to `pointerWithin` collision detection to prevent accidental snaps on simple taps.
+    - Implemented draggable placed tiles, allowing users to move tiles between boxes or back to the pool for mistake correction.
+    - Enabled automatic "slide back" for tiles dropped outside valid boxes.
+
 ## [2026.05.28.018] - 2026-05-28
 ### Changed
 - **Sound Match UX Refactor:** Relocated the "CONTINUE/RETRY" button to the top header of the feedback box to eliminate scrolling.

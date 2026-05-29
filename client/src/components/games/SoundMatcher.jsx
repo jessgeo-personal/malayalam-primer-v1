@@ -63,28 +63,33 @@ export default function SoundMatcher({ word, onComplete }) {
       {feedback && (
         <div className={`w-full max-w-md p-8 rounded-bento border-4 animate-pop shadow-2xl mt-4
           ${feedback.isCorrect ? 'bg-prime-teal-green/5 border-prime-teal-green/20' : 'bg-prime-error/5 border-prime-error/20'}`}>
-          
-          <div className="flex items-center gap-4 mb-6">
-             <div className="text-5xl">{feedback.isCorrect ? '✅' : '❌'}</div>
-             <h3 className={`text-xl font-black uppercase tracking-widest ${feedback.isCorrect ? 'text-prime-teal-green' : 'text-prime-error'}`}>
-               {feedback.isCorrect ? 'Correct!' : 'Not Quite!'}
-             </h3>
+
+          <div className="flex items-center justify-between gap-4 mb-8">
+             <div className="flex items-center gap-4">
+               <div className="text-5xl">{feedback.isCorrect ? '✅' : '❌'}</div>
+               <h3 className={`text-xl font-black uppercase tracking-widest ${feedback.isCorrect ? 'text-prime-teal-green' : 'text-prime-error'}`}>
+                 {feedback.isCorrect ? 'Correct!' : 'Not Quite!'}
+               </h3>
+             </div>
+
+             <button 
+               onClick={() => onComplete(feedback.isCorrect, feedback.time)}
+               className={`btn-pill px-6 py-3 text-sm font-black shadow-lg ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-prime-action-dark'}`}
+             >
+               {feedback.isCorrect ? 'CONTINUE ➜' : 'RETRY ➜'}
+             </button>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl shadow-inner border border-slate-50 mb-8 text-center font-sans">
+          <div className="bg-white p-6 rounded-2xl shadow-inner border border-slate-50 text-center font-sans">
             <p className="text-2xl font-black text-prime-dark-text tracking-tight uppercase italic">
-              {word.malayalamText} <span className="text-slate-300 mx-2">==</span> "{word.phonetic}"
+               {word.malayalamText}
+               <span className="text-slate-300 mx-2">==</span> 
+               "{word.phonetic}"
             </p>
           </div>
-
-          <button 
-            onClick={() => onComplete(feedback.isCorrect, feedback.time)}
-            className={`btn-pill w-full justify-center py-4 text-xl ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-prime-action-dark'}`}
-          >
-            CONTINUE ➜
-          </button>
         </div>
       )}
+
     </div>
   );
 }

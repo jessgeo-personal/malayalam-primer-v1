@@ -115,6 +115,11 @@
 - [x] **Consistent Exit UX**: EXIT and Home actions consolidated into a clean dark-capsule grouping verified.
 - [x] **Conditional Rendering Tests**: Vitest component tests verify dock visibility across different modes verified.
 
+## 🎧 Phase 15: Sound Match Ergonomics
+- [x] **Feedback Button Relocation**: CONTINUE/RETRY button moved to the top header of the results box verified (No-Scroll UX).
+- [x] **Compact Layout**: Results box reduced in height to ensure all content fits "above the fold" on tablets verified.
+- [x] **TDD Validation**: New SoundMatcher.test.jsx unit tests verify interaction and button labels verified.
+
 ## 🎓 Phase 11: Curriculum Consolidation
 - [x] **Map Pacing**: Cycle 1 consolidated from 14 to 9 lessons for better content density verified.
 - [x] **Character Coverage**: Added 5 missing characters (ൽ, ൂ, സ, ഷ, ഭ) with trace/match support verified.

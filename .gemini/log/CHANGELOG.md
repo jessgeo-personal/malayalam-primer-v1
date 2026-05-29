@@ -1,5 +1,10 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.28.018] - 2026-05-28
+### Changed
+- **Sound Match UX Refactor:** Relocated the "CONTINUE/RETRY" button to the top header of the feedback box to eliminate scrolling.
+- **TDD Enhancement:** Added `SoundMatcher.test.jsx` to the client test suite to ensure robust feedback interaction.
+
 ## [2026.05.28.017] - 2026-05-28
 ### Changed
 - **Nav Dock Relocation:** Moved the global bottom navigation dock (Home, Restart, Status) into the top header of the active lesson card to prevent visual obstruction on tablets.

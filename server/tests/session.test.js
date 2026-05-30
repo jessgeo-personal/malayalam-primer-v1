@@ -61,18 +61,15 @@ describe('Session & Graduation Logic', () => {
     expect(payload.length).toBe(2);
   });
 
-  test('generateLessonPayload should return up to 8 items and group tracing first', async () => {
+  test('generateLessonPayload should group concept first, then tracing, then others', async () => {
     const userId = 'user123';
     
     const mockData = [
       { wordId: 'w1', lessonType: 'build', toObject: () => ({ wordId: 'w1', lessonType: 'build' }) },
       { wordId: 'w2', lessonType: 'trace', toObject: () => ({ wordId: 'w2', lessonType: 'trace' }) },
+      { wordId: 'c1', lessonType: 'concept', toObject: () => ({ wordId: 'c1', lessonType: 'concept' }) },
       { wordId: 'w3', lessonType: 'build', toObject: () => ({ wordId: 'w3', lessonType: 'build' }) },
-      { wordId: 'w4', lessonType: 'trace', toObject: () => ({ wordId: 'w4', lessonType: 'trace' }) },
-      { wordId: 'w5', lessonType: 'build', toObject: () => ({ wordId: 'w5', lessonType: 'build' }) },
-      { wordId: 'w6', lessonType: 'build', toObject: () => ({ wordId: 'w6', lessonType: 'build' }) },
-      { wordId: 'w7', lessonType: 'build', toObject: () => ({ wordId: 'w7', lessonType: 'build' }) },
-      { wordId: 'w8', lessonType: 'build', toObject: () => ({ wordId: 'w8', lessonType: 'build' }) }
+      { wordId: 'w4', lessonType: 'trace', toObject: () => ({ wordId: 'w4', lessonType: 'trace' }) }
     ];
 
     Word.find.mockReturnValue({
@@ -81,12 +78,13 @@ describe('Session & Graduation Logic', () => {
 
     const bundle = await srsEngine.generateLessonPayload(userId, 1);
     
-    expect(bundle.length).toBe(8);
+    expect(bundle.length).toBe(5);
     expect(Word.find).toHaveBeenCalledWith({ lessonId: 1 });
 
-    // Verify ordering: Trace items MUST come first
-    expect(bundle[0].lessonType).toBe('trace');
+    // Verify ordering: Concept MUST come first, then trace
+    expect(bundle[0].lessonType).toBe('concept');
     expect(bundle[1].lessonType).toBe('trace');
-    expect(bundle[2].lessonType).not.toBe('trace');
+    expect(bundle[2].lessonType).toBe('trace');
+    expect(bundle[3].lessonType).toBe('build');
   });
 });

@@ -1,5 +1,11 @@
 # Unified Regression Test Checklist
 
+## 🛠️ Phase 2: The Grammar Factory (Milestone 2.2)
+- [x] **Data Expansion:** Cycle 2 expanded to ensure every lesson (10-14) contains at least 10 words verified (Volume Constraint).
+- [x] **ConceptScreen Component:** Automated UI animation built to visually explain rules before gameplay verified (Visual Consistency).
+- [x] **Game Loop Integration:** App.jsx routes `concept` items correctly to the new instructional screen verified (Functional Adherence).
+- [x] **Concept Payload Routing:** Backend accurately sorts `lessonType: 'concept'` items to the very front of the lesson bundle verified (Accuracy).
+
 ## 🛠️ Phase 2: The Grammar Factory (Milestone 2.1)
 - [x] **Full Data Normalization:** Database purged and re-ingested with strictly non-overlapping Cycle/Lesson boundaries verified (Accuracy).
 - [x] **Curriculum Integrity Test:** Automated test verifies lesson ranges per cycle to prevent future desync verified (TDD Mandate).

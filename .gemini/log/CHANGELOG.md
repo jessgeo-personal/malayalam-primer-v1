@@ -1,5 +1,14 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.29.002] - 2026-05-29
+### Added
+- **Milestone 2.2: Concept Screens & Grammar Expansion:** Added explicit visual instruction pages and massively expanded Cycle 2 vocabulary.
+- **ConceptScreen Component:** A dedicated instructional screen that precedes gameplay, featuring automated CSS animations to visually demonstrate Sandhi transformations (e.g. `വീട്` + `ുകൾ` -> `വീടുകൾ`).
+- **Suffix-Led Sandhi:** Refactored pedagogical data so suffix tiles carry the mathra (e.g. `ുകൾ`) and the base word sheds its terminal modifier (e.g. `വീട`), teaching causality.
+- **Vocabulary Expansion:** Added 40+ new suffix puzzles across Lessons 10-14, ensuring a minimum of 10 playable words per lesson.
+- **New Grammar Rules Taught:** Anunaasika Sandhi (`ങ്ങൾ`), Kinship (`മാർ`), and Locative Case (`ിൽ`/`ത്തിൽ`).
+- **TDD Capacity Guardrails:** Added a `Database Capacity Integrity` test to guarantee no curriculum lesson ever ships with fewer than 10 words.
+
 ## [2026.05.29.001] - 2026-05-29
 ### Fixed
 - **Curriculum Alignment:** Performed a full database purge and re-normalization to strictly align `lessonId` ranges with `unlockCycle` boundaries (Cycle 1: 1-9, Cycle 2: 10-15, etc.).

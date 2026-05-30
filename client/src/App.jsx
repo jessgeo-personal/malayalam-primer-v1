@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProgress } from './context';
-import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper } from './components/games';
+import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen } from './components/games';
 import { MasteryStrip, AdventureMap } from './components/ui';
 import { APP_VERSION } from './config/version';
 import './App.css';
@@ -222,7 +222,9 @@ const App = () => {
 
             <div className="w-full flex flex-col items-center mt-12">
               {currentItem ? (
-                currentItem.lessonType === 'trace' ? (
+                currentItem.lessonType === 'concept' ? (
+                  <ConceptScreen word={currentItem} onComplete={updateProgress} />
+                ) : currentItem.lessonType === 'trace' ? (
                   <TracingCanvas word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'match' ? (
                   <SoundMatcher word={currentItem} onComplete={updateProgress} />

@@ -47,4 +47,28 @@ describe('Database Curriculum Integrity', () => {
     
     expect(invalidWords.length).toBe(0);
   });
+
+  test('Database Capacity Integrity: Cycle 2 Grammar Lessons must have >= 10 items', () => {
+    const fs = require('fs');
+    const path = require('path');
+    
+    const seed200Path = path.join(__dirname, '../data/seed-200.json');
+    const data = JSON.parse(fs.readFileSync(seed200Path, 'utf8'));
+    
+    // Group items by lessonId
+    const lessonCounts = {};
+    data.forEach(item => {
+      if (item.lessonId) {
+        lessonCounts[item.lessonId] = (lessonCounts[item.lessonId] || 0) + 1;
+      }
+    });
+
+    // We expect lessons 10, 11, 12, 13, 14 to exist and have >= 10 items
+    const requiredLessons = [10, 11, 12, 13, 14];
+    
+    requiredLessons.forEach(lessonId => {
+      const count = lessonCounts[lessonId] || 0;
+      expect(count).toBeGreaterThanOrEqual(10);
+    });
+  });
 });

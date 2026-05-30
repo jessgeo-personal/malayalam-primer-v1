@@ -1,5 +1,18 @@
 [
   {
+    "wordId": "c010",
+    "malayalamText": "Making Plurals",
+    "englishTranslation": "To say 'more than one', drop the tail and add ുകൾ (ukal).",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 10,
+    "lessonType": "concept",
+    "baseWord": "വീട്",
+    "morphedBase": "വീടുകൾ",
+    "targetSuffix": "ുകൾ",
+    "prerequisites": []
+  },
+  {
     "wordId": "s001",
     "malayalamText": "വീടുകൾ",
     "englishTranslation": "Houses",
@@ -16,28 +29,91 @@
       "ിൽ"
     ],
     "prerequisites": [
-      "w091"
+      "c010"
     ]
   },
   {
     "wordId": "s002",
-    "malayalamText": "ആനകൾ",
-    "englishTranslation": "Elephants",
-    "phonetic": "aanakal",
+    "malayalamText": "കാടുകൾ",
+    "englishTranslation": "Forests",
+    "phonetic": "kaadukal",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 10,
     "lessonType": "suffix",
-    "baseWord": "ആന",
-    "targetSuffix": "കൾ",
+    "baseWord": "കാട്",
+    "morphedBase": "കാട",
+    "targetSuffix": "ുകൾ",
     "distractorSuffixes": [
       "മാർ",
-      "ൽ"
+      "ിൽ"
     ],
-    "prerequisites": []
+    "prerequisites": [
+      "c010"
+    ]
   },
   {
     "wordId": "s003",
+    "malayalamText": "ആടുകൾ",
+    "englishTranslation": "Goats",
+    "phonetic": "aadukal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 10,
+    "lessonType": "suffix",
+    "baseWord": "ആട്",
+    "morphedBase": "ആട",
+    "targetSuffix": "ുകൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c010"
+    ]
+  },
+  {
+    "wordId": "s004",
+    "malayalamText": "പല്ലുകൾ",
+    "englishTranslation": "Teeth",
+    "phonetic": "pallukal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 10,
+    "lessonType": "suffix",
+    "baseWord": "പല്ല്",
+    "morphedBase": "പല്ല",
+    "targetSuffix": "ുകൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c010"
+    ]
+  },
+  {
+    "wordId": "s005",
+    "malayalamText": "കല്ലുകൾ",
+    "englishTranslation": "Stones",
+    "phonetic": "kallukal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 10,
+    "lessonType": "suffix",
+    "baseWord": "കല്ല്",
+    "morphedBase": "കല്ല",
+    "targetSuffix": "ുകൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c010"
+    ]
+  },
+  {
+    "wordId": "s006",
     "malayalamText": "വലകൾ",
     "englishTranslation": "Nets",
     "phonetic": "valakal",
@@ -46,88 +122,444 @@
     "lessonId": 10,
     "lessonType": "suffix",
     "baseWord": "വല",
+    "morphedBase": "വല",
     "targetSuffix": "കൾ",
     "distractorSuffixes": [
       "മാർ",
-      "ൽ"
+      "ിൽ"
     ],
+    "prerequisites": [
+      "c010"
+    ]
+  },
+  {
+    "wordId": "s007",
+    "malayalamText": "തലകൾ",
+    "englishTranslation": "Heads",
+    "phonetic": "thalakal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 10,
+    "lessonType": "suffix",
+    "baseWord": "തല",
+    "morphedBase": "തല",
+    "targetSuffix": "കൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c010"
+    ]
+  },
+  {
+    "wordId": "s008",
+    "malayalamText": "പൂച്ചകൾ",
+    "englishTranslation": "Cats",
+    "phonetic": "poochakal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 10,
+    "lessonType": "suffix",
+    "baseWord": "പൂച്ച",
+    "morphedBase": "പൂച്ച",
+    "targetSuffix": "കൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c010"
+    ]
+  },
+  {
+    "wordId": "s009",
+    "malayalamText": "ആനകൾ",
+    "englishTranslation": "Elephants",
+    "phonetic": "aanakal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 10,
+    "lessonType": "suffix",
+    "baseWord": "ആന",
+    "morphedBase": "ആന",
+    "targetSuffix": "കൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c010"
+    ]
+  },
+  {
+    "wordId": "c011",
+    "malayalamText": "The 'ngal' Sound",
+    "englishTranslation": "When a word ends in a circle (ം), change it to ങ്ങൾ (ngal).",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "concept",
+    "baseWord": "മരം",
+    "morphedBase": "മരങ്ങൾ",
+    "targetSuffix": "ങ്ങൾ",
     "prerequisites": []
   },
   {
-    "wordId": "s004",
+    "wordId": "s010",
+    "malayalamText": "മരങ്ങൾ",
+    "englishTranslation": "Trees",
+    "phonetic": "marangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "മരം",
+    "morphedBase": "മര",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s011",
+    "malayalamText": "നിറങ്ങൾ",
+    "englishTranslation": "Colors",
+    "phonetic": "nirangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "നിറം",
+    "morphedBase": "നിറ",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s012",
+    "malayalamText": "മുഖങ്ങൾ",
+    "englishTranslation": "Faces",
+    "phonetic": "mukhangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "മുഖം",
+    "morphedBase": "മുഖ",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s013",
+    "malayalamText": "പുസ്തകങ്ങൾ",
+    "englishTranslation": "Books",
+    "phonetic": "pusthakangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "പുസ്തകം",
+    "morphedBase": "പുസ്തക",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s014",
+    "malayalamText": "ആകാശങ്ങൾ",
+    "englishTranslation": "Skies",
+    "phonetic": "aakaashangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "ആകാശം",
+    "morphedBase": "ആകാശ",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s015",
+    "malayalamText": "ചിത്രങ്ങൾ",
+    "englishTranslation": "Pictures",
+    "phonetic": "chithrangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "ചിത്രം",
+    "morphedBase": "ചിത്ര",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s016",
+    "malayalamText": "പഴങ്ങൾ",
+    "englishTranslation": "Fruits",
+    "phonetic": "pazhangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "പഴം",
+    "morphedBase": "പഴ",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s017",
+    "malayalamText": "വസ്ത്രങ്ങൾ",
+    "englishTranslation": "Clothes",
+    "phonetic": "vasthrangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "വസ്ത്രം",
+    "morphedBase": "വസ്ത്ര",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "s018",
+    "malayalamText": "മരങ്ങൾ",
+    "englishTranslation": "Trees (Review)",
+    "phonetic": "marangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 11,
+    "lessonType": "suffix",
+    "baseWord": "മരം",
+    "morphedBase": "മര",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c011"
+    ]
+  },
+  {
+    "wordId": "c012",
+    "malayalamText": "People and Respect",
+    "englishTranslation": "To talk about people respectfully, we use -മാർ (maar).",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 12,
+    "lessonType": "concept",
+    "baseWord": "അമ്മ",
+    "morphedBase": "അമ്മമാർ",
+    "targetSuffix": "മാർ",
+    "prerequisites": []
+  },
+  {
+    "wordId": "s019",
     "malayalamText": "അമ്മമാർ",
     "englishTranslation": "Mothers",
     "phonetic": "ammamaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 12,
     "lessonType": "suffix",
     "baseWord": "അമ്മ",
+    "morphedBase": "അമ്മ",
     "targetSuffix": "മാർ",
     "distractorSuffixes": [
       "കൾ",
-      "ൽ"
+      "ങ്ങൾ"
     ],
     "prerequisites": [
-      "w086"
+      "c012"
     ]
   },
   {
-    "wordId": "s005",
+    "wordId": "s020",
+    "malayalamText": "ഭാര്യമാർ",
+    "englishTranslation": "Wives",
+    "phonetic": "bhaaryamaar",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 12,
+    "lessonType": "suffix",
+    "baseWord": "ഭാര്യ",
+    "morphedBase": "ഭാര്യ",
+    "targetSuffix": "മാർ",
+    "distractorSuffixes": [
+      "കൾ",
+      "ങ്ങൾ"
+    ],
+    "prerequisites": [
+      "c012"
+    ]
+  },
+  {
+    "wordId": "s021",
+    "malayalamText": "അമ്മായിമാർ",
+    "englishTranslation": "Aunts",
+    "phonetic": "ammaayimaar",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 12,
+    "lessonType": "suffix",
+    "baseWord": "അമ്മായി",
+    "morphedBase": "അമ്മായി",
+    "targetSuffix": "മാർ",
+    "distractorSuffixes": [
+      "കൾ",
+      "ങ്ങൾ"
+    ],
+    "prerequisites": [
+      "c012"
+    ]
+  },
+  {
+    "wordId": "s022",
     "malayalamText": "അച്ഛന്മാർ",
     "englishTranslation": "Fathers",
     "phonetic": "achanmaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 12,
     "lessonType": "suffix",
     "baseWord": "അച്ഛൻ",
+    "morphedBase": "അച്ഛൻ",
     "targetSuffix": "മാർ",
     "distractorSuffixes": [
       "കൾ",
-      "ൽ"
+      "ങ്ങൾ"
     ],
     "prerequisites": [
-      "w087"
+      "c012"
     ]
   },
   {
-    "wordId": "s006",
-    "malayalamText": "ഗുരുനാഥന്മാർ",
-    "englishTranslation": "Teachers (Male)",
-    "phonetic": "gurunaathanmaar",
-    "bucketId": 1,
-    "unlockCycle": 2,
-    "lessonId": 11,
-    "lessonType": "suffix",
-    "baseWord": "ഗുരുനാഥൻ",
-    "targetSuffix": "മാർ",
-    "distractorSuffixes": [
-      "കൾ",
-      "ൽ"
-    ],
-    "prerequisites": []
-  },
-  {
-    "wordId": "s007",
-    "malayalamText": "ആനകൾ",
-    "englishTranslation": "Elephants (Review)",
-    "phonetic": "aanakal",
+    "wordId": "s023",
+    "malayalamText": "മാമന്മാർ",
+    "englishTranslation": "Uncles",
+    "phonetic": "maamanmaar",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 12,
     "lessonType": "suffix",
-    "baseWord": "ആന",
-    "targetSuffix": "കൾ",
+    "baseWord": "മാമൻ",
+    "morphedBase": "മാമൻ",
+    "targetSuffix": "മാർ",
     "distractorSuffixes": [
-      "മാർ"
+      "കൾ",
+      "ങ്ങൾ"
     ],
     "prerequisites": [
-      "s002"
+      "c012"
     ]
   },
   {
-    "wordId": "s008",
+    "wordId": "s024",
+    "malayalamText": "കുട്ടികൾ",
+    "englishTranslation": "Children",
+    "phonetic": "kuttikal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 12,
+    "lessonType": "suffix",
+    "baseWord": "കുട്ടി",
+    "morphedBase": "കുട്ടി",
+    "targetSuffix": "കൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ"
+    ],
+    "prerequisites": [
+      "c012"
+    ]
+  },
+  {
+    "wordId": "s025",
+    "malayalamText": "പെൺകുട്ടികൾ",
+    "englishTranslation": "Girls",
+    "phonetic": "penkuttikal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 12,
+    "lessonType": "suffix",
+    "baseWord": "പെൺകുട്ടി",
+    "morphedBase": "പെൺകുട്ടി",
+    "targetSuffix": "കൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ"
+    ],
+    "prerequisites": [
+      "c012"
+    ]
+  },
+  {
+    "wordId": "s026",
+    "malayalamText": "ആൺകുട്ടികൾ",
+    "englishTranslation": "Boys",
+    "phonetic": "aankuttikal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 12,
+    "lessonType": "suffix",
+    "baseWord": "ആൺകുട്ടി",
+    "morphedBase": "ആൺകുട്ടി",
+    "targetSuffix": "കൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ"
+    ],
+    "prerequisites": [
+      "c012"
+    ]
+  },
+  {
+    "wordId": "s027",
     "malayalamText": "അമ്മമാർ",
     "englishTranslation": "Mothers (Review)",
     "phonetic": "ammamaar",
@@ -136,12 +568,409 @@
     "lessonId": 12,
     "lessonType": "suffix",
     "baseWord": "അമ്മ",
+    "morphedBase": "അമ്മ",
     "targetSuffix": "മാർ",
     "distractorSuffixes": [
+      "കൾ",
+      "ങ്ങൾ"
+    ],
+    "prerequisites": [
+      "c012"
+    ]
+  },
+  {
+    "wordId": "c013",
+    "malayalamText": "Saying 'IN'",
+    "englishTranslation": "To say something is 'in' or 'on' something, we use ിൽ (il). Watch how the tail drops!",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "concept",
+    "baseWord": "കടൽ",
+    "morphedBase": "കടലിൽ",
+    "targetSuffix": "ിൽ",
+    "prerequisites": []
+  },
+  {
+    "wordId": "s028",
+    "malayalamText": "കടലിൽ",
+    "englishTranslation": "In the sea",
+    "phonetic": "kadalil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "കടൽ",
+    "morphedBase": "കടല",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s029",
+    "malayalamText": "കാട്ടിൽ",
+    "englishTranslation": "In the forest",
+    "phonetic": "kaattil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "കാട്",
+    "morphedBase": "കാട്ട",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s030",
+    "malayalamText": "വീട്ടിൽ",
+    "englishTranslation": "In the house",
+    "phonetic": "veettil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "വീട്",
+    "morphedBase": "വീട്ട",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s031",
+    "malayalamText": "മരത്തിൽ",
+    "englishTranslation": "On the tree",
+    "phonetic": "marathil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "മരം",
+    "morphedBase": "മരത്ത",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s032",
+    "malayalamText": "പുസ്തകത്തിൽ",
+    "englishTranslation": "In the book",
+    "phonetic": "pusthakathil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "പുസ്തകം",
+    "morphedBase": "പുസ്തകത്ത",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s033",
+    "malayalamText": "പെട്ടിയിൽ",
+    "englishTranslation": "In the box",
+    "phonetic": "pettiyil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "പെട്ടി",
+    "morphedBase": "പെട്ടി",
+    "targetSuffix": "യിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s034",
+    "malayalamText": "വലയിൽ",
+    "englishTranslation": "In the net",
+    "phonetic": "valayil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "വല",
+    "morphedBase": "വല",
+    "targetSuffix": "യിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s035",
+    "malayalamText": "കയ്യിൽ",
+    "englishTranslation": "In the hand",
+    "phonetic": "kayyil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "കൈ",
+    "morphedBase": "കയ്",
+    "targetSuffix": "യിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "s036",
+    "malayalamText": "കടലിൽ",
+    "englishTranslation": "In the sea (Review)",
+    "phonetic": "kadalil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 13,
+    "lessonType": "suffix",
+    "baseWord": "കടൽ",
+    "morphedBase": "കടല",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "കൾ",
+      "മാർ"
+    ],
+    "prerequisites": [
+      "c013"
+    ]
+  },
+  {
+    "wordId": "c014",
+    "malayalamText": "Grammar Challenge",
+    "englishTranslation": "Can you remember all the rules? Let's test them out!",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "concept",
+    "baseWord": "പഠിക്കാം",
+    "morphedBase": "പഠിക്കാം!",
+    "targetSuffix": "!",
+    "prerequisites": []
+  },
+  {
+    "wordId": "s037",
+    "malayalamText": "വീടുകൾ",
+    "englishTranslation": "Houses",
+    "phonetic": "veedukal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "വീട്",
+    "morphedBase": "വീട",
+    "targetSuffix": "ുകൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s038",
+    "malayalamText": "അമ്മമാർ",
+    "englishTranslation": "Mothers",
+    "phonetic": "ammamaar",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "അമ്മ",
+    "morphedBase": "അമ്മ",
+    "targetSuffix": "മാർ",
+    "distractorSuffixes": [
+      "കൾ",
+      "ങ്ങൾ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s039",
+    "malayalamText": "മരങ്ങൾ",
+    "englishTranslation": "Trees",
+    "phonetic": "marangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "മരം",
+    "morphedBase": "മര",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "കൾ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s040",
+    "malayalamText": "കാട്ടിൽ",
+    "englishTranslation": "In the forest",
+    "phonetic": "kaattil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "കാട്",
+    "morphedBase": "കാട്ട",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ",
       "കൾ"
     ],
     "prerequisites": [
-      "s004"
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s041",
+    "malayalamText": "പൂച്ചകൾ",
+    "englishTranslation": "Cats",
+    "phonetic": "poochakal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "പൂച്ച",
+    "morphedBase": "പൂച്ച",
+    "targetSuffix": "കൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s042",
+    "malayalamText": "മാമന്മാർ",
+    "englishTranslation": "Uncles",
+    "phonetic": "maamanmaar",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "മാമൻ",
+    "morphedBase": "മാമൻ",
+    "targetSuffix": "മാർ",
+    "distractorSuffixes": [
+      "കൾ",
+      "ങ്ങൾ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s043",
+    "malayalamText": "മുഖങ്ങൾ",
+    "englishTranslation": "Faces",
+    "phonetic": "mukhangal",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "മുഖം",
+    "morphedBase": "മുഖ",
+    "targetSuffix": "ങ്ങൾ",
+    "distractorSuffixes": [
+      "മാർ",
+      "കൾ",
+      "ിൽ"
+    ],
+    "prerequisites": [
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s044",
+    "malayalamText": "വീട്ടിൽ",
+    "englishTranslation": "In the house",
+    "phonetic": "veettil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "വീട്",
+    "morphedBase": "വീട്ട",
+    "targetSuffix": "ിൽ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ",
+      "കൾ"
+    ],
+    "prerequisites": [
+      "c014"
+    ]
+  },
+  {
+    "wordId": "s045",
+    "malayalamText": "പെട്ടിയിൽ",
+    "englishTranslation": "In the box",
+    "phonetic": "pettiyil",
+    "bucketId": 1,
+    "unlockCycle": 2,
+    "lessonId": 14,
+    "lessonType": "suffix",
+    "baseWord": "പെട്ടി",
+    "morphedBase": "പെട്ടി",
+    "targetSuffix": "യിൽ",
+    "distractorSuffixes": [
+      "മാർ",
+      "ങ്ങൾ",
+      "കൾ"
+    ],
+    "prerequisites": [
+      "c014"
     ]
   }
 ]

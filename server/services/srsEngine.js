@@ -105,11 +105,12 @@ async function generateLessonPayload(userId, lessonId) {
     });
   }
 
-  // Group by type: Tracing first, then randomized everything else
+  // Group by type: Concept first, then Tracing, then randomized everything else
+  const concepts = payload.filter(p => p.lessonType === 'concept');
   const tracing = payload.filter(p => p.lessonType === 'trace');
-  const others = payload.filter(p => p.lessonType !== 'trace').sort(() => Math.random() - 0.5);
+  const others = payload.filter(p => p.lessonType !== 'concept' && p.lessonType !== 'trace').sort(() => Math.random() - 0.5);
 
-  return [...tracing, ...others];
+  return [...concepts, ...tracing, ...others];
 }
 
 module.exports = {

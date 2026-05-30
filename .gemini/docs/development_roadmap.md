@@ -15,13 +15,15 @@ This document outlines the strategic progression from our current scaffolding to
 - [x] **The "Base" Mini-Game**: Built "Letter Picker" (Drag-and-Drop) with `@dnd-kit`.
 - [x] **SRS Logic**: Implemented 3-tier adaptive scoring (Letter/Word/Sentence).
 - [x] **Adventure Map**: Visual dashboard with lesson nodes and revision engine.
+- [ ] **Milestone 1.3: Cycle 1 Intro Screens**: Retrofit 9 lessons with interactive summaries and audio.
 
 ## Phase 2: The "Grammar Factory" (The 11 Buckets) [ACTIVE]
 *Goal: Build the specialized mini-games for different grammatical concepts.*
-1. **Milestone 2.1: Suffix Snapper**: Drag-and-drop plural markers (-ക്കൾ, -കൾ) and basic case markers (-ൽ, -ലേക്ക്).
-2. **Milestone 2.2: Tense Transformations**: Mini-game for Past/Present/Future verb changes.
-3. **Milestone 2.3: Sentence Scrambler**: Drag-and-drop words to form basic Malayalam sentences using Bucket 1 & 2.
-4. **Milestone 2.4: Vibe Decoder**: Use AI-generated sentences to test "Intent" recognition (Statement vs. Question).
+1. [x] **Milestone 2.1: Suffix Snapper**: Drag-and-drop plural markers and basic case markers.
+2. [x] **Milestone 2.2: Concept Screens & Expansion**: Visual instruction pages and massive Cycle 2 vocabulary (Plurals, Locative, Kinship).
+3. **Milestone 2.3: Tense Transformations**: Mini-game for Past/Present/Future verb changes.
+4. **Milestone 2.4: Sentence Scrambler**: Drag-and-drop words to form basic Malayalam sentences using Bucket 1 & 2.
+5. **Milestone 2.5: Vibe Decoder**: Use AI-generated sentences to test "Intent" recognition (Statement vs. Question).
 
 ## Phase 3: The "AI Tutor" (Gemini Integration)
 *Goal: Use AI to generate dynamic, non-repetitive challenges based on the user's unlocked vocabulary.*

@@ -124,7 +124,7 @@ const AdventureMap = () => {
                         className={`w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-black shadow-lg transition-all relative
                           ${nodeStatus === 'completed' ? 'bg-white text-prime-teal-green' : 
                             nodeStatus === 'active' ? 'bg-prime-action-dark text-white scale-110 ring-4 ring-white/20' : 
-                            'bg-black/10 text-white/20 border-2 border-dashed border-white/20'}`}
+                            'bg-white/30 text-white/40 border-2 border-dashed border-white/30 grayscale'}`}
                        >
                          {nodeStatus === 'completed' ? '✓' : lessonId}
                          

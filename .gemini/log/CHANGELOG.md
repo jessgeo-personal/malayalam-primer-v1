@@ -1,8 +1,11 @@
 # Changelog - Malayalam Prime
 
 ## [2026.05.29.001] - 2026-05-29
-### Added
-- **Milestone 2.1: Suffix Snapper Mini-game:** New pedagogical game mode to teach grammar (plurals and case markers).
+### Fixed
+- **Curriculum Alignment:** Performed a full database purge and re-normalization to strictly align `lessonId` ranges with `unlockCycle` boundaries (Cycle 1: 1-9, Cycle 2: 10-15, etc.).
+- **Map Visual Contrast:** Updated locked lesson nodes in the Adventure Map to use high-contrast styling (`grayscale` and `bg-white/30`), ensuring they are visible on all backgrounds.
+- **TDD Integrity Guardrail:** Added `integrity.test.js` to the backend to automatically verify that lesson ranges never overlap across cycles.
+- **Cycle Routing:** Fixed a bug where Cycle 2 incorrectly displayed and launched Cycle 1 lessons.
 - **Magnetic Snap Mechanics:** Drag-and-drop UI where suffixes visually "snap" and merge with base words.
 - **In-Game Guided Tutorial:** Animated hand guide that teaches new grammar concepts on the first encounter (Option B pedagogy).
 - **Expanded Word Schema:** Added `baseWord`, `targetSuffix`, and `distractorSuffixes` to the MongoDB model.

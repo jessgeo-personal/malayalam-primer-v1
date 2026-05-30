@@ -1,6 +1,9 @@
 # Unified Regression Test Checklist
 
 ## 🛠️ Phase 2: The Grammar Factory (Milestone 2.1)
+- [x] **Full Data Normalization:** Database purged and re-ingested with strictly non-overlapping Cycle/Lesson boundaries verified (Accuracy).
+- [x] **Curriculum Integrity Test:** Automated test verifies lesson ranges per cycle to prevent future desync verified (TDD Mandate).
+- [x] **Map Contrast Fix:** Locked nodes in Adventure Map use high-contrast styling (grayscale/semi-white) for visibility verified (Visual Consistency).
 - [x] **Lesson Routing Fix:** Adventure Map correctly identifies lesson ranges per cycle, preventing cross-cycle duplication verified (Functional Adherence).
 - [x] **Suffix Snapper Component:** Drag-and-drop magnetic snap mechanics for suffixes verified (Functional Adherence).
 - [x] **Guided Tutorial:** In-game tutorial hand appears on first encounter of a concept verified (Pedagogical Alignment).

@@ -11,7 +11,10 @@ const wordItemSchema = new mongoose.Schema({
   unlockCycle: { type: Number, required: true },
   lessonId: { type: Number, default: 0 },
   sequence: { type: Number, default: 0 },
-  lessonType: { type: String, enum: ['trace', 'match', 'build'], default: 'build' },
+  lessonType: { type: String, enum: ['trace', 'match', 'build', 'suffix'], default: 'build' },
+  baseWord: { type: String },
+  targetSuffix: { type: String },
+  distractorSuffixes: [{ type: String }],
   prerequisites: [{ type: String }]
 });
 

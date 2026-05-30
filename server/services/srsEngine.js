@@ -94,11 +94,16 @@ async function generateLessonPayload(userId, lessonId) {
   
   if (!words || words.length === 0) return [];
 
-  const payload = words.map(w => ({
-    ...w.toObject(),
-    itemId: w.wordId,
-    itemType: 'word'
-  }));
+  const payload = [];
+  for (const w of words) {
+    const progress = await Progress.findOne({ userId, itemId: w.wordId, itemType: 'word' });
+    payload.push({
+      ...w.toObject(),
+      itemId: w.wordId,
+      itemType: 'word',
+      showTutorial: !progress
+    });
+  }
 
   // Group by type: Tracing first, then randomized everything else
   const tracing = payload.filter(p => p.lessonType === 'trace');

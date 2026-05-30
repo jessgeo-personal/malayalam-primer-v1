@@ -1,5 +1,15 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.29.001] - 2026-05-29
+### Added
+- **Milestone 2.1: Suffix Snapper Mini-game:** New pedagogical game mode to teach grammar (plurals and case markers).
+- **Magnetic Snap Mechanics:** Drag-and-drop UI where suffixes visually "snap" and merge with base words.
+- **In-Game Guided Tutorial:** Animated hand guide that teaches new grammar concepts on the first encounter (Option B pedagogy).
+- **Expanded Word Schema:** Added `baseWord`, `targetSuffix`, and `distractorSuffixes` to the MongoDB model.
+- **Automated Tutorial Logic:** SRS engine now dynamically calculates the `showTutorial` flag based on user encounter history.
+- **Seed Data (seed-200.json):** Initial curriculum for Plurals (`-കൾ`, `-മാർ`) and Locations (`-ൽ`).
+- **TDD Suite:** Added `suffix.test.js` (backend) and `SuffixSnapper.test.jsx` (client) to ensure 100% test coverage for grammar features.
+
 ## [2026.05.28.021] - 2026-05-28
 ### Fixed
 - **Lesson Pointer Logic:** Fixed a critical bug where replaying an old lesson would incorrectly unlock future lessons. Current progress is now safely tracked via `activeLessonId`.

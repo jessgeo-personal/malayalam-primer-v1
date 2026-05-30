@@ -26,88 +26,88 @@ const AdventureMap = () => {
         for (const cid of cyclesToFetch) {
            const response = await fetch(`/api/session/cycle/lessons?cycleId=${cid}`);
            if (response.ok) {
-             const data = await response.json();
-             counts[cid] = data.totalLessons;
+           const data = await response.json();
+           counts[cid] = { start: data.startLessonId, end: data.endLessonId };
            }
-        }
-        setLessonsPerCycle(counts);
-      } catch (e) {
-        console.error("Failed to fetch lesson counts", e);
-      }
-    };
-    fetchLessonCounts();
-  }, []);
+           }
+           setLessonsPerCycle(counts);
+           } catch (e) {
+           console.error("Failed to fetch lesson counts", e);
+           }
+           };
+           fetchLessonCounts();
+           }, []);
 
-  const fetchPreview = async (lessonId) => {
-    setPreviewLoading(true);
-    setPreviewLesson(lessonId);
-    try {
-      const response = await fetch(`/api/session/lesson/preview?userId=${userId}&lessonId=${lessonId}`);
-      if (!response.ok) throw new Error('Failed to fetch preview');
-      const data = await response.json();
-      setPreviewData(data);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setPreviewLoading(false);
-    }
-  };
+           const fetchPreview = async (lessonId) => {
+           setPreviewLoading(true);
+           setPreviewLesson(lessonId);
+           try {
+           const response = await fetch(`/api/session/lesson/preview?userId=${userId}&lessonId=${lessonId}`);
+           if (!response.ok) throw new Error('Failed to fetch preview');
+           const data = await response.json();
+           setPreviewData(data);
+           } catch (err) {
+           console.error(err);
+           } finally {
+           setPreviewLoading(false);
+           }
+           };
 
-  const cycles = [
-    { id: 1, name: 'The Foundation', color: 'bg-prime-coral-pink', accent: 'border-rose-400' },
-    { id: 2, name: 'Sound Blending', color: 'bg-prime-mango-orange', accent: 'border-orange-300' },
-    { id: 3, name: 'Dynamic Sentences', color: 'bg-prime-teal-green', accent: 'border-emerald-300' },
-    { id: 4, name: 'Fluency Mastery', color: 'bg-prime-periwinkle', accent: 'border-indigo-300' },
-  ];
+           const cycles = [
+           { id: 1, name: 'The Foundation', color: 'bg-prime-coral-pink', accent: 'border-rose-400' },
+           { id: 2, name: 'Sound Blending', color: 'bg-prime-mango-orange', accent: 'border-orange-300' },
+           { id: 3, name: 'Dynamic Sentences', color: 'bg-prime-teal-green', accent: 'border-emerald-300' },
+           { id: 4, name: 'Fluency Mastery', color: 'bg-prime-periwinkle', accent: 'border-indigo-300' },
+           ];
 
-  return (
-    <div className="w-full flex flex-col gap-6 animate-pop">
-      
-      {/* Revision Card (The Engine) */}
-      <div className={`p-8 rounded-bento shadow-sm flex items-center justify-between transition-all
-        ${needsRevision ? 'bg-prime-action-dark text-white' : 'bg-prime-warm-base text-prime-dark-text opacity-60'}`}>
-        <div>
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Practice</span>
-          <h3 className="text-2xl font-black italic uppercase">Daily Review</h3>
-          <p className="text-xs font-medium opacity-80 mt-1">Review what you've learned today.</p>
-        </div>
-        <button
-          onClick={startRevision}
-          disabled={!needsRevision} // Disable button if needsRevision is false
-          className={`btn-pill ${needsRevision ? 'bg-prime-coral-pink hover:scale-[1.02]' : 'bg-prime-action-dark border border-white/20 opacity-40 cursor-not-allowed'}`}
-        >
-          {needsRevision ? 'START PRACTICE' : 'DONE'}
-        </button>
-      </div>
+           return (
+           <div className="w-full flex flex-col gap-6 animate-pop">
 
-      {/* Course Deck */}
-      <div className="flex flex-col gap-4">
-        {cycles.map((cycle) => {
-          const isActive = currentCycle === cycle.id;
-          const isLocked = cycle.id > currentCycle;
-          const totalLessons = lessonsPerCycle[cycle.id] || 0;
-          
-          return (isActive || !isLocked) ? ( // Show all past and current cycle
-            /* Active Cycle Card (Expanded) */
-            <div key={cycle.id} className={`${cycle.color} p-8 rounded-bento shadow-lg border-b-8 ${cycle.accent} animate-pop`}>
-              <div className="flex justify-between items-start mb-10">
-                <div>
-                  <span className="text-white/60 font-bold uppercase text-[10px] tracking-widest">Active Lessons</span>
-                  <h3 className="text-white text-3xl font-black italic uppercase tracking-tight">Cycle {cycle.id}: {cycle.name}</h3>
-                </div>
-                <div className="bg-white/20 px-4 py-1.5 rounded-pill text-[10px] font-black text-white tracking-widest">
-                  {totalLessons} LESSONS READY
-                </div>
+           {/* Revision Card (The Engine) */}
+           <div className={`p-8 rounded-bento shadow-sm flex items-center justify-between transition-all
+           ${needsRevision ? 'bg-prime-action-dark text-white' : 'bg-prime-warm-base text-prime-dark-text opacity-60'}`}>
+           <div>
+           <span className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Practice</span>
+           <h3 className="text-2xl font-black italic uppercase">Daily Review</h3>
+           <p className="text-xs font-medium opacity-80 mt-1">Review what you've learned today.</p>
+           </div>
+           <button
+           onClick={startRevision}
+           disabled={!needsRevision} // Disable button if needsRevision is false
+           className={`btn-pill ${needsRevision ? 'bg-prime-coral-pink hover:scale-[1.02]' : 'bg-prime-action-dark border border-white/20 opacity-40 cursor-not-allowed'}`}
+           >
+           {needsRevision ? 'START PRACTICE' : 'DONE'}
+           </button>
+           </div>
+
+           {/* Course Deck */}
+           <div className="flex flex-col gap-4">
+           {cycles.map((cycle) => {
+           const isActive = currentCycle === cycle.id;
+           const isLocked = cycle.id > currentCycle;
+           const lessonRange = lessonsPerCycle[cycle.id] || { start: 0, end: 0 };
+           const totalLessons = lessonRange.end > 0 ? (lessonRange.end - lessonRange.start + 1) : 0;
+
+           return (isActive || !isLocked) ? ( // Show all past and current cycle
+           /* Active Cycle Card (Expanded) */
+           <div key={cycle.id} className={`${cycle.color} p-8 rounded-bento shadow-lg border-b-8 ${cycle.accent} animate-pop`}>
+            <div className="flex justify-between items-start mb-10">
+              <div>
+                <span className="text-white/60 font-bold uppercase text-[10px] tracking-widest">Active Lessons</span>
+                <h3 className="text-white text-3xl font-black italic uppercase tracking-tight">Cycle {cycle.id}: {cycle.name}</h3>
               </div>
+              <div className="bg-white/20 px-4 py-1.5 rounded-pill text-[10px] font-black text-white tracking-widest">
+                {totalLessons} LESSONS READY
+              </div>
+            </div>
 
-              {/* Lesson Horizontal Scroll (The Train) */}
-              <div className="flex gap-4 overflow-x-auto custom-scrollbar pb-6 px-2">
-                {[...Array(totalLessons)].map((_, i) => { 
-                  const lessonId = i + 1; // Curated Lesson IDs start at 1
-                  const history = lessonHistory.find(h => h.lessonId === lessonId);
-                  const nodeStatus = lessonId < currentLesson ? 'completed' : lessonId === currentLesson ? 'active' : 'locked';
-                  const stars = history ? history.stars : 0;
-
+            {/* Lesson Horizontal Scroll (The Train) */}
+            <div className="flex gap-4 overflow-x-auto custom-scrollbar pb-6 px-2">
+              {[...Array(totalLessons)].map((_, i) => { 
+                const lessonId = lessonRange.start + i;
+                const history = lessonHistory.find(h => h.lessonId === lessonId);
+                const nodeStatus = lessonId < currentLesson ? 'completed' : lessonId === currentLesson ? 'active' : 'locked';
+                const stars = history ? history.stars : 0;
                   return (
                     <div key={lessonId} className="flex flex-col items-center gap-3 shrink-0 group relative">
                        {nodeStatus !== 'locked' && (

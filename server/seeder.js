@@ -17,12 +17,14 @@ mongoose.connect(process.env.MONGO_URI)
 // Read JSON files
 const seed100Path = path.join(__dirname, 'data', 'seed-100.json');
 const seed200Path = path.join(__dirname, 'data', 'seed-200.json');
+const seed300Path = path.join(__dirname, 'data', 'seed-300.json');
 
 const words100 = JSON.parse(fs.readFileSync(seed100Path, 'utf-8'));
 const words200 = JSON.parse(fs.readFileSync(seed200Path, 'utf-8'));
+const words300 = JSON.parse(fs.readFileSync(seed300Path, 'utf-8'));
 
 // Combine arrays
-const allWords = [...words100, ...words200];
+const allWords = [...words100, ...words200, ...words300];
 
 // Seeder Function
 const importData = async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useProgress } from './context';
-import { LetterPicker, TracingCanvas, SoundMatcher } from './components/games';
+import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper } from './components/games';
 import { MasteryStrip, AdventureMap } from './components/ui';
 import { APP_VERSION } from './config/version';
 import './App.css';
@@ -226,6 +226,8 @@ const App = () => {
                   <TracingCanvas word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'match' ? (
                   <SoundMatcher word={currentItem} onComplete={updateProgress} />
+                ) : currentItem.lessonType === 'suffix' ? (
+                  <SuffixSnapper word={currentItem} onComplete={updateProgress} />
                 ) : (
                   <LetterPicker word={currentItem} onComplete={updateProgress} />
                 )

@@ -7,18 +7,21 @@ const srsEngine = require('../services/srsEngine');
 
 /**
  * GET /api/session/cycle/lessons
- * Returns the total number of curated lessons in a cycle.
+ * Returns the start and end lesson IDs for a cycle.
  */
 router.get('/session/cycle/lessons', async (req, res) => {
   try {
     const { cycleId } = req.query;
     const cid = parseInt(cycleId) || 1;
     
-    // Find the highest lessonId assigned to any word in this cycle
-    const latestWord = await Word.findOne({ unlockCycle: cid }).sort({ lessonId: -1 });
-    const totalLessons = latestWord ? latestWord.lessonId : 0;
+    // Find the lowest and highest lessonId assigned to any word in this cycle
+    const minWord = await Word.findOne({ unlockCycle: cid }).sort({ lessonId: 1 });
+    const maxWord = await Word.findOne({ unlockCycle: cid }).sort({ lessonId: -1 });
     
-    res.json({ cycleId: cid, totalLessons });
+    const startLessonId = minWord ? minWord.lessonId : 0;
+    const endLessonId = maxWord ? maxWord.lessonId : 0;
+    
+    res.json({ cycleId: cid, startLessonId, endLessonId });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

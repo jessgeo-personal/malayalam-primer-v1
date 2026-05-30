@@ -9,11 +9,11 @@
     "lessonId": 10,
     "lessonType": "suffix",
     "baseWord": "വീട്",
-    "morphedBase": "വീടു",
-    "targetSuffix": "കൾ",
+    "morphedBase": "വീട",
+    "targetSuffix": "ുകൾ",
     "distractorSuffixes": [
       "മാർ",
-      "ൽ"
+      "ിൽ"
     ],
     "prerequisites": [
       "w091"

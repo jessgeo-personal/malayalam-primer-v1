@@ -9,6 +9,7 @@
     "lessonId": 10,
     "lessonType": "suffix",
     "baseWord": "വീട്",
+    "morphedBase": "വീടു",
     "targetSuffix": "കൾ",
     "distractorSuffixes": [
       "മാർ",

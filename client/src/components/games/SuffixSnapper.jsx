@@ -45,10 +45,13 @@ function DraggableSuffix({ id, char }) {
   );
 }
 
-function DropZone({ id, baseWord, placedSuffix }) {
+function DropZone({ id, baseWord, morphedBase, placedSuffix, isCorrect }) {
   const { setNodeRef, isOver } = useDroppable({
     id: id,
   });
+
+  const displayWord = (morphedBase && isCorrect) ? morphedBase : baseWord;
+  const isMorphing = morphedBase && isCorrect;
 
   return (
     <div 
@@ -56,8 +59,9 @@ function DropZone({ id, baseWord, placedSuffix }) {
       className={`flex items-center gap-4 p-12 bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base transition-all
         ${isOver ? 'scale-105 border-prime-coral-pink' : ''}`}
     >
-      <div className="text-6xl font-black text-prime-dark-text tracking-tighter">
-        {baseWord}
+      <div className={`text-6xl font-black tracking-tighter transition-colors duration-500
+        ${isMorphing ? 'text-prime-coral-pink animate-pulse' : 'text-prime-dark-text'}`}>
+        {displayWord}
       </div>
       <div className={`w-32 h-20 border-4 border-dashed rounded-3xl flex items-center justify-center text-4xl font-black transition-all
         ${isOver ? 'bg-prime-coral-pink/10 border-prime-coral-pink' : 'border-slate-200 bg-prime-canvas/50'}
@@ -75,6 +79,8 @@ export default function SuffixSnapper({ word, onComplete }) {
   const [placedSuffix, setPlacedSuffix] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [startTime] = useState(Date.now());
+
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -94,24 +100,36 @@ export default function SuffixSnapper({ word, onComplete }) {
     setSuffixes(initialSuffixes.map((s, i) => ({ id: `suffix-${i}`, value: s })));
     setPlacedSuffix(null);
     setFeedback(null);
+    setIsSuccess(false);
   }, [word]);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    if (feedback) return;
+    if (feedback || isSuccess) return;
 
     if (over && over.id === 'suffix-drop-zone') {
       const char = active.data.current.char;
       const isCorrect = char === word.targetSuffix;
       
       setPlacedSuffix(char);
-      setFeedback({
-        isCorrect,
-        time: Date.now() - startTime
-      });
       
       if (isCorrect) {
+        setIsSuccess(true);
         audioEngine.speak(word.malayalamText);
+        
+        // Delay the overlay so the user can watch the morphing animation
+        setTimeout(() => {
+          setFeedback({
+            isCorrect,
+            time: Date.now() - startTime
+          });
+        }, 1500);
+      } else {
+        // Show incorrect overlay immediately
+        setFeedback({
+          isCorrect,
+          time: Date.now() - startTime
+        });
       }
     }
   };
@@ -144,7 +162,13 @@ export default function SuffixSnapper({ word, onComplete }) {
 
       <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragEnd={handleDragEnd}>
         {/* Assembly Area */}
-        <DropZone id="suffix-drop-zone" baseWord={word.baseWord} placedSuffix={placedSuffix} />
+        <DropZone 
+          id="suffix-drop-zone" 
+          baseWord={word.baseWord} 
+          morphedBase={word.morphedBase}
+          placedSuffix={placedSuffix}
+          isCorrect={isSuccess}
+        />
 
         {/* Choice Pool */}
         <div className="flex flex-wrap justify-center gap-6 mt-8">

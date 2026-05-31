@@ -266,8 +266,14 @@ const App = () => {
         </nav>
       )}
 
-      <footer className="py-12 text-center text-slate-300 font-bold text-[9px] tracking-[0.4em] uppercase">
-        Malayalam_Prime_v{APP_VERSION}
+      <footer className="py-12 text-center text-slate-300 font-bold text-[9px] tracking-[0.4em] uppercase flex flex-col items-center gap-4">
+        <span>Malayalam_Prime_v{APP_VERSION}</span>
+        <button 
+          onClick={() => setShowAudit(!showAudit)}
+          className="hover:text-prime-coral-pink transition-colors border border-slate-200 px-4 py-1 rounded-full cursor-pointer"
+        >
+          {showAudit ? 'RETURN TO GAME' : 'DATABASE AUDIT'}
+        </button>
       </footer>
     </div>
   );

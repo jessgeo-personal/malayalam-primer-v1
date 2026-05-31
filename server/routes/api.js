@@ -310,6 +310,19 @@ router.post('/progress/reset', async (req, res) => {
   }
 });
 
+/**
+ * GET /api/words/audit
+ * Returns the full dictionary for the word splitting audit tool.
+ */
+router.get('/words/audit', async (req, res) => {
+  try {
+    const words = await Word.find().sort({ unlockCycle: 1, lessonId: 1, wordId: 1 });
+    res.json(words);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Keep existing routes if they are needed, but we focus on these for Phase 1.
 router.get('/user/progress', async (req, res) => {
   // Existing placeholder

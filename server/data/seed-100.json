@@ -2259,7 +2259,7 @@
     "requiredCharacters": [
       "എ",
       "പ്പ",
-      "ൊ",
+      "ോ",
       "ൾ"
     ],
     "prerequisites": [
@@ -2305,7 +2305,7 @@
     "requiredCharacters": [
       "വ",
       "ീ",
-      "ഡ",
+      "ട",
       "്"
     ],
     "prerequisites": [
@@ -2327,8 +2327,10 @@
     "isSuffix": false,
     "requiredCharacters": [
       "സ",
-      "്കൂ",
-      "ള"
+      "്",
+      "ക",
+      "ൂ",
+      "ൾ"
     ],
     "prerequisites": [
       "m050",
@@ -2432,6 +2434,7 @@
     "isSuffix": false,
     "requiredCharacters": [
       "ച",
+      "െ",
       "റ",
       "ി",
       "യ"

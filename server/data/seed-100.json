@@ -795,30 +795,6 @@
     ]
   },
   {
-    "wordId": "t030",
-    "malayalamText": "ുക",
-    "englishTranslation": "uka (Verb ending)",
-    "phonetic": "uka",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m030",
-    "malayalamText": "ുക",
-    "englishTranslation": "uka (Verb ending)",
-    "phonetic": "uka",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t030"
-    ]
-  },
-  {
     "wordId": "t031",
     "malayalamText": "ങ്ങ",
     "englishTranslation": "NGa",
@@ -1924,13 +1900,14 @@
       "പ",
       "ോ",
       "ക",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m033",
       "m035",
       "m026",
-      "m030"
+      "m041"
     ]
   },
   {
@@ -1947,13 +1924,14 @@
       "ക",
       "ാ",
       "ണ",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m026",
       "m004",
       "m020",
-      "m030"
+      "m041"
     ]
   },
   {
@@ -1971,14 +1949,15 @@
       "േ",
       "ൾ",
       "ക്ക",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m026",
       "m040",
       "m010",
       "m032",
-      "m030"
+      "m041"
     ]
   },
   {
@@ -1996,14 +1975,16 @@
       "െ",
       "യ്",
       "യ",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m017",
       "m025",
       "m037",
       "m054",
-      "m030"
+      "m041",
+      "m026"
     ]
   },
   {
@@ -2045,15 +2026,15 @@
       "ട",
       "ി",
       "ക്ക",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m026",
       "m041",
       "m021",
       "m029",
-      "m032",
-      "m030"
+      "m032"
     ]
   },
   {
@@ -2071,14 +2052,15 @@
       "ഴ",
       "ി",
       "ക്ക",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m026",
       "m038",
       "m029",
       "m032",
-      "m030"
+      "m041"
     ]
   },
   {
@@ -2095,13 +2077,15 @@
       "ഉ",
       "റ",
       "ങ്ങ",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m019",
       "m034",
       "m031",
-      "m030"
+      "m041",
+      "m026"
     ]
   },
   {
@@ -2121,7 +2105,8 @@
       "േ",
       "ൽ",
       "ക്ക",
-      "ുക"
+      "ു",
+      "ക"
     ],
     "prerequisites": [
       "m039",
@@ -2130,7 +2115,8 @@
       "m040",
       "m043",
       "m032",
-      "m030"
+      "m041",
+      "m026"
     ]
   },
   {

@@ -19,6 +19,7 @@ When you have a list of new words to seed:
 > 2. Keep conjunct consonants (like ണ്ട, ന്ത, മ്മ) as a single unit if they are taught as one sound.
 > 3. Output as a JSON array of `requiredCharacters`.
 > 4. **Maintain Strict Phonetic Order**: Modifiers must ALWAYS follow the consonant they modify in the array, even if they visually appear to the left (e.g., േ, െ) or surround the consonant (e.g., ോ, ൊ). The UI will handle the visual reordering.
+> 5. **No Shortcut Suffixes**: Never group multiple phonetic units into a single block (e.g., NEVER use `ുക` as a single unit). You must split them into atomic components (e.g., `["ു", "ക"]`).
 > 
 > **Words to split**: [LIST_YOUR_WORDS_HERE]"
 

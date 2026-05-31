@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   DndContext, 
   useDraggable, 
@@ -12,11 +12,27 @@ import {
 import { audioEngine } from '../../utils/audioEngine';
 
 /**
- * Word Assembly Mini-game
+ * Word Assembly Mini-game (LetterPicker)
  * UI: Side-by-side tablet layout with high-contrast feedback and clear instructions.
+ * Feature: Supports visual reordering and splitting for Malayalam Mathras (v2).
  */
 
-function DraggableLetter({ id, char, isPlaced = false }) {
+// Mathras that visually appear to the left of the consonant
+const LEFT_MATHRAS = ['െ', 'േ', 'ൈ'];
+// Mathras that visually surround the consonant (left and right parts)
+const SURROUND_MATHRAS = ['ൊ', 'ോ', 'ൌ'];
+
+// Dictionary to map the split visual parts of a surround mathra
+const SURROUND_PARTS = {
+  'ൊ': { left: 'െ', right: 'ാ' },
+  'ോ': { left: 'േ', right: 'ാ' },
+  'ൌ': { left: 'െ', right: 'ൗ' }
+};
+
+// Dotted circle for representing a placeholder consonant
+const DOTTED_CIRCLE = '◌';
+
+function DraggableLetter({ id, char, isPlaced = false, isSurroundLeftOnly = false }) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: id,
     data: { char, isPlaced }
@@ -36,6 +52,16 @@ function DraggableLetter({ id, char, isPlaced = false }) {
     audioEngine.speak(char);
   };
 
+  // Determine what to display based on state
+  let renderedChar = char;
+  if (isSurroundLeftOnly && SURROUND_PARTS[char]) {
+    renderedChar = SURROUND_PARTS[char].left;
+  } else if (!isPlaced && SURROUND_MATHRAS.includes(char)) {
+    renderedChar = <span className="relative">{char}<span className="opacity-20 absolute inset-0 flex items-center justify-center">{DOTTED_CIRCLE}</span></span>;
+  } else if (!isPlaced && LEFT_MATHRAS.includes(char)) {
+    renderedChar = `${char}${DOTTED_CIRCLE}`;
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -46,7 +72,7 @@ function DraggableLetter({ id, char, isPlaced = false }) {
     >
       <div className={`w-14 h-14 sm:w-16 sm:h-16 text-2xl font-black rounded-2xl transition-all flex items-center justify-center shadow-lg
         ${isPlaced ? 'bg-white text-prime-action-dark border-2 border-slate-100' : 'bg-prime-action-dark text-white border-b-4 border-slate-700 active:translate-y-0.5 active:border-b-0'}`}>
-        {char}
+        {renderedChar}
       </div>
       
       {!isPlaced && (
@@ -69,16 +95,24 @@ function DroppableSlot({ id, expectedChar, actualCharObj }) {
 
   const isFilled = !!actualCharObj;
   const isCorrect = isFilled && actualCharObj.value === expectedChar;
+  
+  const isLeftMathra = LEFT_MATHRAS.includes(expectedChar);
+  const isSurroundMathra = SURROUND_MATHRAS.includes(expectedChar);
 
   return (
     <div
       ref={setNodeRef}
-      className={`w-16 h-16 sm:w-20 sm:h-20 border-2 border-dashed rounded-2xl flex items-center justify-center text-3xl font-black transition-all
+      className={`w-16 h-16 sm:w-20 sm:h-20 border-2 border-dashed rounded-2xl flex items-center justify-center text-3xl font-black transition-all relative
         ${isOver ? 'bg-prime-coral-pink/10 border-prime-coral-pink scale-105' : 'border-slate-400 bg-prime-canvas/50 shadow-inner'}
         ${isFilled && !isOver ? (isCorrect ? 'bg-prime-teal-green/5 border-prime-teal-green' : 'bg-prime-error/5 border-prime-error') : ''}`}
     >
+      {!isFilled && (isLeftMathra || isSurroundMathra) && (
+        <div className="absolute inset-0 flex items-center justify-center text-slate-200 pointer-events-none text-2xl">
+          {isSurroundMathra ? `${expectedChar}` : `${expectedChar}${DOTTED_CIRCLE}`}
+        </div>
+      )}
       {isFilled ? (
-        <DraggableLetter id={actualCharObj.id} char={actualCharObj.value} isPlaced={true} />
+        <DraggableLetter id={actualCharObj.id} char={actualCharObj.value} isPlaced={true} isSurroundLeftOnly={isSurroundMathra} />
       ) : null}
     </div>
   );
@@ -99,6 +133,26 @@ export default function LetterPicker({ word, onComplete }) {
       },
     })
   );
+
+  // Logic to calculate visual order of slots based on phonetic array
+  const visualSlots = useMemo(() => {
+    if (!word.requiredCharacters) return [];
+    
+    return word.requiredCharacters.map((char, index) => {
+      let visualOrder = index * 10;
+      
+      // If this is a mathra that goes to the left, move its visual order to just before its anchor (index-1)
+      if ((LEFT_MATHRAS.includes(char) || SURROUND_MATHRAS.includes(char)) && index > 0) {
+        visualOrder = (index - 1) * 10 - 5;
+      }
+      
+      return {
+        char,
+        originalIndex: index,
+        visualOrder
+      };
+    }).sort((a, b) => a.visualOrder - b.visualOrder);
+  }, [word.requiredCharacters]);
 
   useEffect(() => {
     if (!word.requiredCharacters || word.requiredCharacters.length === 0) return;
@@ -207,16 +261,40 @@ export default function LetterPicker({ word, onComplete }) {
         >
           <div className="flex-1 flex flex-col gap-8 p-10 bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base relative overflow-hidden min-h-[450px]">
             
-            {/* Drop Zones */}
+            {/* Reordered Drop Zones */}
             <div className="flex flex-wrap justify-center gap-4 py-8 border-b border-slate-100">
-              {word.requiredCharacters.map((char, index) => (
-                <DroppableSlot 
-                  key={`slot-${index}`} 
-                  id={`slot-${index}`} 
-                  expectedChar={char}
-                  actualCharObj={slots[index]}
-                />
-              ))}
+              {visualSlots.map((slotInfo) => {
+                const elements = [];
+                
+                // 1. Render the primary drop slot
+                elements.push(
+                  <DroppableSlot 
+                    key={`slot-${slotInfo.originalIndex}`} 
+                    id={`slot-${slotInfo.originalIndex}`} 
+                    expectedChar={slotInfo.char}
+                    actualCharObj={slots[slotInfo.originalIndex]}
+                  />
+                );
+
+                // 2. Surround Mathra Logic:
+                // If this is a consonant slot (originalIndex), check if the NEXT logical character is a Surround Mathra.
+                const nextCharIndex = slotInfo.originalIndex + 1;
+                const nextCharObj = slots[nextCharIndex];
+                
+                if (nextCharObj && SURROUND_MATHRAS.includes(nextCharObj.value)) {
+                  const rightPart = SURROUND_PARTS[nextCharObj.value].right;
+                  elements.push(
+                    <div 
+                      key={`surround-right-${nextCharIndex}`} 
+                      className="w-12 h-16 sm:h-20 flex items-center justify-center text-3xl font-black text-prime-action-dark animate-fade-in -ml-2 -mr-2 pointer-events-none"
+                    >
+                      {rightPart}
+                    </div>
+                  );
+                }
+
+                return elements;
+              })}
             </div>
 
             {/* Tile Pool */}

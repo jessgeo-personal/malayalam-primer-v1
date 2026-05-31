@@ -106,11 +106,6 @@ function DroppableSlot({ id, expectedChar, actualCharObj }) {
         ${isOver ? 'bg-prime-coral-pink/10 border-prime-coral-pink scale-105' : 'border-slate-400 bg-prime-canvas/50 shadow-inner'}
         ${isFilled && !isOver ? (isCorrect ? 'bg-prime-teal-green/5 border-prime-teal-green' : 'bg-prime-error/5 border-prime-error') : ''}`}
     >
-      {!isFilled && (isLeftMathra || isSurroundMathra) && (
-        <div className="absolute inset-0 flex items-center justify-center text-slate-200 pointer-events-none text-2xl">
-          {isSurroundMathra ? `${expectedChar}` : `${expectedChar}${DOTTED_CIRCLE}`}
-        </div>
-      )}
       {isFilled ? (
         <DraggableLetter id={actualCharObj.id} char={actualCharObj.value} isPlaced={true} isSurroundLeftOnly={isSurroundMathra} />
       ) : null}

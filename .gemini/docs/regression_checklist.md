@@ -27,6 +27,13 @@
 - [x] **Seed Data (seed-200.json):** First batch of plural and location grammar lessons verified (Resource Audit).
 - [x] **TDD Validation:** 100% green state for new suffix-specific unit tests (backend & client) verified.
 
+## 📐 Phase 19: Mathra UI Support & UI Refinements
+- [x] **Surround Mathra Splitting:** 2-part mathras (ൊ, ോ, ൌ) visually split upon placement, with the right-side part dynamically injected after the consonant verified (Pedagogical Accuracy).
+- [x] **Visual Reordering:** Left-side mathras (െ, േ, ൈ) automatically shift their drop-slots to the left of the base consonant in the UI verified (Visual Consistency).
+- [x] **Feedback Contrast Fix:** Failure overlay in Word Assembly uses a dark #1A1E26 background and high-contrast card for 100% legibility verified (Accessibility).
+- [x] **Expanded Tracing Width:** Tracing canvas width increased by ~35% and resolution updated to 1400x800 to accommodate long Malayalam letters verified (Tablet UX).
+- [x] **Phonetic Data Mandate:** Word splitting protocol updated to require phonetic order in database, supported by UI-layer visual reordering verified (Architectural Integrity).
+
 ## 🟢 Core Infrastructure
 - [x] Monorepo scaffolding verified
 - [x] Docker-compose structure valid

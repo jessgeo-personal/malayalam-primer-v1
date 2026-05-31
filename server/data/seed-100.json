@@ -940,9 +940,9 @@
   },
   {
     "wordId": "t037",
-    "malayalamText": "യ്",
-    "englishTranslation": "y (Chillu-like)",
-    "phonetic": "y",
+    "malayalamText": "യ",
+    "englishTranslation": "Ya",
+    "phonetic": "ya",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 5,
@@ -951,9 +951,9 @@
   },
   {
     "wordId": "m037",
-    "malayalamText": "യ്",
-    "englishTranslation": "y (Chillu-like)",
-    "phonetic": "y",
+    "malayalamText": "യ",
+    "englishTranslation": "Ya",
+    "phonetic": "ya",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 5,
@@ -1060,9 +1060,9 @@
   },
   {
     "wordId": "t042",
-    "malayalamText": "ുന്ന",
-    "englishTranslation": "unNa",
-    "phonetic": "unNa",
+    "malayalamText": "ന്ന",
+    "englishTranslation": "nna",
+    "phonetic": "nna",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 6,
@@ -1071,9 +1071,9 @@
   },
   {
     "wordId": "m042",
-    "malayalamText": "ുന്ന",
-    "englishTranslation": "unNa",
-    "phonetic": "unNa",
+    "malayalamText": "ന്ന",
+    "englishTranslation": "nna",
+    "phonetic": "nna",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 6,
@@ -1104,30 +1104,6 @@
     "lessonType": "match",
     "prerequisites": [
       "t043"
-    ]
-  },
-  {
-    "wordId": "t044",
-    "malayalamText": "ടാ",
-    "englishTranslation": "Taa",
-    "phonetic": "Taa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m044",
-    "malayalamText": "ടാ",
-    "englishTranslation": "Taa",
-    "phonetic": "Taa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "match",
-    "prerequisites": [
-      "t044"
     ]
   },
   {
@@ -1272,30 +1248,6 @@
     "lessonType": "match",
     "prerequisites": [
       "t050"
-    ]
-  },
-  {
-    "wordId": "t051",
-    "malayalamText": "്കൂ",
-    "englishTranslation": "skoo",
-    "phonetic": "skoo",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m051",
-    "malayalamText": "്കൂ",
-    "englishTranslation": "skoo",
-    "phonetic": "skoo",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t051"
     ]
   },
   {
@@ -1536,6 +1488,102 @@
     "lessonType": "match",
     "prerequisites": [
       "t061"
+    ]
+  },
+  {
+    "wordId": "t066",
+    "malayalamText": "യ്യ",
+    "englishTranslation": "YYa",
+    "phonetic": "YYa",
+    "lessonId": 5,
+    "lessonType": "trace",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": []
+  },
+  {
+    "wordId": "m066",
+    "malayalamText": "യ്യ",
+    "englishTranslation": "YYa",
+    "phonetic": "YYa",
+    "lessonId": 5,
+    "lessonType": "match",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": [
+      "t066"
+    ]
+  },
+  {
+    "wordId": "t067",
+    "malayalamText": "സ്ക",
+    "englishTranslation": "SKa",
+    "phonetic": "ska",
+    "lessonId": 8,
+    "lessonType": "trace",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": []
+  },
+  {
+    "wordId": "m067",
+    "malayalamText": "സ്ക",
+    "englishTranslation": "SKa",
+    "phonetic": "ska",
+    "lessonId": 8,
+    "lessonType": "match",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": [
+      "t067"
+    ]
+  },
+  {
+    "wordId": "t068",
+    "malayalamText": "ൂ",
+    "englishTranslation": "oo (Vowel Sign long)",
+    "phonetic": "oo",
+    "lessonId": 8,
+    "lessonType": "trace",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": []
+  },
+  {
+    "wordId": "m068",
+    "malayalamText": "ൂ",
+    "englishTranslation": "oo (Vowel Sign long)",
+    "phonetic": "oo",
+    "lessonId": 8,
+    "lessonType": "match",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": [
+      "t068"
+    ]
+  },
+  {
+    "wordId": "t069",
+    "malayalamText": "്യ",
+    "englishTranslation": "ya-vattu (hook)",
+    "phonetic": "ya",
+    "lessonId": 9,
+    "lessonType": "trace",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": []
+  },
+  {
+    "wordId": "m069",
+    "malayalamText": "്യ",
+    "englishTranslation": "ya-vattu (hook)",
+    "phonetic": "ya",
+    "lessonId": 9,
+    "lessonType": "match",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "prerequisites": [
+      "t069"
     ]
   },
   {
@@ -1973,18 +2021,16 @@
     "requiredCharacters": [
       "ച",
       "െ",
-      "യ്",
-      "യ",
+      "യ്യ",
       "ു",
       "ക"
     ],
     "prerequisites": [
       "m017",
       "m025",
-      "m037",
-      "m054",
       "m041",
-      "m026"
+      "m026",
+      "m066"
     ]
   },
   {
@@ -2101,7 +2147,8 @@
     "requiredCharacters": [
       "എ",
       "ഴ",
-      "ുന്ന",
+      "ു",
+      "ന്ന",
       "േ",
       "ൽ",
       "ക്ക",
@@ -2312,16 +2359,14 @@
     "lessonType": "build",
     "isSuffix": false,
     "requiredCharacters": [
-      "സ",
-      "്",
-      "ക",
+      "സ്ക",
       "ൂ",
       "ൾ"
     ],
     "prerequisites": [
-      "m050",
-      "m051",
-      "m052"
+      "m067",
+      "m068",
+      "m010"
     ]
   },
   {

@@ -20,6 +20,9 @@ When you have a list of new words to seed:
 > 3. Output as a JSON array of `requiredCharacters`.
 > 4. **Maintain Strict Phonetic Order**: Modifiers must ALWAYS follow the consonant they modify in the array, even if they visually appear to the left (e.g., േ, െ) or surround the consonant (e.g., ോ, ൊ). The UI will handle the visual reordering.
 > 5. **No Shortcut Suffixes**: Never group multiple phonetic units into a single block (e.g., NEVER use `ുക` as a single unit). You must split them into atomic components (e.g., `["ു", "ക"]`).
+> 6. **Atomic Conjunct Strategy**: 
+>    - Complex clusters that include a mathra must be split into the base conjunct + mathra (e.g., `സ്കൂ` becomes `["സ്ക", "ൂ"]`, `ര്യ` becomes `["ര", "്യ"]`).
+>    - Standalone conjuncts should be taught as single blocks (e.g., `യ്യ`, `ന്ന`, `ത്ത`) once their base letters are mastered.
 > 
 > **Words to split**: [LIST_YOUR_WORDS_HERE]"
 
@@ -27,20 +30,17 @@ When you have a list of new words to seed:
 **Word**: അമ്മ (Mother)
 **Split**: `["അ", "മ്മ"]`
 
-**Word**: ഞാൻ (I)
-**Split**: `["ഞ", "ാ", "ൻ"]`
+**Word**: സ്കൂൾ (School)
+**Split**: `["സ്ക", "ൂ", "ൾ"]` (Atomic: SKa + oo mathra + Chillu-L)
 
-**Word**: നീ (You)
-**Split**: `["ന", "ീ"]`
+**Word**: ഭാര്യ (Wife)
+**Split**: `["ഭ", "ാ", "ര", "്യ"]` (Atomic: Bha + aa + Ra + ya-hook)
 
-**Word**: അത് (That)
-**Split**: `["അ", "ത", "്"]`
+**Word**: പോകുക (Go)
+**Split**: `["പ", "ോ", "ക", "ു", "ക"]` (Atomic: Pa + oo + Ka + u + Ka)
 
 **Word**: അതെ (Yes)
 **Split**: `["അ", "ത", "െ"]` (Left Mathra 'e' follows 'tha')
-
-**Word**: പോകുക (Go)
-**Split**: `["പ", "ോ", "ക", "ുക"]` (Surround Mathra 'oo' follows 'pa')
 
 ## 4. Integration
 Once Gemini provides the split, copy the array into the `requiredCharacters` field of the corresponding word in `server/data/seed-[x].json` and run the seeder:

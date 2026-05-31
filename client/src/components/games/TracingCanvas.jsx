@@ -14,9 +14,9 @@ export default function TracingCanvas({ word, onComplete }) {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    // High-resolution internal buffer for smooth curves
-    canvas.width = 1000;
-    canvas.height = 1000;
+    // High-resolution internal buffer with horizontal aspect ratio for long letters
+    canvas.width = 1400; // Increased from 1000
+    canvas.height = 800; // Reduced from 1000
     canvas.style.width = `100%`;
     canvas.style.height = `100%`;
 
@@ -36,11 +36,11 @@ export default function TracingCanvas({ word, onComplete }) {
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Calibrated ghost guide - now on a darker background for contrast
-    context.font = '900 600px "Plus Jakarta Sans", sans-serif'; 
+    // Calibrated ghost guide
+    context.font = '900 500px "Plus Jakarta Sans", sans-serif'; 
     context.textAlign = 'center';
     context.textBaseline = 'middle';
-    context.fillStyle = '#cbd5e1'; // slate-300 for better visibility
+    context.fillStyle = '#cbd5e1'; 
     context.fillText(word.malayalamText, canvas.width / 2, canvas.height / 2);
     setHasStarted(false);
   };
@@ -83,7 +83,7 @@ export default function TracingCanvas({ word, onComplete }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 w-full max-w-5xl animate-pop">
+    <div className="flex flex-col items-center gap-8 w-full max-w-6xl animate-pop">
       <div className="text-center">
         <h2 className="text-4xl font-black text-prime-dark-text tracking-tight uppercase italic mb-1">
           Trace the Letter
@@ -94,8 +94,8 @@ export default function TracingCanvas({ word, onComplete }) {
       </div>
 
       <div className="flex flex-col md:flex-row items-stretch gap-8 w-full">
-        {/* Left Column: The Drawing Pad */}
-        <div className="flex-1 relative bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base overflow-hidden min-h-[450px] touch-none">
+        {/* Left Column: The Drawing Pad (Expanded) */}
+        <div className="flex-[2.5] relative bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base overflow-hidden min-h-[450px] touch-none">
           <canvas
             ref={canvasRef}
             onMouseDown={startDrawing}
@@ -117,15 +117,15 @@ export default function TracingCanvas({ word, onComplete }) {
           )}
         </div>
 
-        {/* Right Column: Controls & Phonetics */}
-        <div className="w-full md:w-80 flex flex-col gap-6">
+        {/* Right Column: Controls & Phonetics (Narrowed) */}
+        <div className="w-full md:w-64 flex flex-col gap-6">
           <div className="card-bento-surface flex-1 flex flex-col items-center justify-center p-8 text-center bg-prime-warm-base/30">
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Phonetic sound</span>
-            <div className="text-5xl font-black text-prime-dark-text italic mb-8">{word.phonetic}</div>
+            <div className="text-4xl font-black text-prime-dark-text italic mb-8">{word.phonetic}</div>
             
             <button 
               onClick={() => audioEngine.speak(word.malayalamText)}
-              className="w-24 h-24 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-4xl shadow-lg hover:scale-110 active:scale-95 transition-transform border border-slate-100"
+              className="w-20 h-20 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 active:scale-95 transition-transform border border-slate-100"
               title="Play Sound"
             >
               🔊

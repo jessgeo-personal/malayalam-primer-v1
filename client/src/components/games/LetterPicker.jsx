@@ -322,23 +322,24 @@ export default function LetterPicker({ word, onComplete }) {
              {/* Feedback Overlay */}
              {feedback && (
                <div className={`absolute inset-0 z-50 p-6 flex flex-col items-center justify-center text-center animate-fade-in
-                 ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-prime-error'}`}>
+                 ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-[#1A1E26]'}`}>
+                 
                  <div className="text-6xl mb-4">{feedback.isCorrect ? '✅' : '❌'}</div>
                  
                  {!feedback.isCorrect && (
-                   <div className="mb-6 animate-pop">
-                     <p className="text-white/80 font-bold mb-1 uppercase tracking-widest text-[10px]">Correct spelling:</p>
-                     <div className="text-4xl font-black text-white mb-1">{word.malayalamText}</div>
-                     <div className="text-lg font-bold text-white/90 bg-black/20 px-4 py-1 rounded-lg inline-block uppercase tracking-widest">{word.phonetic}</div>
+                   <div className="mb-6 animate-pop bg-white/10 p-4 rounded-3xl border border-white/10 w-full">
+                     <p className="text-white/60 font-black mb-1 uppercase tracking-widest text-[9px]">Correct spelling:</p>
+                     <div className="text-4xl font-black text-white mb-2 leading-tight">{word.malayalamText}</div>
+                     <div className="text-xs font-black text-white/80 bg-white/10 px-4 py-1.5 rounded-pill inline-block uppercase tracking-[0.2em]">{word.phonetic}</div>
                    </div>
                  )}
 
-                 <h3 className="text-2xl font-black text-white uppercase mb-6">
+                 <h3 className={`text-2xl font-black text-white uppercase mb-6 ${!feedback.isCorrect ? 'text-prime-error' : ''}`}>
                    {feedback.isCorrect ? 'Correct!' : 'Try Again!'}
                  </h3>
                  <button 
                     onClick={() => onComplete(feedback.isCorrect, feedback.time)}
-                    className="btn-pill bg-white text-prime-dark-text px-8 py-4 font-black shadow-xl hover:scale-105 active:scale-95 transition-all"
+                    className="btn-pill bg-white text-prime-dark-text px-8 py-4 font-black shadow-xl hover:scale-105 active:scale-95 transition-all w-full"
                   >
                     {feedback.isCorrect ? 'CONTINUE ➜' : 'RETRY ➜'}
                   </button>

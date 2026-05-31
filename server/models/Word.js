@@ -12,6 +12,7 @@ const wordItemSchema = new mongoose.Schema({
   lessonId: { type: Number, default: 0 },
   sequence: { type: Number, default: 0 },
   lessonType: { type: String, enum: ['trace', 'match', 'build', 'suffix', 'concept'], default: 'build' },
+  isSummary: { type: Boolean, default: false },
   baseWord: { type: String },
   morphedBase: { type: String },
   targetSuffix: { type: String },

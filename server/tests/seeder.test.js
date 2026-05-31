@@ -15,14 +15,16 @@ describe('Seed Data Integrity', () => {
         expect(word).toHaveProperty('wordId');
         expect(word).toHaveProperty('malayalamText');
         expect(word).toHaveProperty('englishTranslation');
-        expect(word).toHaveProperty('phonetic');
+        if (word.lessonType !== 'concept') {
+          expect(word).toHaveProperty('phonetic');
+          expect(typeof word.phonetic).toBe('string');
+        }
         expect(word).toHaveProperty('bucketId');
         expect(word).toHaveProperty('unlockCycle');
         
         expect(typeof word.wordId).toBe('string');
         expect(typeof word.malayalamText).toBe('string');
         expect(typeof word.englishTranslation).toBe('string');
-        expect(typeof word.phonetic).toBe('string');
         expect(typeof word.bucketId).toBe('number');
         expect(typeof word.unlockCycle).toBe('number');
       });

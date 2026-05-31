@@ -1,5 +1,21 @@
 # Changelog - Malayalam Prime
 
+## [2026.05.30.007] - 2026-05-30
+### Added
+- **Milestone 1.3: Cycle 1 Intro Screens Retrofit:** All 9 Cycle 1 lessons now feature interactive instructional summary screens with audio-enabled vocabulary previews.
+- **Aspirated Consonant Integration:** Injected 8 new Trace and Match lessons for (ഭ, ഠ, ധ, ഖ) and updated all 300 words to use these as consolidated tiles.
+- **Visual Correction UI:** The Word Assembly game now displays the correct Malayalam spelling and phonetic guide when a mistake is made, enhancing the pedagogical loop.
+- **Global Grapheme Consolidation:** Consolidated all double consonants (ല്ല, മ്മ, ന്ന, etc.) into single character tiles across the entire Cycle 1 curriculum.
+- **Curriculum Realignment:** Re-mapped 100+ items across 9 lessons to ensure a logical character-to-word progression matching the lesson descriptions.
+
+### Fixed
+- **Achchan Simplification:** Standardized "അച്ഛൻ" to the unaspirated "അച്ചൻ" across all seed files, components, and word tiles for colloquial alignment.
+- **Lesson Data Desync:** Fixed a bug where Lessons 1 and 2 showed identical summary grids by utilizing `activeLessonId` from the global ProgressContext.
+- **Schema Stripping:** Resolved a critical issue where the `isSummary` flag was being stripped by the Mongoose model; updated `Word.js` to explicitly persist the field.
+- **SRS Revision Clutter:** Patched the SRS Engine to strictly exclude instructional `concept` screens from Daily Revision payloads.
+
+## [2026.05.30.002] - 2026-05-30
+
 ## [2026.05.29.002] - 2026-05-29
 ### Added
 - **Milestone 2.2: Concept Screens & Grammar Expansion:** Added explicit visual instruction pages and massively expanded Cycle 2 vocabulary.

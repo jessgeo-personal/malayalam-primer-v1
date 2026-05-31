@@ -246,6 +246,15 @@ export default function LetterPicker({ word, onComplete }) {
                <div className={`absolute inset-0 z-50 p-6 flex flex-col items-center justify-center text-center animate-fade-in
                  ${feedback.isCorrect ? 'bg-prime-teal-green' : 'bg-prime-error'}`}>
                  <div className="text-6xl mb-4">{feedback.isCorrect ? '✅' : '❌'}</div>
+                 
+                 {!feedback.isCorrect && (
+                   <div className="mb-6 animate-pop">
+                     <p className="text-white/80 font-bold mb-1 uppercase tracking-widest text-[10px]">Correct spelling:</p>
+                     <div className="text-4xl font-black text-white mb-1">{word.malayalamText}</div>
+                     <div className="text-lg font-bold text-white/90 bg-black/20 px-4 py-1 rounded-lg inline-block uppercase tracking-widest">{word.phonetic}</div>
+                   </div>
+                 )}
+
                  <h3 className="text-2xl font-black text-white uppercase mb-6">
                    {feedback.isCorrect ? 'Correct!' : 'Try Again!'}
                  </h3>

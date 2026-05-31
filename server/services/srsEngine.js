@@ -62,7 +62,7 @@ async function generateRevisionPayload(userId) {
   for (const item of progressItems) {
     if (item.itemType === 'word') {
       const wordData = await Word.findOne({ wordId: item.itemId });
-      if (wordData) {
+      if (wordData && wordData.lessonType !== 'concept') {
         payload.push({
           ...item.toObject(),
           ...wordData.toObject(),

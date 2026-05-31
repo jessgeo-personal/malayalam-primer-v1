@@ -1,6 +1,15 @@
 # Unified Regression Test Checklist
 
-## 🛠️ Phase 2: The Grammar Factory (Milestone 2.2)
+## 🛠️ Phase 1: The "Foundation" (Milestone 1.3)
+- [x] **Intro Screens Retrofit:** All 9 Cycle 1 lessons now start with an instructional Concept Screen verified (Pedagogical Alignment).
+- [x] **Interactive Summaries:** Concept screens dynamically fetch and display lesson vocabulary with audio buttons verified (Functional Adherence).
+- [x] **Summary UI Grid:** "Soft Premium Neo-Bento" grid layout for lesson previews verified (Visual Consistency).
+- [x] **Cycle Consistency:** Milestone 1.3 intro screens share the same component architecture as Cycle 2 grammar screens verified (Architectural Integrity).
+- [x] **TDD Validation:** 100% green state for new ConceptScreen summary variant tests verified.
+- [x] **Aspirated Consonant Integration:** 8 new Trace/Match lessons for (ഭ, ഠ, ധ, ഖ) verified (Pedagogical Depth).
+- [x] **Visual Correction Feedback:** Word Assembly now displays correct spelling/phonetics on mistakes verified (Functional Adherence).
+- [x] **Achchan Simplification:** "അച്ഛൻ" standardized to "അച്ചൻ" across all 300 words and tiles verified (Consistency).
+- [x] **SRS Revision Safety:** `concept` items are strictly excluded from Daily Revision payloads verified (Accuracy).
 - [x] **Data Expansion:** Cycle 2 expanded to ensure every lesson (10-14) contains at least 10 words verified (Volume Constraint).
 - [x] **ConceptScreen Component:** Automated UI animation built to visually explain rules before gameplay verified (Visual Consistency).
 - [x] **Game Loop Integration:** App.jsx routes `concept` items correctly to the new instructional screen verified (Functional Adherence).

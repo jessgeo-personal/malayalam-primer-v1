@@ -61,9 +61,22 @@
     "phonetic": "padichu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ഠ",
+      "ി",
+      "ച്ച",
+      "ു"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "prerequisites": [
+      "m033",
+      "m064",
+      "m029",
+      "m018",
+      "m041"
+    ]
   },
   {
     "wordId": "w207",
@@ -226,9 +239,20 @@
     "phonetic": "mukham",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ു",
+      "ഖ",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "prerequisites": [
+      "m007",
+      "m041",
+      "m062",
+      "m048"
+    ]
   },
   {
     "wordId": "w222",
@@ -270,9 +294,20 @@
     "phonetic": "bhoomi",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഭ",
+      "ൂ",
+      "മ",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "prerequisites": [
+      "m063",
+      "m030",
+      "m007",
+      "m029"
+    ]
   },
   {
     "wordId": "w226",
@@ -578,9 +613,26 @@
     "phonetic": "kadinamaaya",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ഠ",
+      "ി",
+      "ന",
+      "മ",
+      "ാ",
+      "യ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "prerequisites": [
+      "m026",
+      "m064",
+      "m029",
+      "m003",
+      "m007",
+      "m004",
+      "m054"
+    ]
   },
   {
     "wordId": "w254",
@@ -622,9 +674,22 @@
     "phonetic": "bhaarya",
     "bucketId": 10,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഭ",
+      "ാ",
+      "ര",
+      "്",
+      "യ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "prerequisites": [
+      "m063",
+      "m004",
+      "m028",
+      "m014",
+      "m054"
+    ]
   },
   {
     "wordId": "w258",
@@ -633,9 +698,28 @@
     "phonetic": "bharthaavu",
     "bucketId": 10,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഭ",
+      "ർ",
+      "ത",
+      "്",
+      "ത",
+      "ാ",
+      "വ",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "prerequisites": [
+      "m063",
+      "m011",
+      "m013",
+      "m014",
+      "m055",
+      "m004",
+      "m002",
+      "m014"
+    ]
   },
   {
     "wordId": "w259",
@@ -710,9 +794,32 @@
     "phonetic": "saadhaaranaayaayi",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "സ",
+      "ാ",
+      "ധ",
+      "ാ",
+      "ര",
+      "ണ",
+      "യ",
+      "ാ",
+      "യ",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "prerequisites": [
+      "m050",
+      "m004",
+      "m065",
+      "m004",
+      "m028",
+      "m020",
+      "m054",
+      "m004",
+      "m054",
+      "m029"
+    ]
   },
   {
     "wordId": "w266",

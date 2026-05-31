@@ -460,15 +460,15 @@
   },
   {
     "wordId": "s022",
-    "malayalamText": "അച്ഛന്മാർ",
+    "malayalamText": "അച്ചന്മാർ",
     "englishTranslation": "Fathers",
     "phonetic": "achanmaar",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 12,
     "lessonType": "suffix",
-    "baseWord": "അച്ഛൻ",
-    "morphedBase": "അച്ഛൻ",
+    "baseWord": "അച്ചൻ",
+    "morphedBase": "അച്ചൻ",
     "targetSuffix": "മാർ",
     "distractorSuffixes": [
       "കൾ",

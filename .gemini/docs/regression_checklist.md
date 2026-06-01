@@ -185,6 +185,14 @@
 - [x] **Data Migration**: Existing progress records migrated from `word` to `letter` type where appropriate verified.
 - [x] **HUD/Mastery Strip Sync**: Mastery strip now correctly reflects learned characters from Cycle 1 verified.
 
+## 🖋️ Phase 24: Cycle Progression Fix
+- [x] **Dynamic Cycle Advancement**: `POST /api/session/lesson/complete` now correctly calculates and updates `user.currentCycle` when the next lesson belongs to a new cycle verified.
+- [x] **Cycle Card Unlocking**: Verified that completing Lesson 9 now triggers a move to Cycle 2 on the Adventure Map verified.
+
+## 🖋️ Phase 25: Auto-Heal Progression
+- [x] **Retroactive Cycle Sync**: `GET /api/progress/stats` now includes a self-healing check that automatically bumps `currentCycle` if the user's `currentLesson` belongs to a future cycle verified.
+- [x] **Data Persistence**: Confirmed that the auto-heal logic saves the corrected cycle back to the database instantly on app load verified.
+
 
 
 

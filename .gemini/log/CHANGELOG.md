@@ -1,5 +1,14 @@
 # Changelog - Malayalam Prime
 
+## [2026.06.01.006] - 2026-06-01
+### Fixed
+- **Auto-Heal Progression:** Implemented a self-healing mechanism in the stats API that retroactively synchronizes a user's `currentCycle` with their `currentLesson`. This fixes "stuck cycle" states for users who completed cycle-transition lessons before the progression triggers were fully implemented.
+
+## [2026.06.01.005] - 2026-06-01
+### Fixed
+- **Cycle Progression Bug:** Fixed an issue where completing Cycle 1 would not automatically unlock Cycle 2. The backend now dynamically evaluates the cycle of the next lesson and updates the user's current cycle accordingly.
+- **Improved Advancement Logic:** Standardized the completion endpoint to ensure seamless transitions between all learning cycles.
+
 ## [2026.06.01.004] - 2026-06-01
 ### Fixed
 - **Progress Tracking Restoration:** Resolved a bug where learned letters were not appearing in the 'My Letters' HUD. Traces are now correctly categorized as `itemType: 'letter'`.

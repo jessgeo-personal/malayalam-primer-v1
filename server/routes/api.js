@@ -76,7 +76,15 @@ router.post('/session/lesson/complete', async (req, res) => {
     // Safely increment currentLesson only if completing the current or future lesson
     // AND user got at least 1 star (Threshold: 0 mistakes=3*, 1=2*, 2=1*, 3+=0*)
     if (stars > 0) {
-      user.currentLesson = Math.max(user.currentLesson, lid + 1);
+      const nextLessonId = Math.max(user.currentLesson, lid + 1);
+      user.currentLesson = nextLessonId;
+      
+      // Dynamic Cycle Advancement:
+      // Find the cycle that the new lesson belongs to.
+      const sampleWord = await Word.findOne({ lessonId: nextLessonId });
+      if (sampleWord && sampleWord.unlockCycle > user.currentCycle) {
+        user.currentCycle = sampleWord.unlockCycle;
+      }
     }
 
     await user.save();
@@ -257,6 +265,13 @@ router.get('/progress/stats', async (req, res) => {
     // Calculate total score based on Lesson Stars (Max 300 per lesson)
     // 3 Stars = 300, 2 Stars = 200, 1 Star = 100
     const score = user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0);
+
+    // AUTO-HEAL: Retroactively sync currentCycle if user advanced lessons but missed the cycle bump
+    const nextLessonWord = await Word.findOne({ lessonId: user.currentLesson });
+    if (nextLessonWord && nextLessonWord.unlockCycle > user.currentCycle) {
+      user.currentCycle = nextLessonWord.unlockCycle;
+      await user.save();
+    }
 
     const masteredTraces = await Progress.find({ 
       userId, 

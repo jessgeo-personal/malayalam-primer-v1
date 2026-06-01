@@ -215,8 +215,19 @@ router.post('/progress/update', async (req, res) => {
     const score = user ? user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0) : 0;
     
     // For backwards compatibility/MasteryStrip: get letters (traces)
-    const masteredTraces = await Progress.find({ userId, itemType: 'letter', correctCount: { $gt: 0 } });
-    const masteredCharacters = masteredTraces.map(p => p.itemId);
+    const masteredTraces = await Progress.find({ 
+      userId, 
+      $or: [{ itemType: 'letter' }, { itemId: /^t/ }], 
+      correctCount: { $gt: 0 } 
+    });
+    const traceIds = masteredTraces.map(p => p.itemId);
+    const masteredWords = await Word.find({ 
+      $or: [
+        { wordId: { $in: traceIds } },
+        { malayalamText: { $in: traceIds } }
+      ]
+    });
+    const masteredCharacters = masteredWords.map(w => w.malayalamText);
 
     res.json({ 
       success: true, 
@@ -247,8 +258,19 @@ router.get('/progress/stats', async (req, res) => {
     // 3 Stars = 300, 2 Stars = 200, 1 Star = 100
     const score = user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0);
 
-    const masteredTraces = await Progress.find({ userId, itemType: 'letter', correctCount: { $gt: 0 } });
-    const masteredCharacters = masteredTraces.map(p => p.itemId);
+    const masteredTraces = await Progress.find({ 
+      userId, 
+      $or: [{ itemType: 'letter' }, { itemId: /^t/ }], 
+      correctCount: { $gt: 0 } 
+    });
+    const traceIds = masteredTraces.map(p => p.itemId);
+    const masteredWords = await Word.find({ 
+      $or: [
+        { wordId: { $in: traceIds } },
+        { malayalamText: { $in: traceIds } }
+      ]
+    });
+    const masteredCharacters = masteredWords.map(w => w.malayalamText);
 
     // Calculate current cycle and progress based on ALL items in the cycle for a smoother mastery curve
     const activeCycle = user.currentCycle || 1;

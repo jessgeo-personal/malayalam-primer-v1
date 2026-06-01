@@ -179,6 +179,12 @@
 - [x] **Word Assembly Natural Flow**: Reverted forced scroll; long words now fit on a single row naturally without scrollbars verified.
 - [x] **Tracing Sidebar Breathing Room**: Widen sidebar to `md:w-96` to prevent example word truncation verified.
 
+## 🖋️ Phase 23: Progress Tracking Fix
+- [x] **Correct Item Categorization**: `srsEngine.js` now correctly labels traces as `itemType: 'letter'`, enabling correct filtering verified.
+- [x] **Unified Character Mapping**: API now maps internal trace IDs (t001, etc.) to actual Malayalam characters for UI display verified.
+- [x] **Data Migration**: Existing progress records migrated from `word` to `letter` type where appropriate verified.
+- [x] **HUD/Mastery Strip Sync**: Mastery strip now correctly reflects learned characters from Cycle 1 verified.
+
 
 
 

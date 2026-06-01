@@ -1,5 +1,11 @@
 # Changelog - Malayalam Prime
 
+## [2026.06.01.004] - 2026-06-01
+### Fixed
+- **Progress Tracking Restoration:** Resolved a bug where learned letters were not appearing in the 'My Letters' HUD. Traces are now correctly categorized as `itemType: 'letter'`.
+- **Mastery HUD Sync:** Enriched the stats API to map internal trace IDs to Malayalam characters, ensuring the homepage and in-game progress bars accurately reflect user achievements.
+- **Data Migration:** Patched existing progress records to align with the corrected categorization logic.
+
 ## [2026.06.01.003] - 2026-06-01
 ### Changed
 - **Global Layout Expansion:** Widened the entire application container to `max-w-[1600px]` and the central game box to `max-w-[1400px]` to fully utilize tablet screen real estate.

@@ -96,11 +96,12 @@ async function generateLessonPayload(userId, lessonId) {
 
   const payload = [];
   for (const w of words) {
-    const progress = await Progress.findOne({ userId, itemId: w.wordId, itemType: 'word' });
+    const itype = w.lessonType === 'trace' ? 'letter' : 'word';
+    const progress = await Progress.findOne({ userId, itemId: w.wordId, itemType: itype });
     const item = {
       ...w.toObject(),
       itemId: w.wordId,
-      itemType: 'word',
+      itemType: itype,
       showTutorial: !progress
     };
 

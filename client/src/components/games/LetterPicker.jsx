@@ -235,7 +235,7 @@ export default function LetterPicker({ word, onComplete }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 w-full max-w-5xl animate-pop">
+    <div className="flex flex-col items-center gap-8 w-full max-w-7xl animate-pop">
       
       {/* Title & Instructions */}
       <div className="w-full flex flex-col items-center text-center">
@@ -254,7 +254,7 @@ export default function LetterPicker({ word, onComplete }) {
           collisionDetection={pointerWithin} 
           onDragEnd={handleDragEnd}
         >
-          <div className="flex-1 flex flex-col gap-8 p-10 bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base relative overflow-hidden min-h-[450px]">
+          <div className="flex-[3] flex flex-col gap-8 p-10 bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base relative overflow-hidden min-h-[450px]">
             
             {/* Reordered Drop Zones */}
             <div className="flex flex-wrap justify-center gap-4 py-8 border-b border-slate-100">
@@ -346,10 +346,18 @@ export default function LetterPicker({ word, onComplete }) {
                <div className="text-3xl font-black text-prime-dark-text italic leading-tight">{word.englishTranslation}</div>
              </div>
 
-             <div className="w-full">
+             <div className="w-full mb-6">
                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">Phonetic:</span>
                <div className="text-xl font-bold text-prime-coral-pink uppercase tracking-[0.2em]">{word.phonetic}</div>
              </div>
+
+             <button 
+              onClick={() => audioEngine.speak(word.malayalamText)}
+              className="w-16 h-16 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-2xl shadow-lg hover:scale-110 active:scale-95 transition-transform border border-slate-100"
+              title="Play Word Sound"
+             >
+               🔊
+             </button>
           </div>
 
           {/* Progress Indicator */}

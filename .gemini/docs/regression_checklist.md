@@ -173,11 +173,11 @@
 - [x] **Safe Lesson Pointers**: replaying Lesson 1 correctly updates Lesson 1 stats and DOES NOT unlock Lesson 3 verified.
 - [x] **TDD Verification**: All backend and client tests passed 100% green verified.
 
-## 🖋️ Phase 20: Tracing Example Words
-- [x] **Backend Payload Enrichment**: `generateLessonPayload` correctly attaches up to 3 `exampleWords` from the dictionary that use the current tracing character verified.
-- [x] **UI Rendering**: `TracingCanvas` displays the example words in a clean, tablet-optimized list on the right-hand panel verified.
-- [x] **Audio Feedback**: Each example word has a functional "🔊" button that plays the full word's pronunciation verified.
-- [x] **Pedagogical Relevance**: Verification of Cycle 1 lessons (1-9) confirms that relevant vocabulary is pulled (e.g., 'അ' shows 'അവൻ', 'അമ്മ') verified.
+## 🖋️ Phase 22: Global Width Expansion
+- [x] **Global App Width**: Application container expanded to `max-w-[1600px]` in `App.jsx` verified.
+- [x] **Game Box Expansion**: Central game card widened to `max-w-[1400px]`, providing 40-50% more interactive space verified.
+- [x] **Word Assembly Natural Flow**: Reverted forced scroll; long words now fit on a single row naturally without scrollbars verified.
+- [x] **Tracing Sidebar Breathing Room**: Widen sidebar to `md:w-96` to prevent example word truncation verified.
 
 
 

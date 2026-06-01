@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
 import LetterPicker from '../components/games/LetterPicker';
+import { audioEngine } from '../utils/audioEngine';
 
 // Mock dnd-kit since it's hard to test drag and drop in jsdom
 vi.mock('@dnd-kit/core', () => ({
@@ -13,6 +14,13 @@ vi.mock('@dnd-kit/core', () => ({
   useSensor: vi.fn(),
   useSensors: vi.fn(),
   pointerWithin: vi.fn()
+}));
+
+// Mock audioEngine
+vi.mock('../utils/audioEngine', () => ({
+  audioEngine: {
+    speak: vi.fn(),
+  },
 }));
 
 describe('LetterPicker (Word Assembly) Component', () => {
@@ -45,5 +53,14 @@ describe('LetterPicker (Word Assembly) Component', () => {
     mockWord.requiredCharacters.forEach(char => {
       expect(screen.getByText(char)).toBeInTheDocument();
     });
+  });
+
+  it('plays audio when the phonetic speaker button is clicked', () => {
+    render(<LetterPicker word={mockWord} onComplete={() => {}} />);
+    // There are speaker buttons on tiles too, so we need to find the one in the right panel
+    const speakerButtons = screen.getAllByText('🔊');
+    // Last one should be our new one in the right column
+    fireEvent.click(speakerButtons[speakerButtons.length - 1]);
+    expect(audioEngine.speak).toHaveBeenCalledWith(mockWord.malayalamText);
   });
 });

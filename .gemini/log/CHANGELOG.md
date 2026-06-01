@@ -1,5 +1,17 @@
 # Changelog - Malayalam Prime
 
+## [2026.06.01.003] - 2026-06-01
+### Changed
+- **Global Layout Expansion:** Widened the entire application container to `max-w-[1600px]` and the central game box to `max-w-[1400px]` to fully utilize tablet screen real estate.
+- **Natural Word Flow:** Reverted forced horizontal scrolling in Word Assembly; the increased width now allows even the longest words to fit naturally on a single row.
+- **Tracing UI Optimization:** Enlarged the Tracing sidebar (`md:w-96`) and flex-balanced the drawing pad to prevent example words from being cut off.
+
+## [2026.06.01.002] - 2026-06-01
+### Changed
+- **Word Assembly Ergonomics:** Widened the interface by ~35% (`max-w-7xl`) and enforced a single-row layout for boxes and tiles using `flex-nowrap`.
+- **Horizontal Navigation:** Integrated horizontal touch-scrolling with `snap-center` for long words, ensuring all character tiles remain on one plane.
+- **Auditory Guidance:** Added a prominent speaker button to the Word Assembly reference panel to play the target word's audio.
+
 ## [2026.06.01.001] - 2026-06-01
 ### Added
 - **Tracing Exercise Enhancement:** The tracing canvas now displays up to 3 example vocabulary words for the character being traced.

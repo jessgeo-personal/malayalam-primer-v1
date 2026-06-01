@@ -100,7 +100,7 @@ const App = () => {
         </div>
       )}
 
-      <main className={`flex-1 w-full max-w-6xl mx-auto px-6 ${sessionMode === 'map' ? '-mt-12 pb-32' : 'py-12 pb-32'}`}>
+      <main className={`flex-1 w-full max-w-[1600px] mx-auto px-6 ${sessionMode === 'map' ? '-mt-12 pb-32' : 'py-12 pb-32'}`}>
         {showAudit ? (
           <WordAudit />
         ) : sessionMode === 'map' ? (
@@ -178,7 +178,7 @@ const App = () => {
             </button>
           </div>
         ) : (
-          <div className="w-full max-w-4xl mx-auto card-bento-surface p-8 min-h-[550px] flex flex-col items-center justify-center relative animate-pop shadow-2xl border-orange-100">
+          <div className="w-full max-w-[1400px] mx-auto card-bento-surface p-8 min-h-[550px] flex flex-col items-center justify-center relative animate-pop shadow-2xl border-orange-100">
             {/* Header within game: Consolidated Controls */}
             <div className="absolute top-8 left-8 right-8 flex justify-between items-center pointer-events-none">
               <div className="flex items-center gap-3 pointer-events-auto bg-prime-action-dark px-4 py-2 rounded-2xl shadow-lg border border-white/10 backdrop-blur-sm">

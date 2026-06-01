@@ -95,7 +95,7 @@ export default function TracingCanvas({ word, onComplete }) {
 
       <div className="flex flex-col md:flex-row items-stretch gap-8 w-full">
         {/* Left Column: The Drawing Pad (Expanded) */}
-        <div className="flex-[2.5] relative bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base overflow-hidden min-h-[450px] touch-none">
+        <div className="flex-[3] relative bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base overflow-hidden min-h-[450px] touch-none">
           <canvas
             ref={canvasRef}
             onMouseDown={startDrawing}
@@ -118,7 +118,7 @@ export default function TracingCanvas({ word, onComplete }) {
         </div>
 
         {/* Right Column: Controls & Phonetics (Narrowed) */}
-        <div className="w-full md:w-64 flex flex-col gap-6">
+        <div className="w-full md:w-96 flex flex-col gap-6">
           <div className="card-bento-surface flex flex-col items-center justify-center p-6 text-center bg-prime-warm-base/30">
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Phonetic sound</span>
             <div className="text-4xl font-black text-prime-dark-text italic mb-6">{word.phonetic}</div>

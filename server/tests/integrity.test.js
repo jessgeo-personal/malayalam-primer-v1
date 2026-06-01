@@ -71,4 +71,33 @@ describe('Database Curriculum Integrity', () => {
       expect(count).toBeGreaterThanOrEqual(10);
     });
   });
+
+  test('The Great Split Integrity: Every buildable word in seed files must have requiredCharacters', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const seedDir = path.join(__dirname, '../data');
+    const seedFiles = ['seed-100.json', 'seed-200.json', 'seed-300.json'];
+
+    seedFiles.forEach(file => {
+      const filePath = path.join(seedDir, file);
+      if (fs.existsSync(filePath)) {
+        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        const buildableWords = data.filter(item => 
+          (item.lessonType === 'build' || !item.lessonType) && 
+          item.isSuffix !== true &&
+          item.lessonType !== 'concept' &&
+          item.lessonType !== 'trace' &&
+          item.lessonType !== 'match'
+        );
+
+        const missingSplits = buildableWords.filter(w => !w.requiredCharacters || w.requiredCharacters.length === 0);
+        
+        if (missingSplits.length > 0) {
+          console.warn(`File ${file}: Missing requiredCharacters for ${missingSplits.length} words (e.g., ${missingSplits[0].wordId})`);
+        }
+
+        expect(missingSplits.length).toBe(0);
+      }
+    });
+  });
 });

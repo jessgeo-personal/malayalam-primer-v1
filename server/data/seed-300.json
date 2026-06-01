@@ -6,9 +6,19 @@
     "phonetic": "kondupoyi",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ൊ",
+      "ണ്ട",
+      "ു",
+      "പ",
+      "ോ",
+      "യ",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w202",
@@ -17,9 +27,18 @@
     "phonetic": "konduvannu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ൊ",
+      "ണ്ട",
+      "ു",
+      "വ",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w203",
@@ -28,9 +47,15 @@
     "phonetic": "paadi",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ാ",
+      "ട",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w204",
@@ -39,9 +64,16 @@
     "phonetic": "kalichu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ള",
+      "ി",
+      "ച്ച",
+      "ു"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w205",
@@ -50,9 +82,15 @@
     "phonetic": "chaadi",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ച",
+      "ാ",
+      "ട",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w206",
@@ -85,9 +123,18 @@
     "phonetic": "padipichu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ഠ",
+      "ി",
+      "പ്പ",
+      "ി",
+      "ച്ച",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w208",
@@ -96,9 +143,19 @@
     "phonetic": "kaathirunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ത്ത",
+      "ി",
+      "ര",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w209",
@@ -107,9 +164,16 @@
     "phonetic": "thurannu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ത",
+      "ു",
+      "റ",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w210",
@@ -118,9 +182,15 @@
     "phonetic": "adachu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "ട",
+      "ച്ച",
+      "ു"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w211",
@@ -129,9 +199,17 @@
     "phonetic": "vaangichu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ാ",
+      "ങ്ങ",
+      "ി",
+      "ച്ച",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w212",
@@ -140,9 +218,15 @@
     "phonetic": "vittu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ി",
+      "റ്റ",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w213",
@@ -151,9 +235,15 @@
     "phonetic": "ayachu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "യ",
+      "ച്ച",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w214",
@@ -162,9 +252,18 @@
     "phonetic": "sahaayichu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "സ",
+      "ഹ",
+      "ാ",
+      "യ",
+      "ി",
+      "ച്ച",
+      "ു"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w215",
@@ -173,9 +272,15 @@
     "phonetic": "thonni",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ത",
+      "ോ",
+      "ന്ന",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w216",
@@ -184,9 +289,14 @@
     "phonetic": "kannu",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ണ്ണ",
+      "്"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w217",
@@ -195,9 +305,13 @@
     "phonetic": "kai",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ൈ"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w218",
@@ -206,9 +320,14 @@
     "phonetic": "kaal",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ൽ"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w219",
@@ -217,9 +336,13 @@
     "phonetic": "thala",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ത",
+      "ല"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w220",
@@ -228,9 +351,14 @@
     "phonetic": "vaaya",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ാ",
+      "യ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w221",
@@ -261,9 +389,15 @@
     "phonetic": "mudi",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ു",
+      "ട",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w223",
@@ -272,9 +406,14 @@
     "phonetic": "pallu",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ല്ല",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w224",
@@ -283,9 +422,16 @@
     "phonetic": "aakaasham",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ആ",
+      "ക",
+      "ാ",
+      "ശ",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w225",
@@ -315,9 +461,16 @@
     "phonetic": "sooryan",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "സ",
+      "ൂ",
+      "ര",
+      "്യ",
+      "ൻ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w227",
@@ -326,9 +479,15 @@
     "phonetic": "chandran",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ച",
+      "ന്ദ",
+      "്ര",
+      "ൻ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w228",
@@ -337,9 +496,16 @@
     "phonetic": "nakshathram",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ന",
+      "ക്ഷ",
+      "ത",
+      "്ര",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w229",
@@ -348,9 +514,15 @@
     "phonetic": "kaadu",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w230",
@@ -359,9 +531,14 @@
     "phonetic": "kadal",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ട",
+      "ൽ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w231",
@@ -370,9 +547,14 @@
     "phonetic": "puzha",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ു",
+      "ഴ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w232",
@@ -381,9 +563,13 @@
     "phonetic": "mala",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ല"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w233",
@@ -392,9 +578,14 @@
     "phonetic": "kallu",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ല്ല",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w234",
@@ -403,9 +594,15 @@
     "phonetic": "vasthram",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "സ്ത",
+      "്ര",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w235",
@@ -414,9 +611,17 @@
     "phonetic": "kadalaas",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ട",
+      "ല",
+      "ാ",
+      "സ",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w236",
@@ -425,9 +630,14 @@
     "phonetic": "pena",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "േ",
+      "ന"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w237",
@@ -436,7 +646,12 @@
     "phonetic": "petti",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": ["പ", "െ", "ട്ട", "ി"],
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ട്ട",
+      "ി"
+    ],
     "unlockCycle": 4,
     "lessonId": 25
   },
@@ -447,9 +662,16 @@
     "phonetic": "thaakkol",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ത",
+      "ാ",
+      "ക്ക",
+      "ോ",
+      "ൽ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w239",
@@ -458,7 +680,12 @@
     "phonetic": "poottu",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": ["പ", "ൂ", "ട്ട", "്"],
+    "requiredCharacters": [
+      "പ",
+      "ൂ",
+      "ട്ട",
+      "്"
+    ],
     "unlockCycle": 4,
     "lessonId": 25
   },
@@ -469,9 +696,14 @@
     "phonetic": "roopa",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ര",
+      "ൂ",
+      "പ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w241",
@@ -480,9 +712,14 @@
     "phonetic": "vila",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ി",
+      "ല"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w242",
@@ -491,9 +728,15 @@
     "phonetic": "bhaaram",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഭ",
+      "ാ",
+      "ര",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w243",
@@ -502,9 +745,15 @@
     "phonetic": "niram",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ന",
+      "ി",
+      "റ",
+      "ം"
+    ],
     "unlockCycle": 3,
-    "lessonId": 20
+    "lessonId": 20,
+    "lessonType": "build"
   },
   {
     "wordId": "w244",
@@ -513,9 +762,15 @@
     "phonetic": "karutha",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "റ",
+      "ു",
+      "ത്ത"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w245",
@@ -524,9 +779,16 @@
     "phonetic": "velutha",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "െ",
+      "ള",
+      "ു",
+      "ത്ത"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w246",
@@ -535,9 +797,15 @@
     "phonetic": "chuvanna",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ച",
+      "ു",
+      "വ",
+      "ന്ന"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w247",
@@ -546,9 +814,13 @@
     "phonetic": "pacha",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ച്ച"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w248",
@@ -557,9 +829,14 @@
     "phonetic": "neela",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ന",
+      "ീ",
+      "ല"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w249",
@@ -568,9 +845,13 @@
     "phonetic": "manja",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ഞ്ഞ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w250",
@@ -579,9 +860,17 @@
     "phonetic": "neelamulla",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ന",
+      "ീ",
+      "ള",
+      "മ",
+      "ു",
+      "ള്ള"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w251",
@@ -590,9 +879,15 @@
     "phonetic": "choodu",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ച",
+      "ൂ",
+      "ട",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w252",
@@ -601,9 +896,16 @@
     "phonetic": "thanuppu",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ത",
+      "ണ",
+      "ു",
+      "പ്പ",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w253",
@@ -640,9 +942,18 @@
     "phonetic": "mriduvaaya",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ൃ",
+      "ദ",
+      "ു",
+      "വ",
+      "ാ",
+      "യ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w255",
@@ -651,9 +962,18 @@
     "phonetic": "vrithiyulla",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ൃ",
+      "ത്ത",
+      "ി",
+      "യ",
+      "ു",
+      "ള്ള"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w256",
@@ -662,7 +982,15 @@
     "phonetic": "vrithiketta",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": ["വ", "ൃ", "ത്ത", "ി", "ക", "െ", "ട്ട"],
+    "requiredCharacters": [
+      "വ",
+      "ൃ",
+      "ത്ത",
+      "ി",
+      "ക",
+      "െ",
+      "ട്ട"
+    ],
     "unlockCycle": 4,
     "lessonId": 25
   },
@@ -721,9 +1049,15 @@
     "phonetic": "maaman",
     "bucketId": 10,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ാ",
+      "മ",
+      "ൻ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w260",
@@ -732,9 +1066,16 @@
     "phonetic": "ammaayi",
     "bucketId": 10,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "ാ",
+      "യ",
+      "ി"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w261",
@@ -743,9 +1084,17 @@
     "phonetic": "athaayathu",
     "bucketId": 7,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "ത",
+      "ാ",
+      "യ",
+      "ത",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w262",
@@ -754,9 +1103,15 @@
     "phonetic": "engil",
     "bucketId": 7,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "എ",
+      "ങ്ക",
+      "ി",
+      "ൽ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w263",
@@ -765,9 +1120,17 @@
     "phonetic": "aayaalum",
     "bucketId": 7,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ആ",
+      "യ",
+      "ാ",
+      "ല",
+      "ു",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w264",
@@ -776,9 +1139,20 @@
     "phonetic": "prathyekichu",
     "bucketId": 7,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "്ര",
+      "ത",
+      "്യ",
+      "േ",
+      "ക",
+      "ി",
+      "ച്ച",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w265",
@@ -821,9 +1195,16 @@
     "phonetic": "purame",
     "bucketId": 6,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ു",
+      "റ",
+      "മ",
+      "േ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w267",
@@ -832,9 +1213,15 @@
     "phonetic": "akathu",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "ക",
+      "ത്ത",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w268",
@@ -843,9 +1230,15 @@
     "phonetic": "nere",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ന",
+      "േ",
+      "ര",
+      "െ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w269",
@@ -854,9 +1247,15 @@
     "phonetic": "valathu",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ല",
+      "ത്ത",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w270",
@@ -865,9 +1264,15 @@
     "phonetic": "idathu",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഇ",
+      "ട",
+      "ത്ത",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w271",
@@ -876,9 +1281,16 @@
     "phonetic": "munnil",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ു",
+      "ന്ന",
+      "ി",
+      "ൽ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w272",
@@ -887,9 +1299,16 @@
     "phonetic": "pinnil",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ി",
+      "ന്ന",
+      "ി",
+      "ൽ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w273",
@@ -898,9 +1317,16 @@
     "phonetic": "chuttum",
     "bucketId": 5,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ച",
+      "ു",
+      "റ്റ",
+      "ു",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w274",
@@ -909,9 +1335,14 @@
     "phonetic": "oppam",
     "bucketId": 6,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഒ",
+      "പ്പ",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w275",
@@ -920,9 +1351,15 @@
     "phonetic": "pakaram",
     "bucketId": 6,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ക",
+      "ര",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w276",
@@ -931,9 +1368,16 @@
     "phonetic": "polum",
     "bucketId": 7,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ോ",
+      "ല",
+      "ു",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w277",
@@ -942,9 +1386,18 @@
     "phonetic": "ellaavarum",
     "bucketId": 1,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "എ",
+      "ല്ല",
+      "ാ",
+      "വ",
+      "ര",
+      "ു",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w278",
@@ -953,9 +1406,15 @@
     "phonetic": "aarum",
     "bucketId": 1,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ആ",
+      "ര",
+      "ു",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w279",
@@ -964,9 +1423,15 @@
     "phonetic": "onnum",
     "bucketId": 1,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഒ",
+      "ന്ന",
+      "ു",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w280",
@@ -975,9 +1440,15 @@
     "phonetic": "chilar",
     "bucketId": 1,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ച",
+      "ി",
+      "ല",
+      "ർ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w281",
@@ -986,9 +1457,16 @@
     "phonetic": "palathum",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "പ",
+      "ല",
+      "ത",
+      "ു",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w282",
@@ -997,9 +1475,15 @@
     "phonetic": "swantham",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "സ",
+      "്വ",
+      "ന്ത",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w283",
@@ -1008,9 +1492,14 @@
     "phonetic": "mattu",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "റ്റ",
+      "്"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w284",
@@ -1019,9 +1508,15 @@
     "phonetic": "adutha",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "ട",
+      "ു",
+      "ത്ത"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w285",
@@ -1030,9 +1525,15 @@
     "phonetic": "kazhinja",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ഴ",
+      "ി",
+      "ഞ്ഞ"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w286",
@@ -1041,9 +1542,15 @@
     "phonetic": "aadyam",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ആ",
+      "ദ",
+      "്യ",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w287",
@@ -1052,9 +1559,17 @@
     "phonetic": "avasaanam",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "വ",
+      "സ",
+      "ാ",
+      "ന",
+      "ം"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w288",
@@ -1063,9 +1578,18 @@
     "phonetic": "ezhuthunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "എ",
+      "ഴ",
+      "ു",
+      "ത",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w289",
@@ -1074,9 +1598,19 @@
     "phonetic": "vaayikkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ാ",
+      "യ",
+      "ി",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w290",
@@ -1085,9 +1619,18 @@
     "phonetic": "kelkkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "േ",
+      "ൾ",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w291",
@@ -1096,9 +1639,17 @@
     "phonetic": "nalkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ന",
+      "ൽ",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w292",
@@ -1107,9 +1658,18 @@
     "phonetic": "ariyunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "റ",
+      "ി",
+      "യ",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w293",
@@ -1118,9 +1678,21 @@
     "phonetic": "vishwasikkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "വ",
+      "ി",
+      "ശ",
+      "്വ",
+      "സ",
+      "ി",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w294",
@@ -1129,9 +1701,17 @@
     "phonetic": "marakkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "റ",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w295",
@@ -1140,9 +1720,17 @@
     "phonetic": "orkkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഓ",
+      "ർ",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w296",
@@ -1151,9 +1739,19 @@
     "phonetic": "kaanikkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ണ",
+      "ി",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w297",
@@ -1162,9 +1760,17 @@
     "phonetic": "ayakkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "അ",
+      "യ",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w298",
@@ -1173,9 +1779,18 @@
     "phonetic": "undaakkunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ഉ",
+      "ണ്ട",
+      "ാ",
+      "ക്ക",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w299",
@@ -1184,9 +1799,17 @@
     "phonetic": "maattunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "മ",
+      "ാ",
+      "റ്റ",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   },
   {
     "wordId": "w300",
@@ -1195,8 +1818,17 @@
     "phonetic": "nirthunnu",
     "bucketId": 3,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": [
+      "ന",
+      "ി",
+      "ർ",
+      "ത്ത",
+      "ു",
+      "ന്ന",
+      "ു"
+    ],
     "unlockCycle": 4,
-    "lessonId": 25
+    "lessonId": 25,
+    "lessonType": "build"
   }
 ]

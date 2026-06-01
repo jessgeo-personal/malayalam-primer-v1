@@ -119,20 +119,43 @@ export default function TracingCanvas({ word, onComplete }) {
 
         {/* Right Column: Controls & Phonetics (Narrowed) */}
         <div className="w-full md:w-64 flex flex-col gap-6">
-          <div className="card-bento-surface flex-1 flex flex-col items-center justify-center p-8 text-center bg-prime-warm-base/30">
+          <div className="card-bento-surface flex flex-col items-center justify-center p-6 text-center bg-prime-warm-base/30">
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Phonetic sound</span>
-            <div className="text-4xl font-black text-prime-dark-text italic mb-8">{word.phonetic}</div>
+            <div className="text-4xl font-black text-prime-dark-text italic mb-6">{word.phonetic}</div>
             
             <button 
               onClick={() => audioEngine.speak(word.malayalamText)}
-              className="w-20 h-20 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 active:scale-95 transition-transform border border-slate-100"
+              className="w-16 h-16 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-2xl shadow-lg hover:scale-110 active:scale-95 transition-transform border border-slate-100"
               title="Play Sound"
             >
               🔊
             </button>
           </div>
 
-          <div className="flex flex-col gap-4">
+          {/* Example Words Section */}
+          {word.exampleWords && word.exampleWords.length > 0 && (
+            <div className="card-bento-surface p-5 bg-prime-warm-base/20 border-prime-warm-base/50">
+              <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 text-center">Words with this letter</span>
+              <div className="flex flex-col gap-3">
+                {word.exampleWords.map((ex, idx) => (
+                  <div key={idx} className="flex items-center justify-between bg-white/50 p-2 rounded-2xl border border-white shadow-sm">
+                    <div className="flex flex-col items-start overflow-hidden">
+                      <span className="text-xl font-bold text-prime-dark-text leading-tight">{ex.malayalamText}</span>
+                      <span className="text-[10px] font-bold text-prime-coral-pink uppercase tracking-wider opacity-70 truncate w-full">{ex.englishTranslation}</span>
+                    </div>
+                    <button 
+                      onClick={() => audioEngine.speak(ex.malayalamText)}
+                      className="w-10 h-10 min-w-[40px] bg-prime-action-dark text-white rounded-xl flex items-center justify-center text-sm shadow-md hover:scale-105 active:scale-95 transition-transform"
+                    >
+                      🔊
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-col gap-4 mt-auto">
             <button
               onClick={drawGuide}
               className="btn-pill bg-white border-2 border-slate-200 text-slate-400 justify-center py-4 text-sm font-black tracking-widest"

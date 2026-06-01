@@ -66,14 +66,17 @@ describe('Session & Graduation Logic', () => {
     
     const mockData = [
       { wordId: 'w1', lessonType: 'build', toObject: () => ({ wordId: 'w1', lessonType: 'build' }) },
-      { wordId: 'w2', lessonType: 'trace', toObject: () => ({ wordId: 'w2', lessonType: 'trace' }) },
+      { wordId: 'w2', lessonType: 'trace', malayalamText: 'ഞ', toObject: () => ({ wordId: 'w2', lessonType: 'trace', malayalamText: 'ഞ' }) },
       { wordId: 'c1', lessonType: 'concept', toObject: () => ({ wordId: 'c1', lessonType: 'concept' }) },
       { wordId: 'w3', lessonType: 'build', toObject: () => ({ wordId: 'w3', lessonType: 'build' }) },
-      { wordId: 'w4', lessonType: 'trace', toObject: () => ({ wordId: 'w4', lessonType: 'trace' }) }
+      { wordId: 'w4', lessonType: 'trace', malayalamText: 'മ', toObject: () => ({ wordId: 'w4', lessonType: 'trace', malayalamText: 'മ' }) }
     ];
 
-    Word.find.mockReturnValue({
-      sort: jest.fn().mockResolvedValue(mockData)
+    Word.find.mockImplementation((query) => {
+      if (query.lessonId) {
+        return { sort: jest.fn().mockResolvedValue(mockData) };
+      }
+      return { limit: jest.fn().mockResolvedValue([]) };
     });
 
     const bundle = await srsEngine.generateLessonPayload(userId, 1);
@@ -86,5 +89,37 @@ describe('Session & Graduation Logic', () => {
     expect(bundle[1].lessonType).toBe('trace');
     expect(bundle[2].lessonType).toBe('trace');
     expect(bundle[3].lessonType).toBe('build');
+  });
+
+  test('generateLessonPayload should attach up to 3 exampleWords to trace items', async () => {
+    const userId = 'user123';
+    
+    const mockWords = [
+      { wordId: 't1', malayalamText: 'അ', lessonType: 'trace', toObject: () => ({ wordId: 't1', malayalamText: 'അ', lessonType: 'trace' }) }
+    ];
+
+    const mockExamples = [
+      { wordId: 'w1', malayalamText: 'അവൻ', englishTranslation: 'He', requiredCharacters: ['അ', 'വ', 'ൻ'], toObject: () => ({ wordId: 'w1', malayalamText: 'അവൻ', englishTranslation: 'He' }) },
+      { wordId: 'w2', malayalamText: 'അമ്മ', englishTranslation: 'Mother', requiredCharacters: ['അ', 'മ്മ'], toObject: () => ({ wordId: 'w2', malayalamText: 'അമ്മ', englishTranslation: 'Mother' }) }
+    ];
+
+    Word.find.mockImplementation((query) => {
+      if (query.lessonId === 1) {
+        return { sort: jest.fn().mockResolvedValue(mockWords) };
+      }
+      if (query.lessonType === 'build' && query.requiredCharacters === 'അ') {
+        return { limit: jest.fn().mockResolvedValue(mockExamples) };
+      }
+      return { sort: jest.fn().mockResolvedValue([]), limit: jest.fn().mockResolvedValue([]) };
+    });
+
+    Progress.findOne.mockResolvedValue(null);
+
+    const bundle = await srsEngine.generateLessonPayload(userId, 1);
+    
+    expect(bundle[0].lessonType).toBe('trace');
+    expect(bundle[0].exampleWords).toBeDefined();
+    expect(bundle[0].exampleWords.length).toBe(2);
+    expect(bundle[0].exampleWords[0].malayalamText).toBe('അവൻ');
   });
 });

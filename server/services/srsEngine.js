@@ -97,12 +97,28 @@ async function generateLessonPayload(userId, lessonId) {
   const payload = [];
   for (const w of words) {
     const progress = await Progress.findOne({ userId, itemId: w.wordId, itemType: 'word' });
-    payload.push({
+    const item = {
       ...w.toObject(),
       itemId: w.wordId,
       itemType: 'word',
       showTutorial: !progress
-    });
+    };
+
+    // If it's a tracing task, find up to 3 example words using this letter
+    if (w.lessonType === 'trace') {
+      const examples = await Word.find({ 
+        lessonType: 'build', 
+        requiredCharacters: w.malayalamText 
+      }).limit(3);
+      
+      item.exampleWords = examples.map(ex => ({
+        malayalamText: ex.malayalamText,
+        englishTranslation: ex.englishTranslation,
+        phonetic: ex.phonetic
+      }));
+    }
+
+    payload.push(item);
   }
 
   // Group by type: Concept first, then Tracing, then randomized everything else

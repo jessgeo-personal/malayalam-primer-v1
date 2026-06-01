@@ -436,7 +436,7 @@
     "phonetic": "petti",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": ["പ", "െ", "ട്ട", "ി"],
     "unlockCycle": 4,
     "lessonId": 25
   },
@@ -458,7 +458,7 @@
     "phonetic": "poottu",
     "bucketId": 11,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": ["പ", "ൂ", "ട്ട", "്"],
     "unlockCycle": 4,
     "lessonId": 25
   },
@@ -662,7 +662,7 @@
     "phonetic": "vrithiketta",
     "bucketId": 9,
     "isSuffix": false,
-    "requiredCharacters": [],
+    "requiredCharacters": ["വ", "ൃ", "ത്ത", "ി", "ക", "െ", "ട്ട"],
     "unlockCycle": 4,
     "lessonId": 25
   },

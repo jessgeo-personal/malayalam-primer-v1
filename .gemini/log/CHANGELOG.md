@@ -1,5 +1,11 @@
 # Changelog - Malayalam Prime
 
+## [2026.06.01.001] - 2026-06-01
+### Added
+- **Tracing Exercise Enhancement:** The tracing canvas now displays up to 3 example vocabulary words for the character being traced.
+- **Example Word UI:** Integrated a side-panel list showing Malayalam words, English translations, and individual audio playback buttons for contextual learning.
+- **Contextual Recall:** Backend enriched to dynamically query and attach relevant buildable words to tracing payloads.
+
 ## [2026.05.30.007] - 2026-05-30
 ### Added
 - **Milestone 1.3: Cycle 1 Intro Screens Retrofit:** All 9 Cycle 1 lessons now feature interactive instructional summary screens with audio-enabled vocabulary previews.

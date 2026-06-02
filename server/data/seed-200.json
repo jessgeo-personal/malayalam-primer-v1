@@ -2,14 +2,25 @@
   {
     "wordId": "c010",
     "malayalamText": "Making Plurals: -ുകൾ (ukal)",
-    "englishTranslation": "To make words plural (more than one), we add endings. Use -ുകൾ (ukal) for words ending in a 'U' sound or a chillu letter (like house).",
+    "englishTranslation": "To say there is more than one, we add endings. Use -ുകൾ (ukal) for words ending in a 'U' sound or a chillu letter.",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 10,
     "lessonType": "concept",
-    "baseWord": "വീട്",
-    "morphedBase": "വീടുകൾ",
-    "targetSuffix": "ുകൾ",
+    "examples": [
+      {
+        "base": "വീട്",
+        "suffix": "ുകൾ",
+        "result": "വീടുകൾ",
+        "rule": "CASE 1: For 'U' sounds, drop the tail and add -ുകൾ."
+      },
+      {
+        "base": "കല്ല്",
+        "suffix": "ുകൾ",
+        "result": "കല്ലുകൾ",
+        "rule": "CASE 2: Works for chillu letters and clusters too!"
+      }
+    ],
     "prerequisites": []
   },
   {
@@ -195,14 +206,25 @@
   {
     "wordId": "c011",
     "malayalamText": "Making Plurals: -ങ്ങൾ (ngal)",
-    "englishTranslation": "When a word ends in a circle (ം), change it to -ങ്ങൾ (ngal) to make it plural. For most other common words, we just use -കൾ (kal).",
+    "englishTranslation": "When a word ends in a circle (ം), we have a special rule!",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 11,
     "lessonType": "concept",
-    "baseWord": "മരം",
-    "morphedBase": "മരങ്ങൾ",
-    "targetSuffix": "ങ്ങൾ",
+    "examples": [
+      {
+        "base": "മരം",
+        "suffix": "ങ്ങൾ",
+        "result": "മരങ്ങൾ",
+        "rule": "RULE: Replace the circle (ം) with -ങ്ങൾ (ngal)."
+      },
+      {
+        "base": "പുസ്തകം",
+        "suffix": "ങ്ങൾ",
+        "result": "പുസ്തകങ്ങൾ",
+        "rule": "It works for all words ending in 'am'!"
+      }
+    ],
     "prerequisites": []
   },
   {
@@ -388,14 +410,25 @@
   {
     "wordId": "c012",
     "malayalamText": "Plurals for People: -മാർ (maar)",
-    "englishTranslation": "For people and respectful titles (like Mother or Friend), we use -മാർ (maar) instead of kal to make them plural.",
+    "englishTranslation": "For people and respectful titles, we don't use 'kal'. We use -മാർ (maar).",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 12,
     "lessonType": "concept",
-    "baseWord": "അമ്മ",
-    "morphedBase": "അമ്മമാർ",
-    "targetSuffix": "മാർ",
+    "examples": [
+      {
+        "base": "അമ്മ",
+        "suffix": "മാർ",
+        "result": "അമ്മമാർ",
+        "rule": "CASE 1: Use -മാർ for parents, elders, and respect."
+      },
+      {
+        "base": "ആൺകുട്ടി",
+        "suffix": "കൾ",
+        "result": "ആൺകുട്ടികൾ",
+        "rule": "CASE 2: Use standard -കൾ for young children."
+      }
+    ],
     "prerequisites": []
   },
   {
@@ -580,15 +613,38 @@
   },
   {
     "wordId": "c013",
-    "malayalamText": "Saying 'IN': -ിൽ (il)",
-    "englishTranslation": "To say something is 'in' or 'on', we add endings like -ിൽ (il), -യിൽ (yil), or -ത്തിൽ (thil) depending on the word. This is NOT a plural!",
+    "malayalamText": "Saying 'IN' and 'ON'",
+    "englishTranslation": "To say where something is, we add different endings. Watch how the base word changes!",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 13,
     "lessonType": "concept",
-    "baseWord": "കടൽ",
-    "morphedBase": "കടലിൽ",
-    "targetSuffix": "ിൽ",
+    "examples": [
+      {
+        "base": "കടൽ",
+        "suffix": "ലിൽ",
+        "result": "കടലിൽ",
+        "rule": "RULE 1: Replace the chillu 'L' (ൽ) with -ലിൽ (lil)."
+      },
+      {
+        "base": "വല",
+        "suffix": "യിൽ",
+        "result": "വലയിൽ",
+        "rule": "RULE 2: For words ending in A/I/E, use -യിൽ (yil)."
+      },
+      {
+        "base": "മരം",
+        "suffix": "ത്തിൽ",
+        "result": "മരത്തിൽ",
+        "rule": "RULE 3: Replace the circle (ം) with -ത്തിൽ (thil)."
+      },
+      {
+        "base": "വീട്",
+        "suffix": "ട്ടിൽ",
+        "result": "വീട്ടിൽ",
+        "rule": "RULE 4: Replace the hard 'T' (ട്) with -ട്ടിൽ (ttil)."
+      }
+    ],
     "prerequisites": []
   },
   {
@@ -601,11 +657,11 @@
     "lessonId": 13,
     "lessonType": "suffix",
     "baseWord": "കടൽ",
-    "morphedBase": "കടല",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "കട",
+    "targetSuffix": "ലിൽ",
     "distractorSuffixes": [
-      "കൾ",
-      "മാർ"
+      "ിൽ",
+      "ത്തിൽ"
     ],
     "prerequisites": [
       "c013"
@@ -761,11 +817,11 @@
     "lessonId": 13,
     "lessonType": "suffix",
     "baseWord": "കടൽ",
-    "morphedBase": "കടല",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "കട",
+    "targetSuffix": "ലിൽ",
     "distractorSuffixes": [
-      "കൾ",
-      "മാർ"
+      "ിൽ",
+      "ത്തിൽ"
     ],
     "prerequisites": [
       "c013"
@@ -857,8 +913,8 @@
     "lessonId": 14,
     "lessonType": "suffix",
     "baseWord": "കാട്",
-    "morphedBase": "കാട്ട",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "കാ",
+    "targetSuffix": "ട്ടിൽ",
     "distractorSuffixes": [
       "മാർ",
       "ങ്ങൾ",

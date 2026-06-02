@@ -4,7 +4,7 @@ export default function WordAudit() {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('words'); // 'words' | 'alphabets'
+  const [activeTab, setActiveTab] = useState('words'); // 'words' | 'alphabets' | 'grammar'
 
   useEffect(() => {
     fetch('/api/words/audit')
@@ -24,7 +24,7 @@ export default function WordAudit() {
 
   const buildWords = words.filter(w => w.lessonType === 'build');
   const alphabetLessons = words.filter(w => w.lessonType === 'trace' || w.lessonType === 'match');
-  const conceptItems = words.filter(w => w.lessonType === 'concept' || w.lessonType === 'suffix');
+  const grammarItems = words.filter(w => ['suffix', 'tense', 'concept'].includes(w.lessonType));
 
   const checkValidity = (word) => {
     if (!word.requiredCharacters || word.requiredCharacters.length === 0) return { valid: false, reason: 'Empty characters' };
@@ -36,12 +36,12 @@ export default function WordAudit() {
   const errorCount = buildWords.reduce((sum, w) => checkValidity(w).valid ? sum : sum + 1, 0);
 
   return (
-    <div className="flex flex-col gap-8 p-8 max-w-6xl mx-auto bg-white rounded-[40px] shadow-2xl my-12 border-[16px] border-prime-warm-base animate-pop">
+    <div className="flex flex-col gap-8 p-8 max-w-[1400px] mx-auto bg-white rounded-[40px] shadow-2xl my-12 border-[16px] border-prime-warm-base animate-pop overflow-hidden">
       {/* 1. Header Section */}
       <div className="flex justify-between items-start border-b border-slate-100 pb-8">
         <div>
           <h2 className="text-4xl font-black text-prime-dark-text italic uppercase tracking-tighter">Curriculum Audit</h2>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-2">Dictionary Integrity & Alphabet Sequencing</p>
+          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-2">Dictionary Integrity & Mechanics Verification</p>
         </div>
         <div className="flex flex-col items-end gap-3">
             <div className={`px-6 py-3 rounded-2xl font-black text-xl shadow-lg flex items-center gap-3 ${errorCount === 0 ? 'bg-prime-teal-green text-white' : 'bg-prime-error text-white animate-bounce'}`}>
@@ -63,16 +63,22 @@ export default function WordAudit() {
           Word Assembly ({buildWords.length})
         </button>
         <button 
+          onClick={() => setActiveTab('grammar')}
+          className={`px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${activeTab === 'grammar' ? 'bg-white text-prime-action-dark shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+        >
+          Grammar & Suffixes ({grammarItems.length})
+        </button>
+        <button 
           onClick={() => setActiveTab('alphabets')}
           className={`px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${activeTab === 'alphabets' ? 'bg-white text-prime-action-dark shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
         >
-          Alphabets & Mathras ({alphabetLessons.length})
+          Alphabets ({alphabetLessons.length})
         </button>
       </div>
 
       {/* 3. Dynamic Audit Tables */}
-      <div className="overflow-x-auto min-h-[400px]">
-        {activeTab === 'words' ? (
+      <div className="overflow-x-auto min-h-[500px]">
+        {activeTab === 'words' && (
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-100">
@@ -119,7 +125,57 @@ export default function WordAudit() {
               })}
             </tbody>
           </table>
-        ) : (
+        )}
+
+        {activeTab === 'grammar' && (
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-100">
+                <th className="py-4 px-2">ID</th>
+                <th className="py-4 px-2">Cycle/Lesson</th>
+                <th className="py-4 px-2 text-center">Type</th>
+                <th className="py-4 px-2">Base Word</th>
+                <th className="py-4 px-2">Suffix / Morph Detail</th>
+                <th className="py-4 px-2 text-right">Preview Result</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {grammarItems.map(item => (
+                <tr key={item.wordId} className="group hover:bg-slate-50 transition-colors">
+                  <td className="py-4 px-2 text-xs font-mono text-slate-400">{item.wordId}</td>
+                  <td className="py-4 px-2 text-xs font-bold text-slate-500">C{item.unlockCycle} • L{item.lessonId}</td>
+                  <td className="py-4 px-2 text-center">
+                    <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-pill border ${item.lessonType === 'suffix' ? 'border-prime-coral-pink text-prime-coral-pink' : item.lessonType === 'tense' ? 'border-prime-mango-orange text-prime-mango-orange' : 'border-slate-300 text-slate-400'}`}>
+                      {item.lessonType}
+                    </span>
+                  </td>
+                  <td className="py-4 px-2 font-black text-prime-dark-text text-xl">{item.baseWord || '-'}</td>
+                  <td className="py-4 px-2">
+                    {item.lessonType === 'suffix' ? (
+                      <div className="flex items-center gap-2">
+                         <span className="text-xs text-slate-400">Morphed: <span className="font-bold text-prime-dark-text">{item.morphedBase}</span></span>
+                         <span className="bg-prime-teal-green/10 text-prime-teal-green px-2 py-1 rounded-lg font-black text-lg">+{item.targetSuffix}</span>
+                      </div>
+                    ) : item.lessonType === 'tense' ? (
+                      <div className="flex flex-col gap-1 text-[10px] font-bold">
+                        <div className="text-blue-500">PAST: {item.pastForm}</div>
+                        <div className="text-prime-mango-orange">PRES: {item.presentForm}</div>
+                        <div className="text-prime-periwinkle">FUT: {item.futureForm}</div>
+                      </div>
+                    ) : (
+                      <span className="text-[10px] text-slate-300 italic uppercase">Concept Intro</span>
+                    )}
+                  </td>
+                  <td className="py-4 px-2 text-right font-black text-2xl text-prime-action-dark">
+                    {item.malayalamText}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        {activeTab === 'alphabets' && (
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="text-[10px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-100">
@@ -157,23 +213,6 @@ export default function WordAudit() {
             </tbody>
           </table>
         )}
-      </div>
-
-      {/* 4. Concepts Section (Subtle) */}
-      <div className="bg-slate-50 p-8 rounded-[32px] border border-slate-100">
-        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-prime-coral-pink rounded-full"></span>
-            Non-Build Grammar Items ({conceptItems.length})
-        </h3>
-        <div className="flex flex-wrap gap-3">
-          {conceptItems.map(w => (
-            <div key={w.wordId} className="bg-white border border-slate-200 px-4 py-2 rounded-2xl text-xs font-bold shadow-sm flex items-center gap-3">
-              <span className="text-[8px] font-black text-slate-300 uppercase bg-slate-50 px-2 py-0.5 rounded-lg">{w.lessonType}</span>
-              <span className="text-prime-dark-text">{w.malayalamText}</span>
-              <span className="text-slate-300 font-normal italic">({w.englishTranslation})</span>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

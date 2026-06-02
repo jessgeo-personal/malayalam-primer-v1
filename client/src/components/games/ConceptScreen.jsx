@@ -5,17 +5,30 @@ import { useProgress } from '../../context';
 export default function ConceptScreen({ word, onComplete }) {
   const { userId, activeLessonId } = useProgress();
   const [step, setStep] = useState(0);
+  const [exampleIndex, setExampleIndex] = useState(0);
   const [summaryItems, setSummaryItems] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const hasExamples = word.examples && word.examples.length > 0;
+  const currentExample = hasExamples ? word.examples[exampleIndex] : null;
 
   // Automated visual explanation sequence (For Grammar Concepts)
   useEffect(() => {
     if (!word.isSummary) {
+      setStep(0);
       const timer1 = setTimeout(() => setStep(1), 800); // Show suffix
       const timer2 = setTimeout(() => setStep(2), 1800); // Show result
       return () => { clearTimeout(timer1); clearTimeout(timer2); };
     }
-  }, [word]);
+  }, [word, exampleIndex]);
+
+  const handleNextExample = () => {
+    if (exampleIndex < word.examples.length - 1) {
+      setExampleIndex(prev => prev + 1);
+    } else {
+      onComplete(true, 0);
+    }
+  };
 
   // Fetch lesson summary items (For Lesson Intro Summaries)
   useEffect(() => {
@@ -107,35 +120,52 @@ export default function ConceptScreen({ word, onComplete }) {
         {word.englishTranslation}
       </p>
 
-      <div className="bg-white p-12 rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base flex flex-wrap items-center justify-center gap-6 mt-4 w-full relative min-h-[200px]">
-        <div className="text-6xl font-black text-prime-dark-text">
-          {word.baseWord}
+      {/* Progress Dots for Examples */}
+      {hasExamples && (
+        <div className="flex gap-2">
+          {word.examples.map((_, i) => (
+            <div key={i} className={`w-3 h-3 rounded-full transition-all ${i === exampleIndex ? 'bg-prime-mango-orange w-8' : 'bg-slate-200'}`}></div>
+          ))}
         </div>
-        
-        <div className={`transition-opacity duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0'} text-4xl font-black text-slate-300`}>
-          +
-        </div>
-        
-        <div className={`transition-opacity duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0'} text-6xl font-black text-prime-teal-green bg-prime-teal-green/10 px-6 py-2 rounded-2xl border-4 border-prime-teal-green border-dashed`}>
-          {word.targetSuffix}
-        </div>
+      )}
 
-        <div className={`transition-opacity duration-500 ${step >= 2 ? 'opacity-100' : 'opacity-0'} text-4xl font-black text-slate-300`}>
-          ➜
-        </div>
+      <div className="bg-white p-12 rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base flex flex-col items-center justify-center gap-8 mt-4 w-full relative min-h-[350px]">
+        {currentExample && currentExample.rule && (
+          <div className="bg-prime-mango-orange/10 border-2 border-prime-mango-orange/20 px-6 py-2 rounded-2xl animate-fade-in">
+            <span className="text-prime-mango-orange font-black uppercase text-xs tracking-widest italic">{currentExample.rule}</span>
+          </div>
+        )}
 
-        <div className={`transition-all duration-700 ${step >= 2 ? 'opacity-100 scale-125' : 'opacity-0 scale-90'} text-7xl font-black text-prime-coral-pink`}>
-          {word.morphedBase || (word.baseWord + word.targetSuffix)}
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          <div className="text-6xl font-black text-prime-dark-text">
+            {currentExample ? currentExample.base : (word.baseWord || '')}
+          </div>
+          
+          <div className={`transition-opacity duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0'} text-4xl font-black text-slate-300`}>
+            +
+          </div>
+          
+          <div className={`transition-opacity duration-500 ${step >= 1 ? 'opacity-100' : 'opacity-0'} text-6xl font-black text-prime-teal-green bg-prime-teal-green/10 px-6 py-2 rounded-2xl border-4 border-prime-teal-green border-dashed`}>
+            {currentExample ? currentExample.suffix : (word.targetSuffix || '')}
+          </div>
+
+          <div className={`transition-opacity duration-500 ${step >= 2 ? 'opacity-100' : 'opacity-0'} text-4xl font-black text-slate-300`}>
+            ➜
+          </div>
+
+          <div className={`transition-all duration-700 ${step >= 2 ? 'opacity-100 scale-125' : 'opacity-0 scale-90'} text-7xl font-black text-prime-coral-pink`}>
+            {currentExample ? currentExample.result : (word.morphedBase || (word.baseWord && word.targetSuffix ? word.baseWord + word.targetSuffix : ''))}
+          </div>
         </div>
       </div>
 
       <div className="h-24 mt-8 flex items-center justify-center w-full">
         <button 
-          onClick={() => onComplete(true, 0)}
+          onClick={hasExamples ? handleNextExample : () => onComplete(true, 0)}
           className={`px-16 py-6 bg-prime-teal-green text-white rounded-full font-black text-3xl shadow-[0_8px_0_0_#0f766e] active:shadow-none active:translate-y-2 transition-all duration-500
             ${step >= 2 ? 'opacity-100 scale-100 animate-bounce' : 'opacity-0 scale-90 pointer-events-none'}`}
         >
-          GOT IT! ➜
+          {hasExamples && exampleIndex < word.examples.length - 1 ? 'NEXT RULE! ➜' : 'GOT IT! ➜'}
         </button>
       </div>
     </div>

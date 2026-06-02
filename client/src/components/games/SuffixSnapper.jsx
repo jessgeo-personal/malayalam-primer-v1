@@ -108,7 +108,7 @@ export default function SuffixSnapper({ word, onComplete }) {
     if (suffix === 'ങ്ങൾ') return "ങ്ങൾ (ngal) is for words ending in the 'M' sound (ം). Example: മരം -> മരങ്ങൾ.";
     if (suffix === 'ുകൾ') return "ുകൾ (ukal) is for words ending in a 'U' sound or a chillu letter. Example: വീട് -> വീടുകൾ.";
     if (suffix === 'കൾ') return "കൾ (kal) is the standard plural ending for most objects, animals, and young children.";
-    if (['ിൽ', 'യിൽ', 'ത്തിൽ', 'ട്ടിൽ'].includes(suffix)) return "This ending means 'in' or 'on'. It doesn't make a word plural!";
+    if (['ിൽ', 'യിൽ', 'ത്തിൽ', 'ട്ടിൽ', 'ലിൽ', 'രിൽ', 'ളിൽ', 'നിൽ'].includes(suffix)) return "This ending means 'in' or 'on'. It doesn't make a word plural!";
     return `That ending doesn't fit here. Try another one!`;
   };
 

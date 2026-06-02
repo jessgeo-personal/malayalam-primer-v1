@@ -26,7 +26,15 @@ const wordItemSchema = new mongoose.Schema({
   morphedBase: { type: String },
   targetSuffix: { type: String },
   distractorSuffixes: [{ type: String }],
-  prerequisites: [{ type: String }]
+  prerequisites: [{ type: String }],
+  
+  // Multi-step Grammar Examples (Added 2026-06-01)
+  examples: [{
+    base: String,
+    suffix: String,
+    result: String,
+    rule: String
+  }]
 });
 
 module.exports = mongoose.model('Word', wordItemSchema);

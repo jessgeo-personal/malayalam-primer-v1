@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useProgress } from './context';
-import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen } from './components/games';
+import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine } from './components/games';
 import WordAudit from './components/ui/WordAudit';
 import { MasteryStrip, AdventureMap } from './components/ui';
 import { APP_VERSION } from './config/version';
@@ -8,6 +8,7 @@ import './App.css';
 
 const App = () => {
   const [showAudit, setShowAudit] = useState(false);
+  const [showTimeMachine, setShowTimeMachine] = useState(false);
   const { 
     userId,
     switchUser,
@@ -76,6 +77,13 @@ const App = () => {
                 {showAudit ? 'EXIT AUDIT' : 'AUDIT DICTIONARY'}
               </button>
 
+              <button 
+                onClick={() => setShowTimeMachine(!showTimeMachine)}
+                className={`px-4 py-2 rounded-2xl font-black text-[10px] tracking-widest transition-all ${showTimeMachine ? 'bg-white text-prime-mango-orange shadow-inner' : 'bg-white/20 text-white hover:bg-white/30 border border-white/40'}`}
+              >
+                {showTimeMachine ? 'EXIT TIME MACHINE' : 'TIME MACHINE PROTOTYPE'}
+              </button>
+
               {/* User Selection Dropdown */}
               <div className="flex flex-col items-end">
                 <span className="text-[9px] font-black text-white/60 uppercase tracking-widest mb-1">Active Profile</span>
@@ -103,6 +111,10 @@ const App = () => {
       <main className={`flex-1 w-full max-w-[1600px] mx-auto px-6 ${sessionMode === 'map' ? '-mt-12 pb-32' : 'py-12 pb-32'}`}>
         {showAudit ? (
           <WordAudit />
+        ) : showTimeMachine ? (
+          <div className="py-12">
+            <TimeMachine onComplete={() => {}} />
+          </div>
         ) : sessionMode === 'map' ? (
           <div className="flex flex-col gap-10">
             

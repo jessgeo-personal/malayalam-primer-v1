@@ -78,8 +78,8 @@ This is the moment-to-moment interactive cycle. The gameplay is strictly structu
 1. **Mandatory Daily Revision:** Every day begins with a dynamic revision session containing items (letters, words, sentences) that need reinforcement based on the SRS algorithm.
 2. **5-Game Bundles:** New content is delivered in short, ~4-minute bundles (3 mini-games per bundle). The child can play multiple bundles a day if engaged, but the short bundle structure prevents fatigue.
 3. **Targeted Character Acquisition:** The app introduces only the 5 to 6 specific Malayalam characters required for the day's target words (e.g., tracing മ, ന, and the ാ modifier).
-4. **Instant Word Blending:** The user immediately combines those characters into high-frequency structural words (e.g., building മാൻ - Deer) through puzzle mechanics.
-5. **Sentence Slotting (Contextualization):** The user drags newly built words into dynamic sentences (Mad Libs style) to decode grammar and intent. 
+4. **Instant Word Blending & Sentence Building:** The user immediately combines those characters into high-frequency structural words (e.g., building മാൻ - Deer) and basic 2-word sentences (e.g., ഇത് അമ്മ - This is mother) starting from Lesson 1.
+5. **Formal Sentence Slotting (Contextualization):** As early as Lesson 3, the user builds formal SOV sentences using the 'Tap-to-Build' mechanic to decode grammar and intent.
 
 ### 2.2 The 3-Tier Adaptive SRS & Graduation Logic
 The backend tracks progress at three distinct levels: Letter, Word, and Sentence.

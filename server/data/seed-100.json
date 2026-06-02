@@ -1,8 +1,8 @@
 [
   {
-    "wordId": "c001",
-    "malayalamText": "Lesson 1: The Basics",
-    "englishTranslation": "Let's start with a simple word: 'He'.",
+    "wordId": "c001_new",
+    "malayalamText": "Lesson 1: Pointing & People",
+    "englishTranslation": "Learn to point at things and identify family!",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 1,
@@ -11,95 +11,40 @@
     "prerequisites": []
   },
   {
-    "wordId": "c002",
-    "malayalamText": "Lesson 2: Talking about People",
-    "englishTranslation": "Learn how to say 'I', 'You', 'She', and 'They'.",
+    "wordId": "t001_new",
+    "malayalamText": "ഇ",
+    "englishTranslation": "I (Vowel)",
+    "phonetic": "I",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "concept",
-    "isSummary": true,
+    "lessonId": 1,
+    "lessonType": "trace",
     "prerequisites": []
   },
   {
-    "wordId": "c003",
-    "malayalamText": "Lesson 3: Our World",
-    "englishTranslation": "Learn about family and how to point at things.",
+    "wordId": "t002_new",
+    "malayalamText": "ത",
+    "englishTranslation": "Tha",
+    "phonetic": "Tha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "concept",
-    "isSummary": true,
+    "lessonId": 1,
+    "lessonType": "trace",
     "prerequisites": []
   },
   {
-    "wordId": "c004",
-    "malayalamText": "Lesson 4: Existence",
-    "englishTranslation": "Learn how to say if something exists or is true.",
+    "wordId": "t003_new",
+    "malayalamText": "്",
+    "englishTranslation": "Chandrakkala",
+    "phonetic": "u",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "concept",
-    "isSummary": true,
+    "lessonId": 1,
+    "lessonType": "trace",
     "prerequisites": []
   },
   {
-    "wordId": "c005",
-    "malayalamText": "Lesson 5: Actions (Part 1)",
-    "englishTranslation": "Let's learn some basic action words.",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "concept",
-    "isSummary": true,
-    "prerequisites": []
-  },
-  {
-    "wordId": "c006",
-    "malayalamText": "Lesson 6: Actions (Part 2)",
-    "englishTranslation": "More action words for daily life.",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "concept",
-    "isSummary": true,
-    "prerequisites": []
-  },
-  {
-    "wordId": "c007",
-    "malayalamText": "Lesson 7: Questions",
-    "englishTranslation": "Who, What, Where? Let's ask some questions!",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "concept",
-    "isSummary": true,
-    "prerequisites": []
-  },
-  {
-    "wordId": "c008",
-    "malayalamText": "Lesson 8: Places",
-    "englishTranslation": "Where do we go? School, home, and more.",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "concept",
-    "isSummary": true,
-    "prerequisites": []
-  },
-  {
-    "wordId": "c009",
-    "malayalamText": "Lesson 9: Descriptions",
-    "englishTranslation": "Big, small, good, bad. Let's describe the world!",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "concept",
-    "isSummary": true,
-    "prerequisites": []
-  },
-  {
-    "wordId": "t001",
+    "wordId": "t004_new",
     "malayalamText": "അ",
     "englishTranslation": "A (Vowel)",
     "phonetic": "A",
@@ -110,23 +55,10 @@
     "prerequisites": []
   },
   {
-    "wordId": "m001",
-    "malayalamText": "അ",
-    "englishTranslation": "A (Vowel)",
-    "phonetic": "A",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "match",
-    "prerequisites": [
-      "t001"
-    ]
-  },
-  {
-    "wordId": "t002",
-    "malayalamText": "വ",
-    "englishTranslation": "Va",
-    "phonetic": "Va",
+    "wordId": "t005_new",
+    "malayalamText": "മ",
+    "englishTranslation": "Ma",
+    "phonetic": "Ma",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 1,
@@ -134,20 +66,51 @@
     "prerequisites": []
   },
   {
-    "wordId": "m002",
-    "malayalamText": "വ",
-    "englishTranslation": "Va",
-    "phonetic": "Va",
+    "wordId": "t006_new",
+    "malayalamText": "മ്മ",
+    "englishTranslation": "MMa",
+    "phonetic": "MMa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "match",
-    "prerequisites": [
-      "t002"
-    ]
+    "lessonId": 1,
+    "lessonType": "trace",
+    "prerequisites": []
   },
   {
-    "wordId": "t003",
+    "wordId": "t007_new",
+    "malayalamText": "ച",
+    "englishTranslation": "Cha",
+    "phonetic": "Cha",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t008_new",
+    "malayalamText": "ച്ച",
+    "englishTranslation": "CCha",
+    "phonetic": "CCha",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t009_new",
+    "malayalamText": "ആ",
+    "englishTranslation": "Aa (Vowel)",
+    "phonetic": "Aa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t010_new",
     "malayalamText": "ന",
     "englishTranslation": "Na",
     "phonetic": "Na",
@@ -158,20 +121,7 @@
     "prerequisites": []
   },
   {
-    "wordId": "m003",
-    "malayalamText": "ന",
-    "englishTranslation": "Na",
-    "phonetic": "Na",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "match",
-    "prerequisites": [
-      "t003"
-    ]
-  },
-  {
-    "wordId": "t004",
+    "wordId": "t011_new",
     "malayalamText": "ാ",
     "englishTranslation": "aa (Vowel Sign)",
     "phonetic": "aa",
@@ -182,20 +132,7 @@
     "prerequisites": []
   },
   {
-    "wordId": "m004",
-    "malayalamText": "ാ",
-    "englishTranslation": "aa (Vowel Sign)",
-    "phonetic": "aa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "match",
-    "prerequisites": [
-      "t004"
-    ]
-  },
-  {
-    "wordId": "t005",
+    "wordId": "t012_new",
     "malayalamText": "ൻ",
     "englishTranslation": "n (Chillu)",
     "phonetic": "n",
@@ -206,2135 +143,663 @@
     "prerequisites": []
   },
   {
-    "wordId": "m005",
-    "malayalamText": "ൻ",
-    "englishTranslation": "n (Chillu)",
-    "phonetic": "n",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "match",
-    "prerequisites": [
-      "t005"
-    ]
-  },
-  {
-    "wordId": "t006",
-    "malayalamText": "ഞ",
-    "englishTranslation": "Nya",
-    "phonetic": "Nya",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m006",
-    "malayalamText": "ഞ",
-    "englishTranslation": "Nya",
-    "phonetic": "Nya",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "match",
-    "prerequisites": [
-      "t006"
-    ]
-  },
-  {
-    "wordId": "t007",
-    "malayalamText": "മ",
-    "englishTranslation": "Ma",
-    "phonetic": "Ma",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m007",
-    "malayalamText": "മ",
-    "englishTranslation": "Ma",
-    "phonetic": "Ma",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "match",
-    "prerequisites": [
-      "t007"
-    ]
-  },
-  {
-    "wordId": "t008",
-    "malayalamText": "മ്മ",
-    "englishTranslation": "MMa",
-    "phonetic": "MMa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m008",
-    "malayalamText": "മ്മ",
-    "englishTranslation": "MMa",
-    "phonetic": "MMa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "match",
-    "prerequisites": [
-      "t008"
-    ]
-  },
-  {
-    "wordId": "t009",
-    "malayalamText": "ീ",
-    "englishTranslation": "ee (Vowel Sign)",
-    "phonetic": "ee",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m009",
-    "malayalamText": "ീ",
-    "englishTranslation": "ee (Vowel Sign)",
-    "phonetic": "ee",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "match",
-    "prerequisites": [
-      "t009"
-    ]
-  },
-  {
-    "wordId": "t010",
-    "malayalamText": "ൾ",
-    "englishTranslation": "l (Chillu)",
-    "phonetic": "l",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m010",
-    "malayalamText": "ൾ",
-    "englishTranslation": "l (Chillu)",
-    "phonetic": "l",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "match",
-    "prerequisites": [
-      "t010"
-    ]
-  },
-  {
-    "wordId": "t011",
-    "malayalamText": "ർ",
-    "englishTranslation": "r (Chillu)",
-    "phonetic": "r",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m011",
-    "malayalamText": "ർ",
-    "englishTranslation": "r (Chillu)",
-    "phonetic": "r",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "match",
-    "prerequisites": [
-      "t011"
-    ]
-  },
-  {
-    "wordId": "t012",
+    "wordId": "m001_new",
     "malayalamText": "ഇ",
-    "englishTranslation": "I (Vowel)",
-    "phonetic": "I",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m012",
-    "malayalamText": "ഇ",
-    "englishTranslation": "I (Vowel)",
-    "phonetic": "I",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "match",
-    "prerequisites": [
-      "t012"
-    ]
-  },
-  {
-    "wordId": "t013",
-    "malayalamText": "ത",
-    "englishTranslation": "Tha",
-    "phonetic": "Tha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m013",
-    "malayalamText": "ത",
-    "englishTranslation": "Tha",
-    "phonetic": "Tha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "match",
-    "prerequisites": [
-      "t013"
-    ]
-  },
-  {
-    "wordId": "t014",
-    "malayalamText": "്",
-    "englishTranslation": "Chandrakkala",
-    "phonetic": "u",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m014",
-    "malayalamText": "്",
-    "englishTranslation": "Chandrakkala",
-    "phonetic": "u",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "match",
-    "prerequisites": [
-      "t014"
-    ]
-  },
-  {
-    "wordId": "t015",
-    "malayalamText": "ല",
-    "englishTranslation": "La",
-    "phonetic": "La",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m015",
-    "malayalamText": "ല",
-    "englishTranslation": "La",
-    "phonetic": "La",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "match",
-    "prerequisites": [
-      "t015"
-    ]
-  },
-  {
-    "wordId": "t016",
-    "malayalamText": "ല്ല",
-    "englishTranslation": "LLa",
-    "phonetic": "LLa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m016",
-    "malayalamText": "ല്ല",
-    "englishTranslation": "LLa",
-    "phonetic": "LLa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "match",
-    "prerequisites": [
-      "t016"
-    ]
-  },
-  {
-    "wordId": "t017",
-    "malayalamText": "ച",
-    "englishTranslation": "Cha",
-    "phonetic": "Cha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m017",
-    "malayalamText": "ച",
-    "englishTranslation": "Cha",
-    "phonetic": "Cha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "match",
-    "prerequisites": [
-      "t017"
-    ]
-  },
-  {
-    "wordId": "t018",
-    "malayalamText": "ച്ച",
-    "englishTranslation": "CHCha",
-    "phonetic": "CHCha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m018",
-    "malayalamText": "ച്ച",
-    "englishTranslation": "CHCha",
-    "phonetic": "CHCha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "match",
-    "prerequisites": [
-      "t018"
-    ]
-  },
-  {
-    "wordId": "t019",
-    "malayalamText": "ഉ",
-    "englishTranslation": "U (Vowel)",
-    "phonetic": "U",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m019",
-    "malayalamText": "ഉ",
-    "englishTranslation": "U (Vowel)",
-    "phonetic": "U",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t019"
-    ]
-  },
-  {
-    "wordId": "t020",
-    "malayalamText": "ണ",
-    "englishTranslation": "Na (Retroflex)",
-    "phonetic": "Na",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m020",
-    "malayalamText": "ണ",
-    "englishTranslation": "Na (Retroflex)",
-    "phonetic": "Na",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t020"
-    ]
-  },
-  {
-    "wordId": "t021",
-    "malayalamText": "ട",
-    "englishTranslation": "Ta",
-    "phonetic": "Ta",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m021",
-    "malayalamText": "ട",
-    "englishTranslation": "Ta",
-    "phonetic": "Ta",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t021"
-    ]
-  },
-  {
-    "wordId": "t022",
-    "malayalamText": "ട്ട",
-    "englishTranslation": "TTa",
-    "phonetic": "TTa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m022",
-    "malayalamText": "ട്ട",
-    "englishTranslation": "TTa",
-    "phonetic": "TTa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t022"
-    ]
-  },
-  {
-    "wordId": "t023",
-    "malayalamText": "ആ",
-    "englishTranslation": "Aa (Vowel)",
-    "phonetic": "Aa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m023",
-    "malayalamText": "ആ",
-    "englishTranslation": "Aa (Vowel)",
-    "phonetic": "Aa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t023"
-    ]
-  },
-  {
-    "wordId": "t024",
-    "malayalamText": "ണ്ട",
-    "englishTranslation": "NDa",
-    "phonetic": "NDa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m024",
-    "malayalamText": "ണ്ട",
-    "englishTranslation": "NDa",
-    "phonetic": "NDa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t024"
-    ]
-  },
-  {
-    "wordId": "t025",
-    "malayalamText": "െ",
-    "englishTranslation": "e (Vowel Sign)",
-    "phonetic": "e",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m025",
-    "malayalamText": "െ",
-    "englishTranslation": "e (Vowel Sign)",
-    "phonetic": "e",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "match",
-    "prerequisites": [
-      "t025"
-    ]
-  },
-  {
-    "wordId": "t026",
-    "malayalamText": "ക",
-    "englishTranslation": "Ka",
-    "phonetic": "Ka",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m026",
-    "malayalamText": "ക",
-    "englishTranslation": "Ka",
-    "phonetic": "Ka",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t026"
-    ]
-  },
-  {
-    "wordId": "t027",
-    "malayalamText": "ഗ",
-    "englishTranslation": "Ga",
-    "phonetic": "Ga",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m027",
-    "malayalamText": "ഗ",
-    "englishTranslation": "Ga",
-    "phonetic": "Ga",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t027"
-    ]
-  },
-  {
-    "wordId": "t028",
-    "malayalamText": "ര",
-    "englishTranslation": "Ra",
-    "phonetic": "Ra",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m028",
-    "malayalamText": "ര",
-    "englishTranslation": "Ra",
-    "phonetic": "Ra",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t028"
-    ]
-  },
-  {
-    "wordId": "t029",
-    "malayalamText": "ി",
-    "englishTranslation": "i (Vowel Sign)",
-    "phonetic": "i",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m029",
-    "malayalamText": "ി",
-    "englishTranslation": "i (Vowel Sign)",
-    "phonetic": "i",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t029"
-    ]
-  },
-  {
-    "wordId": "t031",
-    "malayalamText": "ങ്ങ",
-    "englishTranslation": "NGa",
-    "phonetic": "NGa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m031",
-    "malayalamText": "ങ്ങ",
-    "englishTranslation": "NGa",
-    "phonetic": "NGa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t031"
-    ]
-  },
-  {
-    "wordId": "t032",
-    "malayalamText": "ക്ക",
-    "englishTranslation": "KKa",
-    "phonetic": "KKa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m032",
-    "malayalamText": "ക്ക",
-    "englishTranslation": "KKa",
-    "phonetic": "KKa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t032"
-    ]
-  },
-  {
-    "wordId": "t033",
-    "malayalamText": "പ",
-    "englishTranslation": "Pa",
-    "phonetic": "Pa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m033",
-    "malayalamText": "പ",
-    "englishTranslation": "Pa",
-    "phonetic": "Pa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t033"
-    ]
-  },
-  {
-    "wordId": "t034",
-    "malayalamText": "റ",
-    "englishTranslation": "Ra (Strong)",
-    "phonetic": "Ra",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m034",
-    "malayalamText": "റ",
-    "englishTranslation": "Ra (Strong)",
-    "phonetic": "Ra",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t034"
-    ]
-  },
-  {
-    "wordId": "t035",
-    "malayalamText": "ോ",
-    "englishTranslation": "o (Vowel Sign long)",
-    "phonetic": "o",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m035",
-    "malayalamText": "ോ",
-    "englishTranslation": "o (Vowel Sign long)",
-    "phonetic": "o",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t035"
-    ]
-  },
-  {
-    "wordId": "t036",
-    "malayalamText": "ഞ്ഞ",
-    "englishTranslation": "NYA",
-    "phonetic": "NYA",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m036",
-    "malayalamText": "ഞ്ഞ",
-    "englishTranslation": "NYA",
-    "phonetic": "NYA",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t036"
-    ]
-  },
-  {
-    "wordId": "t037",
-    "malayalamText": "യ",
-    "englishTranslation": "Ya",
-    "phonetic": "ya",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m037",
-    "malayalamText": "യ",
-    "englishTranslation": "Ya",
-    "phonetic": "ya",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t037"
-    ]
-  },
-  {
-    "wordId": "t038",
-    "malayalamText": "ഴ",
-    "englishTranslation": "Zha",
-    "phonetic": "Zha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m038",
-    "malayalamText": "ഴ",
-    "englishTranslation": "Zha",
-    "phonetic": "Zha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "match",
-    "prerequisites": [
-      "t038"
-    ]
-  },
-  {
-    "wordId": "t039",
-    "malayalamText": "എ",
-    "englishTranslation": "E (Vowel)",
-    "phonetic": "E",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m039",
-    "malayalamText": "എ",
-    "englishTranslation": "E (Vowel)",
-    "phonetic": "E",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "match",
-    "prerequisites": [
-      "t039"
-    ]
-  },
-  {
-    "wordId": "t040",
-    "malayalamText": "േ",
-    "englishTranslation": "ee (Vowel Sign long)",
-    "phonetic": "ee",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m040",
-    "malayalamText": "േ",
-    "englishTranslation": "ee (Vowel Sign long)",
-    "phonetic": "ee",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "match",
-    "prerequisites": [
-      "t040"
-    ]
-  },
-  {
-    "wordId": "t041",
-    "malayalamText": "ു",
-    "englishTranslation": "u (Vowel Sign)",
-    "phonetic": "u",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m041",
-    "malayalamText": "ു",
-    "englishTranslation": "u (Vowel Sign)",
-    "phonetic": "u",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "match",
-    "prerequisites": [
-      "t041"
-    ]
-  },
-  {
-    "wordId": "t042",
-    "malayalamText": "ന്ന",
-    "englishTranslation": "nna",
-    "phonetic": "nna",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m042",
-    "malayalamText": "ന്ന",
-    "englishTranslation": "nna",
-    "phonetic": "nna",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "match",
-    "prerequisites": [
-      "t042"
-    ]
-  },
-  {
-    "wordId": "t043",
-    "malayalamText": "ൽ",
-    "englishTranslation": "l (Chillu)",
-    "phonetic": "l",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m043",
-    "malayalamText": "ൽ",
-    "englishTranslation": "l (Chillu)",
-    "phonetic": "l",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "match",
-    "prerequisites": [
-      "t043"
-    ]
-  },
-  {
-    "wordId": "t045",
-    "malayalamText": "ന്ത",
-    "englishTranslation": "NTha",
-    "phonetic": "NTha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m045",
-    "malayalamText": "ന്ത",
-    "englishTranslation": "NTha",
-    "phonetic": "NTha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t045"
-    ]
-  },
-  {
-    "wordId": "t046",
-    "malayalamText": "പ്പ",
-    "englishTranslation": "PPa",
-    "phonetic": "PPa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m046",
-    "malayalamText": "പ്പ",
-    "englishTranslation": "PPa",
-    "phonetic": "PPa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t046"
-    ]
-  },
-  {
-    "wordId": "t047",
-    "malayalamText": "ൊ",
-    "englishTranslation": "o (Vowel Sign short)",
-    "phonetic": "o",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m047",
-    "malayalamText": "ൊ",
-    "englishTranslation": "o (Vowel Sign short)",
-    "phonetic": "o",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t047"
-    ]
-  },
-  {
-    "wordId": "t048",
-    "malayalamText": "ം",
-    "englishTranslation": "Anusvaram (m)",
-    "phonetic": "m",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m048",
-    "malayalamText": "ം",
-    "englishTranslation": "Anusvaram (m)",
-    "phonetic": "m",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t048"
-    ]
-  },
-  {
-    "wordId": "t049",
-    "malayalamText": "ഡ",
-    "englishTranslation": "Da (Retroflex)",
-    "phonetic": "Da",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m049",
-    "malayalamText": "ഡ",
-    "englishTranslation": "Da (Retroflex)",
-    "phonetic": "Da",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "match",
-    "prerequisites": [
-      "t049"
-    ]
-  },
-  {
-    "wordId": "t050",
-    "malayalamText": "സ",
-    "englishTranslation": "Sa",
-    "phonetic": "Sa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m050",
-    "malayalamText": "സ",
-    "englishTranslation": "Sa",
-    "phonetic": "Sa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "match",
-    "prerequisites": [
-      "t050"
-    ]
-  },
-  {
-    "wordId": "t052",
-    "malayalamText": "ള",
-    "englishTranslation": "La (Retroflex)",
-    "phonetic": "La",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m052",
-    "malayalamText": "ള",
-    "englishTranslation": "La (Retroflex)",
-    "phonetic": "La",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "match",
-    "prerequisites": [
-      "t052"
-    ]
-  },
-  {
-    "wordId": "t053",
-    "malayalamText": "ജ",
-    "englishTranslation": "Ja",
-    "phonetic": "Ja",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m053",
-    "malayalamText": "ജ",
-    "englishTranslation": "Ja",
-    "phonetic": "Ja",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "match",
-    "prerequisites": [
-      "t053"
-    ]
-  },
-  {
-    "wordId": "t054",
-    "malayalamText": "യ",
-    "englishTranslation": "Ya",
-    "phonetic": "Ya",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m054",
-    "malayalamText": "യ",
-    "englishTranslation": "Ya",
-    "phonetic": "Ya",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "match",
-    "prerequisites": [
-      "t054"
-    ]
-  },
-  {
-    "wordId": "t055",
-    "malayalamText": "ത്ത",
-    "englishTranslation": "TTha",
-    "phonetic": "TTha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m055",
-    "malayalamText": "ത്ത",
-    "englishTranslation": "TTha",
-    "phonetic": "TTha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "match",
-    "prerequisites": [
-      "t055"
-    ]
-  },
-  {
-    "wordId": "t056",
-    "malayalamText": "റ്റ",
-    "englishTranslation": "RRa",
-    "phonetic": "RRa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m056",
-    "malayalamText": "റ്റ",
-    "englishTranslation": "RRa",
-    "phonetic": "RRa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "match",
-    "prerequisites": [
-      "t056"
-    ]
-  },
-  {
-    "wordId": "t057",
-    "malayalamText": "ന്ന",
-    "englishTranslation": "NNa",
-    "phonetic": "NNa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m057",
-    "malayalamText": "ന്ന",
-    "englishTranslation": "NNa",
-    "phonetic": "NNa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "match",
-    "prerequisites": [
-      "t057"
-    ]
-  },
-  {
-    "wordId": "t058",
-    "malayalamText": "മ്പ",
-    "englishTranslation": "MPa",
-    "phonetic": "MPa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m058",
-    "malayalamText": "മ്പ",
-    "englishTranslation": "MPa",
-    "phonetic": "MPa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t058"
-    ]
-  },
-  {
-    "wordId": "t059",
-    "malayalamText": "ന്ദ",
-    "englishTranslation": "NDha",
-    "phonetic": "NDha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m059",
-    "malayalamText": "ന്ദ",
-    "englishTranslation": "NDha",
-    "phonetic": "NDha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t059"
-    ]
-  },
-  {
-    "wordId": "t060",
-    "malayalamText": "ഞ്ച",
-    "englishTranslation": "NJCha",
-    "phonetic": "NJCha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m060",
-    "malayalamText": "ഞ്ച",
-    "englishTranslation": "NJCha",
-    "phonetic": "NJCha",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t060"
-    ]
-  },
-  {
-    "wordId": "t061",
-    "malayalamText": "ങ്ക",
-    "englishTranslation": "NGKa",
-    "phonetic": "NGKa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "trace",
-    "prerequisites": []
-  },
-  {
-    "wordId": "m061",
-    "malayalamText": "ങ്ക",
-    "englishTranslation": "NGKa",
-    "phonetic": "NGKa",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": [
-      "t061"
-    ]
-  },
-  {
-    "wordId": "t066",
-    "malayalamText": "യ്യ",
-    "englishTranslation": "YYa",
-    "phonetic": "YYa",
-    "lessonId": 5,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m066",
-    "malayalamText": "യ്യ",
-    "englishTranslation": "YYa",
-    "phonetic": "YYa",
-    "lessonId": 6,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": [
-      "t066"
-    ]
-  },
-  {
-    "wordId": "t067",
-    "malayalamText": "സ്ക",
-    "englishTranslation": "SKa",
-    "phonetic": "ska",
-    "lessonId": 8,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m067",
-    "malayalamText": "സ്ക",
-    "englishTranslation": "SKa",
-    "phonetic": "ska",
-    "lessonId": 9,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": [
-      "t067"
-    ]
-  },
-  {
-    "wordId": "t068",
-    "malayalamText": "ൂ",
-    "englishTranslation": "oo (Vowel Sign long)",
-    "phonetic": "oo",
-    "lessonId": 8,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m068",
-    "malayalamText": "ൂ",
-    "englishTranslation": "oo (Vowel Sign long)",
-    "phonetic": "oo",
-    "lessonId": 9,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": [
-      "t068"
-    ]
-  },
-  {
-    "wordId": "t069",
-    "malayalamText": "്യ",
-    "englishTranslation": "ya-vattu (hook)",
-    "phonetic": "ya",
-    "lessonId": 9,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m069",
-    "malayalamText": "്യ",
-    "englishTranslation": "ya-vattu (hook)",
-    "phonetic": "ya",
-    "lessonId": 10,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "prerequisites": [
-      "t069"
-    ]
-  },
-  {
-    "wordId": "w001",
-    "malayalamText": "അവൻ",
-    "englishTranslation": "He",
-    "phonetic": "avan",
-    "bucketId": 1,
-    "unlockCycle": 1,
-    "lessonId": 1,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "അ",
-      "വ",
-      "ൻ"
-    ],
-    "prerequisites": [
-      "m001",
-      "m002",
-      "m005"
-    ]
-  },
-  {
-    "wordId": "w002",
-    "malayalamText": "ഞാൻ",
     "englishTranslation": "I",
-    "phonetic": "njan",
-    "bucketId": 1,
+    "phonetic": "I",
+    "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ഞ",
-      "ാ",
-      "ൻ"
-    ],
+    "lessonId": 1,
+    "lessonType": "match",
     "prerequisites": [
-      "m006",
-      "m004",
-      "m005"
+      "t001_new"
     ]
   },
   {
-    "wordId": "w003",
-    "malayalamText": "നീ",
-    "englishTranslation": "You",
-    "phonetic": "nee",
-    "bucketId": 1,
+    "wordId": "m002_new",
+    "malayalamText": "ത",
+    "englishTranslation": "Tha",
+    "phonetic": "Tha",
+    "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ന",
-      "ീ"
-    ],
+    "lessonId": 1,
+    "lessonType": "match",
     "prerequisites": [
-      "m003",
-      "m009"
+      "t002_new"
     ]
   },
   {
-    "wordId": "w004",
-    "malayalamText": "അവൾ",
-    "englishTranslation": "She",
-    "phonetic": "aval",
-    "bucketId": 1,
+    "wordId": "m003_new",
+    "malayalamText": "്",
+    "englishTranslation": "Chandrakkala",
+    "phonetic": "u",
+    "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "അ",
-      "വ",
-      "ൾ"
-    ],
+    "lessonId": 1,
+    "lessonType": "match",
     "prerequisites": [
-      "m001",
-      "m002",
-      "m010"
+      "t003_new"
     ]
   },
   {
-    "wordId": "w005",
-    "malayalamText": "അവർ",
-    "englishTranslation": "They",
-    "phonetic": "avar",
-    "bucketId": 1,
+    "wordId": "m004_new",
+    "malayalamText": "അ",
+    "englishTranslation": "A",
+    "phonetic": "A",
+    "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "അ",
-      "വ",
-      "ർ"
-    ],
+    "lessonId": 1,
+    "lessonType": "match",
     "prerequisites": [
-      "m001",
-      "m002",
-      "m011"
+      "t004_new"
     ]
   },
   {
-    "wordId": "w006",
-    "malayalamText": "നമ്മൾ",
-    "englishTranslation": "We (inclusive)",
-    "phonetic": "nammal",
-    "bucketId": 1,
+    "wordId": "m005_new",
+    "malayalamText": "മ",
+    "englishTranslation": "Ma",
+    "phonetic": "Ma",
+    "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ന",
-      "മ്മ",
-      "ൾ"
-    ],
+    "lessonId": 1,
+    "lessonType": "match",
     "prerequisites": [
-      "m003",
-      "m008",
-      "m010"
+      "t005_new"
     ]
   },
   {
-    "wordId": "w007",
+    "wordId": "m006_new",
+    "malayalamText": "മ്മ",
+    "englishTranslation": "MMa",
+    "phonetic": "MMa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "match",
+    "prerequisites": [
+      "t006_new"
+    ]
+  },
+  {
+    "wordId": "m007_new",
+    "malayalamText": "ച",
+    "englishTranslation": "Cha",
+    "phonetic": "Cha",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "match",
+    "prerequisites": [
+      "t007_new"
+    ]
+  },
+  {
+    "wordId": "m008_new",
+    "malayalamText": "ച്ച",
+    "englishTranslation": "CCha",
+    "phonetic": "CCha",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "match",
+    "prerequisites": [
+      "t008_new"
+    ]
+  },
+  {
+    "wordId": "m009_new",
+    "malayalamText": "ആ",
+    "englishTranslation": "Aa",
+    "phonetic": "Aa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "match",
+    "prerequisites": [
+      "t009_new"
+    ]
+  },
+  {
+    "wordId": "m010_new",
+    "malayalamText": "ന",
+    "englishTranslation": "Na",
+    "phonetic": "Na",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "match",
+    "prerequisites": [
+      "t010_new"
+    ]
+  },
+  {
+    "wordId": "m011_new",
+    "malayalamText": "ാ",
+    "englishTranslation": "aa",
+    "phonetic": "aa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "match",
+    "prerequisites": [
+      "t011_new"
+    ]
+  },
+  {
+    "wordId": "m012_new",
+    "malayalamText": "ൻ",
+    "englishTranslation": "n",
+    "phonetic": "n",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "match",
+    "prerequisites": [
+      "t012_new"
+    ]
+  },
+  {
+    "wordId": "w001_new",
     "malayalamText": "ഇത്",
     "englishTranslation": "This",
     "phonetic": "ithu",
     "bucketId": 1,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 1,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
       "ഇ",
       "ത",
       "്"
     ],
     "prerequisites": [
-      "m012",
-      "m013",
-      "m014"
+      "m001_new",
+      "m002_new",
+      "m003_new"
     ]
   },
   {
-    "wordId": "w008",
+    "wordId": "w002_new",
     "malayalamText": "അത്",
     "englishTranslation": "That",
     "phonetic": "athu",
     "bucketId": 1,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 1,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
       "അ",
       "ത",
       "്"
     ],
     "prerequisites": [
-      "m001",
-      "m013",
-      "m014"
+      "m004_new",
+      "m002_new",
+      "m003_new"
     ]
   },
   {
-    "wordId": "w009",
+    "wordId": "w003_new",
     "malayalamText": "അമ്മ",
     "englishTranslation": "Mother",
     "phonetic": "amma",
     "bucketId": 10,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 1,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
       "അ",
       "മ്മ"
     ],
     "prerequisites": [
-      "m001",
-      "m008"
+      "m004_new",
+      "m006_new"
     ]
   },
   {
-    "wordId": "w010",
+    "wordId": "w004_new",
     "malayalamText": "അച്ചൻ",
     "englishTranslation": "Father",
     "phonetic": "achan",
     "bucketId": 10,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 1,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
       "അ",
       "ച്ച",
       "ൻ"
     ],
     "prerequisites": [
-      "m001",
-      "m018",
-      "m005"
+      "m004_new",
+      "m008_new",
+      "m012_new"
     ]
   },
   {
-    "wordId": "w011",
-    "malayalamText": "നല്ല",
-    "englishTranslation": "Good",
-    "phonetic": "nalla",
-    "bucketId": 9,
+    "wordId": "w005_new",
+    "malayalamText": "ആന",
+    "englishTranslation": "Elephant",
+    "phonetic": "aana",
+    "bucketId": 11,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 1,
     "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ന",
-      "ല്ല"
-    ],
-    "prerequisites": [
-      "m003",
-      "m016"
-    ]
-  },
-  {
-    "wordId": "w012",
-    "malayalamText": "അല്ല",
-    "englishTranslation": "Not (Identity)",
-    "phonetic": "alla",
-    "bucketId": 2,
-    "unlockCycle": 1,
-    "lessonId": 3,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "അ",
-      "ല്ല"
-    ],
-    "prerequisites": [
-      "m001",
-      "m016"
-    ]
-  },
-  {
-    "wordId": "w013",
-    "malayalamText": "ഉണ്ട്",
-    "englishTranslation": "Is/Exists",
-    "phonetic": "undu",
-    "bucketId": 2,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ഉ",
-      "ണ്ട",
-      "്"
-    ],
-    "prerequisites": [
-      "m019",
-      "m024"
-    ]
-  },
-  {
-    "wordId": "w014",
-    "malayalamText": "ഇല്ല",
-    "englishTranslation": "Is not",
-    "phonetic": "illa",
-    "bucketId": 2,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ഇ",
-      "ല്ല"
-    ],
-    "prerequisites": [
-      "m012",
-      "m016"
-    ]
-  },
-  {
-    "wordId": "w015",
-    "malayalamText": "ആണ്",
-    "englishTranslation": "Is (Identity)",
-    "phonetic": "aanu",
-    "bucketId": 2,
-    "unlockCycle": 1,
-    "lessonId": 4,
-    "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
       "ആ",
-      "ണ",
-      "്"
+      "ന"
     ],
     "prerequisites": [
-      "m023",
-      "m020",
-      "m014"
+      "m009_new",
+      "m010_new"
     ]
   },
   {
-    "wordId": "w016",
-    "malayalamText": "അതെ",
-    "englishTranslation": "Yes",
-    "phonetic": "athe",
-    "bucketId": 2,
+    "wordId": "ss001_new",
+    "malayalamText": "ഇത് അമ്മ",
+    "englishTranslation": "This is mother.",
+    "phonetic": "ithu amma",
+    "bucketId": 1,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 1,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇത്",
+      "അമ്മ"
+    ],
+    "prerequisites": [
+      "w001_new",
+      "w003_new"
+    ]
+  },
+  {
+    "wordId": "ss002_new",
+    "malayalamText": "അത് അച്ചൻ",
+    "englishTranslation": "That is father.",
+    "phonetic": "athu achan",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അത്",
+      "അച്ചൻ"
+    ],
+    "prerequisites": [
+      "w002_new",
+      "w004_new"
+    ]
+  },
+  {
+    "wordId": "ss003_new",
+    "malayalamText": "ഇത് ആന",
+    "englishTranslation": "This is an elephant.",
+    "phonetic": "ithu aana",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 1,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇത്",
+      "ആന"
+    ],
+    "prerequisites": [
+      "w001_new",
+      "w005_new"
+    ]
+  },
+  {
+    "wordId": "c002_new",
+    "malayalamText": "Lesson 2: My Family",
+    "englishTranslation": "Learn how to talk about your family and home!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "t013_new",
+    "malayalamText": "എ",
+    "englishTranslation": "E (Vowel)",
+    "phonetic": "E",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t014_new",
+    "malayalamText": "ന്റ",
+    "englishTranslation": "nta (Aspirated)",
+    "phonetic": "nta",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t015_new",
+    "malayalamText": "െ",
+    "englishTranslation": "e (Vowel Sign)",
+    "phonetic": "e",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t016_new",
+    "malayalamText": "വ",
+    "englishTranslation": "Va",
+    "phonetic": "Va",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t017_new",
+    "malayalamText": "ീ",
+    "englishTranslation": "ee (Vowel Sign)",
+    "phonetic": "ee",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t018_new",
+    "malayalamText": "ട",
+    "englishTranslation": "Ta",
+    "phonetic": "Ta",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t019_new",
+    "malayalamText": "േ",
+    "englishTranslation": "E (Vowel Sign long)",
+    "phonetic": "E",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t020_new",
+    "malayalamText": "ിച്ചി",
+    "englishTranslation": "iCChi",
+    "phonetic": "iCChi",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t021_new",
+    "malayalamText": "ക",
+    "englishTranslation": "Ka",
+    "phonetic": "Ka",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t022_new",
+    "malayalamText": "ള",
+    "englishTranslation": "La (Retroflex)",
+    "phonetic": "La",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t023_new",
+    "malayalamText": "ി",
+    "englishTranslation": "i (Vowel Sign)",
+    "phonetic": "i",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t024_new",
+    "malayalamText": "ട്ട",
+    "englishTranslation": "TTa",
+    "phonetic": "TTa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t025_new",
+    "malayalamText": "ൾ",
+    "englishTranslation": "l (Chillu)",
+    "phonetic": "l",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "m013_new",
+    "malayalamText": "എ",
+    "englishTranslation": "E",
+    "phonetic": "E",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t013_new"
+    ]
+  },
+  {
+    "wordId": "m014_new",
+    "malayalamText": "ന്റ",
+    "englishTranslation": "nta",
+    "phonetic": "nta",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t014_new"
+    ]
+  },
+  {
+    "wordId": "m015_new",
+    "malayalamText": "െ",
+    "englishTranslation": "e",
+    "phonetic": "e",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t015_new"
+    ]
+  },
+  {
+    "wordId": "m016_new",
+    "malayalamText": "വ",
+    "englishTranslation": "Va",
+    "phonetic": "Va",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t016_new"
+    ]
+  },
+  {
+    "wordId": "m017_new",
+    "malayalamText": "ീ",
+    "englishTranslation": "ee",
+    "phonetic": "ee",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t017_new"
+    ]
+  },
+  {
+    "wordId": "m018_new",
+    "malayalamText": "ട",
+    "englishTranslation": "Ta",
+    "phonetic": "Ta",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t018_new"
+    ]
+  },
+  {
+    "wordId": "m019_new",
+    "malayalamText": "േ",
+    "englishTranslation": "E",
+    "phonetic": "E",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t019_new"
+    ]
+  },
+  {
+    "wordId": "m020_new",
+    "malayalamText": "ിച്ചി",
+    "englishTranslation": "iCChi",
+    "phonetic": "iCChi",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t020_new"
+    ]
+  },
+  {
+    "wordId": "m021_new",
+    "malayalamText": "ക",
+    "englishTranslation": "Ka",
+    "phonetic": "Ka",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t021_new"
+    ]
+  },
+  {
+    "wordId": "m022_new",
+    "malayalamText": "ള",
+    "englishTranslation": "La",
+    "phonetic": "La",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t022_new"
+    ]
+  },
+  {
+    "wordId": "m023_new",
+    "malayalamText": "ി",
+    "englishTranslation": "i",
+    "phonetic": "i",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t023_new"
+    ]
+  },
+  {
+    "wordId": "m024_new",
+    "malayalamText": "ട്ട",
+    "englishTranslation": "TTa",
+    "phonetic": "TTa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t024_new"
+    ]
+  },
+  {
+    "wordId": "m025_new",
+    "malayalamText": "ൾ",
+    "englishTranslation": "l",
+    "phonetic": "l",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "match",
+    "prerequisites": [
+      "t025_new"
+    ]
+  },
+  {
+    "wordId": "w006_new",
+    "malayalamText": "എന്റെ",
+    "englishTranslation": "My",
+    "phonetic": "ente",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 2,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
-      "അ",
-      "ത",
+      "എ",
+      "ന്റ",
       "െ"
     ],
     "prerequisites": [
-      "m001",
-      "m013",
-      "m025"
+      "m013_new",
+      "m014_new",
+      "m015_new"
     ]
   },
   {
-    "wordId": "w017",
-    "malayalamText": "വരിക",
-    "englishTranslation": "Come",
-    "phonetic": "varika",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "വ",
-      "ര",
-      "ി",
-      "ക"
-    ],
-    "prerequisites": [
-      "m002",
-      "m028",
-      "m029",
-      "m026"
-    ]
-  },
-  {
-    "wordId": "w018",
-    "malayalamText": "പോകുക",
-    "englishTranslation": "Go",
-    "phonetic": "poguka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "പ",
-      "ോ",
-      "ക",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m033",
-      "m035",
-      "m026",
-      "m041"
-    ]
-  },
-  {
-    "wordId": "w019",
-    "malayalamText": "കാണുക",
-    "englishTranslation": "See",
-    "phonetic": "kaanuka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ക",
-      "ാ",
-      "ണ",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m026",
-      "m004",
-      "m020",
-      "m041"
-    ]
-  },
-  {
-    "wordId": "w020",
-    "malayalamText": "കേൾക്കുക",
-    "englishTranslation": "Hear",
-    "phonetic": "kelkkuka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ക",
-      "േ",
-      "ൾ",
-      "ക്ക",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m026",
-      "m040",
-      "m010",
-      "m032",
-      "m041"
-    ]
-  },
-  {
-    "wordId": "w021",
-    "malayalamText": "ചെയ്യുക",
-    "englishTranslation": "Do",
-    "phonetic": "cheyyuka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ച",
-      "െ",
-      "യ്യ",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m017",
-      "m025",
-      "m041",
-      "m026",
-      "m066"
-    ]
-  },
-  {
-    "wordId": "w022",
-    "malayalamText": "പറഞ്ഞു",
-    "englishTranslation": "Said",
-    "phonetic": "paranju",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 5,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "പ",
-      "റ",
-      "ഞ്ഞ",
-      "ു"
-    ],
-    "prerequisites": [
-      "m033",
-      "m034",
-      "m036",
-      "m041"
-    ]
-  },
-  {
-    "wordId": "w023",
-    "malayalamText": "കുടിക്കുക",
-    "englishTranslation": "Drink",
-    "phonetic": "kudikkuka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ക",
-      "ു",
-      "ട",
-      "ി",
-      "ക്ക",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m026",
-      "m041",
-      "m021",
-      "m029",
-      "m032"
-    ]
-  },
-  {
-    "wordId": "w024",
-    "malayalamText": "കഴിക്കുക",
-    "englishTranslation": "Eat",
-    "phonetic": "kazhikkuka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ക",
-      "ഴ",
-      "ി",
-      "ക്ക",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m026",
-      "m038",
-      "m029",
-      "m032",
-      "m041"
-    ]
-  },
-  {
-    "wordId": "w025",
-    "malayalamText": "ഉറങ്ങുക",
-    "englishTranslation": "Sleep",
-    "phonetic": "uranguka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ഉ",
-      "റ",
-      "ങ്ങ",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m019",
-      "m034",
-      "m031",
-      "m041",
-      "m026"
-    ]
-  },
-  {
-    "wordId": "w026",
-    "malayalamText": "എഴുന്നേൽക്കുക",
-    "englishTranslation": "Wake up",
-    "phonetic": "ezhunnelkkuka",
-    "bucketId": 3,
-    "unlockCycle": 1,
-    "lessonId": 6,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "എ",
-      "ഴ",
-      "ു",
-      "ന്ന",
-      "േ",
-      "ൽ",
-      "ക്ക",
-      "ു",
-      "ക"
-    ],
-    "prerequisites": [
-      "m039",
-      "m038",
-      "m042",
-      "m040",
-      "m043",
-      "m032",
-      "m041",
-      "m026"
-    ]
-  },
-  {
-    "wordId": "w027",
-    "malayalamText": "വേണം",
-    "englishTranslation": "Want",
-    "phonetic": "venam",
-    "bucketId": 8,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "വ",
-      "േ",
-      "ണ",
-      "ം"
-    ],
-    "prerequisites": [
-      "m002",
-      "m040",
-      "m020",
-      "m048"
-    ]
-  },
-  {
-    "wordId": "w028",
-    "malayalamText": "വേണ്ടാ",
-    "englishTranslation": "No (Don't want)",
-    "phonetic": "venda",
-    "bucketId": 8,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "വ",
-      "േ",
-      "ണ്ട",
-      "ാ"
-    ],
-    "prerequisites": [
-      "m002",
-      "m040",
-      "m024",
-      "m004"
-    ]
-  },
-  {
-    "wordId": "w029",
-    "malayalamText": "ആര്",
-    "englishTranslation": "Who",
-    "phonetic": "aru",
-    "bucketId": 4,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ആ",
-      "ര",
-      "്"
-    ],
-    "prerequisites": [
-      "m023",
-      "m028",
-      "m014"
-    ]
-  },
-  {
-    "wordId": "w030",
-    "malayalamText": "എന്ത്",
-    "englishTranslation": "What",
-    "phonetic": "enthu",
-    "bucketId": 4,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "എ",
-      "ന്ത",
-      "്"
-    ],
-    "prerequisites": [
-      "m039",
-      "m045",
-      "m014"
-    ]
-  },
-  {
-    "wordId": "w031",
-    "malayalamText": "എവിടെ",
-    "englishTranslation": "Where",
-    "phonetic": "evide",
-    "bucketId": 4,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "എ",
-      "വ",
-      "ി",
-      "ട",
-      "െ"
-    ],
-    "prerequisites": [
-      "m039",
-      "m002",
-      "m029",
-      "m021",
-      "m025"
-    ]
-  },
-  {
-    "wordId": "w032",
-    "malayalamText": "എപ്പോൾ",
-    "englishTranslation": "When",
-    "phonetic": "eppol",
-    "bucketId": 4,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "എ",
-      "പ്പ",
-      "ോ",
-      "ൾ"
-    ],
-    "prerequisites": [
-      "m039",
-      "m046",
-      "m047",
-      "m010"
-    ]
-  },
-  {
-    "wordId": "w033",
-    "malayalamText": "എങ്ങനെ",
-    "englishTranslation": "How",
-    "phonetic": "engane",
-    "bucketId": 4,
-    "unlockCycle": 1,
-    "lessonId": 7,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "എ",
-      "ങ്ങ",
-      "ന",
-      "െ"
-    ],
-    "prerequisites": [
-      "m039",
-      "m031",
-      "m003",
-      "m025"
-    ]
-  },
-  {
-    "wordId": "w034",
+    "wordId": "w007_new",
     "malayalamText": "വീട്",
-    "englishTranslation": "Home",
+    "englishTranslation": "House",
     "phonetic": "veedu",
     "bucketId": 11,
     "unlockCycle": 1,
-    "lessonId": 8,
+    "lessonId": 2,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
       "വ",
       "ീ",
@@ -2342,212 +807,417 @@
       "്"
     ],
     "prerequisites": [
-      "m002",
-      "m009",
-      "m049",
-      "m014"
+      "m016_new",
+      "m017_new",
+      "m018_new",
+      "m003_new"
     ]
   },
   {
-    "wordId": "w035",
-    "malayalamText": "സ്കൂൾ",
-    "englishTranslation": "School",
-    "phonetic": "school",
-    "bucketId": 11,
+    "wordId": "w008_new",
+    "malayalamText": "ചേട്ടൻ",
+    "englishTranslation": "Brother",
+    "phonetic": "chettan",
+    "bucketId": 10,
     "unlockCycle": 1,
-    "lessonId": 8,
+    "lessonId": 2,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
-      "സ്ക",
-      "ൂ",
+      "ച",
+      "േ",
+      "ട്ട",
+      "ൻ"
+    ],
+    "prerequisites": [
+      "m007_new",
+      "m019_new",
+      "m024_new",
+      "m012_new"
+    ]
+  },
+  {
+    "wordId": "w009_new",
+    "malayalamText": "ചേച്ചി",
+    "englishTranslation": "Sister",
+    "phonetic": "chechi",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ച",
+      "േ",
+      "ിച്ചി"
+    ],
+    "prerequisites": [
+      "m007_new",
+      "m019_new",
+      "m020_new"
+    ]
+  },
+  {
+    "wordId": "w010_new",
+    "malayalamText": "മകൻ",
+    "englishTranslation": "Son",
+    "phonetic": "makan",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "മ",
+      "ക",
+      "ൻ"
+    ],
+    "prerequisites": [
+      "m005_new",
+      "m021_new",
+      "m012_new"
+    ]
+  },
+  {
+    "wordId": "w011_new",
+    "malayalamText": "മകൾ",
+    "englishTranslation": "Daughter",
+    "phonetic": "makal",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 2,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "മ",
+      "ക",
       "ൾ"
     ],
     "prerequisites": [
-      "m067",
-      "m068",
-      "m010"
+      "m005_new",
+      "m021_new",
+      "m025_new"
     ]
   },
   {
-    "wordId": "w036",
-    "malayalamText": "കട",
-    "englishTranslation": "Shop",
-    "phonetic": "kada",
-    "bucketId": 11,
+    "wordId": "ss004_new",
+    "malayalamText": "ഇത് എന്റെ വീട്",
+    "englishTranslation": "This is my house.",
+    "phonetic": "ithu ente veedu",
+    "bucketId": 1,
     "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "ക",
-      "ട"
+    "lessonId": 2,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇത്",
+      "എന്റെ",
+      "വീട്"
     ],
     "prerequisites": [
-      "m026",
-      "m021"
+      "w001_new",
+      "w006_new",
+      "w007_new"
     ]
   },
   {
-    "wordId": "w037",
-    "malayalamText": "മരം",
-    "englishTranslation": "Tree",
-    "phonetic": "maram",
-    "bucketId": 11,
+    "wordId": "ss005_new",
+    "malayalamText": "അത് എന്റെ ചേട്ടൻ",
+    "englishTranslation": "That is my older brother.",
+    "phonetic": "athu ente chettan",
+    "bucketId": 1,
     "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "മ",
-      "ര",
-      "ം"
+    "lessonId": 2,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അത്",
+      "എന്റെ",
+      "ചേട്ടൻ"
     ],
     "prerequisites": [
-      "m007",
-      "m028",
-      "m048"
+      "w002_new",
+      "w006_new",
+      "w008_new"
     ]
   },
   {
-    "wordId": "w038",
-    "malayalamText": "കല്ല്",
-    "englishTranslation": "Stone",
-    "phonetic": "kallu",
-    "bucketId": 11,
+    "wordId": "c003_new",
+    "malayalamText": "Lesson 3: Is it there?",
+    "englishTranslation": "Learn the most important rule: The 'IS' word goes at the end!",
+    "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 8,
+    "lessonId": 3,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "t026_new",
+    "malayalamText": "ണ",
+    "englishTranslation": "Na (Retroflex)",
+    "phonetic": "Na",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t027_new",
+    "malayalamText": "ഉ",
+    "englishTranslation": "U (Vowel)",
+    "phonetic": "U",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t028_new",
+    "malayalamText": "ണ്ട",
+    "englishTranslation": "NDa",
+    "phonetic": "NDa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t029_new",
+    "malayalamText": "ല",
+    "englishTranslation": "La",
+    "phonetic": "La",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "t030_new",
+    "malayalamText": "ല്ല",
+    "englishTranslation": "LLa",
+    "phonetic": "LLa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "trace",
+    "prerequisites": []
+  },
+  {
+    "wordId": "m026_new",
+    "malayalamText": "ണ",
+    "englishTranslation": "Na",
+    "phonetic": "Na",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "match",
+    "prerequisites": [
+      "t026_new"
+    ]
+  },
+  {
+    "wordId": "m027_new",
+    "malayalamText": "ഉ",
+    "englishTranslation": "U",
+    "phonetic": "U",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "match",
+    "prerequisites": [
+      "t027_new"
+    ]
+  },
+  {
+    "wordId": "m028_new",
+    "malayalamText": "ണ്ട",
+    "englishTranslation": "NDa",
+    "phonetic": "NDa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "match",
+    "prerequisites": [
+      "t028_new"
+    ]
+  },
+  {
+    "wordId": "m029_new",
+    "malayalamText": "ല",
+    "englishTranslation": "La",
+    "phonetic": "La",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "match",
+    "prerequisites": [
+      "t029_new"
+    ]
+  },
+  {
+    "wordId": "m030_new",
+    "malayalamText": "ല്ല",
+    "englishTranslation": "LLa",
+    "phonetic": "LLa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "match",
+    "prerequisites": [
+      "t030_new"
+    ]
+  },
+  {
+    "wordId": "w012_new",
+    "malayalamText": "ആണ്",
+    "englishTranslation": "Is",
+    "phonetic": "aanu",
+    "bucketId": 2,
+    "unlockCycle": 1,
+    "lessonId": 3,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
-      "ക",
-      "ല്ല",
+      "ആ",
+      "ണ",
       "്"
     ],
     "prerequisites": [
-      "m026",
-      "m016",
-      "m014"
+      "m009_new",
+      "m026_new",
+      "m003_new"
     ]
   },
   {
-    "wordId": "w039",
-    "malayalamText": "വലിയ",
-    "englishTranslation": "Big",
-    "phonetic": "valiya",
-    "bucketId": 9,
+    "wordId": "w013_new",
+    "malayalamText": "അല്ല",
+    "englishTranslation": "Is not",
+    "phonetic": "alla",
+    "bucketId": 2,
     "unlockCycle": 1,
-    "lessonId": 9,
+    "lessonId": 3,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
-      "വ",
-      "ല",
-      "ി",
-      "യ"
+      "അ",
+      "ല്ല"
     ],
     "prerequisites": [
-      "m002",
-      "m015",
-      "m029",
-      "m054"
+      "m004_new",
+      "m030_new"
     ]
   },
   {
-    "wordId": "w040",
-    "malayalamText": "ചെറിയ",
-    "englishTranslation": "Small",
-    "phonetic": "cheriya",
-    "bucketId": 9,
+    "wordId": "w014_new",
+    "malayalamText": "ഉണ്ട്",
+    "englishTranslation": "Exists",
+    "phonetic": "undu",
+    "bucketId": 2,
     "unlockCycle": 1,
-    "lessonId": 9,
+    "lessonId": 3,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
-      "ച",
-      "െ",
-      "റ",
-      "ി",
-      "യ"
+      "ഉ",
+      "ണ്ട",
+      "്"
     ],
     "prerequisites": [
-      "m017",
-      "m034",
-      "m029",
-      "m054"
+      "m027_new",
+      "m028_new",
+      "m003_new"
     ]
   },
   {
-    "wordId": "w041",
-    "malayalamText": "പുതിയ",
-    "englishTranslation": "New",
-    "phonetic": "puthiya",
-    "bucketId": 9,
+    "wordId": "w015_new",
+    "malayalamText": "ഇല്ല",
+    "englishTranslation": "Does not exist",
+    "phonetic": "illa",
+    "bucketId": 2,
     "unlockCycle": 1,
-    "lessonId": 9,
+    "lessonId": 3,
     "lessonType": "build",
-    "isSuffix": false,
     "requiredCharacters": [
-      "പ",
-      "ു",
-      "ത",
-      "ി",
-      "യ"
+      "ഇ",
+      "ല്ല"
     ],
     "prerequisites": [
-      "m033",
-      "m041",
-      "m013",
-      "m029",
-      "m054"
+      "m001_new",
+      "m030_new"
     ]
   },
   {
-    "wordId": "w042",
-    "malayalamText": "പഴയ",
-    "englishTranslation": "Old",
-    "phonetic": "pazhaya",
-    "bucketId": 9,
+    "wordId": "ss006_new",
+    "malayalamText": "ഇത് അമ്മ ആണ്",
+    "englishTranslation": "This is mother.",
+    "phonetic": "ithu amma aanu",
+    "bucketId": 1,
     "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "പ",
-      "ഴ",
-      "യ"
+    "lessonId": 3,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇത്",
+      "അമ്മ",
+      "ആണ്"
     ],
     "prerequisites": [
-      "m033",
-      "m038",
-      "m054"
+      "w001_new",
+      "w003_new",
+      "w012_new"
     ]
   },
   {
-    "wordId": "w043",
-    "malayalamText": "വേഗത്തിൽ",
-    "englishTranslation": "Fast",
-    "phonetic": "vegathil",
-    "bucketId": 9,
+    "wordId": "ss007_new",
+    "malayalamText": "അത് എന്റെ വീട് അല്ല",
+    "englishTranslation": "That is not my house.",
+    "phonetic": "athu ente veedu alla",
+    "bucketId": 1,
     "unlockCycle": 1,
-    "lessonId": 9,
-    "lessonType": "build",
-    "isSuffix": false,
-    "requiredCharacters": [
-      "വ",
-      "േ",
-      "ഗ",
-      "ത്ത",
-      "ി",
-      "ൽ"
+    "lessonId": 3,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അത്",
+      "എന്റെ",
+      "വീട്",
+      "അല്ല"
     ],
     "prerequisites": [
-      "m002",
-      "m040",
-      "m027",
-      "m055",
-      "m029",
-      "m043"
+      "w002_new",
+      "w006_new",
+      "w007_new",
+      "w013_new"
+    ]
+  },
+  {
+    "wordId": "ss008_new",
+    "malayalamText": "അച്ചൻ ഉണ്ട്",
+    "englishTranslation": "Father is here.",
+    "phonetic": "achan undu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അച്ചൻ",
+      "ഉണ്ട്"
+    ],
+    "prerequisites": [
+      "w004_new",
+      "w014_new"
+    ]
+  },
+  {
+    "wordId": "ss009_new",
+    "malayalamText": "ചേച്ചി ഇല്ല",
+    "englishTranslation": "Sister is not here.",
+    "phonetic": "chechi illa",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 3,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ചേച്ചി",
+      "ഇല്ല"
+    ],
+    "prerequisites": [
+      "w009_new",
+      "w015_new"
     ]
   },
   {
@@ -2644,120 +1314,6 @@
     "unlockCycle": 4,
     "prerequisites": [
       "t065"
-    ]
-  },
-  {
-    "wordId": "c016",
-    "malayalamText": "Lesson 10: Building Sentences!",
-    "englishTranslation": "In Malayalam, the action or the 'IS' word always goes at the VERY END of the sentence!",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "concept",
-    "isSummary": true,
-    "examples": [
-      {
-        "base": "ഇത് വീട്",
-        "suffix": "ആണ്",
-        "result": "ഇത് വീട് ആണ്",
-        "rule": "Rule: 'ആണ്' (Is) at the end!"
-      },
-      {
-        "base": "അമ്മ",
-        "suffix": "ഉണ്ട്",
-        "result": "അമ്മ ഉണ്ട്",
-        "rule": "Rule: 'ഉണ്ട്' (Exists) at the end!"
-      }
-    ],
-    "prerequisites": []
-  },
-  {
-    "wordId": "sc001",
-    "malayalamText": "ഇത് അമ്മ ആണ്",
-    "englishTranslation": "This is mother.",
-    "phonetic": "ithu amma aanu",
-    "bucketId": 1,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "ഇത്",
-      "അമ്മ",
-      "ആണ്"
-    ],
-    "prerequisites": [
-      "c016"
-    ]
-  },
-  {
-    "wordId": "sc002",
-    "malayalamText": "ഞാൻ കുട്ടി അല്ല",
-    "englishTranslation": "I am not a child.",
-    "phonetic": "njan kutti alla",
-    "bucketId": 1,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "ഞാൻ",
-      "കുട്ടി",
-      "അല്ല"
-    ],
-    "prerequisites": [
-      "c016"
-    ]
-  },
-  {
-    "wordId": "sc003",
-    "malayalamText": "അമ്മ ഉണ്ട്",
-    "englishTranslation": "Mother is here.",
-    "phonetic": "amma undu",
-    "bucketId": 1,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "അമ്മ",
-      "ഉണ്ട്"
-    ],
-    "prerequisites": [
-      "c016"
-    ]
-  },
-  {
-    "wordId": "sc004",
-    "malayalamText": "വീട് ഇല്ല",
-    "englishTranslation": "There is no house.",
-    "phonetic": "veedu illa",
-    "bucketId": 1,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "വീട്",
-      "ഇല്ല"
-    ],
-    "prerequisites": [
-      "c016"
-    ]
-  },
-  {
-    "wordId": "sc005",
-    "malayalamText": "അവൻ നല്ല കുട്ടി ആണ്",
-    "englishTranslation": "He is a good child.",
-    "phonetic": "avan nalla kutti aanu",
-    "bucketId": 1,
-    "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "അവൻ",
-      "നല്ല",
-      "കുട്ടി",
-      "ആണ്"
-    ],
-    "prerequisites": [
-      "c016"
     ]
   }
 ]

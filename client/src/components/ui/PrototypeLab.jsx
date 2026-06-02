@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import TimeMachineSlider from '../games/TimeMachineSlider';
 import TimeMachineZones from '../games/TimeMachineZones';
-import { TracingCanvas, LetterPicker, SuffixSnapper } from '../games';
-import SentenceScrambler from '../games/SentenceScrambler';
+import { TracingCanvas, LetterPicker, SuffixSnapper, SentenceScrambler } from '../games';
 
 const PrototypeLab = () => {
-  const [activeTab, setActiveTab] = useState('scramble-magnets');
+  const [activeTab, setActiveTab] = useState('scramble');
 
   // Shared mock data for Time Machine
   const mockAction = {
@@ -47,9 +46,7 @@ const PrototypeLab = () => {
   };
 
   const tabs = [
-    { id: 'scramble-magnets', label: 'SCRAMBLER (MAGNETS)', category: 'Experimental' },
-    { id: 'scramble-puzzle', label: 'SCRAMBLER (PUZZLE)', category: 'Experimental' },
-    { id: 'scramble-tap', label: 'SCRAMBLER (TAP)', category: 'Experimental' },
+    { id: 'scramble', label: 'SENTENCE SCRAMBLER', category: 'Experimental' },
     { id: 'zones', label: 'TIME ZONES (V2)', category: 'Experimental' },
     { id: 'slider', label: 'TIME SLIDER (V1)', category: 'Experimental' },
     { id: 'trace', label: 'TRACING BOX', category: 'Sandbox' },
@@ -115,9 +112,7 @@ const PrototypeLab = () => {
                style={{ backgroundImage: 'radial-gradient(#1A1E26 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
           
           <div className="w-full relative z-10" key={activeTab}>
-            {activeTab === 'scramble-magnets' && <SentenceScrambler word={mockScramble} variant="magnets" onComplete={() => console.log('Magnets Done')} />}
-            {activeTab === 'scramble-puzzle' && <SentenceScrambler word={mockScramble} variant="puzzle" onComplete={() => console.log('Puzzle Done')} />}
-            {activeTab === 'scramble-tap' && <SentenceScrambler word={mockScramble} variant="tap" onComplete={() => console.log('Tap Done')} />}
+            {activeTab === 'scramble' && <SentenceScrambler word={mockScramble} onComplete={() => console.log('Scrambler Done')} />}
             {activeTab === 'zones' && <TimeMachineZones mockAction={mockAction} />}
             {activeTab === 'slider' && <TimeMachineSlider mockAction={mockAction} />}
             {activeTab === 'trace' && (

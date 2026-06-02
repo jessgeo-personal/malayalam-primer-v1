@@ -22,9 +22,11 @@ This is the moment-to-moment interactive cycle. The backend engine will not allo
 ### 2.2 The Macro-Loop (The Cyclic Curriculum Algorithm)
 The backend pulls words from 11 distinct grammatical "Buckets" across 4 distinct phases (Cycles). The AI is restricted to generating sentences using *only* the buckets allowed in the current cycle.
 
-**Cycle 1: The "Fact & Identity" Loop (Words 1 - 50)**
+**Cycle 1: The \"Fact & Identity\" Loop (Words 1 - 50)**
+* **Core Philosophy:** Basic 2-word sentence building begins immediately in Lesson 1 (e.g., ഇത് അമ്മ - This is mother).
 * **Allowed Buckets:** Bucket 1 (Pronouns: ഞാൻ, ഇത്), Bucket 2 (Existence: ഉണ്ട്, ആണ്), Bucket 10/11 (Basic Nouns: അമ്മ, വീട്).
 * **System Logic:** Generates simple 2 to 3-word identity statements.
+
 * **Example Output:** "ഇത് വീട് ആണ്." (This is a house.) / "അമ്മ ഉണ്ട്." (Mother is present/exists.)
 * **User Goal:** Master the concept that sentences resolve at the end with ആണ്/അല്ല (Is/Is not) or ഉണ്ട്/ഇല്ല (Exists/Does not exist).
 
@@ -128,9 +130,11 @@ The CLI must populate the MongoDB `WordItem` collection using the following cate
 
 The Node.js backend must utilize an algorithm that combines these buckets in specific phases, scaling in complexity. 
 
-**Cycle 1: The "Fact & Identity" Loop (Top 50 Words)**
+**Cycle 1: The \"Fact & Identity\" Loop (Top 50 Words)**
+* **Core Philosophy:** Functional sentence building begins Day 1 (Lesson 1).
 * **Allowed Buckets:** Bucket 1 (Pointers) + Bucket 2 (Existence) + 5 Basic Nouns (e.g., Amma, Aana, Makan).
 * **System Logic:** Generates 2 to 3-word sentences. 
+
 * **Example Output:** "ഇത് ആന ആണ്." (This is an elephant.) / "ആന ഉണ്ട്." (There is an elephant.)
 * **User Goal:** Master the concept that sentences end in ആണ്/അല്ല or ഉണ്ട്/ഇല്ല.
 

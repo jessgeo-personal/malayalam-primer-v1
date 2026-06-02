@@ -11,6 +11,7 @@ const SentenceScrambler = ({ word, onComplete }) => {
   const [shuffledWords, setShuffledWords] = useState([]);
   const [placedWords, setPlacedWords] = useState([]); 
   const [isCorrect, setIsCorrect] = useState(null);
+  const [startTime, setStartTime] = useState(null);
 
   useEffect(() => {
     // Initial Fisher-Yates shuffle
@@ -22,15 +23,19 @@ const SentenceScrambler = ({ word, onComplete }) => {
     setShuffledWords(parts);
     setPlacedWords([]);
     setIsCorrect(null);
+    setStartTime(Date.now());
   }, [word]);
 
   const handleCheck = () => {
+    if (isCorrect === true) return; // Prevent double-trigger during timeout
+
     const currentSentence = placedWords.map(w => w.text);
     const correct = JSON.stringify(currentSentence) === JSON.stringify(word.sentenceParts);
     setIsCorrect(correct);
 
     if (correct) {
-      setTimeout(() => onComplete && onComplete(), 1500);
+      const timeTaken = Date.now() - startTime;
+      setTimeout(() => onComplete && onComplete(true, timeTaken), 1500);
     }
   };
 

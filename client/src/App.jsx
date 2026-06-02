@@ -278,19 +278,19 @@ const App = () => {
             <div className="w-full flex flex-col items-center mt-12">
               {currentItem ? (
                 currentItem.lessonType === 'concept' ? (
-                  <ConceptScreen word={currentItem} onComplete={updateProgress} />
+                  <ConceptScreen key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'trace' ? (
-                  <TracingCanvas word={currentItem} onComplete={updateProgress} />
+                  <TracingCanvas key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'match' ? (
-                  <SoundMatcher word={currentItem} onComplete={updateProgress} />
+                  <SoundMatcher key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'suffix' ? (
-                  <SuffixSnapper word={currentItem} onComplete={updateProgress} />
+                  <SuffixSnapper key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'tense' ? (
-                  <TimeMachine word={currentItem} onComplete={updateProgress} />
+                  <TimeMachine key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'scramble' ? (
-                  <SentenceScrambler word={currentItem} onComplete={updateProgress} />
+                  <SentenceScrambler key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />
                 ) : (
-                  <LetterPicker word={currentItem} onComplete={updateProgress} />
+                  <LetterPicker key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />
                 )
               ) : null}
             </div>

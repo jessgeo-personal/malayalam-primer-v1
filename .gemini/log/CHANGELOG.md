@@ -1,5 +1,26 @@
 # Changelog - Malayalam Prime
 
+## [2026.06.01.022] - 2026-06-01
+### Added
+- **Milestone 2.3: Tense Transformations:** Launched the official "Time Machine" mini-game for teaching Past, Present, and Future verb tenses (Bucket 3).
+- **Phonetic Sandhi Blocks:** Re-engineered the Suffix Snapper to use intuitive multi-character tiles (e.g., ലിൽ, ത്തിൽ, ട്ടിൽ) for locative case markers, simplifying the reading experience for young learners.
+- **Global Gamification Overhaul:** Implemented a new "Micro-Joy" system using the CelebrationManager, triggering specialized confetti and starbursts for first correct answers, redemptions (fixed errors), and hard words.
+- **Advanced Session Summary:** Rebuilt the "Done!" screen to show detailed performance metrics (Correct vs. Errors) and a visual mastery threshold (3-star mastery vs. "Keep Practicing").
+- **Prototype Lab:** Created a dedicated sandbox environment accessible from the footer for user-testing new UI mechanics without affecting live progression.
+- **Enhanced Dictionary Audit:** Added a "Grammar & Suffixes" tab to the Audit screen to allow detailed verification of base words, morphed forms, and target suffixes.
+- **UI Charter:** Established foundational design standards in `UI_CHARTER.md` to ensure consistent aesthetics and pedagogical feedback across the app.
+
+### Changed
+- **Header Refresh:** Standardized global header to "Let's Learn Malayalam!!".
+- **Concept Screen Refactor:** Upgraded concept screens to support sequenced, multi-step rule breakdowns with explicit "Why" explanations for each grammatical case.
+- **Navigation Dock Relocation:** Moved the floating navigation dock to the bottom right and added a live Server Status indicator (Online/Offline/Syncing).
+
+### Fixed
+- **Suffix UI Overlap:** Repositioned the tutorial guide in Suffix Snapper to prevent it from blocking the header text.
+- **Lesson 14 Data Miss:** Corrected the sandhi mapping for "In the forest" in the Lesson 14 review set to ensure consistency with Lesson 13.
+- **Concept 'NaN' Bug:** Fixed a schema omission in `Word.js` that caused multi-step examples to render as NaN due to missing fields in MongoDB.
+- **Reference Error:** Resolved a blank page crash in Lesson 15 caused by a missing import in `App.jsx`.
+
 ## [2026.06.01.006] - 2026-06-01
 ### Fixed
 - **Auto-Heal Progression:** Implemented a self-healing mechanism in the stats API that retroactively synchronizes a user's `currentCycle` with their `currentLesson`. This fixes "stuck cycle" states for users who completed cycle-transition lessons before the progression triggers were fully implemented.

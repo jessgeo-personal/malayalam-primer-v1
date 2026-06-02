@@ -15,17 +15,24 @@
 - [x] **Game Loop Integration:** App.jsx routes `concept` items correctly to the new instructional screen verified (Functional Adherence).
 - [x] **Concept Payload Routing:** Backend accurately sorts `lessonType: 'concept'` items to the very front of the lesson bundle verified (Accuracy).
 
-## 🛠️ Phase 2: The Grammar Factory (Milestone 2.1)
+## 🛠️ Phase 2: The Grammar Factory (Milestones 2.1 - 2.3)
 - [x] **Full Data Normalization:** Database purged and re-ingested with strictly non-overlapping Cycle/Lesson boundaries verified (Accuracy).
 - [x] **Curriculum Integrity Test:** Automated test verifies lesson ranges per cycle to prevent future desync verified (TDD Mandate).
 - [x] **Map Contrast Fix:** Locked nodes in Adventure Map use high-contrast styling (grayscale/semi-white) for visibility verified (Visual Consistency).
 - [x] **Lesson Routing Fix:** Adventure Map correctly identifies lesson ranges per cycle, preventing cross-cycle duplication verified (Functional Adherence).
 - [x] **Suffix Snapper Component:** Drag-and-drop magnetic snap mechanics for suffixes verified (Functional Adherence).
 - [x] **Guided Tutorial:** In-game tutorial hand appears on first encounter of a concept verified (Pedagogical Alignment).
-- [x] **Schema Expansion:** Word model supports `baseWord`, `targetSuffix`, and `distractorSuffixes` verified (Accuracy).
+- [x] **Schema Expansion:** Word model supports `baseWord`, `targetSuffix`, `distractorSuffixes`, and `examples` verified (Accuracy).
 - [x] **ShowTutorial Logic:** Backend accurately calculates `showTutorial` flag based on user progress verified (Accuracy).
-- [x] **Seed Data (seed-200.json):** First batch of plural and location grammar lessons verified (Resource Audit).
-- [x] **TDD Validation:** 100% green state for new suffix-specific unit tests (backend & client) verified.
+- [x] **Seed Data (seed-200.json):** Cycle 2 plural and location grammar lessons verified (Resource Audit).
+- [x] **TDD Validation:** 100% green state for new suffix and tense unit tests (backend & client) verified.
+- [x] **Time Machine Integration:** Interactive drag-and-drop game for Past, Present, and Future verb tenses verified (Milestone 2.3).
+- [x] **Phonetic Sandhi Blocks:** Intuitive suffix tiles (ലിൽ, ത്തിൽ, ട്ടിൽ) replace single-character vowel markers for easier reading verified (Pedagogical Accuracy).
+- [x] **Multi-Step Concepts:** Concept screens support sequenced rule breakdowns with specific "Why" explanations verified (Pedagogical Alignment).
+- [x] **Global Gamification Overhaul:** Micro-joy system (Confetti/Stars) for first correct, redemptions, and hard words verified (UX Engagement).
+- [x] **Advanced Session Summary:** Correct/Wrong counts and Mastery status thresholds (3-star mastered, 0-star incomplete) verified (Functional Adherence).
+- [x] **Prototype Lab:** Permanent isolated environment for UI experiments and user testing verified (Architectural Integrity).
+- [x] **Enhanced Dictionary Audit:** Grammar-specific tab for auditing base words, morphed forms, and suffixes verified (Resource Audit).
 
 ## 📐 Phase 19: Mathra UI Support & UI Refinements
 - [x] **Surround Mathra Splitting:** 2-part mathras (ൊ, ോ, ൌ) visually split upon placement, with the right-side part dynamically injected after the consonant verified (Pedagogical Accuracy).

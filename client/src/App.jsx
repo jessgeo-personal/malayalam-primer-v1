@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useProgress } from './context';
-import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen } from './components/games';
+import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine } from './components/games';
 import WordAudit from './components/ui/WordAudit';
 import { MasteryStrip, AdventureMap, PrototypeLab, CelebrationManager } from './components/ui';
 import { APP_VERSION } from './config/version';

@@ -26,6 +26,7 @@ export const ProgressProvider = ({ children }) => {
   const [needsRevision, setNeedsRevision] = useState(false);
   const [currentLesson, setCurrentLesson] = useState(1);
   const [lessonHistory, setLessonHistory] = useState([]);
+  const [isConnected, setIsConnected] = useState(null); // null: checking, true: ok, false: fail
 
   const currentItem = sessionItems[currentIndex] || null;
 
@@ -41,8 +42,10 @@ export const ProgressProvider = ({ children }) => {
       setLessonHistory(data.lessonHistory || []);
       setCurrentCycle(data.currentCycle || 1);
       setCycleProgress(data.cycleProgress || 0);
+      setIsConnected(true);
     } catch (err) {
       console.error(err);
+      setIsConnected(false);
     }
   };
 
@@ -232,6 +235,7 @@ export const ProgressProvider = ({ children }) => {
       lessonHistory,
       currentCycle,
       cycleProgress,
+      isConnected,
       startRevision,
       startLesson,
       updateProgress,

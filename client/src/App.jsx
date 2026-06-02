@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useProgress } from './context';
-import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine } from './components/games';
+import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen } from './components/games';
 import WordAudit from './components/ui/WordAudit';
-import { MasteryStrip, AdventureMap } from './components/ui';
+import { MasteryStrip, AdventureMap, PrototypeLab } from './components/ui';
 import { APP_VERSION } from './config/version';
 import './App.css';
 
 const App = () => {
   const [showAudit, setShowAudit] = useState(false);
-  const [showTimeMachine, setShowTimeMachine] = useState(false);
+  const [showLab, setShowLab] = useState(false);
   const { 
     userId,
     switchUser,
@@ -29,7 +29,8 @@ const App = () => {
     cycleProgress,
     resetSession,
     setSessionMode,
-    setSessionStatus
+    setSessionStatus,
+    isConnected
   } = useProgress();
 
   if (error) {
@@ -77,13 +78,6 @@ const App = () => {
                 {showAudit ? 'EXIT AUDIT' : 'AUDIT DICTIONARY'}
               </button>
 
-              <button 
-                onClick={() => setShowTimeMachine(!showTimeMachine)}
-                className={`px-4 py-2 rounded-2xl font-black text-[10px] tracking-widest transition-all ${showTimeMachine ? 'bg-white text-prime-mango-orange shadow-inner' : 'bg-white/20 text-white hover:bg-white/30 border border-white/40'}`}
-              >
-                {showTimeMachine ? 'EXIT TIME MACHINE' : 'TIME MACHINE PROTOTYPE'}
-              </button>
-
               {/* User Selection Dropdown */}
               <div className="flex flex-col items-end">
                 <span className="text-[9px] font-black text-white/60 uppercase tracking-widest mb-1">Active Profile</span>
@@ -108,12 +102,12 @@ const App = () => {
         </div>
       )}
 
-      <main className={`flex-1 w-full max-w-[1600px] mx-auto px-6 ${sessionMode === 'map' ? '-mt-12 pb-32' : 'py-12 pb-32'}`}>
+      <main className={`flex-1 w-full max-w-[1600px] mx-auto px-6 ${sessionMode === 'map' ? '-mt-12 pb-48' : 'py-12 pb-48'}`}>
         {showAudit ? (
           <WordAudit />
-        ) : showTimeMachine ? (
+        ) : showLab ? (
           <div className="py-12">
-            <TimeMachine onComplete={() => {}} />
+             <PrototypeLab />
           </div>
         ) : sessionMode === 'map' ? (
           <div className="flex flex-col gap-10">
@@ -263,29 +257,45 @@ const App = () => {
         )}
       </main>
 
-      {/* 5. Global Navigation Dock (Map Only) */}
+      {/* 5. Global Navigation Dock (Bottom Right) */}
       {sessionMode === 'map' && (
-        <nav className="fixed bottom-6 left-0 right-0 z-[100] px-6">
-          <div className="bg-prime-action-dark mx-auto max-w-md rounded-pill px-8 py-4 flex justify-between items-center text-white shadow-2xl border border-white/10 backdrop-blur-lg animate-fade-in">
-            <button onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }} className="text-2xl hover:scale-110 transition-transform cursor-pointer" title="Home">🏠</button>
+        <nav className="fixed bottom-8 right-8 z-[100] animate-pop">
+          <div className="bg-prime-action-dark rounded-3xl px-6 py-4 flex items-center gap-6 text-white shadow-2xl border border-white/10 backdrop-blur-lg">
+            <button onClick={() => { setSessionMode('map'); setSessionStatus('idle'); setShowLab(false); setShowAudit(false); }} className="text-2xl hover:scale-110 transition-transform cursor-pointer" title="Home">🏠</button>
             <button onClick={handleRestart} className="text-2xl hover:scale-110 transition-transform cursor-pointer opacity-40 hover:opacity-100" title="Restart Progress">🔄</button>
-            <div className="h-8 w-px bg-white/10 mx-2"></div>
-            <div className="flex flex-col items-end">
-              <span className="text-[9px] font-black text-white/40 uppercase tracking-widest leading-none">Status</span>
-              <span className="text-prime-teal-green font-bold text-sm tracking-tighter leading-tight">ACTIVE</span>
+            <div className="h-8 w-px bg-white/10"></div>
+            <div className="flex flex-col items-end min-w-[80px]">
+              <span className="text-[8px] font-black text-white/40 uppercase tracking-widest leading-none mb-1">Server Status</span>
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full animate-pulse ${isConnected === true ? 'bg-prime-teal-green' : isConnected === false ? 'bg-prime-error' : 'bg-prime-mango-orange'}`}></div>
+                <span className={`font-bold text-[10px] tracking-widest uppercase ${isConnected === true ? 'text-prime-teal-green' : isConnected === false ? 'text-prime-error' : 'text-prime-mango-orange'}`}>
+                  {isConnected === true ? 'Online' : isConnected === false ? 'Offline' : 'Syncing'}
+                </span>
+              </div>
             </div>
           </div>
         </nav>
       )}
 
-      <footer className="py-12 text-center text-slate-300 font-bold text-[9px] tracking-[0.4em] uppercase flex flex-col items-center gap-4">
+      <footer className="py-20 text-center text-slate-300 font-bold text-[9px] tracking-[0.4em] uppercase flex flex-col items-center gap-4 relative z-10">
+        <div className="w-12 h-1 bg-slate-100 rounded-full mb-4"></div>
         <span>Malayalam_Prime_v{APP_VERSION}</span>
-        <button 
-          onClick={() => setShowAudit(!showAudit)}
-          className="hover:text-prime-coral-pink transition-colors border border-slate-200 px-4 py-1 rounded-full cursor-pointer"
-        >
-          {showAudit ? 'RETURN TO GAME' : 'DATABASE AUDIT'}
-        </button>
+        <div className="flex gap-4">
+          <button 
+            onClick={() => { setShowAudit(!showAudit); setShowLab(false); }}
+            className={`transition-all border px-6 py-2 rounded-full font-black tracking-widest text-[10px]
+              ${showAudit ? 'bg-prime-coral-pink text-white border-prime-coral-pink shadow-lg' : 'hover:text-prime-coral-pink border-slate-200 text-slate-400'}`}
+          >
+            {showAudit ? 'EXIT AUDIT' : 'DICTIONARY AUDIT'}
+          </button>
+          <button 
+            onClick={() => { setShowLab(!showLab); setShowAudit(false); }}
+            className={`transition-all border px-6 py-2 rounded-full font-black tracking-widest text-[10px]
+              ${showLab ? 'bg-prime-mango-orange text-white border-prime-mango-orange shadow-lg' : 'hover:text-prime-mango-orange border-slate-200 text-slate-400'}`}
+          >
+            {showLab ? 'EXIT LAB' : 'PROTOTYPE LAB'}
+          </button>
+        </div>
       </footer>
     </div>
   );

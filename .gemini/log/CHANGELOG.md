@@ -1,5 +1,13 @@
 # Changelog - Malayalam Prime
 
+## [2026.06.02.023] - 2026-06-02
+### Added
+- **Milestone 2.4: Sentence Scrambler:** Introduced the Cycle 1 Capstone (Lesson 10) to teach SOV word order.
+- **UX Prototyping:** Added 3 distinct interaction models to the Prototype Lab: 'Fridge Magnets', 'Puzzle Box', and 'Tap-to-Build'.
+- **Dictionary Audit Enhancement:** Updated the audit tool to verify sentence parts and space-based assembly logic.
+- **Curriculum Shift:** Programmatically shifted Cycle 2 lessons (11-16) to make room for the new capstone.
+- **DND Dependencies:** Added `@dnd-kit/sortable` and `@dnd-kit/utilities` for horizontal list reordering.
+
 ## [2026.06.01.022] - 2026-06-01
 ### Added
 - **Milestone 2.3: Tense Transformations:** Launched the official "Time Machine" mini-game for teaching Past, Present, and Future verb tenses (Bucket 3).

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 describe('Database Curriculum Integrity', () => {
   beforeAll(async () => {
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(process.env.MONGO_URI);
+      await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/malayalam_decode');
     }
   });
 
@@ -63,12 +63,12 @@ describe('Database Curriculum Integrity', () => {
       }
     });
 
-    // We expect lessons 10, 11, 12, 13, 14, 15 to exist and have >= 6 items
-    const requiredLessons = [10, 11, 12, 13, 14, 15];
+    // We expect lessons 11, 12, 13, 14, 15, 16 to exist (Shifted from 10-15)
+    const requiredLessons = [11, 12, 13, 14, 15, 16];
     
     requiredLessons.forEach(lessonId => {
       const count = lessonCounts[lessonId] || 0;
-      const minCount = lessonId === 15 ? 6 : 10; // Lesson 15 has 6 items (1 concept + 5 tense)
+      const minCount = lessonId === 16 ? 6 : 10; // Lesson 16 has 6 items (1 concept + 5 tense)
       expect(count).toBeGreaterThanOrEqual(minCount);
     });
   });
@@ -88,7 +88,8 @@ describe('Database Curriculum Integrity', () => {
           item.isSuffix !== true &&
           item.lessonType !== 'concept' &&
           item.lessonType !== 'trace' &&
-          item.lessonType !== 'match'
+          item.lessonType !== 'match' &&
+          item.lessonType !== 'scramble'
         );
 
         const missingSplits = buildableWords.filter(w => !w.requiredCharacters || w.requiredCharacters.length === 0);
@@ -109,6 +110,13 @@ describe('Database Curriculum Integrity', () => {
           expect(w.presentEnglish).toBeDefined();
           expect(w.futureEnglish).toBeDefined();
           expect(w.baseWord).toBeDefined();
+        });
+
+        // Check Scramble Lesson Integrity (Added 2026-06-02)
+        const scrambleWords = data.filter(item => item.lessonType === 'scramble');
+        scrambleWords.forEach(w => {
+          expect(w.sentenceParts).toBeDefined();
+          expect(w.sentenceParts.length).toBeGreaterThan(1);
         });
       }
     });

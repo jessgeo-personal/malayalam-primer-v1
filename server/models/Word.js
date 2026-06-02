@@ -11,8 +11,11 @@ const wordItemSchema = new mongoose.Schema({
   unlockCycle: { type: Number, required: true },
   lessonId: { type: Number, default: 0 },
   sequence: { type: Number, default: 0 },
-  lessonType: { type: String, enum: ['trace', 'match', 'build', 'suffix', 'concept', 'tense'], default: 'build' },
+  lessonType: { type: String, enum: ['trace', 'match', 'build', 'suffix', 'concept', 'tense', 'scramble'], default: 'build' },
   isSummary: { type: Boolean, default: false },
+  
+  // Sentence Scrambler (Capstone)
+  sentenceParts: [{ type: String }],
   
   // Tense Transformations (Bucket 3 / Milestone 2.3)
   pastForm: { type: String },

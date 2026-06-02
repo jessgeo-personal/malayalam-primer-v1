@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useProgress } from './context';
-import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine } from './components/games';
+import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine, SentenceScrambler } from './components/games';
 import WordAudit from './components/ui/WordAudit';
 import { MasteryStrip, AdventureMap, PrototypeLab, CelebrationManager } from './components/ui';
 import { APP_VERSION } from './config/version';
@@ -287,6 +287,8 @@ const App = () => {
                   <SuffixSnapper word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'tense' ? (
                   <TimeMachine word={currentItem} onComplete={updateProgress} />
+                ) : currentItem.lessonType === 'scramble' ? (
+                  <SentenceScrambler word={currentItem} onComplete={updateProgress} />
                 ) : (
                   <LetterPicker word={currentItem} onComplete={updateProgress} />
                 )

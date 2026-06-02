@@ -24,16 +24,22 @@ export default function WordAudit() {
 
   const buildWords = words.filter(w => w.lessonType === 'build');
   const alphabetLessons = words.filter(w => w.lessonType === 'trace' || w.lessonType === 'match');
-  const grammarItems = words.filter(w => ['suffix', 'tense', 'concept'].includes(w.lessonType));
+  const grammarItems = words.filter(w => ['suffix', 'tense', 'concept', 'scramble'].includes(w.lessonType));
 
   const checkValidity = (word) => {
+    if (word.lessonType === 'scramble') {
+        if (!word.sentenceParts || word.sentenceParts.length === 0) return { valid: false, reason: 'Empty sentenceParts' };
+        const assembled = word.sentenceParts.join(' ');
+        if (assembled !== word.malayalamText) return { valid: false, reason: 'Space Mismatch', assembled };
+        return { valid: true };
+    }
     if (!word.requiredCharacters || word.requiredCharacters.length === 0) return { valid: false, reason: 'Empty characters' };
     const assembled = word.requiredCharacters.join('');
     if (assembled !== word.malayalamText) return { valid: false, reason: 'Mismatch', assembled };
     return { valid: true };
   };
 
-  const errorCount = buildWords.reduce((sum, w) => checkValidity(w).valid ? sum : sum + 1, 0);
+  const errorCount = words.reduce((sum, w) => checkValidity(w).valid ? sum : sum + 1, 0);
 
   return (
     <div className="flex flex-col gap-8 p-8 max-w-[1400px] mx-auto bg-white rounded-[40px] shadow-2xl my-12 border-[16px] border-prime-warm-base animate-pop overflow-hidden">
@@ -46,7 +52,7 @@ export default function WordAudit() {
         <div className="flex flex-col items-end gap-3">
             <div className={`px-6 py-3 rounded-2xl font-black text-xl shadow-lg flex items-center gap-3 ${errorCount === 0 ? 'bg-prime-teal-green text-white' : 'bg-prime-error text-white animate-bounce'}`}>
               <span className="text-2xl">{errorCount === 0 ? '✓' : '⚠'}</span>
-              <span>{errorCount === 0 ? 'SPLITS OK' : `${errorCount} ERRORS FOUND`}</span>
+              <span>{errorCount === 0 ? 'INTEGRITY OK' : `${errorCount} ERRORS FOUND`}</span>
             </div>
             <div className="text-[9px] font-black text-slate-300 uppercase tracking-widest bg-slate-50 px-4 py-1.5 rounded-pill border border-slate-100">
                 Total Database Entries: {words.length}
@@ -66,7 +72,7 @@ export default function WordAudit() {
           onClick={() => setActiveTab('grammar')}
           className={`px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all ${activeTab === 'grammar' ? 'bg-white text-prime-action-dark shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
         >
-          Grammar & Suffixes ({grammarItems.length})
+          Grammar & Sentences ({grammarItems.length})
         </button>
         <button 
           onClick={() => setActiveTab('alphabets')}
@@ -134,9 +140,9 @@ export default function WordAudit() {
                 <th className="py-4 px-2">ID</th>
                 <th className="py-4 px-2">Cycle/Lesson</th>
                 <th className="py-4 px-2 text-center">Type</th>
-                <th className="py-4 px-2">Base Word</th>
-                <th className="py-4 px-2">Suffix / Morph Detail</th>
-                <th className="py-4 px-2 text-right">Preview Result</th>
+                <th className="py-4 px-2">Base / Rule</th>
+                <th className="py-4 px-2">Suffix / Parts</th>
+                <th className="py-4 px-2 text-right">Result</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
@@ -145,11 +151,17 @@ export default function WordAudit() {
                   <td className="py-4 px-2 text-xs font-mono text-slate-400">{item.wordId}</td>
                   <td className="py-4 px-2 text-xs font-bold text-slate-500">C{item.unlockCycle} • L{item.lessonId}</td>
                   <td className="py-4 px-2 text-center">
-                    <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-pill border ${item.lessonType === 'suffix' ? 'border-prime-coral-pink text-prime-coral-pink' : item.lessonType === 'tense' ? 'border-prime-mango-orange text-prime-mango-orange' : 'border-slate-300 text-slate-400'}`}>
+                    <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-pill border 
+                      ${item.lessonType === 'suffix' ? 'border-prime-coral-pink text-prime-coral-pink' : 
+                        item.lessonType === 'tense' ? 'border-prime-mango-orange text-prime-mango-orange' : 
+                        item.lessonType === 'scramble' ? 'border-prime-teal-green text-prime-teal-green bg-prime-teal-green/5' :
+                        'border-slate-300 text-slate-400'}`}>
                       {item.lessonType}
                     </span>
                   </td>
-                  <td className="py-4 px-2 font-black text-prime-dark-text text-xl">{item.baseWord || '-'}</td>
+                  <td className="py-4 px-2 font-black text-prime-dark-text text-xl">
+                    {item.lessonType === 'scramble' ? item.englishTranslation : (item.baseWord || '-')}
+                  </td>
                   <td className="py-4 px-2">
                     {item.lessonType === 'suffix' ? (
                       <div className="flex items-center gap-2">
@@ -161,6 +173,12 @@ export default function WordAudit() {
                         <div className="text-blue-500">PAST: {item.pastForm}</div>
                         <div className="text-prime-mango-orange">PRES: {item.presentForm}</div>
                         <div className="text-prime-periwinkle">FUT: {item.futureForm}</div>
+                      </div>
+                    ) : item.lessonType === 'scramble' ? (
+                      <div className="flex flex-wrap gap-1">
+                        {item.sentenceParts?.map((part, i) => (
+                          <span key={i} className="px-2 py-1 bg-prime-action-dark text-white text-[10px] font-black rounded-lg">{part}</span>
+                        ))}
                       </div>
                     ) : (
                       <span className="text-[10px] text-slate-300 italic uppercase">Concept Intro</span>

@@ -116,7 +116,7 @@
     "phonetic": "A",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 1,
+    "lessonId": 2,
     "lessonType": "match",
     "prerequisites": [
       "t001"
@@ -140,7 +140,7 @@
     "phonetic": "Va",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 1,
+    "lessonId": 2,
     "lessonType": "match",
     "prerequisites": [
       "t002"
@@ -164,7 +164,7 @@
     "phonetic": "Na",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 1,
+    "lessonId": 2,
     "lessonType": "match",
     "prerequisites": [
       "t003"
@@ -188,7 +188,7 @@
     "phonetic": "aa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 1,
+    "lessonId": 2,
     "lessonType": "match",
     "prerequisites": [
       "t004"
@@ -212,7 +212,7 @@
     "phonetic": "n",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 1,
+    "lessonId": 2,
     "lessonType": "match",
     "prerequisites": [
       "t005"
@@ -236,7 +236,7 @@
     "phonetic": "Nya",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
+    "lessonId": 3,
     "lessonType": "match",
     "prerequisites": [
       "t006"
@@ -260,7 +260,7 @@
     "phonetic": "Ma",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
+    "lessonId": 3,
     "lessonType": "match",
     "prerequisites": [
       "t007"
@@ -284,7 +284,7 @@
     "phonetic": "MMa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
+    "lessonId": 3,
     "lessonType": "match",
     "prerequisites": [
       "t008"
@@ -308,7 +308,7 @@
     "phonetic": "ee",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
+    "lessonId": 3,
     "lessonType": "match",
     "prerequisites": [
       "t009"
@@ -332,7 +332,7 @@
     "phonetic": "l",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
+    "lessonId": 3,
     "lessonType": "match",
     "prerequisites": [
       "t010"
@@ -356,7 +356,7 @@
     "phonetic": "r",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 2,
+    "lessonId": 3,
     "lessonType": "match",
     "prerequisites": [
       "t011"
@@ -380,7 +380,7 @@
     "phonetic": "I",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 4,
     "lessonType": "match",
     "prerequisites": [
       "t012"
@@ -404,7 +404,7 @@
     "phonetic": "Tha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 4,
     "lessonType": "match",
     "prerequisites": [
       "t013"
@@ -428,7 +428,7 @@
     "phonetic": "u",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 4,
     "lessonType": "match",
     "prerequisites": [
       "t014"
@@ -452,7 +452,7 @@
     "phonetic": "La",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 4,
     "lessonType": "match",
     "prerequisites": [
       "t015"
@@ -476,7 +476,7 @@
     "phonetic": "LLa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 4,
     "lessonType": "match",
     "prerequisites": [
       "t016"
@@ -500,7 +500,7 @@
     "phonetic": "Cha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 4,
     "lessonType": "match",
     "prerequisites": [
       "t017"
@@ -524,7 +524,7 @@
     "phonetic": "CHCha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 3,
+    "lessonId": 4,
     "lessonType": "match",
     "prerequisites": [
       "t018"
@@ -548,7 +548,7 @@
     "phonetic": "U",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 5,
     "lessonType": "match",
     "prerequisites": [
       "t019"
@@ -572,7 +572,7 @@
     "phonetic": "Na",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 5,
     "lessonType": "match",
     "prerequisites": [
       "t020"
@@ -596,7 +596,7 @@
     "phonetic": "Ta",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 5,
     "lessonType": "match",
     "prerequisites": [
       "t021"
@@ -620,7 +620,7 @@
     "phonetic": "TTa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 5,
     "lessonType": "match",
     "prerequisites": [
       "t022"
@@ -644,7 +644,7 @@
     "phonetic": "Aa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 5,
     "lessonType": "match",
     "prerequisites": [
       "t023"
@@ -668,7 +668,7 @@
     "phonetic": "NDa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 5,
     "lessonType": "match",
     "prerequisites": [
       "t024"
@@ -692,7 +692,7 @@
     "phonetic": "e",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 4,
+    "lessonId": 5,
     "lessonType": "match",
     "prerequisites": [
       "t025"
@@ -716,7 +716,7 @@
     "phonetic": "Ka",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t026"
@@ -740,7 +740,7 @@
     "phonetic": "Ga",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t027"
@@ -764,7 +764,7 @@
     "phonetic": "Ra",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t028"
@@ -788,7 +788,7 @@
     "phonetic": "i",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t029"
@@ -812,7 +812,7 @@
     "phonetic": "NGa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t031"
@@ -836,7 +836,7 @@
     "phonetic": "KKa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t032"
@@ -860,7 +860,7 @@
     "phonetic": "Pa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t033"
@@ -884,7 +884,7 @@
     "phonetic": "Ra",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t034"
@@ -908,7 +908,7 @@
     "phonetic": "o",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t035"
@@ -932,7 +932,7 @@
     "phonetic": "NYA",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t036"
@@ -956,7 +956,7 @@
     "phonetic": "ya",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t037"
@@ -980,7 +980,7 @@
     "phonetic": "Zha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 6,
+    "lessonId": 7,
     "lessonType": "match",
     "prerequisites": [
       "t038"
@@ -1004,7 +1004,7 @@
     "phonetic": "E",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 6,
+    "lessonId": 7,
     "lessonType": "match",
     "prerequisites": [
       "t039"
@@ -1028,7 +1028,7 @@
     "phonetic": "ee",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 6,
+    "lessonId": 7,
     "lessonType": "match",
     "prerequisites": [
       "t040"
@@ -1052,7 +1052,7 @@
     "phonetic": "u",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 6,
+    "lessonId": 7,
     "lessonType": "match",
     "prerequisites": [
       "t041"
@@ -1076,7 +1076,7 @@
     "phonetic": "nna",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 6,
+    "lessonId": 7,
     "lessonType": "match",
     "prerequisites": [
       "t042"
@@ -1100,7 +1100,7 @@
     "phonetic": "l",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 6,
+    "lessonId": 7,
     "lessonType": "match",
     "prerequisites": [
       "t043"
@@ -1124,7 +1124,7 @@
     "phonetic": "NTha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t045"
@@ -1148,7 +1148,7 @@
     "phonetic": "PPa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t046"
@@ -1172,7 +1172,7 @@
     "phonetic": "o",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t047"
@@ -1196,7 +1196,7 @@
     "phonetic": "m",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t048"
@@ -1220,7 +1220,7 @@
     "phonetic": "Da",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 8,
+    "lessonId": 9,
     "lessonType": "match",
     "prerequisites": [
       "t049"
@@ -1244,7 +1244,7 @@
     "phonetic": "Sa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 8,
+    "lessonId": 9,
     "lessonType": "match",
     "prerequisites": [
       "t050"
@@ -1268,7 +1268,7 @@
     "phonetic": "La",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 8,
+    "lessonId": 9,
     "lessonType": "match",
     "prerequisites": [
       "t052"
@@ -1292,7 +1292,7 @@
     "phonetic": "Ja",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 9,
+    "lessonId": 10,
     "lessonType": "match",
     "prerequisites": [
       "t053"
@@ -1316,7 +1316,7 @@
     "phonetic": "Ya",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 9,
+    "lessonId": 10,
     "lessonType": "match",
     "prerequisites": [
       "t054"
@@ -1340,7 +1340,7 @@
     "phonetic": "TTha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 9,
+    "lessonId": 10,
     "lessonType": "match",
     "prerequisites": [
       "t055"
@@ -1364,7 +1364,7 @@
     "phonetic": "RRa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 9,
+    "lessonId": 10,
     "lessonType": "match",
     "prerequisites": [
       "t056"
@@ -1388,7 +1388,7 @@
     "phonetic": "NNa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "prerequisites": [
       "t057"
@@ -1412,7 +1412,7 @@
     "phonetic": "MPa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t058"
@@ -1436,7 +1436,7 @@
     "phonetic": "NDha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t059"
@@ -1460,7 +1460,7 @@
     "phonetic": "NJCha",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t060"
@@ -1484,7 +1484,7 @@
     "phonetic": "NGKa",
     "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 7,
+    "lessonId": 8,
     "lessonType": "match",
     "prerequisites": [
       "t061"
@@ -1506,7 +1506,7 @@
     "malayalamText": "യ്യ",
     "englishTranslation": "YYa",
     "phonetic": "YYa",
-    "lessonId": 5,
+    "lessonId": 6,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 1,
@@ -1530,7 +1530,7 @@
     "malayalamText": "സ്ക",
     "englishTranslation": "SKa",
     "phonetic": "ska",
-    "lessonId": 8,
+    "lessonId": 9,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 1,
@@ -1554,7 +1554,7 @@
     "malayalamText": "ൂ",
     "englishTranslation": "oo (Vowel Sign long)",
     "phonetic": "oo",
-    "lessonId": 8,
+    "lessonId": 9,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 1,
@@ -1578,7 +1578,7 @@
     "malayalamText": "്യ",
     "englishTranslation": "ya-vattu (hook)",
     "phonetic": "ya",
-    "lessonId": 9,
+    "lessonId": 10,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 1,
@@ -2555,7 +2555,7 @@
     "malayalamText": "ഖ",
     "englishTranslation": "Kha",
     "phonetic": "Kha",
-    "lessonId": 10,
+    "lessonId": 11,
     "lessonType": "trace",
     "bucketId": 0,
     "unlockCycle": 2,
@@ -2566,7 +2566,7 @@
     "malayalamText": "ഖ",
     "englishTranslation": "Kha",
     "phonetic": "Kha",
-    "lessonId": 10,
+    "lessonId": 11,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 2,
@@ -2579,7 +2579,7 @@
     "malayalamText": "ഭ",
     "englishTranslation": "Bha",
     "phonetic": "Bha",
-    "lessonId": 12,
+    "lessonId": 13,
     "lessonType": "trace",
     "bucketId": 0,
     "unlockCycle": 2,
@@ -2590,7 +2590,7 @@
     "malayalamText": "ഭ",
     "englishTranslation": "Bha",
     "phonetic": "Bha",
-    "lessonId": 12,
+    "lessonId": 13,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 2,
@@ -2603,7 +2603,7 @@
     "malayalamText": "ഠ",
     "englishTranslation": "Tha",
     "phonetic": "Tha",
-    "lessonId": 20,
+    "lessonId": 21,
     "lessonType": "trace",
     "bucketId": 0,
     "unlockCycle": 3,
@@ -2614,7 +2614,7 @@
     "malayalamText": "ഠ",
     "englishTranslation": "Tha",
     "phonetic": "Tha",
-    "lessonId": 20,
+    "lessonId": 21,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 3,
@@ -2627,7 +2627,7 @@
     "malayalamText": "ധ",
     "englishTranslation": "Dha",
     "phonetic": "Dha",
-    "lessonId": 25,
+    "lessonId": 26,
     "lessonType": "trace",
     "bucketId": 0,
     "unlockCycle": 4,
@@ -2638,12 +2638,126 @@
     "malayalamText": "ധ",
     "englishTranslation": "Dha",
     "phonetic": "Dha",
-    "lessonId": 25,
+    "lessonId": 26,
     "lessonType": "match",
     "bucketId": 0,
     "unlockCycle": 4,
     "prerequisites": [
       "t065"
+    ]
+  },
+  {
+    "wordId": "c016",
+    "malayalamText": "Lesson 10: Building Sentences!",
+    "englishTranslation": "In Malayalam, the action or the 'IS' word always goes at the VERY END of the sentence!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "concept",
+    "isSummary": true,
+    "examples": [
+      {
+        "base": "ഇത് വീട്",
+        "suffix": "ആണ്",
+        "result": "ഇത് വീട് ആണ്",
+        "rule": "Rule: 'ആണ്' (Is) at the end!"
+      },
+      {
+        "base": "അമ്മ",
+        "suffix": "ഉണ്ട്",
+        "result": "അമ്മ ഉണ്ട്",
+        "rule": "Rule: 'ഉണ്ട്' (Exists) at the end!"
+      }
+    ],
+    "prerequisites": []
+  },
+  {
+    "wordId": "sc001",
+    "malayalamText": "ഇത് അമ്മ ആണ്",
+    "englishTranslation": "This is mother.",
+    "phonetic": "ithu amma aanu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇത്",
+      "അമ്മ",
+      "ആണ്"
+    ],
+    "prerequisites": [
+      "c016"
+    ]
+  },
+  {
+    "wordId": "sc002",
+    "malayalamText": "ഞാൻ കുട്ടി അല്ല",
+    "englishTranslation": "I am not a child.",
+    "phonetic": "njan kutti alla",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഞാൻ",
+      "കുട്ടി",
+      "അല്ല"
+    ],
+    "prerequisites": [
+      "c016"
+    ]
+  },
+  {
+    "wordId": "sc003",
+    "malayalamText": "അമ്മ ഉണ്ട്",
+    "englishTranslation": "Mother is here.",
+    "phonetic": "amma undu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അമ്മ",
+      "ഉണ്ട്"
+    ],
+    "prerequisites": [
+      "c016"
+    ]
+  },
+  {
+    "wordId": "sc004",
+    "malayalamText": "വീട് ഇല്ല",
+    "englishTranslation": "There is no house.",
+    "phonetic": "veedu illa",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "വീട്",
+      "ഇല്ല"
+    ],
+    "prerequisites": [
+      "c016"
+    ]
+  },
+  {
+    "wordId": "sc005",
+    "malayalamText": "അവൻ നല്ല കുട്ടി ആണ്",
+    "englishTranslation": "He is a good child.",
+    "phonetic": "avan nalla kutti aanu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അവൻ",
+      "നല്ല",
+      "കുട്ടി",
+      "ആണ്"
+    ],
+    "prerequisites": [
+      "c016"
     ]
   }
 ]

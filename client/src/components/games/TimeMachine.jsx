@@ -73,13 +73,20 @@ const TimeMachine = ({ word, onComplete }) => {
   const [placedWord, setPlacedWord] = useState(null);
   const [activeZone, setActiveZone] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [targetTense, setTargetTense] = useState('present');
   const startTime = useRef(Date.now());
   
-  // Randomly select target tense on mount
-  const [targetTense] = useState(() => {
+  // Reset state and randomize target when word changes
+  useEffect(() => {
     const tenses = ['past', 'present', 'future'];
-    return tenses[Math.floor(Math.random() * tenses.length)];
-  });
+    const randomTense = tenses[Math.floor(Math.random() * tenses.length)];
+    
+    setPlacedWord(null);
+    setActiveZone(null);
+    setIsSuccess(false);
+    setTargetTense(randomTense);
+    startTime.current = Date.now();
+  }, [word.wordId]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),

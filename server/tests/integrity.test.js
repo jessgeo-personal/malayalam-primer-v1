@@ -63,12 +63,13 @@ describe('Database Curriculum Integrity', () => {
       }
     });
 
-    // We expect lessons 10, 11, 12, 13, 14 to exist and have >= 10 items
-    const requiredLessons = [10, 11, 12, 13, 14];
+    // We expect lessons 10, 11, 12, 13, 14, 15 to exist and have >= 6 items
+    const requiredLessons = [10, 11, 12, 13, 14, 15];
     
     requiredLessons.forEach(lessonId => {
       const count = lessonCounts[lessonId] || 0;
-      expect(count).toBeGreaterThanOrEqual(10);
+      const minCount = lessonId === 15 ? 6 : 10; // Lesson 15 has 6 items (1 concept + 5 tense)
+      expect(count).toBeGreaterThanOrEqual(minCount);
     });
   });
 
@@ -97,6 +98,18 @@ describe('Database Curriculum Integrity', () => {
         }
 
         expect(missingSplits.length).toBe(0);
+
+        // Check Tense Lesson Integrity
+        const tenseWords = data.filter(item => item.lessonType === 'tense');
+        tenseWords.forEach(w => {
+          expect(w.pastForm).toBeDefined();
+          expect(w.presentForm).toBeDefined();
+          expect(w.futureForm).toBeDefined();
+          expect(w.pastEnglish).toBeDefined();
+          expect(w.presentEnglish).toBeDefined();
+          expect(w.futureEnglish).toBeDefined();
+          expect(w.baseWord).toBeDefined();
+        });
       }
     });
   });

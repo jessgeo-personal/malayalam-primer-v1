@@ -103,6 +103,15 @@ export default function SuffixSnapper({ word, onComplete }) {
     setIsSuccess(false);
   }, [word]);
 
+  const getFeedbackMessage = (suffix) => {
+    if (suffix === 'മാർ') return "മാർ (maar) is for people who are older or need respect (like mothers or teachers).";
+    if (suffix === 'ങ്ങൾ') return "ങ്ങൾ (ngal) is for words ending in the 'M' sound (ം). Example: മരം -> മരങ്ങൾ.";
+    if (suffix === 'ുകൾ') return "ുകൾ (ukal) is for words ending in a 'U' sound or a chillu letter. Example: വീട് -> വീടുകൾ.";
+    if (suffix === 'കൾ') return "കൾ (kal) is the standard plural ending for most objects, animals, and young children.";
+    if (['ിൽ', 'യിൽ', 'ത്തിൽ', 'ട്ടിൽ'].includes(suffix)) return "This ending means 'in' or 'on'. It doesn't make a word plural!";
+    return `That ending doesn't fit here. Try another one!`;
+  };
+
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (feedback || isSuccess) return;
@@ -137,16 +146,16 @@ export default function SuffixSnapper({ word, onComplete }) {
   return (
     <div className="flex flex-col items-center gap-12 w-full max-w-5xl animate-pop relative">
       
-      {/* Tutorial Guide Overlay */}
+      {/* Tutorial Guide Overlay - Repositioned to left mid section */}
       {word.showTutorial && !placedSuffix && !feedback && (
         <div 
           data-testid="tutorial-guide"
-          className="absolute inset-0 z-[60] pointer-events-none flex flex-col items-center justify-center"
+          className="absolute -left-32 top-1/2 -translate-y-1/2 z-[60] pointer-events-none flex flex-col items-center justify-center"
         >
-          <div className="bg-prime-action-dark text-white px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl animate-bounce mb-40">
+          <div className="bg-prime-action-dark text-white px-6 py-3 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl animate-bounce mb-4 text-center max-w-[180px]">
             Drag the correct ending!
           </div>
-          <div className="text-6xl animate-pulse mt-40 ml-40">☝️</div>
+          <div className="text-6xl animate-pulse transform rotate-90">☝️</div>
         </div>
       )}
 
@@ -155,7 +164,7 @@ export default function SuffixSnapper({ word, onComplete }) {
         <h2 className="text-4xl font-black text-prime-dark-text tracking-tight uppercase italic mb-2">Suffix Snapper</h2>
         <div className="bg-prime-action-dark/5 border border-prime-action-dark/10 rounded-2xl px-6 py-2 shadow-sm">
           <p className="text-[11px] font-black text-prime-action-dark uppercase tracking-widest">
-            Make the word plural: "{word.englishTranslation}"
+            Complete the word for: "{word.englishTranslation}"
           </p>
         </div>
       </div>
@@ -190,7 +199,7 @@ export default function SuffixSnapper({ word, onComplete }) {
             <p className="text-white/80 font-bold mb-8 italic">
               {feedback.isCorrect 
                 ? `You made "${word.malayalamText}"!`
-                : `Try to find the correct ending for "${word.baseWord}".`}
+                : getFeedbackMessage(placedSuffix)}
             </p>
             <button 
               onClick={() => onComplete(feedback.isCorrect, feedback.time)}

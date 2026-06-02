@@ -285,6 +285,8 @@ const App = () => {
                   <SoundMatcher word={currentItem} onComplete={updateProgress} />
                 ) : currentItem.lessonType === 'suffix' ? (
                   <SuffixSnapper word={currentItem} onComplete={updateProgress} />
+                ) : currentItem.lessonType === 'tense' ? (
+                  <TimeMachine word={currentItem} onComplete={updateProgress} />
                 ) : (
                   <LetterPicker word={currentItem} onComplete={updateProgress} />
                 )

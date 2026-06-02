@@ -1,8 +1,8 @@
 [
   {
     "wordId": "c010",
-    "malayalamText": "Making Plurals",
-    "englishTranslation": "To say 'more than one', drop the tail and add ുകൾ (ukal).",
+    "malayalamText": "Making Plurals: -ുകൾ (ukal)",
+    "englishTranslation": "To make words plural (more than one), we add endings. Use -ുകൾ (ukal) for words ending in a 'U' sound or a chillu letter (like house).",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 10,
@@ -194,8 +194,8 @@
   },
   {
     "wordId": "c011",
-    "malayalamText": "The 'ngal' Sound",
-    "englishTranslation": "When a word ends in a circle (ം), change it to ങ്ങൾ (ngal).",
+    "malayalamText": "Making Plurals: -ങ്ങൾ (ngal)",
+    "englishTranslation": "When a word ends in a circle (ം), change it to -ങ്ങൾ (ngal) to make it plural. For most other common words, we just use -കൾ (kal).",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 11,
@@ -387,8 +387,8 @@
   },
   {
     "wordId": "c012",
-    "malayalamText": "People and Respect",
-    "englishTranslation": "To talk about people respectfully, we use -മാർ (maar).",
+    "malayalamText": "Plurals for People: -മാർ (maar)",
+    "englishTranslation": "For people and respectful titles (like Mother or Friend), we use -മാർ (maar) instead of kal to make them plural.",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 12,
@@ -580,8 +580,8 @@
   },
   {
     "wordId": "c013",
-    "malayalamText": "Saying 'IN'",
-    "englishTranslation": "To say something is 'in' or 'on' something, we use ിൽ (il). Watch how the tail drops!",
+    "malayalamText": "Saying 'IN': -ിൽ (il)",
+    "englishTranslation": "To say something is 'in' or 'on', we add endings like -ിൽ (il), -യിൽ (yil), or -ത്തിൽ (thil) depending on the word. This is NOT a plural!",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 13,
@@ -621,11 +621,11 @@
     "lessonId": 13,
     "lessonType": "suffix",
     "baseWord": "കാട്",
-    "morphedBase": "കാട്ട",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "കാ",
+    "targetSuffix": "ട്ടിൽ",
     "distractorSuffixes": [
       "കൾ",
-      "മാർ"
+      "ിൽ"
     ],
     "prerequisites": [
       "c013"
@@ -641,11 +641,11 @@
     "lessonId": 13,
     "lessonType": "suffix",
     "baseWord": "വീട്",
-    "morphedBase": "വീട്ട",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "വീ",
+    "targetSuffix": "ട്ടിൽ",
     "distractorSuffixes": [
       "കൾ",
-      "മാർ"
+      "ിൽ"
     ],
     "prerequisites": [
       "c013"
@@ -661,11 +661,11 @@
     "lessonId": 13,
     "lessonType": "suffix",
     "baseWord": "മരം",
-    "morphedBase": "മരത്ത",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "മര",
+    "targetSuffix": "ത്തിൽ",
     "distractorSuffixes": [
-      "കൾ",
-      "മാർ"
+      "ങ്ങൾ",
+      "ിൽ"
     ],
     "prerequisites": [
       "c013"
@@ -681,11 +681,11 @@
     "lessonId": 13,
     "lessonType": "suffix",
     "baseWord": "പുസ്തകം",
-    "morphedBase": "പുസ്തകത്ത",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "പുസ്തക",
+    "targetSuffix": "ത്തിൽ",
     "distractorSuffixes": [
-      "കൾ",
-      "മാർ"
+      "ങ്ങൾ",
+      "ിൽ"
     ],
     "prerequisites": [
       "c013"
@@ -773,15 +773,15 @@
   },
   {
     "wordId": "c014",
-    "malayalamText": "Grammar Challenge",
-    "englishTranslation": "Can you remember all the rules? Let's test them out!",
+    "malayalamText": "Saying 'AT/ON': -യിൽ (yil)",
+    "englishTranslation": "For some words, we use -യിൽ (yil) to say 'at' or 'on'. Again, this is for location, not plural!",
     "bucketId": 1,
     "unlockCycle": 2,
     "lessonId": 14,
     "lessonType": "concept",
-    "baseWord": "പഠിക്കാം",
-    "morphedBase": "പഠിക്കാം!",
-    "targetSuffix": "!",
+    "baseWord": "പെട്ടി",
+    "morphedBase": "പെട്ടിയിൽ",
+    "targetSuffix": "യിൽ",
     "prerequisites": []
   },
   {
@@ -941,8 +941,8 @@
     "lessonId": 14,
     "lessonType": "suffix",
     "baseWord": "വീട്",
-    "morphedBase": "വീട്ട",
-    "targetSuffix": "ിൽ",
+    "morphedBase": "വീ",
+    "targetSuffix": "ട്ടിൽ",
     "distractorSuffixes": [
       "മാർ",
       "ങ്ങൾ",
@@ -971,6 +971,117 @@
     ],
     "prerequisites": [
       "c014"
+    ]
+  },
+  {
+    "wordId": "c015",
+    "malayalamText": "The Time Machine",
+    "englishTranslation": "Learn how verbs change based on Yesterday (Past), Today (Present), and Tomorrow (Future).",
+    "bucketId": 3,
+    "unlockCycle": 2,
+    "lessonId": 15,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "tm001",
+    "malayalamText": "പോ",
+    "englishTranslation": "Go",
+    "phonetic": "po",
+    "bucketId": 3,
+    "unlockCycle": 2,
+    "lessonId": 15,
+    "lessonType": "tense",
+    "baseWord": "പോ",
+    "pastForm": "പോയി",
+    "presentForm": "പോകുന്നു",
+    "futureForm": "പോകും",
+    "pastEnglish": "WENT",
+    "presentEnglish": "GOING",
+    "futureEnglish": "WILL GO",
+    "prerequisites": [
+      "c015"
+    ]
+  },
+  {
+    "wordId": "tm002",
+    "malayalamText": "വാ",
+    "englishTranslation": "Come",
+    "phonetic": "va",
+    "bucketId": 3,
+    "unlockCycle": 2,
+    "lessonId": 15,
+    "lessonType": "tense",
+    "baseWord": "വാ",
+    "pastForm": "വന്നു",
+    "presentForm": "വരുന്നു",
+    "futureForm": "വരും",
+    "pastEnglish": "CAME",
+    "presentEnglish": "COMING",
+    "futureEnglish": "WILL COME",
+    "prerequisites": [
+      "c015"
+    ]
+  },
+  {
+    "wordId": "tm003",
+    "malayalamText": "കളി",
+    "englishTranslation": "Play",
+    "phonetic": "kali",
+    "bucketId": 3,
+    "unlockCycle": 2,
+    "lessonId": 15,
+    "lessonType": "tense",
+    "baseWord": "കളി",
+    "pastForm": "കളിച്ചു",
+    "presentForm": "കളിക്കുന്നു",
+    "futureForm": "കളിക്കും",
+    "pastEnglish": "PLAYED",
+    "presentEnglish": "PLAYING",
+    "futureEnglish": "WILL PLAY",
+    "prerequisites": [
+      "c015"
+    ]
+  },
+  {
+    "wordId": "tm004",
+    "malayalamText": "ഓടു",
+    "englishTranslation": "Run",
+    "phonetic": "odu",
+    "bucketId": 3,
+    "unlockCycle": 2,
+    "lessonId": 15,
+    "lessonType": "tense",
+    "baseWord": "ഓടു",
+    "pastForm": "ഓടി",
+    "presentForm": "ഓടുന്നു",
+    "futureForm": "ഓടും",
+    "pastEnglish": "RAN",
+    "presentEnglish": "RUNNING",
+    "futureEnglish": "WILL RUN",
+    "prerequisites": [
+      "c015"
+    ]
+  },
+  {
+    "wordId": "tm005",
+    "malayalamText": "വായിക്കു",
+    "englishTranslation": "Read",
+    "phonetic": "vaayikku",
+    "bucketId": 3,
+    "unlockCycle": 2,
+    "lessonId": 15,
+    "lessonType": "tense",
+    "baseWord": "വായിക്കു",
+    "pastForm": "വായിച്ചു",
+    "presentForm": "വായിക്കുന്നു",
+    "futureForm": "വായിക്കും",
+    "pastEnglish": "READ",
+    "presentEnglish": "READING",
+    "futureEnglish": "WILL READ",
+    "prerequisites": [
+      "c015"
     ]
   }
 ]

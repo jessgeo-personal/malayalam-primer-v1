@@ -14,6 +14,8 @@ vi.mock('../components/games', () => ({
 vi.mock('../components/ui', () => ({
   MasteryStrip: () => <div data-testid="mastery-strip">MasteryStrip</div>,
   AdventureMap: () => <div data-testid="adventure-map">AdventureMap</div>,
+  PrototypeLab: () => <div data-testid="prototype-lab">PrototypeLab</div>,
+  CelebrationManager: () => <div data-testid="celebration-manager">CelebrationManager</div>,
 }));
 
 describe('App Navigation Dock Conditional Rendering', () => {

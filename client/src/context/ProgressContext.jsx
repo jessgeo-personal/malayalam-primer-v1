@@ -21,6 +21,8 @@ export const ProgressProvider = ({ children }) => {
   const [sessionErrors, setSessionErrors] = useState(0);
   const [sessionStatus, setSessionStatus] = useState('idle'); // 'idle', 'active', 'complete'
   const [lastStars, setLastStars] = useState(0);
+  const [sessionStats, setSessionStats] = useState({ correct: 0, errors: 0 });
+  const [completedItems, setCompletedItems] = useState(new Set()); // Track items completed in current session
 
   // User Progress Data
   const [needsRevision, setNeedsRevision] = useState(false);
@@ -68,6 +70,8 @@ export const ProgressProvider = ({ children }) => {
     setSessionMode('revision');
     setSessionStatus('active');
     setSessionErrors(0);
+    setSessionStats({ correct: 0, errors: 0 });
+    setCompletedItems(new Set());
     try {
       const response = await fetch(`/api/session/revision?userId=${userId}`);
       if (!response.ok) throw new Error('Failed to fetch revision items');
@@ -93,6 +97,8 @@ export const ProgressProvider = ({ children }) => {
     setActiveLessonId(lessonId);
     setSessionStatus('active');
     setSessionErrors(0);
+    setSessionStats({ correct: 0, errors: 0 });
+    setCompletedItems(new Set());
     try {
       const response = await fetch(`/api/session/lesson?userId=${userId}&lessonId=${lessonId}`);
       if (!response.ok) throw new Error('Failed to fetch lesson');
@@ -110,15 +116,35 @@ export const ProgressProvider = ({ children }) => {
     if (!currentItem) return;
 
     if (!isCorrect) {
-      // Only count the error if this is the first time they see this item in the session
-      // (prevents double-counting errors for the same item in the reinforcement queue)
+      // TRACK ERRORS
+      setSessionStats(prev => ({ ...prev, errors: prev.errors + 1 }));
+
       if (!currentItem.isReinforcement) {
         setSessionErrors(prev => prev + 1);
       }
       
-      // Reinforcement Queue: Duplicate the failed item and push it to the end of the session
-      // This forces the student to encounter it again until they get it right.
       setSessionItems(prev => [...prev, { ...currentItem, isReinforcement: true }]);
+    } else {
+      // TRACK CORRECT ANSWERS
+      setSessionStats(prev => ({ ...prev, correct: prev.correct + 1 }));
+
+      // GAMIFICATION EVENTS: Determine which type of celebration to trigger
+      let celebrationType = 'sparkle';
+      
+      if (currentItem.isReinforcement) {
+        celebrationType = 'redemption'; // Fixed a previously wrong answer
+      } else if (!completedItems.has(currentItem.itemId)) {
+        // Check if it's "hard" (e.g. word length > 5 or bucket is high)
+        if (currentItem.malayalamText && currentItem.malayalamText.length > 5) {
+          celebrationType = 'epic';
+        }
+      }
+      
+      // Update completed set
+      setCompletedItems(prev => new Set(prev).add(currentItem.itemId));
+
+      // Trigger the celebration event (Custom Event for UI listeners)
+      window.dispatchEvent(new CustomEvent('mp-celebration', { detail: { type: celebrationType } }));
     }
 
     try {
@@ -229,6 +255,7 @@ export const ProgressProvider = ({ children }) => {
       error,
       sessionMode,
       sessionStatus,
+      sessionStats,
       lastStars,
       needsRevision,
       currentLesson,

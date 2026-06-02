@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useProgress } from './context';
 import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen } from './components/games';
 import WordAudit from './components/ui/WordAudit';
-import { MasteryStrip, AdventureMap, PrototypeLab } from './components/ui';
+import { MasteryStrip, AdventureMap, PrototypeLab, CelebrationManager } from './components/ui';
 import { APP_VERSION } from './config/version';
 import './App.css';
 
@@ -30,7 +30,8 @@ const App = () => {
     resetSession,
     setSessionMode,
     setSessionStatus,
-    isConnected
+    isConnected,
+    sessionStats
   } = useProgress();
 
   if (error) {
@@ -52,13 +53,14 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-prime-canvas text-prime-dark-text flex flex-col font-sans">
+      <CelebrationManager />
       
       {/* 1. Hero Header Slot (Split Canvas) */}
       {sessionMode === 'map' && (
         <div className="w-full bg-prime-coral-pink pt-12 pb-20 px-8 rounded-b-[48px] relative overflow-hidden shadow-lg">
           <div className="max-w-6xl mx-auto flex justify-between items-start relative z-10">
             <div className="animate-pop">
-              <h1 className="text-white text-4xl font-black tracking-tight mb-2 italic uppercase">Let's Learn!</h1>
+              <h1 className="text-white text-4xl font-black tracking-tight mb-2 italic uppercase">Let's Learn Malayalam!!</h1>
               <div className="flex items-center gap-2">
                 <div className="bg-prime-action-dark text-white px-4 py-1.5 rounded-pill text-xs font-bold tracking-widest flex items-center gap-2">
                   LEVEL {Math.floor(score / 500) + 1}
@@ -158,29 +160,64 @@ const App = () => {
             </div>
           </div>
         ) : sessionStatus === 'complete' ? (
-          <div className="w-full max-w-xl mx-auto card-bento-surface p-12 text-center animate-pop">
-            <div className="text-8xl mb-8">🌟</div>
-            <h2 className="text-hero mb-4">Done!</h2>
-            <p className="text-slate-500 font-medium mb-10 text-lg">Great job completing your session!</p>
+          <div className="w-full max-w-2xl mx-auto card-bento-surface p-12 text-center animate-pop relative overflow-hidden">
+            {/* Background Accent */}
+            <div className={`absolute top-0 left-0 w-full h-2 ${lastStars > 0 ? 'bg-prime-teal-green' : 'bg-prime-error'}`}></div>
+            
+            <div className="text-8xl mb-6">
+              {lastStars === 3 ? '🏆' : lastStars > 0 ? '🌟' : '🧱'}
+            </div>
+
+            <h2 className={`text-5xl font-black mb-2 uppercase italic tracking-tighter ${lastStars === 0 ? 'text-prime-error' : 'text-prime-dark-text'}`}>
+              {lastStars === 3 ? 'Perfect!' : lastStars > 0 ? 'Good Job!' : 'Keep Practicing!'}
+            </h2>
+
+            <p className="text-slate-500 font-bold mb-10 text-lg uppercase tracking-widest opacity-60">
+              {lastStars === 0 ? 'Lesson Incomplete' : 'Session Complete'}
+            </p>
+            
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-6 mb-12">
+               <div className="bg-prime-teal-green/5 border-2 border-prime-teal-green/20 rounded-[32px] p-6 flex flex-col items-center">
+                  <span className="text-[10px] font-black text-prime-teal-green uppercase tracking-widest mb-1">Total Correct</span>
+                  <div className="text-5xl font-black text-prime-teal-green">{sessionStats.correct}</div>
+               </div>
+               <div className={`rounded-[32px] p-6 flex flex-col items-center border-2 
+                  ${sessionStats.errors > 0 ? 'bg-prime-error/5 border-prime-error/20' : 'bg-slate-50 border-slate-100'}`}>
+                  <span className={`text-[10px] font-black uppercase tracking-widest mb-1 ${sessionStats.errors > 0 ? 'text-prime-error' : 'text-slate-400'}`}>
+                    Total Errors
+                  </span>
+                  <div className={`text-5xl font-black ${sessionStats.errors > 0 ? 'text-prime-error' : 'text-slate-300'}`}>
+                    {sessionStats.errors}
+                  </div>
+               </div>
+            </div>
             
             {sessionMode === 'lesson' && (
-              <div className="flex flex-col items-center gap-4 mb-10">
-                <div className="flex gap-2">
+              <div className="flex flex-col items-center gap-6 mb-12">
+                <div className="flex gap-4">
                   {[...Array(3)].map((_, i) => (
-                    <span key={i} className={`text-6xl ${i < lastStars ? 'text-prime-mango-orange' : 'text-slate-100'}`}>★</span>
+                    <span key={i} className={`text-7xl transition-all duration-700 ${i < lastStars ? 'text-prime-mango-orange scale-110 drop-shadow-lg' : 'text-slate-100 scale-90'}`}>★</span>
                   ))}
                 </div>
-                <span className="bg-prime-warm-base text-prime-mango-orange px-4 py-1 rounded-pill text-xs font-black uppercase tracking-widest">
-                  {lastStars === 3 ? 'Excellent!' : 'Good Work!'}
-                </span>
+                
+                <div className={`px-8 py-2 rounded-full font-black uppercase tracking-[0.2em] text-xs shadow-sm
+                  ${lastStars === 3 ? 'bg-prime-teal-green text-white' : 
+                    lastStars > 0 ? 'bg-prime-mango-orange text-white' : 
+                    'bg-slate-200 text-slate-400'}`}>
+                  {lastStars === 3 ? 'Lesson Mastered!' : 
+                   lastStars > 0 ? 'Lesson Passed!' : 
+                   'Not quite there yet'}
+                </div>
               </div>
             )}
 
             <button 
               onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }}
-              className="btn-pill bg-prime-action-dark w-full justify-center py-4 text-lg"
+              className={`btn-pill w-full justify-center py-5 text-xl font-black shadow-xl hover:scale-[1.02] active:scale-95 transition-all
+                ${lastStars > 0 ? 'bg-prime-action-dark' : 'bg-slate-400'}`}
             >
-              Back to Lessons
+              {lastStars > 0 ? 'CONTINUE →' : 'TRY AGAIN LATER'}
             </button>
           </div>
         ) : (

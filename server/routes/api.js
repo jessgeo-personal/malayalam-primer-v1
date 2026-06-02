@@ -114,8 +114,13 @@ router.post('/session/revision/complete', async (req, res) => {
  */
 router.get('/session/lesson/preview', async (req, res) => {
   try {
-    const { userId, lessonId } = req.query;
-    const items = await srsEngine.generateLessonPayload(userId, parseInt(lessonId) || 1);
+    const { userId, lessonId, conceptId } = req.query;
+    let items;
+    if (conceptId) {
+      items = await srsEngine.generateActPreview(userId, parseInt(lessonId) || 1, conceptId);
+    } else {
+      items = await srsEngine.generateLessonPayload(userId, parseInt(lessonId) || 1);
+    }
     res.json(items);
   } catch (error) {
     res.status(500).json({ error: error.message });

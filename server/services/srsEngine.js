@@ -84,20 +84,36 @@ async function generateRevisionPayload(userId) {
 
 /**
  * Generate Lesson Payload:
- * Refactored Pedagogical Logic: 
- * 1. Fetches items strictly by lessonId to ensure curated content.
- * 2. Groups all 'trace' tasks first to introduce characters.
- * 3. Randomizes 'match' and 'build' tasks to test recall.
+ * Refactored Pedagogical Logic (3-Act Structure):
+ * 1. Fetches ALL items for the lessonId.
+ * 2. Filters items based on prerequisites (Prereqs must have correctCount > 0).
+ * 3. Returns a slice of unlocked items to maintain "Bundle" cognitive load.
  */
 async function generateLessonPayload(userId, lessonId) {
   const words = await Word.find({ lessonId: parseInt(lessonId) }).sort({ sequence: 1 });
   
   if (!words || words.length === 0) return [];
 
+  // Get all user progress for this lesson's potential dependencies
+  const userProgress = await Progress.find({ userId });
+  const masteredIds = new Set(
+    userProgress.filter(p => p.correctCount > 0).map(p => p.itemId)
+  );
+
   const payload = [];
   for (const w of words) {
+    // PREREQUISITE CHECK: 
+    // An item is "Available" if all its prerequisites are in masteredIds.
+    const arePrereqsMet = !w.prerequisites || w.prerequisites.length === 0 || 
+                         w.prerequisites.every(preId => masteredIds.has(preId));
+
+    if (!arePrereqsMet) continue; // Skip gated items
+
     const itype = w.lessonType === 'trace' ? 'letter' : 'word';
-    const progress = await Progress.findOne({ userId, itemId: w.wordId, itemType: itype });
+    const progress = userProgress.find(p => p.itemId === w.wordId && p.itemType === itype);
+    
+    if (progress && progress.correctCount > 0 && w.lessonType !== 'concept') continue;
+
     const item = {
       ...w.toObject(),
       itemId: w.wordId,
@@ -105,7 +121,6 @@ async function generateLessonPayload(userId, lessonId) {
       showTutorial: !progress
     };
 
-    // If it's a tracing task, find up to 3 example words using this letter
     if (w.lessonType === 'trace') {
       const examples = await Word.find({ 
         lessonType: 'build', 
@@ -122,17 +137,40 @@ async function generateLessonPayload(userId, lessonId) {
     payload.push(item);
   }
 
-  // Group by type: Concept first, then Tracing, then randomized everything else
+  // --- STRICT CONCEPT GATING (Fix for Stacking) ---
   const concepts = payload.filter(p => p.lessonType === 'concept');
-  const tracing = payload.filter(p => p.lessonType === 'trace');
-  const others = payload.filter(p => p.lessonType !== 'concept' && p.lessonType !== 'trace').sort(() => Math.random() - 0.5);
+  const firstConcept = concepts.length > 0 ? [concepts[0]] : [];
+  
+  const nonConcepts = payload.filter(p => p.lessonType !== 'concept');
 
-  return [...concepts, ...tracing, ...others];
+  // Return the first concept (if any) and the next gameplay items
+  return [...firstConcept, ...nonConcepts.slice(0, 8)];
+}
+
+/**
+ * Generate Act Preview:
+ * Returns only the items that directly list the conceptId as a prerequisite.
+ */
+async function generateActPreview(userId, lessonId, conceptId) {
+  const words = await Word.find({ lessonId: parseInt(lessonId) });
+  
+  // Return items where conceptId is in the prerequisites array
+  const actItems = words.filter(w => 
+    w.lessonType !== 'concept' && 
+    w.prerequisites && 
+    w.prerequisites.includes(conceptId)
+  );
+
+  return actItems.map(w => ({
+    ...w.toObject(),
+    itemId: w.wordId
+  }));
 }
 
 module.exports = {
   calculateNewWeight,
   evaluateGraduation,
   generateRevisionPayload,
-  generateLessonPayload
+  generateLessonPayload,
+  generateActPreview
 };

@@ -118,6 +118,23 @@ describe('Database Curriculum Integrity', () => {
           expect(w.sentenceParts).toBeDefined();
           expect(w.sentenceParts.length).toBeGreaterThan(1);
         });
+
+        // Rule 1: Act 3 Gate (Sentences)
+        // If a lesson has scrambles, it must have a concept screen that requires all lesson words.
+        const uniqueLessons = [...new Set(data.map(i => i.lessonId))];
+        uniqueLessons.forEach(lid => {
+            const lessonItems = data.filter(i => i.lessonId === lid);
+            const lessonScrambles = lessonItems.filter(i => i.lessonType === 'scramble');
+            if (lessonScrambles.length > 0) {
+                const act3Gate = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a3'));
+                expect(act3Gate).toBeDefined();
+                // Gate must have build items from same lesson as prerequisites
+                const buildIds = lessonItems.filter(i => i.lessonType === 'build').map(i => i.wordId);
+                buildIds.forEach(bid => {
+                    expect(act3Gate.prerequisites).toContain(bid);
+                });
+            }
+        });
       }
     });
   });

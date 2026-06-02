@@ -12,12 +12,12 @@
 The app abandons traditional A-Z linear alphabet learning. Instead, it relies on a two-part system: a **Micro-Loop** (the daily interactive gameplay sequence) and a **Macro-Loop** (the backend algorithm that scales the curriculum across the 300 core words and 11 linguistic buckets).
 
 ### 2.1 The Micro-Loop (Daily Gameplay Sequence)
-This is the moment-to-moment interactive cycle. The backend engine will not allow the user to progress to the next sequence until the Spaced Repetition System (SRS) registers high confidence.
+This is the moment-to-moment interactive cycle. The gameplay is structured into 3-Act Lessons to manage cognitive load and enforce sequential mastery:
 
-1. **Targeted Character Acquisition:** The app introduces only the 2 to 3 specific Malayalam characters required for the day's target words (e.g., tracing മ, ന, and the ാ modifier).
-2. **Instant Word Blending:** The user immediately combines those characters into high-frequency structural words (e.g., building മാൻ - Deer) through puzzle mechanics.
-3. **Sentence Slotting (Contextualization):** The user drags newly built words into dynamic sentences (Mad Libs style) to decode grammar and intent. 
-4. **Adaptive Scoring Assessment (SRS):** The backend tracks time-to-answer and error rates. High scores unlock the next Macro-Loop cycle; low scores trigger reinforcement games using the same words.
+1.  **Act 1: Targeted Character Acquisition:** The app introduces the 5 to 6 specific Malayalam characters required for the day's target words (e.g., tracing മ, ന). Progression is: Concept -> Trace -> Match.
+2.  **Act 2: Instant Word Blending:** The user immediately combines those characters into high-frequency words (e.g., ആന). *Locked until Act 1 is 100% complete.* Progression: Concept -> Build.
+3.  **Act 3: Sentence Building:** The user builds simple sentences (e.g., ഇത് ആന) using the 'Tap-to-Build' mechanic. *Locked until Act 2 is 100% complete.*
+4.  **Adaptive Scoring Assessment (SRS):** The backend tracks performance. High scores unlock the next cycle; low scores trigger reinforcement.
 
 ### 2.2 The Macro-Loop (The Cyclic Curriculum Algorithm)
 The backend pulls words from 11 distinct grammatical "Buckets" across 4 distinct phases (Cycles). The AI is restricted to generating sentences using *only* the buckets allowed in the current cycle.

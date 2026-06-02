@@ -13,6 +13,8 @@ const App = () => {
     userId,
     switchUser,
     activeLessonId,
+    sessionItems,
+    currentIndex,
     currentItem, 
     updateProgress, 
     masteredCharacters, 

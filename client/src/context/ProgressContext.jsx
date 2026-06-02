@@ -128,22 +128,16 @@ export const ProgressProvider = ({ children }) => {
       // TRACK CORRECT ANSWERS
       setSessionStats(prev => ({ ...prev, correct: prev.correct + 1 }));
 
-      // GAMIFICATION EVENTS: Determine which type of celebration to trigger
       let celebrationType = 'sparkle';
-      
       if (currentItem.isReinforcement) {
-        celebrationType = 'redemption'; // Fixed a previously wrong answer
+        celebrationType = 'redemption';
       } else if (!completedItems.has(currentItem.itemId)) {
-        // Check if it's "hard" (e.g. word length > 5 or bucket is high)
         if (currentItem.malayalamText && currentItem.malayalamText.length > 5) {
           celebrationType = 'epic';
         }
       }
       
-      // Update completed set
       setCompletedItems(prev => new Set(prev).add(currentItem.itemId));
-
-      // Trigger the celebration event (Custom Event for UI listeners)
       window.dispatchEvent(new CustomEvent('mp-celebration', { detail: { type: celebrationType } }));
     }
 
@@ -162,19 +156,30 @@ export const ProgressProvider = ({ children }) => {
 
       if (!response.ok) throw new Error('Failed to update progress');
       const data = await response.json();
-      
       setScore(data.score);
-      
-      // HUD Sync: Immediately update mastered list in UI state
-      if (isCorrect) {
-        setMasteredCharacters(data.masteredCharacters);
-      }
+      if (isCorrect) setMasteredCharacters(data.masteredCharacters);
 
-      // Move to next item in session
+      // --- DYNAMIC UNLOCKING LOGIC ---
       if (currentIndex < sessionItems.length - 1) {
+        // Just move to the next item in the pre-loaded bundle
         setCurrentIndex(prev => prev + 1);
       } else {
-        // All items finished
+        // We hit the end of the current chunk. Are there more unlocked items?
+        // This is only for 'lesson' mode. 'revision' is static.
+        if (sessionMode === 'lesson') {
+            const nextChunkRes = await fetch(`/api/session/lesson?userId=${userId}&lessonId=${activeLessonId}`);
+            if (nextChunkRes.ok) {
+                const nextItems = await nextChunkRes.json();
+                if (nextItems && nextItems.length > 0) {
+                    // We found more content! Append it and continue.
+                    setSessionItems(prev => [...prev, ...nextItems]);
+                    setCurrentIndex(prev => prev + 1);
+                    return; // Early exit, do not complete session
+                }
+            }
+        }
+
+        // If we reach here, either it's revision or there's no more lesson content.
         const finalErrors = isCorrect ? sessionErrors : sessionErrors + 1;
         await completeSession(finalErrors, sessionMode, currentLesson);
       }

@@ -36,7 +36,7 @@ export default function ConceptScreen({ word, onComplete }) {
       const fetchSummary = async () => {
         setLoading(true);
         try {
-          const response = await fetch(`/api/session/lesson/preview?lessonId=${activeLessonId || word.lessonId}&userId=${userId}`);
+          const response = await fetch(`/api/session/lesson/preview?lessonId=${activeLessonId || word.lessonId}&userId=${userId}&conceptId=${word.wordId}`);
           if (response.ok) {
             const data = await response.json();
             // Filter out duplicate concepts if any, and only show unique Malayalam words

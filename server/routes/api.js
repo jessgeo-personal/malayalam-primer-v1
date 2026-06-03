@@ -47,8 +47,9 @@ router.get('/session/revision', async (req, res) => {
  */
 router.get('/session/lesson', async (req, res) => {
   try {
-    const { userId, lessonId } = req.query;
-    const bundle = await srsEngine.generateLessonPayload(userId, parseInt(lessonId) || 1);
+    const { userId, lessonId, completed } = req.query;
+    const completedIds = completed ? completed.split(',') : [];
+    const bundle = await srsEngine.generateLessonPayload(userId, parseInt(lessonId) || 1, completedIds);
     res.json(bundle);
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -1,13 +1,17 @@
 const srsEngine = require('../services/srsEngine');
 const Progress = require('../models/Progress');
 const Word = require('../models/Word');
+const User = require('../models/User');
 
 jest.mock('../models/Progress');
 jest.mock('../models/Word');
+jest.mock('../models/User');
 
 describe('Session & Graduation Logic', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    // Default mock for User.findOne to support generateLessonPayload
+    User.findOne.mockResolvedValue({ lessonHistory: [] });
   });
 
   test('evaluateGraduation should mark constituent letters as graduated when a word is correct', async () => {
@@ -113,7 +117,7 @@ describe('Session & Graduation Logic', () => {
       return { sort: jest.fn().mockResolvedValue([]), limit: jest.fn().mockResolvedValue([]) };
     });
 
-    Progress.findOne.mockResolvedValue(null);
+    Progress.find.mockResolvedValue([]);
 
     const bundle = await srsEngine.generateLessonPayload(userId, 1);
     

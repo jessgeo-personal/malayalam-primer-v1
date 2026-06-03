@@ -167,7 +167,11 @@ export const ProgressProvider = ({ children }) => {
         // We hit the end of the current chunk. Are there more unlocked items?
         // This is only for 'lesson' mode. 'revision' is static.
         if (sessionMode === 'lesson') {
-            const nextChunkRes = await fetch(`/api/session/lesson?userId=${userId}&lessonId=${activeLessonId}`);
+            const currentCompleted = new Set(completedItems);
+            if (isCorrect) currentCompleted.add(currentItem.itemId);
+            const completedParam = Array.from(currentCompleted).join(',');
+
+            const nextChunkRes = await fetch(`/api/session/lesson?userId=${userId}&lessonId=${activeLessonId}&completed=${completedParam}`);
             if (nextChunkRes.ok) {
                 const nextItems = await nextChunkRes.json();
                 if (nextItems && nextItems.length > 0) {

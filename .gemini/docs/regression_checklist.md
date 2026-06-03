@@ -215,6 +215,12 @@
 ## 🛠️ Phase 2: The \"Grammar Factory\" (Active Milestone)
 - [x] **3-Act Lesson Structure:** All Lessons 1-3 now utilize 'Hard Gate' concept screens to enforce the Alphabets -> Words -> Sentences sequence verified (Pedagogical Alignment).
 - [x] **Gate Chaining Integrity:** Act 2 Concepts correctly require all Act 1 Matches; Act 3 Concepts correctly require all Act 2 Builds verified (TDD Compliance).
-- [x] **Scrambler Tap UI:** Sentence builder refactored to singular high-performance 'Tap' mechanic for 8-year-old tablet ergonomics verified (Tablet-First UX).
+- [x] **Scrambler Tap UI:** Sentence builder refactored to singular high-performance 'Tap' mechanic verified (Tablet-First UX).
+
+## 🛠️ Phase 3: Flow & Sequencing
+- [x] **Lesson 1 Act Sequencing:** Sequential delivery of Act 1 -> Act 2 -> Act 3 verified. Concepts no longer loop infinitely via 'completed' session tracking.
+- [x] **True Lesson Replays:** Replaying a mastered lesson now delivers full content in correct Act order verified.
+- [x] **Act Summary Accuracy:** Context screens correctly fetch and display section-specific vocabulary verified.
+- [x] **Backend Robustness:** SRS Engine refactored to handle session-based chunking and replay detection verified.
 
 

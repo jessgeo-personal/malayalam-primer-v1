@@ -85,8 +85,8 @@ describe('ConceptScreen Component', () => {
       expect(screen.getByText('ന')).toBeDefined();
     }, { timeout: 2000 });
 
-    // Verify userId is included in fetch call
-    expect(global.fetch).toHaveBeenCalledWith('/api/session/lesson/preview?lessonId=1&userId=Learner 1');
+    // Verify userId and conceptId are included in fetch call
+    expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('conceptId=c001'));
   });
 
   it('triggers audio when summary item speaker is clicked', async () => {

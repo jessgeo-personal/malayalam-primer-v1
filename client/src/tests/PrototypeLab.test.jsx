@@ -26,8 +26,9 @@ describe('PrototypeLab Screen', () => {
   it('renders correctly and shows the default tab (Time Zones)', () => {
     render(<PrototypeLab />);
     expect(screen.getByText(/Prototype Lab/i)).toBeInTheDocument();
-    expect(screen.getByText(/Drag the tile to/i)).toBeInTheDocument(); // Inside TimeMachineZones
-  });
+    expect(screen.getByText(/Tap the words in the right order/i)).toBeInTheDocument();
+    });
+
 
   it('switches between experimental and sandbox tabs', () => {
     render(<PrototypeLab />);

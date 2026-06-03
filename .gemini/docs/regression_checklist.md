@@ -229,8 +229,11 @@
 - [x] **Infinite Loop Prevention:** 3-attempt fail-out threshold implemented in `ProgressContext.jsx` verified (Stability).
 - [x] **Dictionary Correctness:** 'nta' label and 'Chechi' word-splits corrected in seed data verified (Accuracy).
 
-## 🛠️ Phase 5: Cycle 1 Expansion (Up Next)
-- [ ] **Lessons 4-10 Integration:** Implementation of 55+ new words and 7 interrogative types (Who, What, Where, etc.).
-- [ ] **Phonetic Split Audit:** Manual verification of grapheme clusters for all new vocabulary.
+## 🚀 Phase 5: Cycle 1 Expansion (Up Next)
+- [x] **Lessons 4-7 Integration:** Implementation of 32+ new words and 8+ sentences covering Who, What, Where, and When.
+- [ ] **Lessons 8-10 Integration:** Implementation of remaining Cycle 1 vocabulary (How, Which, How Many).
+- [x] **Phonetic Split Audit:** Manual verification of grapheme clusters for L4-L7 vocabulary (including 'ska', 'hru', 'nnga').
+- [x] **Mathra UX Verification:** Confirmed 'ra-subscript' left alignment and surround mathra 'hide until placed' logic in LetterPicker.jsx.
+- [x] **Grammar Correction:** Verified idiomatic tense and conversational grammar in Lesson 7 sentences.
 
 

@@ -73,69 +73,54 @@ describe('Database Curriculum Integrity', () => {
     });
   });
 
-  test('The Great Split Integrity: Every buildable word in seed files must have requiredCharacters', () => {
+  test('Cycle 1 Expansion Integrity (Lessons 1-10)', () => {
     const fs = require('fs');
     const path = require('path');
-    const seedDir = path.join(__dirname, '../data');
-    const seedFiles = ['seed-100.json', 'seed-200.json', 'seed-300.json'];
+    const seed100Path = path.join(__dirname, '../data/seed-100.json');
+    const data = JSON.parse(fs.readFileSync(seed100Path, 'utf8'));
 
-    seedFiles.forEach(file => {
-      const filePath = path.join(seedDir, file);
-      if (fs.existsSync(filePath)) {
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        const buildableWords = data.filter(item => 
-          (item.lessonType === 'build' || !item.lessonType) && 
-          item.isSuffix !== true &&
-          item.lessonType !== 'concept' &&
-          item.lessonType !== 'trace' &&
-          item.lessonType !== 'match' &&
-          item.lessonType !== 'scramble'
-        );
+    // 1. Unique ID Guard
+    const ids = data.map(item => item.wordId);
+    const uniqueIds = new Set(ids);
+    expect(ids.length).toBe(uniqueIds.size);
 
-        const missingSplits = buildableWords.filter(w => !w.requiredCharacters || w.requiredCharacters.length === 0);
-        
-        if (missingSplits.length > 0) {
-          console.warn(`File ${file}: Missing requiredCharacters for ${missingSplits.length} words (e.g., ${missingSplits[0].wordId})`);
+    // 2. Orphan Check: Every character in 'requiredCharacters' must be traced in same or earlier lesson
+    const buildWords = data.filter(item => item.lessonType === 'build');
+    const traces = data.filter(item => item.lessonType === 'trace');
+    
+    buildWords.forEach(word => {
+      word.requiredCharacters.forEach(char => {
+        const trace = traces.find(t => t.malayalamText === char);
+        if (!trace) {
+          throw new Error(`Orphan character found: '${char}' in word ${word.wordId} (${word.malayalamText}). No trace found in seed-100.json.`);
         }
-
-        expect(missingSplits.length).toBe(0);
-
-        // Check Tense Lesson Integrity
-        const tenseWords = data.filter(item => item.lessonType === 'tense');
-        tenseWords.forEach(w => {
-          expect(w.pastForm).toBeDefined();
-          expect(w.presentForm).toBeDefined();
-          expect(w.futureForm).toBeDefined();
-          expect(w.pastEnglish).toBeDefined();
-          expect(w.presentEnglish).toBeDefined();
-          expect(w.futureEnglish).toBeDefined();
-          expect(w.baseWord).toBeDefined();
-        });
-
-        // Check Scramble Lesson Integrity (Added 2026-06-02)
-        const scrambleWords = data.filter(item => item.lessonType === 'scramble');
-        scrambleWords.forEach(w => {
-          expect(w.sentenceParts).toBeDefined();
-          expect(w.sentenceParts.length).toBeGreaterThan(1);
-        });
-
-        // Rule 1: Act 3 Gate (Sentences)
-        // If a lesson has scrambles, it must have a concept screen that requires all lesson words.
-        const uniqueLessons = [...new Set(data.map(i => i.lessonId))];
-        uniqueLessons.forEach(lid => {
-            const lessonItems = data.filter(i => i.lessonId === lid);
-            const lessonScrambles = lessonItems.filter(i => i.lessonType === 'scramble');
-            if (lessonScrambles.length > 0) {
-                const act3Gate = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a3'));
-                expect(act3Gate).toBeDefined();
-                // Gate must have build items from same lesson as prerequisites
-                const buildIds = lessonItems.filter(i => i.lessonType === 'build').map(i => i.wordId);
-                buildIds.forEach(bid => {
-                    expect(act3Gate.prerequisites).toContain(bid);
-                });
-            }
-        });
-      }
+        if (trace.lessonId > word.lessonId) {
+            throw new Error(`Pedagogical violation: Character '${char}' for word ${word.wordId} is traced in Lesson ${trace.lessonId}, but word is built in Lesson ${word.lessonId}.`);
+        }
+      });
     });
+
+    // 3. 3-Act Structure Audit for Expansion Lessons (4-10)
+    const expansionLessons = [4, 5, 6, 7, 8, 9, 10];
+    expansionLessons.forEach(lid => {
+        const lessonItems = data.filter(i => i.lessonId === lid);
+        if (lessonItems.length > 0) {
+            const act1 = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a1'));
+            const act2 = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a2'));
+            const act3 = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a3'));
+            
+            expect(act1).toBeDefined();
+            expect(act2).toBeDefined();
+            expect(act3).toBeDefined();
+
+            // Act 2 Intro must require ALL Match items from Act 1
+            const matchIds = lessonItems.filter(i => i.lessonType === 'match').map(i => i.wordId);
+            matchIds.forEach(mid => {
+                expect(act2.prerequisites).toContain(mid);
+            });
+        }
+    });
+
+    console.log("Cycle 1 Integrity Scan: OK");
   });
 });

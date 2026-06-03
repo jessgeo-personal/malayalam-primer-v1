@@ -1,5 +1,10 @@
 # Changelog - Malayalam Prime
 
+## [2026.06.03.001] - 2026-06-03
+### Fixed
+- **Lesson Sequencing & Replay Integrity:** Fixed a critical bug where replaying a lesson caused Concept screens to appear out of order. Prerequisites now strictly check the current session progress during replays, guaranteeing the 3-Act (Alphabets -> Words -> Sentences) sequence.
+- **Act Summary Accuracy:** Ensured that words and sentences are programmatically gated by their specific concept screens, preventing the interleaving of different game modes.
+
 ## [2026.06.02.029] - 2026-06-02
 ### Fixed
 - **3-Act Structure Gating:** Refactored the backend to return only the first available concept screen, preventing context page stacking.

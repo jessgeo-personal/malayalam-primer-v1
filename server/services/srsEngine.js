@@ -112,9 +112,13 @@ async function generateLessonPayload(userId, lessonId, completedIds = []) {
   const payload = [];
   for (const w of words) {
     // 1. PREREQUISITE CHECK: 
-    // An item is "Available" if all its prerequisites are in masteredIds (DB-level mastery).
+    // An item is "Available" if all its prerequisites are met.
+    // In Replay mode: Prereqs must be met IN THE CURRENT SESSION (completedSet).
+    // In Normal mode: Prereqs can be met by history (masteredIds) OR current session.
     const arePrereqsMet = !w.prerequisites || w.prerequisites.length === 0 || 
-                         w.prerequisites.every(preId => masteredIds.has(preId));
+                         w.prerequisites.every(preId => 
+                            isReplay ? completedSet.has(preId) : (masteredIds.has(preId) || completedSet.has(preId))
+                         );
 
     if (!arePrereqsMet) continue; // Skip gated items
 

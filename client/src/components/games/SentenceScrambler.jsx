@@ -12,6 +12,7 @@ const SentenceScrambler = ({ word, onComplete }) => {
   const [placedWords, setPlacedWords] = useState([]); 
   const [isCorrect, setIsCorrect] = useState(null);
   const [startTime, setStartTime] = useState(null);
+  const [timeTaken, setTimeTaken] = useState(0);
 
   useEffect(() => {
     // Initial Fisher-Yates shuffle
@@ -24,28 +25,31 @@ const SentenceScrambler = ({ word, onComplete }) => {
     setPlacedWords([]);
     setIsCorrect(null);
     setStartTime(Date.now());
+    setTimeTaken(0);
   }, [word]);
 
-  const handleCheck = () => {
-    if (isCorrect === true) return; // Prevent double-trigger during timeout
-
-    const currentSentence = placedWords.map(w => w.text);
-    const correct = JSON.stringify(currentSentence) === JSON.stringify(word.sentenceParts);
-    setIsCorrect(correct);
-
-    if (correct) {
-      const timeTaken = Date.now() - startTime;
-      setTimeout(() => onComplete && onComplete(true, timeTaken), 1500);
+  const handleTapBank = (item) => {
+    const newShuffled = shuffledWords.filter(w => w.id !== item.id);
+    const newPlaced = [...placedWords, item];
+    
+    setShuffledWords(newShuffled);
+    setPlacedWords(newPlaced);
+    
+    // Auto-trigger check if all words are placed
+    if (newPlaced.length === word.sentenceParts.length) {
+      const currentSentence = newPlaced.map(w => w.text);
+      const correct = JSON.stringify(currentSentence) === JSON.stringify(word.sentenceParts);
+      
+      // Capture time exactly at the moment of validation
+      setTimeTaken(Date.now() - startTime);
+      setIsCorrect(correct);
+    } else {
+      setIsCorrect(null);
     }
   };
 
-  const handleTapBank = (item) => {
-    setShuffledWords(prev => prev.filter(w => w.id !== item.id));
-    setPlacedWords(prev => [...prev, item]);
-    setIsCorrect(null); // Reset feedback when they keep building
-  };
-
   const handleTapPlaced = (item) => {
+    if (isCorrect !== null) return; // Lock during feedback
     setPlacedWords(prev => prev.filter(w => w.id !== item.id));
     setShuffledWords(prev => [...prev, item]);
     setIsCorrect(null);
@@ -58,7 +62,7 @@ const SentenceScrambler = ({ word, onComplete }) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-12 w-full max-w-5xl mx-auto p-8 bg-white rounded-[48px] shadow-2xl border-[12px] border-prime-warm-base animate-pop relative overflow-hidden">
+    <div className="flex flex-col items-center gap-12 w-full max-w-[1400px] mx-auto p-8 bg-white rounded-[48px] shadow-2xl border-[12px] border-prime-warm-base animate-pop relative overflow-hidden min-h-[600px]">
       
       {/* 📝 Header & Instruction */}
       <div className="text-center space-y-4">
@@ -74,10 +78,10 @@ const SentenceScrambler = ({ word, onComplete }) => {
       </div>
 
       {/* 🎮 Game Area */}
-      <div className="w-full flex flex-col items-center gap-12 min-h-[300px] justify-center">
+      <div className="w-full flex flex-col items-center gap-12 flex-1 justify-center">
         
         {/* Placed Area (Sentence Line) */}
-        <div className="w-full flex flex-wrap justify-center gap-4 p-8 bg-slate-50 rounded-[40px] border-4 border-dashed border-slate-200 min-h-[140px] items-center relative">
+        <div className="w-full flex flex-wrap justify-center gap-4 p-10 bg-slate-50 rounded-[40px] border-4 border-dashed border-slate-200 min-h-[160px] items-center relative">
           {placedWords.length === 0 && (
             <span className="text-slate-300 font-black uppercase tracking-widest">Tap words below to start...</span>
           )}
@@ -85,15 +89,15 @@ const SentenceScrambler = ({ word, onComplete }) => {
             <button
               key={`placed-${item.id}`}
               onClick={() => handleTapPlaced(item)}
-              className="px-8 py-4 bg-prime-teal-green text-white rounded-3xl font-black text-2xl shadow-xl border-b-4 border-black/30 animate-pop hover:scale-105 active:translate-y-1 transition-transform"
+              className="px-10 py-5 bg-prime-teal-green text-white rounded-3xl font-black text-3xl shadow-xl border-b-4 border-black/30 animate-pop hover:scale-105 active:translate-y-1 transition-transform"
             >
               {item.text}
             </button>
           ))}
-          {placedWords.length > 0 && (
+          {placedWords.length > 0 && isCorrect === null && (
             <button 
               onClick={clearPlaced} 
-              className="absolute -top-4 -right-4 bg-prime-error text-white w-10 h-10 rounded-full font-black shadow-lg hover:rotate-90 transition-transform flex items-center justify-center text-xl"
+              className="absolute -top-4 -right-4 bg-prime-error text-white w-12 h-12 rounded-full font-black shadow-lg hover:rotate-90 transition-transform flex items-center justify-center text-2xl"
             >
               ×
             </button>
@@ -101,12 +105,13 @@ const SentenceScrambler = ({ word, onComplete }) => {
         </div>
 
         {/* Word Bank */}
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-6">
           {shuffledWords.map((item) => (
             <button
               key={item.id}
               onClick={() => handleTapBank(item)}
-              className="px-8 py-4 bg-prime-action-dark text-white rounded-3xl font-black text-2xl shadow-xl border-b-4 border-black/30 active:scale-95 transition-transform hover:bg-slate-700"
+              className="px-10 py-5 bg-prime-action-dark text-white rounded-3xl font-black text-3xl shadow-xl border-b-4 border-black/30 active:scale-95 transition-transform hover:bg-slate-700 disabled:opacity-50"
+              disabled={isCorrect !== null}
             >
               {item.text}
             </button>
@@ -114,25 +119,35 @@ const SentenceScrambler = ({ word, onComplete }) => {
         </div>
       </div>
 
-      {/* 🏁 Footer Actions */}
-      <div className="flex gap-4 w-full justify-center pt-8 border-t border-slate-100">
-        <button
-          onClick={handleCheck}
-          disabled={placedWords.length === 0}
-          className={`px-12 py-5 rounded-[32px] font-black text-2xl uppercase tracking-tighter transition-all shadow-xl border-b-8
-            ${placedWords.length === 0 ? 'bg-slate-200 text-slate-400 border-slate-300 cursor-not-allowed opacity-50' :
-              isCorrect === null ? 'bg-prime-action-dark text-white border-black/40 hover:scale-105 active:translate-y-2 active:border-b-0' :
-              isCorrect ? 'bg-prime-teal-green text-white border-green-900/40' :
-              'bg-prime-error text-white border-red-900/40 animate-shake'}`}
-        >
-          {isCorrect === null ? 'Check Answer' : isCorrect ? 'Correct!' : 'Try Again!'}
-        </button>
-      </div>
+      {/* 🏁 High-Contrast Feedback Overlay */}
+      {isCorrect !== null && (
+        <div className={`absolute inset-0 z-50 p-8 flex flex-col items-center justify-center text-center animate-fade-in backdrop-blur-md
+          ${isCorrect ? 'bg-prime-teal-green/95' : 'bg-[#1A1E26]/95'}`}>
+          
+          <div className="text-8xl mb-6 drop-shadow-xl">{isCorrect ? '✅' : '❌'}</div>
+          
+          {!isCorrect && (
+            <div className="mb-8 animate-pop bg-white/10 p-8 rounded-[40px] border border-white/20 w-full max-w-4xl shadow-2xl">
+              <p className="text-white/60 font-black mb-2 uppercase tracking-widest text-xs">Correct sentence:</p>
+              <div className="text-5xl font-black text-white mb-6 leading-relaxed tracking-wide">
+                {word.sentenceParts.join(' ')}
+              </div>
+              <div className="text-sm font-black text-white/80 bg-white/10 px-8 py-3 rounded-full inline-block uppercase tracking-[0.2em]">
+                {word.phonetic}
+              </div>
+            </div>
+          )}
 
-      {/* ✨ Success/Fail Indicator */}
-      {isCorrect === false && (
-        <div className="absolute top-8 right-8 bg-prime-error text-white px-6 py-3 rounded-2xl font-black shadow-lg animate-bounce">
-          TIP: Put "{word.sentenceParts[word.sentenceParts.length - 1]}" at the end!
+          <h3 className={`text-4xl font-black text-white uppercase mb-8 tracking-tight ${!isCorrect ? 'text-prime-error drop-shadow-md' : 'drop-shadow-md'}`}>
+            {isCorrect ? 'Perfect!' : 'Try Again!'}
+          </h3>
+          
+          <button 
+             onClick={() => onComplete(isCorrect, timeTaken)}
+             className="btn-pill bg-white text-prime-dark-text px-16 py-6 text-3xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all min-w-[300px]"
+           >
+             {isCorrect ? 'CONTINUE ➜' : 'RETRY ➜'}
+           </button>
         </div>
       )}
     </div>

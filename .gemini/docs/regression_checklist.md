@@ -223,4 +223,14 @@
 - [x] **Act Summary Accuracy:** Context screens correctly fetch and display section-specific vocabulary verified.
 - [x] **Backend Robustness:** SRS Engine refactored to handle session-based chunking and replay detection verified.
 
+## 🛠️ Phase 4: UI Refinement & Fail-Out Safety
+- [x] **Sentence Scrambler Auto-Check:** Automatic validation when all words are placed verified (UX Efficiency).
+- [x] **High-Contrast Feedback Overlay:** Solid green/obsidian feedback screens with readable correction text verified (Accessibility).
+- [x] **Infinite Loop Prevention:** 3-attempt fail-out threshold implemented in `ProgressContext.jsx` verified (Stability).
+- [x] **Dictionary Correctness:** 'nta' label and 'Chechi' word-splits corrected in seed data verified (Accuracy).
+
+## 🛠️ Phase 5: Cycle 1 Expansion (Up Next)
+- [ ] **Lessons 4-10 Integration:** Implementation of 55+ new words and 7 interrogative types (Who, What, Where, etc.).
+- [ ] **Phonetic Split Audit:** Manual verification of grapheme clusters for all new vocabulary.
+
 

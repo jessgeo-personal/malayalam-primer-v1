@@ -26,28 +26,80 @@ export default function WordAudit() {
   const alphabetLessons = words.filter(w => w.lessonType === 'trace' || w.lessonType === 'match');
   const grammarItems = words.filter(w => ['suffix', 'tense', 'concept', 'scramble'].includes(w.lessonType));
 
-  const checkValidity = (word) => {
+  const checkValidity = (word, allWords) => {
+    const results = { valid: true, issues: [] };
+
+    // 1. Scramble Validation
     if (word.lessonType === 'scramble') {
-        if (!word.sentenceParts || word.sentenceParts.length === 0) return { valid: false, reason: 'Empty sentenceParts' };
-        const assembled = word.sentenceParts.join(' ');
-        if (assembled !== word.malayalamText) return { valid: false, reason: 'Space Mismatch', assembled };
-        return { valid: true };
+        if (!word.sentenceParts || word.sentenceParts.length === 0) {
+          results.valid = false;
+          results.issues.push('Empty sentenceParts');
+        } else {
+          const assembled = word.sentenceParts.join(' ');
+          if (assembled !== word.malayalamText) {
+            results.valid = false;
+            results.issues.push('Space Mismatch');
+            results.assembled = assembled;
+          }
+        }
+    } 
+    // 2. Build/Trace/Match Validation
+    else if (['build', 'trace', 'match', 'suffix'].includes(word.lessonType)) {
+      if (!word.requiredCharacters || word.requiredCharacters.length === 0) {
+        if (word.lessonType !== 'concept') {
+          results.valid = false;
+          results.issues.push('Empty characters');
+        }
+      } else {
+        const assembled = word.requiredCharacters.join('');
+        if (assembled !== word.malayalamText) {
+          results.valid = false;
+          results.issues.push('Join Mismatch');
+          results.assembled = assembled;
+        }
+      }
     }
-    if (!word.requiredCharacters || word.requiredCharacters.length === 0) return { valid: false, reason: 'Empty characters' };
-    const assembled = word.requiredCharacters.join('');
-    if (assembled !== word.malayalamText) return { valid: false, reason: 'Mismatch', assembled };
-    return { valid: true };
+
+    // 3. Prerequisite Trace Check (Only for 'build' items)
+    if (word.lessonType === 'build' && word.requiredCharacters) {
+      const traces = allWords.filter(w => w.lessonType === 'trace');
+      const tracedChars = new Set(traces.map(t => t.malayalamText));
+      
+      const missing = word.requiredCharacters.filter(char => !tracedChars.has(char));
+      if (missing.length > 0) {
+        results.valid = false;
+        results.issues.push(`Missing Traces: ${missing.join(', ')}`);
+      }
+
+      // Check if traces are in earlier or same lesson
+      const invalidTiming = word.requiredCharacters.some(char => {
+        const trace = traces.find(t => t.malayalamText === char);
+        return trace && trace.lessonId > word.lessonId;
+      });
+      if (invalidTiming) {
+        results.valid = false;
+        results.issues.push('Prereq in Future Lesson');
+      }
+    }
+
+    // 4. Sequence Check
+    if (typeof word.lessonId !== 'number' || word.lessonId <= 0) {
+      results.valid = false;
+      results.issues.push('Invalid lessonId');
+    }
+
+    return results;
   };
 
-  const errorCount = words.reduce((sum, w) => checkValidity(w).valid ? sum : sum + 1, 0);
+  const errorCount = words.reduce((sum, w) => checkValidity(w, words).valid ? sum : sum + 1, 0);
 
   return (
-    <div className="flex flex-col gap-8 p-8 max-w-[1400px] mx-auto bg-white rounded-[40px] shadow-2xl my-12 border-[16px] border-prime-warm-base animate-pop overflow-hidden">
+    <div className="flex flex-col gap-8 p-8 max-w-[1550px] mx-auto bg-white rounded-[40px] shadow-2xl my-12 border-[16px] border-prime-warm-base animate-pop overflow-hidden">
       {/* 1. Header Section */}
       <div className="flex justify-between items-start border-b border-slate-100 pb-8">
         <div>
-          <h2 className="text-4xl font-black text-prime-dark-text italic uppercase tracking-tighter">Curriculum Audit</h2>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-2">Dictionary Integrity & Mechanics Verification</p>
+          <h2 className="text-4xl font-black text-prime-dark-text italic uppercase tracking-tighter">Curriculum Audit v2</h2>
+          <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] mt-2">Prerequisite & Mechanic Integrity Guard</p>
         </div>
         <div className="flex flex-col items-end gap-3">
             <div className={`px-6 py-3 rounded-2xl font-black text-xl shadow-lg flex items-center gap-3 ${errorCount === 0 ? 'bg-prime-teal-green text-white' : 'bg-prime-error text-white animate-bounce'}`}>
@@ -55,7 +107,7 @@ export default function WordAudit() {
               <span>{errorCount === 0 ? 'INTEGRITY OK' : `${errorCount} ERRORS FOUND`}</span>
             </div>
             <div className="text-[9px] font-black text-slate-300 uppercase tracking-widest bg-slate-50 px-4 py-1.5 rounded-pill border border-slate-100">
-                Total Database Entries: {words.length}
+                Total Entries: {words.length}
             </div>
         </div>
       </div>
@@ -92,13 +144,13 @@ export default function WordAudit() {
                 <th className="py-4 px-2">Cycle/Lesson</th>
                 <th className="py-4 px-2">Word</th>
                 <th className="py-4 px-2">Split Parts</th>
-                <th className="py-4 px-2">Assembled String</th>
+                <th className="py-4 px-2">Join Preview</th>
                 <th className="py-4 px-2 text-right">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
               {buildWords.map(word => {
-                const audit = checkValidity(word);
+                const audit = checkValidity(word, words);
                 return (
                   <tr key={word.wordId} className={`group hover:bg-slate-50 transition-colors ${!audit.valid ? 'bg-red-50' : ''}`}>
                     <td className="py-4 px-2 text-xs font-mono text-slate-400">{word.wordId}</td>
@@ -109,21 +161,30 @@ export default function WordAudit() {
                     </td>
                     <td className="py-4 px-2">
                       <div className="flex flex-wrap gap-1">
-                        {word.requiredCharacters?.map((char, i) => (
-                          <span key={i} className="px-2 py-1 bg-prime-action-dark text-white text-xs font-black rounded-lg shadow-sm">{char}</span>
-                        ))}
+                        {word.requiredCharacters?.map((char, i) => {
+                          const isTraced = words.some(w => w.lessonType === 'trace' && w.malayalamText === char && w.lessonId <= word.lessonId);
+                          return (
+                            <span key={i} className={`px-2 py-1 text-white text-xs font-black rounded-lg shadow-sm ${isTraced ? 'bg-prime-action-dark' : 'bg-prime-error'}`}>
+                              {char} {!isTraced && '⚠'}
+                            </span>
+                          );
+                        })}
                       </div>
                     </td>
                     <td className="py-4 px-2">
-                      <div className={`text-xl font-black ${!audit.valid ? 'text-prime-error' : 'text-slate-300'}`}>
+                      <div className={`text-xl font-black ${audit.issues.includes('Join Mismatch') ? 'text-prime-error' : 'text-slate-300'}`}>
                         {audit.assembled || word.malayalamText}
                       </div>
                     </td>
                     <td className="py-4 px-2 text-right">
                       {audit.valid ? (
-                        <span className="text-prime-teal-green font-black text-[9px] uppercase tracking-widest bg-prime-teal-green/10 px-3 py-1.5 rounded-full">Valid Split</span>
+                        <span className="text-prime-teal-green font-black text-[9px] uppercase tracking-widest bg-prime-teal-green/10 px-3 py-1.5 rounded-full">Integrity OK</span>
                       ) : (
-                        <span className="text-prime-error font-black text-[9px] uppercase tracking-widest bg-prime-error/10 px-3 py-1.5 rounded-full animate-pulse">Error: {audit.reason}</span>
+                        <div className="flex flex-col gap-1 items-end">
+                          {audit.issues.map((issue, idx) => (
+                            <span key={idx} className="text-prime-error font-black text-[8px] uppercase tracking-widest bg-prime-error/10 px-2 py-1 rounded-full">{issue}</span>
+                          ))}
+                        </div>
                       )}
                     </td>
                   </tr>

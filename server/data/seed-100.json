@@ -542,7 +542,7 @@
   {
     "wordId": "t014",
     "malayalamText": "ന്റ",
-    "englishTranslation": "nta (Aspirated)",
+    "englishTranslation": "nta",
     "phonetic": "nta",
     "bucketId": 0,
     "unlockCycle": 1,
@@ -555,7 +555,7 @@
   {
     "wordId": "m014",
     "malayalamText": "ന്റ",
-    "englishTranslation": "nta (Aspirated)",
+    "englishTranslation": "nta",
     "phonetic": "nta",
     "bucketId": 0,
     "unlockCycle": 1,
@@ -693,32 +693,6 @@
     "lessonType": "match",
     "prerequisites": [
       "t019"
-    ]
-  },
-  {
-    "wordId": "t020",
-    "malayalamText": "ിച്ചി",
-    "englishTranslation": "iCChi",
-    "phonetic": "iCChi",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "trace",
-    "prerequisites": [
-      "c002_a1"
-    ]
-  },
-  {
-    "wordId": "m020",
-    "malayalamText": "ിച്ചി",
-    "englishTranslation": "iCChi",
-    "phonetic": "iCChi",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 2,
-    "lessonType": "match",
-    "prerequisites": [
-      "t020"
     ]
   },
   {
@@ -944,7 +918,8 @@
     "requiredCharacters": [
       "ച",
       "േ",
-      "ിച്ചി"
+      "ച്ച",
+      "ി"
     ],
     "prerequisites": [
       "c002_a2"

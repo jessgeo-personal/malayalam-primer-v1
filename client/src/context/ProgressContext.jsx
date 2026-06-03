@@ -23,6 +23,7 @@ export const ProgressProvider = ({ children }) => {
   const [lastStars, setLastStars] = useState(0);
   const [sessionStats, setSessionStats] = useState({ correct: 0, errors: 0 });
   const [completedItems, setCompletedItems] = useState(new Set()); // Track items completed in current session
+  const [itemFailCounts, setItemFailCounts] = useState({}); // Track repeats of the same item to prevent infinite loops
 
   // User Progress Data
   const [needsRevision, setNeedsRevision] = useState(false);
@@ -72,6 +73,7 @@ export const ProgressProvider = ({ children }) => {
     setSessionErrors(0);
     setSessionStats({ correct: 0, errors: 0 });
     setCompletedItems(new Set());
+    setItemFailCounts({});
     try {
       const response = await fetch(`/api/session/revision?userId=${userId}`);
       if (!response.ok) throw new Error('Failed to fetch revision items');
@@ -99,6 +101,7 @@ export const ProgressProvider = ({ children }) => {
     setSessionErrors(0);
     setSessionStats({ correct: 0, errors: 0 });
     setCompletedItems(new Set());
+    setItemFailCounts({});
     try {
       const response = await fetch(`/api/session/lesson?userId=${userId}&lessonId=${lessonId}`);
       if (!response.ok) throw new Error('Failed to fetch lesson');
@@ -123,6 +126,17 @@ export const ProgressProvider = ({ children }) => {
         setSessionErrors(prev => prev + 1);
       }
       
+      // Track per-item fail count to prevent infinite loops
+      const newFailCount = (itemFailCounts[currentItem.itemId] || 0) + 1;
+      setItemFailCounts(prev => ({ ...prev, [currentItem.itemId]: newFailCount }));
+
+      if (newFailCount >= 3) {
+          // Student failed too many times. Fail out the session.
+          // We trigger completeSession with 3 errors to ensure a 0-star "Incomplete" state
+          await completeSession(3, sessionMode, activeLessonId);
+          return; 
+      }
+
       setSessionItems(prev => [...prev, { ...currentItem, isReinforcement: true }]);
     } else {
       // TRACK CORRECT ANSWERS

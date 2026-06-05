@@ -3218,9 +3218,9 @@
   },
   {
     "wordId": "t057",
-    "malayalamText": "ങ",
-    "englishTranslation": "nga",
-    "phonetic": "nga",
+    "malayalamText": "ങ്ങ",
+    "englishTranslation": "nnga",
+    "phonetic": "nnga",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 8,
@@ -3231,9 +3231,9 @@
   },
   {
     "wordId": "m057",
-    "malayalamText": "ങ",
-    "englishTranslation": "nga",
-    "phonetic": "nga",
+    "malayalamText": "ങ്ങ",
+    "englishTranslation": "nnga",
+    "phonetic": "nnga",
     "bucketId": 0,
     "unlockCycle": 1,
     "lessonId": 8,
@@ -3321,28 +3321,6 @@
     ]
   },
   {
-    "wordId": "t061",
-    "malayalamText": "്ങ",
-    "englishTranslation": "nnga (Conjunct)",
-    "phonetic": "nnga",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "trace",
-    "prerequisites": ["c008_a1"]
-  },
-  {
-    "wordId": "m061",
-    "malayalamText": "്ങ",
-    "englishTranslation": "nnga (Conjunct)",
-    "phonetic": "nnga",
-    "bucketId": 0,
-    "unlockCycle": 1,
-    "lessonId": 8,
-    "lessonType": "match",
-    "prerequisites": ["t061"]
-  },
-  {
     "wordId": "c008_a2",
     "malayalamText": "Lesson 8: Describing Things",
     "englishTranslation": "Use the letters to build words for 'Good', 'Bad', and 'Happy'!",
@@ -3351,7 +3329,12 @@
     "lessonId": 8,
     "lessonType": "concept",
     "isSummary": true,
-    "prerequisites": ["m057", "m058", "m059", "m060", "m061"]
+    "prerequisites": [
+      "m057",
+      "m058",
+      "m059",
+      "m060"
+    ]
   },
   {
     "wordId": "w053",
@@ -3364,8 +3347,7 @@
     "lessonType": "build",
     "requiredCharacters": [
       "എ",
-      "ങ",
-      "്ങ",
+      "ങ്ങ",
       "ന",
       "െ"
     ],
@@ -3544,16 +3526,16 @@
   },
   {
     "wordId": "ss031",
-    "malayalamText": "സന്തോഷം ഉണ്ട്",
+    "malayalamText": "സന്തോഷം ആണ്",
     "englishTranslation": "I am happy.",
-    "phonetic": "santhosham undu",
+    "phonetic": "santhosham aanu",
     "bucketId": 1,
     "unlockCycle": 1,
     "lessonId": 8,
     "lessonType": "scramble",
     "sentenceParts": [
       "സന്തോഷം",
-      "ഉണ്ട്"
+      "ആണ്"
     ],
     "prerequisites": [
       "c008_a3"
@@ -3595,17 +3577,16 @@
   },
   {
     "wordId": "ss034",
-    "malayalamText": "അത് നല്ലത്",
+    "malayalamText": "അത് നല്ലതാണ്",
     "englishTranslation": "That is good.",
-    "phonetic": "athu nallathu",
+    "phonetic": "athu nallathaanu",
     "bucketId": 1,
     "unlockCycle": 1,
     "lessonId": 8,
     "lessonType": "scramble",
     "sentenceParts": [
       "അത്",
-      "നല്ല",
-      "ത്"
+      "നല്ലതാണ്"
     ],
     "prerequisites": [
       "c008_a3"
@@ -3705,6 +3686,688 @@
     "unlockCycle": 4,
     "prerequisites": [
       "t065"
+    ]
+  },
+  {
+    "wordId": "c009_a1",
+    "malayalamText": "Lesson 9: Which one?",
+    "englishTranslation": "Let's learn words for colors and sizes!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "t066",
+    "malayalamText": "ഏ",
+    "englishTranslation": "ee",
+    "phonetic": "ee",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "trace",
+    "prerequisites": [
+      "c009_a1"
+    ]
+  },
+  {
+    "wordId": "m066",
+    "malayalamText": "ഏ",
+    "englishTranslation": "ee",
+    "phonetic": "ee",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "match",
+    "prerequisites": [
+      "t066"
+    ]
+  },
+  {
+    "wordId": "t067",
+    "malayalamText": "റ",
+    "englishTranslation": "Ra",
+    "phonetic": "Ra",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "trace",
+    "prerequisites": [
+      "c009_a1"
+    ]
+  },
+  {
+    "wordId": "m067",
+    "malayalamText": "റ",
+    "englishTranslation": "Ra",
+    "phonetic": "Ra",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "match",
+    "prerequisites": [
+      "t067"
+    ]
+  },
+  {
+    "wordId": "t068",
+    "malayalamText": "ള്ള",
+    "englishTranslation": "Lla",
+    "phonetic": "Lla",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "trace",
+    "prerequisites": [
+      "c009_a1"
+    ]
+  },
+  {
+    "wordId": "m068",
+    "malayalamText": "ള്ള",
+    "englishTranslation": "Lla",
+    "phonetic": "Lla",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "match",
+    "prerequisites": [
+      "t068"
+    ]
+  },
+  {
+    "wordId": "c009_a2",
+    "malayalamText": "Lesson 9: Colors and Sizes",
+    "englishTranslation": "Use the letters to build words for describing things!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "m066",
+      "m067",
+      "m068"
+    ]
+  },
+  {
+    "wordId": "w061",
+    "malayalamText": "ഏത്",
+    "englishTranslation": "Which",
+    "phonetic": "ethu",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ഏ",
+      "ത",
+      "്"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "w062",
+    "malayalamText": "വലിയ",
+    "englishTranslation": "Big",
+    "phonetic": "valiya",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "വ",
+      "ല",
+      "ി",
+      "യ"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "w063",
+    "malayalamText": "ചെറിയ",
+    "englishTranslation": "Small",
+    "phonetic": "cheriya",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ച",
+      "െ",
+      "റ",
+      "ി",
+      "യ"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "w064",
+    "malayalamText": "കറുത്ത",
+    "englishTranslation": "Black",
+    "phonetic": "karuttha",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ക",
+      "റ",
+      "ു",
+      "ത്ത"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "w065",
+    "malayalamText": "ചുവന്ന",
+    "englishTranslation": "Red",
+    "phonetic": "chuvanna",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ച",
+      "ു",
+      "വ",
+      "ന്ന"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "w066",
+    "malayalamText": "നീല",
+    "englishTranslation": "Blue",
+    "phonetic": "neela",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ന",
+      "ീ",
+      "ല"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "w067",
+    "malayalamText": "പച്ച",
+    "englishTranslation": "Green",
+    "phonetic": "pachcha",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "പ",
+      "ച്ച"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "w068",
+    "malayalamText": "വെള്ള",
+    "englishTranslation": "White",
+    "phonetic": "vella",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "വ",
+      "െ",
+      "ള്ള"
+    ],
+    "prerequisites": [
+      "c009_a2"
+    ]
+  },
+  {
+    "wordId": "c009_a3",
+    "malayalamText": "Lesson 9: Describing things",
+    "englishTranslation": "Now ask 'Ethu' (Which) and describe how things look!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "w061",
+      "w062",
+      "w063",
+      "w064",
+      "w065",
+      "w066",
+      "w067",
+      "w068"
+    ]
+  },
+  {
+    "wordId": "ss035",
+    "malayalamText": "ഏത് പൂവ്?",
+    "englishTranslation": "Which flower?",
+    "phonetic": "ethu poovu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഏത്",
+      "പൂവ്?"
+    ],
+    "prerequisites": [
+      "c009_a3"
+    ]
+  },
+  {
+    "wordId": "ss036",
+    "malayalamText": "ചുവന്ന പൂവ്",
+    "englishTranslation": "Red flower.",
+    "phonetic": "chuvanna poovu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ചുവന്ന",
+      "പൂവ്"
+    ],
+    "prerequisites": [
+      "c009_a3"
+    ]
+  },
+  {
+    "wordId": "ss037",
+    "malayalamText": "വലിയ ആന",
+    "englishTranslation": "Big elephant.",
+    "phonetic": "valiya aana",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "വലിയ",
+      "ആന"
+    ],
+    "prerequisites": [
+      "c009_a3"
+    ]
+  },
+  {
+    "wordId": "ss038",
+    "malayalamText": "ചെറിയ കിളി",
+    "englishTranslation": "Small bird.",
+    "phonetic": "cheriya kili",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ചെറിയ",
+      "കിളി"
+    ],
+    "prerequisites": [
+      "c009_a3"
+    ]
+  },
+  {
+    "wordId": "ss039",
+    "malayalamText": "പച്ച ഇല",
+    "englishTranslation": "Green leaf.",
+    "phonetic": "pachcha ila",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 9,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "പച്ച",
+      "ഇല"
+    ],
+    "prerequisites": [
+      "c009_a3"
+    ]
+  },
+  {
+    "wordId": "c010_a1",
+    "malayalamText": "Lesson 10: How Many?",
+    "englishTranslation": "Let's learn words for counting and amounts!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "t069",
+    "malayalamText": "ഒ",
+    "englishTranslation": "O",
+    "phonetic": "o",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "trace",
+    "prerequisites": [
+      "c010_a1"
+    ]
+  },
+  {
+    "wordId": "m069",
+    "malayalamText": "ഒ",
+    "englishTranslation": "O",
+    "phonetic": "o",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "match",
+    "prerequisites": [
+      "t069"
+    ]
+  },
+  {
+    "wordId": "c010_a2",
+    "malayalamText": "Lesson 10: Counting",
+    "englishTranslation": "Use the letters to build numbers and amounts!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "m069"
+    ]
+  },
+  {
+    "wordId": "w069",
+    "malayalamText": "എത്ര",
+    "englishTranslation": "How many",
+    "phonetic": "ethra",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "എ",
+      "ത",
+      "്ര"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w070",
+    "malayalamText": "ഒത്തിരി",
+    "englishTranslation": "Many",
+    "phonetic": "otthiri",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ഒ",
+      "ത്ത",
+      "ി",
+      "ര",
+      "ി"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w071",
+    "malayalamText": "കുറച്ച്",
+    "englishTranslation": "A little",
+    "phonetic": "kurachchu",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ക",
+      "ു",
+      "റ",
+      "ച്ച",
+      "്"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w072",
+    "malayalamText": "എല്ലാം",
+    "englishTranslation": "All",
+    "phonetic": "ellaam",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "എ",
+      "ല്ല",
+      "ാ",
+      "ം"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w073",
+    "malayalamText": "ഒന്ന്",
+    "englishTranslation": "One",
+    "phonetic": "onnu",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ഒ",
+      "ന്ന",
+      "്"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w074",
+    "malayalamText": "രണ്ട്",
+    "englishTranslation": "Two",
+    "phonetic": "randu",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ര",
+      "ണ്ട",
+      "്"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w075",
+    "malayalamText": "മൂന്ന്",
+    "englishTranslation": "Three",
+    "phonetic": "moonnu",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "മ",
+      "ൂ",
+      "ന്ന",
+      "്"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w076",
+    "malayalamText": "പത്ത്",
+    "englishTranslation": "Ten",
+    "phonetic": "patthu",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "പ",
+      "ത്ത",
+      "്"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "w077",
+    "malayalamText": "വേണം",
+    "englishTranslation": "Want",
+    "phonetic": "venam",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "വ",
+      "േ",
+      "ണ",
+      "ം"
+    ],
+    "prerequisites": [
+      "c010_a2"
+    ]
+  },
+  {
+    "wordId": "c010_a3",
+    "malayalamText": "Lesson 10: Asking How Many",
+    "englishTranslation": "Now ask 'Ethra' (How many) and tell amounts!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "w069",
+      "w070",
+      "w071",
+      "w072",
+      "w073",
+      "w074",
+      "w075",
+      "w076",
+      "w077"
+    ]
+  },
+  {
+    "wordId": "ss040",
+    "malayalamText": "എത്ര ഉണ്ട്?",
+    "englishTranslation": "How many are there?",
+    "phonetic": "ethra undu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "എത്ര",
+      "ഉണ്ട്?"
+    ],
+    "prerequisites": [
+      "c010_a3"
+    ]
+  },
+  {
+    "wordId": "ss041",
+    "malayalamText": "രണ്ട് കിളി",
+    "englishTranslation": "Two birds.",
+    "phonetic": "randu kili",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "രണ്ട്",
+      "കിളി"
+    ],
+    "prerequisites": [
+      "c010_a3"
+    ]
+  },
+  {
+    "wordId": "ss042",
+    "malayalamText": "ഒത്തിരി പൂവ്",
+    "englishTranslation": "Many flowers.",
+    "phonetic": "otthiri poovu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഒത്തിരി",
+      "പൂവ്"
+    ],
+    "prerequisites": [
+      "c010_a3"
+    ]
+  },
+  {
+    "wordId": "ss043",
+    "malayalamText": "ഒന്ന് വേണം",
+    "englishTranslation": "Want one.",
+    "phonetic": "onnu venam",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഒന്ന്",
+      "വേണം"
+    ],
+    "prerequisites": [
+      "c010_a3"
+    ]
+  },
+  {
+    "wordId": "ss044",
+    "malayalamText": "പത്ത് വീട്",
+    "englishTranslation": "Ten houses.",
+    "phonetic": "patthu veedu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 10,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "പത്ത്",
+      "വീട്"
+    ],
+    "prerequisites": [
+      "c010_a3"
     ]
   }
 ]

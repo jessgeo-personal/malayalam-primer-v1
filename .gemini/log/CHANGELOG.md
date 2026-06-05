@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.06.03.003] - 2026-06-03
+### Added
+- **Lesson 8 Pedagogical Refinement:** Consolidated the separate 'nga' fragments into the full **`ങ്ങ`** (nnga) conjunct for a more intuitive and visually consistent tracing experience.
+
+### Fixed
+- **Lesson 8 Grammatical Accuracy:** Corrected the scramble sentences "സന്തോഷം ഉണ്ട്" to **"സന്തോഷം ആണ്"** (I am happy) and "അത് നല്ലത്" to **"അത് നല്ലതാണ്"** (That is good) to align with idiomatic Malayalam.
+- **Word Building Refactor (L8):** Updated "engane" (`എങ്ങനെ`) to use the unified `ങ്ങ` block, matching the trace exactly.
+
+## [2026.06.03.002] - 2026-06-03
+### Added
+- **Cycle 1 Expansion Completion:** Implemented Lessons 9 and 10 (Which? and How Many?), bringing the Cycle 1 core structural vocabulary to ~75 words.
+- **New Adjective & Quantifier Vocabulary:** Added high-frequency words covering properties (Big, Small, Black, Red, Green, Blue, White) and quantities (One, Two, Three, Ten, All, Many, Few).
+- **Grapheme Trace Additions:** Added specific trace sequences for `ഏ` (Ae), `റ` (Ra), `ള്ള` (Lla), and `ഒ` (O) to support the new vocabulary.
+
+### Fixed
+- **Trace Uniqueness:** Fixed duplicate `wordId` conflicts for newly introduced traces to prevent DB insertion failures.
+
 ## [2026.06.03.001] - 2026-06-03
 ### Added
 - **Cycle 1 High-Density Expansion:** Completed expansion for Lessons 1-7 with 5 sentences per lesson.

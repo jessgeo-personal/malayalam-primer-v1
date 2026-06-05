@@ -228,12 +228,12 @@
 - [x] **High-Contrast Feedback Overlay:** Solid green/obsidian feedback screens with readable correction text verified (Accessibility).
 - [x] **Infinite Loop Prevention:** 3-attempt fail-out threshold implemented in `ProgressContext.jsx` verified (Stability).
 - [x] **Dictionary Correctness:** 'nta' label and 'Chechi' word-splits corrected in seed data verified (Accuracy).
+## 🛠️ Phase 5: Cycle 1 High-Density Expansion (Milestones 5.1 - 5.3)
+- [x] **Lesson 8 Refinement:** Consolidated 'nga' fragments into the full 'ങ്ങ' (nnga) conjunct for pedagogical consistency verified.
+- [x] **Grammatical Accuracy (L8):** Corrected 'Santhosham undu' to 'Santhosham aanu' and 'Athu nallathu' to 'Athu nallathaanu' verified.
+- [x] **Lesson 9 Implementation:** Added 'Which?' (ഏത്) lesson with 7 adjectives (Big, Small, colors) and 5 scramble sentences verified.
+- [x] **Lesson 10 Implementation:** Added 'How Many?' (എത്ര) lesson with numbers (1, 2, 3, 10) and quantifiers (All, Many, Few) verified.
+- [x] **Cycle 1 Completion:** Verified that all 10 lessons in Cycle 1 are fully functional, gated correctly, and contain no orphaned characters verified.
+- [x] **TDD Validation:** 100% green state for backend integrity tests and frontend component tests verified.
 
-## 🚀 Phase 5: Cycle 1 Expansion (Up Next)
-- [x] **Lessons 4-7 Integration:** Implementation of 32+ new words and 8+ sentences covering Who, What, Where, and When.
-- [ ] **Lessons 8-10 Integration:** Implementation of remaining Cycle 1 vocabulary (How, Which, How Many).
-- [x] **Phonetic Split Audit:** Manual verification of grapheme clusters for L4-L7 vocabulary (including 'ska', 'hru', 'nnga').
-- [x] **Mathra UX Verification:** Confirmed 'ra-subscript' left alignment and surround mathra 'hide until placed' logic in LetterPicker.jsx.
-- [x] **Grammar Correction:** Verified idiomatic tense and conversational grammar in Lesson 7 sentences.
-
-
+## 🟢 Core Infrastructure

@@ -63,17 +63,17 @@ describe('Database Curriculum Integrity', () => {
       }
     });
 
-    // We expect lessons 11, 12, 13, 14, 15, 16 to exist (Shifted from 10-15)
-    const requiredLessons = [11, 12, 13, 14, 15, 16];
+    // We expect lessons 15, 16, 17, 18, 19, 20 to exist (Shifted from 11-16)
+    const requiredLessons = [15, 16, 17, 18, 19, 20];
     
     requiredLessons.forEach(lessonId => {
       const count = lessonCounts[lessonId] || 0;
-      const minCount = lessonId === 16 ? 6 : 10; // Lesson 16 has 6 items (1 concept + 5 tense)
+      const minCount = lessonId === 20 ? 6 : 10; // Lesson 20 has 6 items (1 concept + 5 tense)
       expect(count).toBeGreaterThanOrEqual(minCount);
     });
   });
 
-  test('Cycle 1 Expansion Integrity (Lessons 1-10)', () => {
+  test('Cycle 1 Expansion Integrity (Lessons 1-14)', () => {
     const fs = require('fs');
     const path = require('path');
     const seed100Path = path.join(__dirname, '../data/seed-100.json');
@@ -100,8 +100,8 @@ describe('Database Curriculum Integrity', () => {
       });
     });
 
-    // 3. 3-Act Structure Audit for Expansion Lessons (4-10)
-    const expansionLessons = [4, 5, 6, 7, 8, 9, 10];
+    // 3. 3-Act Structure Audit for Expansion Lessons (4-14)
+    const expansionLessons = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     expansionLessons.forEach(lid => {
         const lessonItems = data.filter(i => i.lessonId === lid);
         if (lessonItems.length > 0) {
@@ -113,7 +113,7 @@ describe('Database Curriculum Integrity', () => {
             expect(act2).toBeDefined();
             expect(act3).toBeDefined();
 
-            // Act 2 Intro must require ALL Match items from Act 1
+            // Act 2 Intro must require ALL Match items from Act 1 (if any)
             const matchIds = lessonItems.filter(i => i.lessonType === 'match').map(i => i.wordId);
             matchIds.forEach(mid => {
                 expect(act2.prerequisites).toContain(mid);

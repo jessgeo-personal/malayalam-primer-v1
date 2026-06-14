@@ -3120,17 +3120,17 @@
   },
   {
     "wordId": "ss025",
-    "malayalamText": "അമ്മ എപ്പോൾ വന്നു?",
-    "englishTranslation": "When did mother come?",
-    "phonetic": "amma eppol vannu",
+    "malayalamText": "ഇപ്പോൾ സമയം എത്രയായി?",
+    "englishTranslation": "What is the time now?",
+    "phonetic": "ippol samayam ethrayaayi",
     "bucketId": 1,
     "unlockCycle": 1,
     "lessonId": 7,
     "lessonType": "scramble",
     "sentenceParts": [
-      "അമ്മ",
-      "എപ്പോൾ",
-      "വന്നു?"
+      "ഇപ്പോൾ",
+      "സമയം",
+      "എത്രയായി?"
     ],
     "prerequisites": [
       "c007_a3"
@@ -3138,16 +3138,17 @@
   },
   {
     "wordId": "ss026",
-    "malayalamText": "ഇന്ന് പോയി",
-    "englishTranslation": "Went today.",
-    "phonetic": "innu poyi",
+    "malayalamText": "ഇന്ന് സമയം ഇല്ല",
+    "englishTranslation": "There is no time today.",
+    "phonetic": "innu samayam illa",
     "bucketId": 1,
     "unlockCycle": 1,
     "lessonId": 7,
     "lessonType": "scramble",
     "sentenceParts": [
       "ഇന്ന്",
-      "പോയി"
+      "സമയം",
+      "ഇല്ല"
     ],
     "prerequisites": [
       "c007_a3"
@@ -3155,17 +3156,17 @@
   },
   {
     "wordId": "ss027",
-    "malayalamText": "അനിയൻ ഇപ്പോൾ വന്നു",
-    "englishTranslation": "Younger brother came now.",
-    "phonetic": "aniyan ippol vannu",
+    "malayalamText": "ഇപ്പോൾ രാത്രി ആണ്",
+    "englishTranslation": "It is night right now.",
+    "phonetic": "ippol raathri aanu",
     "bucketId": 1,
     "unlockCycle": 1,
     "lessonId": 7,
     "lessonType": "scramble",
     "sentenceParts": [
-      "അനിയൻ",
       "ഇപ്പോൾ",
-      "വന്നു"
+      "രാത്രി",
+      "ആണ്"
     ],
     "prerequisites": [
       "c007_a3"
@@ -3173,16 +3174,17 @@
   },
   {
     "wordId": "ss028",
-    "malayalamText": "നാളെ പോകാം",
-    "englishTranslation": "We will go tomorrow.",
-    "phonetic": "naale pookam",
+    "malayalamText": "നാളെ സമയം ഉണ്ട്",
+    "englishTranslation": "There is time tomorrow.",
+    "phonetic": "naale samayam undu",
     "bucketId": 1,
     "unlockCycle": 1,
     "lessonId": 7,
     "lessonType": "scramble",
     "sentenceParts": [
       "നാളെ",
-      "പോകാം"
+      "സമയം",
+      "ഉണ്ട്"
     ],
     "prerequisites": [
       "c007_a3"
@@ -3590,102 +3592,6 @@
     ],
     "prerequisites": [
       "c008_a3"
-    ]
-  },
-  {
-    "wordId": "t062",
-    "malayalamText": "ഖ",
-    "englishTranslation": "Kha",
-    "phonetic": "Kha",
-    "lessonId": 11,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 2,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m062",
-    "malayalamText": "ഖ",
-    "englishTranslation": "Kha",
-    "phonetic": "Kha",
-    "lessonId": 11,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 2,
-    "prerequisites": [
-      "t062"
-    ]
-  },
-  {
-    "wordId": "t063",
-    "malayalamText": "ഭ",
-    "englishTranslation": "Bha",
-    "phonetic": "Bha",
-    "lessonId": 13,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 2,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m063",
-    "malayalamText": "ഭ",
-    "englishTranslation": "Bha",
-    "phonetic": "Bha",
-    "lessonId": 13,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 2,
-    "prerequisites": [
-      "t063"
-    ]
-  },
-  {
-    "wordId": "t064",
-    "malayalamText": "ഠ",
-    "englishTranslation": "Tha",
-    "phonetic": "Tha",
-    "lessonId": 21,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 3,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m064",
-    "malayalamText": "ഠ",
-    "englishTranslation": "Tha",
-    "phonetic": "Tha",
-    "lessonId": 21,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 3,
-    "prerequisites": [
-      "t064"
-    ]
-  },
-  {
-    "wordId": "t065",
-    "malayalamText": "ധ",
-    "englishTranslation": "Dha",
-    "phonetic": "Dha",
-    "lessonId": 26,
-    "lessonType": "trace",
-    "bucketId": 0,
-    "unlockCycle": 4,
-    "prerequisites": []
-  },
-  {
-    "wordId": "m065",
-    "malayalamText": "ധ",
-    "englishTranslation": "Dha",
-    "phonetic": "Dha",
-    "lessonId": 26,
-    "lessonType": "match",
-    "bucketId": 0,
-    "unlockCycle": 4,
-    "prerequisites": [
-      "t065"
     ]
   },
   {
@@ -4303,71 +4209,661 @@
     ]
   },
   {
-    "wordId": "ss041",
-    "malayalamText": "രണ്ട് കിളി",
-    "englishTranslation": "Two birds.",
-    "phonetic": "randu kili",
-    "bucketId": 1,
+    "wordId": "cb011_a1",
+    "malayalamText": "Lesson 11: Nature Around Us",
+    "englishTranslation": "Let's learn names for trees and the sea!",
+    "bucketId": 0,
     "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "രണ്ട്",
-      "കിളി"
+    "lessonId": 11,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "cb011_a2",
+    "malayalamText": "Lesson 11: Building Nature",
+    "englishTranslation": "Now let's build the words for the world outside!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 11,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "wb001",
+    "malayalamText": "മരം",
+    "englishTranslation": "Tree",
+    "phonetic": "maram",
+    "bucketId": 10,
+    "unlockCycle": 1,
+    "lessonId": 11,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ം"
     ],
     "prerequisites": [
-      "c010_a3"
+      "cb011_a2"
     ]
   },
   {
-    "wordId": "ss042",
-    "malayalamText": "ഒത്തിരി പൂവ്",
-    "englishTranslation": "Many flowers.",
-    "phonetic": "otthiri poovu",
-    "bucketId": 1,
+    "wordId": "wb002",
+    "malayalamText": "കടൽ",
+    "englishTranslation": "Sea",
+    "phonetic": "kadal",
+    "bucketId": 10,
     "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "ഒത്തിരി",
-      "പൂവ്"
+    "lessonId": 11,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ക",
+      "ട",
+      "ൽ"
     ],
     "prerequisites": [
-      "c010_a3"
+      "cb011_a2"
     ]
   },
   {
-    "wordId": "ss043",
-    "malayalamText": "ഒന്ന് വേണം",
-    "englishTranslation": "Want one.",
-    "phonetic": "onnu venam",
-    "bucketId": 1,
+    "wordId": "wb003",
+    "malayalamText": "കാട്",
+    "englishTranslation": "Forest",
+    "phonetic": "kaadu",
+    "bucketId": 10,
     "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "ഒന്ന്",
-      "വേണം"
+    "lessonId": 11,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട",
+      "്"
     ],
     "prerequisites": [
-      "c010_a3"
+      "cb011_a2"
     ]
   },
   {
-    "wordId": "ss044",
-    "malayalamText": "പത്ത് വീട്",
-    "englishTranslation": "Ten houses.",
-    "phonetic": "patthu veedu",
-    "bucketId": 1,
+    "wordId": "wb004",
+    "malayalamText": "കല്ല്",
+    "englishTranslation": "Stone",
+    "phonetic": "kallu",
+    "bucketId": 10,
     "unlockCycle": 1,
-    "lessonId": 10,
-    "lessonType": "scramble",
-    "sentenceParts": [
-      "പത്ത്",
-      "വീട്"
+    "lessonId": 11,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ക",
+      "ല്ല",
+      "്"
     ],
     "prerequisites": [
-      "c010_a3"
+      "cb011_a2"
+    ]
+  },
+  {
+    "wordId": "cb011_a3",
+    "malayalamText": "Lesson 11: Nature Sentences",
+    "englishTranslation": "Try talking about the trees and the sea!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 11,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "wb001",
+      "wb002",
+      "wb003",
+      "wb004"
+    ]
+  },
+  {
+    "wordId": "ssb001",
+    "malayalamText": "ഇത് വലിയ മരം ആണ്",
+    "englishTranslation": "This is a big tree.",
+    "phonetic": "ithu valiya maram aanu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 11,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇത്",
+      "വലിയ",
+      "മരം",
+      "ആണ്"
+    ],
+    "prerequisites": [
+      "cb011_a3"
+    ]
+  },
+  {
+    "wordId": "ssb002",
+    "malayalamText": "അത് കടൽ ആണ്",
+    "englishTranslation": "That is the sea.",
+    "phonetic": "athu kadal aanu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 11,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അത്",
+      "കടൽ",
+      "ആണ്"
+    ],
+    "prerequisites": [
+      "cb011_a3"
+    ]
+  },
+  {
+    "wordId": "cb012_a1",
+    "malayalamText": "Lesson 12: Books & Boxes",
+    "englishTranslation": "Let's learn about things we use every day!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "tb001",
+    "malayalamText": "സ്ത",
+    "englishTranslation": "STa",
+    "phonetic": "STa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "trace",
+    "prerequisites": [
+      "cb012_a1"
+    ]
+  },
+  {
+    "wordId": "mb001",
+    "malayalamText": "സ്ത",
+    "englishTranslation": "STa",
+    "phonetic": "STa",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "match",
+    "prerequisites": [
+      "tb001"
+    ]
+  },
+  {
+    "wordId": "cb012_a2",
+    "malayalamText": "Lesson 12: Everyday Words",
+    "englishTranslation": "Build words for books, boxes, and more!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "mb001"
+    ]
+  },
+  {
+    "wordId": "wb005",
+    "malayalamText": "പുസ്തകം",
+    "englishTranslation": "Book",
+    "phonetic": "pusthakam",
+    "bucketId": 11,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "പ",
+      "ു",
+      "സ്ത",
+      "ക",
+      "ം"
+    ],
+    "prerequisites": [
+      "cb012_a2"
+    ]
+  },
+  {
+    "wordId": "wb006",
+    "malayalamText": "പെട്ടി",
+    "englishTranslation": "Box",
+    "phonetic": "petti",
+    "bucketId": 11,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ട്ട",
+      "ി"
+    ],
+    "prerequisites": [
+      "cb012_a2"
+    ]
+  },
+  {
+    "wordId": "wb007",
+    "malayalamText": "ആട്",
+    "englishTranslation": "Goat",
+    "phonetic": "aadu",
+    "bucketId": 11,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ആ",
+      "ട",
+      "്"
+    ],
+    "prerequisites": [
+      "cb012_a2"
+    ]
+  },
+  {
+    "wordId": "wb008",
+    "malayalamText": "പല്ല്",
+    "englishTranslation": "Tooth",
+    "phonetic": "pallu",
+    "bucketId": 11,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "പ",
+      "ല്ല",
+      "്"
+    ],
+    "prerequisites": [
+      "cb012_a2"
+    ]
+  },
+  {
+    "wordId": "cb012_a3",
+    "malayalamText": "Lesson 12: Object Sentences",
+    "englishTranslation": "Now let's talk about our things!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "wb005",
+      "wb006",
+      "wb007",
+      "wb008"
+    ]
+  },
+  {
+    "wordId": "ssb003",
+    "malayalamText": "ഇത് എൻ്റെ പുസ്തകം ആണ്",
+    "englishTranslation": "This is my book.",
+    "phonetic": "ithu ente pusthakam aanu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇത്",
+      "എൻ്റെ",
+      "പുസ്തകം",
+      "ആണ്"
+    ],
+    "prerequisites": [
+      "cb012_a3"
+    ]
+  },
+  {
+    "wordId": "ssb004",
+    "malayalamText": "അത് ചെറിയ പെട്ടി ആണ്",
+    "englishTranslation": "That is a small box.",
+    "phonetic": "athu cheriya petti aanu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 12,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അത്",
+      "ചെറിയ",
+      "പെട്ടി",
+      "ആണ്"
+    ],
+    "prerequisites": [
+      "cb012_a3"
+    ]
+  },
+  {
+    "wordId": "cb013_a1",
+    "malayalamText": "Lesson 13: Let's Move!",
+    "englishTranslation": "Let's learn the core action letters!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "tb002",
+    "malayalamText": "ഓ",
+    "englishTranslation": "O (long Vowel)",
+    "phonetic": "O",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "trace",
+    "prerequisites": [
+      "cb013_a1"
+    ]
+  },
+  {
+    "wordId": "mb002",
+    "malayalamText": "ഓ",
+    "englishTranslation": "O (long Vowel)",
+    "phonetic": "O",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "match",
+    "prerequisites": [
+      "tb002"
+    ]
+  },
+  {
+    "wordId": "tb003",
+    "malayalamText": "ഡ",
+    "englishTranslation": "Da",
+    "phonetic": "Da",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "trace",
+    "prerequisites": [
+      "cb013_a1"
+    ]
+  },
+  {
+    "wordId": "mb003",
+    "malayalamText": "ഡ",
+    "englishTranslation": "Da",
+    "phonetic": "Da",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "match",
+    "prerequisites": [
+      "tb003"
+    ]
+  },
+  {
+    "wordId": "cb013_a2",
+    "malayalamText": "Lesson 13: Action Words",
+    "englishTranslation": "Build words for Go, Come, and Run!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "mb002",
+      "mb003"
+    ]
+  },
+  {
+    "wordId": "wb009",
+    "malayalamText": "പോ",
+    "englishTranslation": "Go",
+    "phonetic": "po",
+    "bucketId": 3,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "പ",
+      "ോ"
+    ],
+    "prerequisites": [
+      "cb013_a2"
+    ]
+  },
+  {
+    "wordId": "wb010",
+    "malayalamText": "വാ",
+    "englishTranslation": "Come",
+    "phonetic": "va",
+    "bucketId": 3,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "വ",
+      "ാ"
+    ],
+    "prerequisites": [
+      "cb013_a2"
+    ]
+  },
+  {
+    "wordId": "wb011",
+    "malayalamText": "കളി",
+    "englishTranslation": "Play",
+    "phonetic": "kali",
+    "bucketId": 3,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ക",
+      "ള",
+      "ി"
+    ],
+    "prerequisites": [
+      "cb013_a2"
+    ]
+  },
+  {
+    "wordId": "wb012",
+    "malayalamText": "ഓടു",
+    "englishTranslation": "Run",
+    "phonetic": "odu",
+    "bucketId": 3,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ഓ",
+      "ഡ",
+      "ു"
+    ],
+    "prerequisites": [
+      "cb013_a2"
+    ]
+  },
+  {
+    "wordId": "wb013",
+    "malayalamText": "ഇവിടെ",
+    "englishTranslation": "Here",
+    "phonetic": "ivide",
+    "bucketId": 5,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ഇ",
+      "വ",
+      "ി",
+      "ട",
+      "െ"
+    ],
+    "prerequisites": [
+      "cb013_a2"
+    ]
+  },
+  {
+    "wordId": "cb013_a3",
+    "malayalamText": "Lesson 13: Let's Go!",
+    "englishTranslation": "Now use these action words in short sentences!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "wb009",
+      "wb010",
+      "wb011",
+      "wb012",
+      "wb013"
+    ]
+  },
+  {
+    "wordId": "ssb005",
+    "malayalamText": "ഇവിടെ വാ",
+    "englishTranslation": "Come here.",
+    "phonetic": "ivide va",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 13,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "ഇവിടെ",
+      "വാ"
+    ],
+    "prerequisites": [
+      "cb013_a3"
+    ]
+  },
+  {
+    "wordId": "cb014_a1",
+    "malayalamText": "Lesson 14: Action Completed!",
+    "englishTranslation": "Learn how to say things ALREADY happened!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "cb014_a2",
+    "malayalamText": "Lesson 14: Past Actions",
+    "englishTranslation": "Build words for Went and Came!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": []
+  },
+  {
+    "wordId": "wb014",
+    "malayalamText": "പോയി",
+    "englishTranslation": "Went",
+    "phonetic": "poyi",
+    "bucketId": 3,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "പ",
+      "ോ",
+      "യ",
+      "ി"
+    ],
+    "prerequisites": [
+      "cb014_a2"
+    ]
+  },
+  {
+    "wordId": "wb015",
+    "malayalamText": "വന്നു",
+    "englishTranslation": "Came",
+    "phonetic": "vannu",
+    "bucketId": 3,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "വ",
+      "ന്ന",
+      "ു"
+    ],
+    "prerequisites": [
+      "cb014_a2"
+    ]
+  },
+  {
+    "wordId": "wb016",
+    "malayalamText": "കളിച്ചു",
+    "englishTranslation": "Played",
+    "phonetic": "kalichu",
+    "bucketId": 3,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "build",
+    "requiredCharacters": [
+      "ക",
+      "ള",
+      "ി",
+      "ച്ച",
+      "ു"
+    ],
+    "prerequisites": [
+      "cb014_a2"
+    ]
+  },
+  {
+    "wordId": "cb014_a3",
+    "malayalamText": "Lesson 14: Story Time!",
+    "englishTranslation": "Tell a short story about what happened yesterday!",
+    "bucketId": 0,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "concept",
+    "isSummary": true,
+    "prerequisites": [
+      "wb014",
+      "wb015",
+      "wb016"
+    ]
+  },
+  {
+    "wordId": "ssb006",
+    "malayalamText": "അച്ചൻ ഇന്ന് പോയി",
+    "englishTranslation": "Father went today.",
+    "phonetic": "achan innu poyi",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അച്ചൻ",
+      "ഇന്ന്",
+      "പോയി"
+    ],
+    "prerequisites": [
+      "cb014_a3"
+    ]
+  },
+  {
+    "wordId": "ssb007",
+    "malayalamText": "അമ്മ ഇന്നലെ വന്നു",
+    "englishTranslation": "Mother came yesterday.",
+    "phonetic": "amma innale vannu",
+    "bucketId": 1,
+    "unlockCycle": 1,
+    "lessonId": 14,
+    "lessonType": "scramble",
+    "sentenceParts": [
+      "അമ്മ",
+      "ഇന്നലെ",
+      "വന്നു"
+    ],
+    "prerequisites": [
+      "cb014_a3"
     ]
   }
 ]

@@ -236,4 +236,12 @@
 - [x] **Cycle 1 Completion:** Verified that all 10 lessons in Cycle 1 are fully functional, gated correctly, and contain no orphaned characters verified.
 - [x] **TDD Validation:** 100% green state for backend integrity tests and frontend component tests verified.
 
+## 🛠️ Phase 6: Curriculum Bridge & Idiomatic Refactor
+- [x] **Idiomatic Sentence Refactor (L7):** Replaced unnatural transliterations in Lesson 7 with native-sounding Malayalam phrasing verified.
+- [x] **Cycle 1 Bridge Expansion (L11-14):** Appended 4 high-density vocabulary lessons (Nature, Objects, Action Roots, Past Tense) to bridge into Cycle 2 grammar verified.
+- [x] **Global ID Uniqueness:** Re-indexed bridge vocabulary with `wb/tb/mb/ssb` prefixes to ensure 100% collision safety across seed files verified.
+- [x] **Curriculum Shift (Cycle 2/3):** Shifted Cycle 2 (L15-20) and Cycle 3 (L21+) lesson IDs to maintain sequential integrity verified.
+- [x] **Purge Orphaned Data:** Removed legacy/incorrectly placed Cycle 2-4 items from `seed-100.json` to ensure clean boundaries verified.
+- [x] **TDD Verification:** 100% green state for updated `integrity.test.js` covering the new L1-21 boundaries verified.
+
 ## 🟢 Core Infrastructure

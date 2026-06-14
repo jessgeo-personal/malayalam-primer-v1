@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.06.05.001] - 2026-06-05
+### Added
+- **Cycle 1 Bridge Expansion (L11-14):** Appended four new high-density vocabulary lessons to Cycle 1 to provide the character and word foundations for Cycle 2 grammar.
+- **New Lesson 11 (Nature):** Teaches Tree (മരം), Sea (കടൽ), Forest (കാട്), Stone (കല്ല്).
+- **New Lesson 12 (Objects):** Teaches Book (പുസ്തകം), Box (പെട്ടി), Goat (ആട്), Tooth (പല്ല്) and the 'STa' (സ്ത) conjunct.
+- **New Lesson 13 (Action Roots):** Teaches Go (പോ), Come (വാ), Play (കളി), Run (ഓടു) and the 'O' (ഓ), 'Da' (ഡ) characters.
+- **New Lesson 14 (Past Tense):** Teaches Went (പോയി), Came (വന്നു), Played (കളിച്ചു).
+
+### Changed
+- **Lesson 7 Idiomatic Refactor:** Replaced unnatural English-transliterated sentences with functional, native-sounding Malayalam phrasing (e.g., "What time is it now?", "I have no time today").
+- **Curriculum Sequential Shift:** Re-indexed Cycle 2 to Lessons 15-20 and Cycle 3 to Lessons 21+ to accommodate the new Cycle 1 bridge.
+- **Global ID Safety:** Migrated bridge vocabulary to a namespaced ID system (`wb/tb/mb/ssb`) to prevent MongoDB duplicate key errors.
+
+### Removed
+- **Orphaned Seed Data:** Purged incorrectly placed Cycle 2-4 traces from `seed-100.json` to ensure clean pedagogical boundaries.
+
 ## [2026.06.03.003] - 2026-06-03
 ### Added
 - **Lesson 8 Pedagogical Refinement:** Consolidated the separate 'nga' fragments into the full **`ങ്ങ`** (nnga) conjunct for a more intuitive and visually consistent tracing experience.

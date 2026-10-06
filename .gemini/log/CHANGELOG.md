@@ -2,7 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.07.21.004] - 2026-07-21
+### Fixed
+- **Synology NAS Port Allocation Error (`Bind for 0.0.0.0:8080 failed`):** Updated `docker-compose.yml` frontend port mapping to `"${WEB_PORT:-3080}:80"` to avoid default port 8080 collisions on Synology NAS DSM.
+
+## [2026.07.21.003] - 2026-07-21
+
+### Fixed
+- **Synology NAS "Server Offline" Connection Fix:** Migrated `docker-compose.yml` to a managed Docker volume (`mongodb_data`) to prevent host directory ACL/permission failures on Synology DSM 7.2. Added `GET /api/health` diagnostic route in `server/routes/api.js`.
+
+## [2026.07.21.002] - 2026-07-21
+
+### Fixed
+- **Synology NAS SSL / Invalid Response Error (`ERR_SSL_PROTOCOL_ERROR`):** Resolved HTTPS vs HTTP browser mismatch on Synology NAS DSM by changing default frontend container port to `8080:80` and documenting explicit `http://` access & Reverse Proxy options in `.gemini/plans/034-fix-synology-ssl-connection-error.md`.
+
+## [2026.07.21.001] - 2026-07-21
+
+### Added
+- **Synology NAS (DSM 7.2.2) Zero-Config Auto-Seeding:** Updated `server/server.js` to automatically import all seed files (`seed-100.json`, `seed-200.json`, `seed-300.json`) if MongoDB is empty on container startup.
+- **Docker Compose Healthchecks:** Added `mongo:4.4` healthcheck and `service_healthy` dependency condition in `docker-compose.yml` to prevent backend race conditions on cold boot.
+- **Deployment Documentation:** Formatted step-by-step instructions for Synology Container Manager deployment in `.gemini/plans/033-synology-nas-dsm722-migration.md`.
+
 ## [2026.06.05.001] - 2026-06-05
+
 ### Added
 - **Cycle 1 Bridge Expansion (L11-14):** Appended four new high-density vocabulary lessons to Cycle 1 to provide the character and word foundations for Cycle 2 grammar.
 - **New Lesson 11 (Nature):** Teaches Tree (മരം), Sea (കടൽ), Forest (കാട്), Stone (കല്ല്).

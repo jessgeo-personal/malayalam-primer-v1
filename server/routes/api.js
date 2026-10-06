@@ -5,6 +5,17 @@ const Progress = require('../models/Progress');
 const User = require('../models/User');
 const srsEngine = require('../services/srsEngine');
 
+const mongoose = require('mongoose');
+
+/**
+ * GET /api/health
+ * Diagnostic health check endpoint.
+ */
+router.get('/health', (req, res) => {
+  const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  res.json({ status: 'ok', database: dbStatus, timestamp: new Date() });
+});
+
 /**
  * GET /api/session/cycle/lessons
  * Returns the start and end lesson IDs for a cycle.

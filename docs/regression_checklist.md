@@ -49,6 +49,10 @@
 - [x] Email + OTP authentication endpoints (`/api/auth/request-otp`, `/api/auth/verify-otp`) (Task AUTH-01)
 - [x] Account Mongoose model with default profile and OTP expiry mechanics (Task AUTH-01)
 - [x] Replay attack protection with immediate OTP nullification upon verification (Task AUTH-01)
+- [x] JWT Bearer authentication middleware (`server/middleware/auth.js`) (Task AUTH-02)
+- [x] Profile management endpoints (`GET /api/auth/profiles`, `POST /api/auth/profiles`) (Task AUTH-02)
+- [x] Hard limit of 3 profiles per account enforced with 400 validation (Task AUTH-02)
+- [x] Active profile switching endpoint (`POST /api/auth/profiles/switch`) (Task AUTH-02)
 - [x] Docker-compose structure valid
 - [x] MongoDB/Express/React connectivity placeholders established
 - [x] Vite development server starts without PostCSS errors (Tailwind v4 fix)

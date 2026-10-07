@@ -27,7 +27,7 @@ describe('Auth Endpoints Integration (Email + OTP)', () => {
       try {
         const Account = mongoose.models.Account;
         if (Account) {
-          await Account.deleteMany({});
+          await Account.deleteMany({ email: { $in: ['parent@example.com', 'replay@example.com'] } });
         }
       } catch (err) {
         // Ignore cleanup errors
@@ -40,7 +40,7 @@ describe('Auth Endpoints Integration (Email + OTP)', () => {
     try {
       const Account = mongoose.models.Account;
       if (Account) {
-        await Account.deleteMany({});
+        await Account.deleteMany({ email: { $in: ['parent@example.com', 'replay@example.com'] } });
       }
     } catch (err) {
       // Model not registered yet

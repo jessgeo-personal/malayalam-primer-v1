@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.07.002] - 2026-10-07
+### Added
+- **Task AUTH-02: Profile Management & Switching (GREEN PHASE):**
+  - **Auth Middleware (`server/middleware/auth.js`)**: Created reusable JWT Bearer token authentication middleware validating token integrity and attaching MongoDB account instance to `req.account`.
+  - **Profile Listing (`GET /api/auth/profiles`)**: Protected endpoint returning authenticated account's profiles array.
+  - **Profile Creation (`POST /api/auth/profiles`)**: Implemented profile creation with name validation, unique timestamp-based `profileId` generation, and strict enforcement of the 3-profile maximum ceiling (`400 Bad Request` with `Maximum of 3 profiles reached`).
+  - **Active Profile Switching (`POST /api/auth/profiles/switch`)**: Protected endpoint verifying profile existence under authenticated account and returning active profile object.
+  - **Atomic Query Refactor (`server/routes/auth.js`)**: Updated `POST /request-otp` to use atomic `findOneAndUpdate` with `returnDocument: 'after'` to prevent concurrent race conditions.
+  - **TDD Green State**: Verified 100% green state on `server/tests/profiles.test.js` (8/8 tests passing), full backend test suite (9/9 suites, 44 tests passing), and full frontend test suite (11/11 suites, 34 tests passing).
+
 ## [2026.10.07.001] - 2026-10-07
 ### Added
 - **Task AUTH-01: Backend Email + OTP Auth (GREEN PHASE):**

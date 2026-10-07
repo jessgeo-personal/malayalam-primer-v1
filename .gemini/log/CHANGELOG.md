@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.07.002] - 2026-10-07
+### Added
+- **Task AUTH-02: Profile Management & Switching (GREEN PHASE):**
+  - **Auth Middleware (`server/middleware/auth.js`)**: Created reusable JWT Bearer token authentication middleware validating token integrity and attaching MongoDB account instance to `req.account`.
+  - **Profile Listing (`GET /api/auth/profiles`)**: Protected endpoint returning authenticated account's profiles array.
+  - **Profile Creation (`POST /api/auth/profiles`)**: Implemented profile creation with name validation, unique timestamp-based `profileId` generation, and strict enforcement of the 3-profile maximum ceiling (`400 Bad Request` with `Maximum of 3 profiles reached`).
+  - **Active Profile Switching (`POST /api/auth/profiles/switch`)**: Protected endpoint verifying profile existence under authenticated account and returning active profile object.
+  - **Atomic Query Refactor (`server/routes/auth.js`)**: Updated `POST /request-otp` to use atomic `findOneAndUpdate` with `returnDocument: 'after'` to prevent concurrent race conditions.
+  - **TDD Green State**: Verified 100% green state on `server/tests/profiles.test.js` (8/8 tests passing), full backend test suite (9/9 suites, 44 tests passing), and full frontend test suite (11/11 suites, 34 tests passing).
+
 ## [2026.10.07.001] - 2026-10-07
 ### Added
 - **Task AUTH-01: Backend Email + OTP Auth (GREEN PHASE):**
@@ -10,12 +20,3 @@ All notable changes to this project will be documented in this file.
   - **JWT Token Generation**: Successfully signed and issued 30-day JWT authentication tokens upon valid OTP verification.
   - **Server Integration (`server/server.js`)**: Mounted `/api/auth` onto the Express application.
   - **TDD Green State**: Verified 100% green state on `server/tests/auth.test.js` (6/6 tests passing), full backend test suite (8/8 suites, 36 tests passing), and full frontend test suite (11/11 suites, 34 tests passing).
-
-## [2026.10.06.001] - 2026-10-06
-### Added
-- **Task DEV-01: Auto-Seed on Boot & Single-Command Dev Runner:**
-  - **Auto-Seed on Startup**: Refactored `server/seeder.js` to export an idempotent `seedDatabaseIfNeeded()` checking `Word.countDocuments()`. If count is 0 or less than Cycle 1 count in `seed-100.json`, populates MongoDB dictionary and logs `[AutoSeed] Dictionary populated successfully`. If already populated, logs `[AutoSeed] Dictionary up to date, skipping seed`.
-  - **Server Integration**: Integrated `await seedDatabaseIfNeeded()` into `server/server.js` immediately following `mongoose.connect()`, prior to `app.listen()`.
-  - **CLI Backwards Compatibility**: Maintained standalone `node seeder.js` and `npm run seed` CLI execution via `if (require.main === module)`.
-  - **Monorepo Dev Runner**: Added root `package.json` with `concurrently` managing simultaneous boot of `server` (port 5000) and `client` (port 3000) with colored logs.
-  - **Testing & Verification**: Added unit tests in `server/tests/seeder.test.js` validating auto-seed logic and skipping conditions. 100% green test pass across server (30 tests) and client (34 tests). Verified live concurrent boot with HTTP 200 OK responses.

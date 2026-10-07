@@ -1,11 +1,21 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
 
 const ProgressContext = createContext();
 
 export const useProgress = () => useContext(ProgressContext);
 
 export const ProgressProvider = ({ children }) => {
-  const [userId, setUserId] = useState(() => localStorage.getItem('mp_userId') || 'Learner 1');
+  const auth = useAuth();
+  const activeProfileId = auth?.activeProfile?.profileId;
+  const [userId, setUserId] = useState(() => activeProfileId || localStorage.getItem('mp_userId') || 'Learner 1');
+
+  useEffect(() => {
+    if (activeProfileId && activeProfileId !== userId) {
+      switchUser(activeProfileId);
+    }
+  }, [activeProfileId]);
+
   const [currentCycle, setCurrentCycle] = useState(1);
   const [cycleProgress, setCycleProgress] = useState(0);
   const [masteredCharacters, setMasteredCharacters] = useState([]);

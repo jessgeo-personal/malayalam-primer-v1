@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.07.004] - 2026-10-07
+### Added
+- **Task AUTH-04: Frontend Auth Flow (GREEN PHASE):**
+  - **Plan Documentation**: Created `docs/plans/AUTH-04-frontend-auth-flow-green-phase.md` (mirrored in `.gemini/plans/`) detailing Option 1 architecture, state models, UI component structures, and verification gates.
+  - **AuthContext (`client/src/context/AuthContext.jsx`)**: Implemented dedicated authentication state provider managing JWT tokens, account data, active profile selection, OTP request/verification pipelines, profile creation, switching, and progress reset endpoints with dual `mp_*` and standard key localStorage persistence.
+  - **AuthModal Component (`client/src/components/ui/AuthModal.jsx`)**: Built a tablet-first Neo-Bento 2-step modal supporting seamless email submission, 6-digit OTP verification, back navigation, and inline error feedback.
+  - **ProfileSelector Component (`client/src/components/ui/ProfileSelector.jsx`)**: Implemented responsive 3-profile card grid with active indicators, profile switching, ceiling limit enforcement (disabling additions at 3 profiles), and confirmed per-profile progress resets.
+  - **System Integration (`client/src/App.jsx` & `client/src/context/ProgressContext.jsx`)**: Connected `AuthProvider` to the application hierarchy, added an active profile/login badge to the header, and synced learner progress state to the active profile with safe fallback for unauthenticated play.
+  - **TDD Green State & Zero Regression**: Verified 100% green pass on targeted tests (`client/src/tests/AuthFlow.test.jsx`, 6/6 tests), full client test suite (12/12 suites, 40 tests), and full server test suite (10/10 suites, 49 tests).
+
 ## [2026.10.07.003] - 2026-10-07
 ### Added
 - **Task AUTH-03: Profile Independent Reset Endpoint & Handlers (GREEN PHASE):**

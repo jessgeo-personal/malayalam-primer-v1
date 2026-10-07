@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { useProgress } from './context';
+import React, { useState, useContext } from 'react';
+import { useProgress, useAuth, AuthProvider } from './context';
+import AuthContext from './context/AuthContext';
 import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine, SentenceScrambler } from './components/games';
 import WordAudit from './components/ui/WordAudit';
 import { MasteryStrip, AdventureMap, PrototypeLab, CelebrationManager } from './components/ui';
+import AuthModal from './components/ui/AuthModal';
+import ProfileSelector from './components/ui/ProfileSelector';
 import { APP_VERSION } from './config/version';
 import './App.css';
 
-const App = () => {
+const AppContent = () => {
   const [showAudit, setShowAudit] = useState(false);
   const [showLab, setShowLab] = useState(false);
+  const [showProfiles, setShowProfiles] = useState(false);
   const { 
     userId,
     switchUser,
@@ -36,6 +40,13 @@ const App = () => {
     sessionStats
   } = useProgress();
 
+  const {
+    isAuthenticated,
+    activeProfile,
+    openAuthModal,
+    logout
+  } = useAuth();
+
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-prime-warm-base p-8 text-center">
@@ -56,6 +67,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-prime-canvas text-prime-dark-text flex flex-col font-sans">
       <CelebrationManager />
+      <AuthModal />
       
       {/* 1. Hero Header Slot (Split Canvas) */}
       {sessionMode === 'map' && (
@@ -82,22 +94,54 @@ const App = () => {
                 {showAudit ? 'EXIT AUDIT' : 'AUDIT DICTIONARY'}
               </button>
 
-              {/* User Selection Dropdown */}
-              <div className="flex flex-col items-end">
-                <span className="text-[9px] font-black text-white/60 uppercase tracking-widest mb-1">Active Profile</span>
-                <select 
-                  value={userId} 
-                  onChange={(e) => switchUser(e.target.value)}
-                  className="bg-white/20 hover:bg-white/30 text-white font-bold text-sm py-2 px-4 rounded-2xl border border-white/40 shadow-inner outline-none cursor-pointer transition-all appearance-none text-center min-w-[140px]"
-                >
-                  <option value="Learner 1" className="text-prime-dark-text">Learner 1</option>
-                  <option value="Learner 2" className="text-prime-dark-text">Learner 2</option>
-                  <option value="Learner 3" className="text-prime-dark-text">Learner 3</option>
-                </select>
-              </div>
+              {/* User Selection & Auth Header Slot */}
+              <div className="flex items-center gap-3">
+                {isAuthenticated ? (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setShowProfiles(!showProfiles)}
+                      className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold text-xs py-2 px-3.5 rounded-2xl border border-white/40 shadow-inner transition-all cursor-pointer"
+                      title="Manage Learner Profiles"
+                    >
+                      <span className="text-base">
+                        {activeProfile?.avatar === 'rocket' ? '🚀' : activeProfile?.avatar === 'sun' ? '☀️' : '⭐'}
+                      </span>
+                      <span>{activeProfile?.name || userId}</span>
+                      <span className="text-[10px] text-white/70">▾</span>
+                    </button>
+                    <button
+                      onClick={logout}
+                      className="px-2.5 py-1.5 rounded-xl bg-black/20 hover:bg-black/30 text-white/80 text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                      title="Log out"
+                    >
+                      Exit
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <select 
+                      value={userId} 
+                      onChange={(e) => switchUser(e.target.value)}
+                      className="bg-white/20 hover:bg-white/30 text-white font-bold text-xs py-2 px-3 rounded-2xl border border-white/40 shadow-inner outline-none cursor-pointer transition-all appearance-none text-center min-w-[100px]"
+                    >
+                      <option value="Learner 1" className="text-prime-dark-text">Learner 1</option>
+                      <option value="Learner 2" className="text-prime-dark-text">Learner 2</option>
+                      <option value="Learner 3" className="text-prime-dark-text">Learner 3</option>
+                    </select>
+                    <button
+                      onClick={openAuthModal}
+                      data-testid="login-trigger"
+                      className="bg-white/20 hover:bg-white/30 text-white font-black text-xs py-2 px-3.5 rounded-2xl border border-white/40 shadow-inner tracking-wider uppercase transition-all cursor-pointer flex items-center gap-1.5"
+                    >
+                      <span>🔐</span>
+                      <span>Login</span>
+                    </button>
+                  </div>
+                )}
 
-              <div className="w-16 h-16 bg-white/30 rounded-3xl backdrop-blur-md border border-white/40 flex items-center justify-center text-4xl shadow-inner">
-                {userId === 'Learner 1' ? '👦' : userId === 'Learner 2' ? '👧' : '🧒'}
+                <div className="w-16 h-16 bg-white/30 rounded-3xl backdrop-blur-md border border-white/40 flex items-center justify-center text-4xl shadow-inner">
+                  {activeProfile?.avatar === 'rocket' ? '🚀' : activeProfile?.avatar === 'sun' ? '☀️' : userId === 'Learner 2' ? '👧' : '👦'}
+                </div>
               </div>
             </div>
           </div>
@@ -115,6 +159,11 @@ const App = () => {
           </div>
         ) : sessionMode === 'map' ? (
           <div className="flex flex-col gap-10">
+            {showProfiles && isAuthenticated && (
+              <div className="animate-pop">
+                <ProfileSelector />
+              </div>
+            )}
             
             {/* 2. Learning Plan Bento Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pop">
@@ -342,6 +391,18 @@ const App = () => {
       </footer>
     </div>
   );
-}
+};
+
+const App = () => {
+  const existingAuth = useContext(AuthContext);
+  if (!existingAuth) {
+    return (
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    );
+  }
+  return <AppContent />;
+};
 
 export default App;

@@ -27,7 +27,7 @@ describe('Profile Management & Switching Integration', () => {
   };
 
   beforeAll(async () => {
-    const url = process.env.MONGO_URI || 'mongodb://localhost:27017/malayalam_prime_test';
+    const url = process.env.MONGO_URI || 'mongodb://localhost:27017/malayalam_prime_profiles_test';
     await mongoose.connect(url);
   });
 

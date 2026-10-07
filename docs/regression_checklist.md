@@ -46,6 +46,9 @@
 - [x] Single-command dev runner (`npm run dev`) via root `concurrently` (Task DEV-01)
 - [x] Idempotent auto-seeding on backend boot (`seedDatabaseIfNeeded`) (Task DEV-01)
 - [x] Standalone dictionary seeder CLI execution (`npm run seed` / `node seeder.js`) (Task DEV-01)
+- [x] Email + OTP authentication endpoints (`/api/auth/request-otp`, `/api/auth/verify-otp`) (Task AUTH-01)
+- [x] Account Mongoose model with default profile and OTP expiry mechanics (Task AUTH-01)
+- [x] Replay attack protection with immediate OTP nullification upon verification (Task AUTH-01)
 - [x] Docker-compose structure valid
 - [x] MongoDB/Express/React connectivity placeholders established
 - [x] Vite development server starts without PostCSS errors (Tailwind v4 fix)

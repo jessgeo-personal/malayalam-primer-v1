@@ -17,6 +17,7 @@ if (!globalThis.crypto) {
 
 const apiRoutes = require('./routes/api');
 const aiRoutes = require('./routes/ai');
+const authRouter = require('./routes/auth');
 
 const app = express();
 app.use(cors());
@@ -24,6 +25,7 @@ app.use(express.json());
 
 app.use('/api', apiRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/auth', authRouter);
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://mongodb:27017/malayalam_decode';

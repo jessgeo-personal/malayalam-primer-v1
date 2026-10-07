@@ -1,8 +1,8 @@
 Phase,Task ID,Description,Status,Verification Gate
 Track A,AUTH-01,Account Model & Email OTP Generation/Verification Backend,🟢 Completed,server/tests/auth.test.js PASS
 Track A,AUTH-02,"3-Profile Schema, Profile Switching, & Isolated Progress",🟢 Completed,server/tests/profiles.test.js PASS
-Track A,AUTH-03,Profile Independent Reset Endpoint & Handlers,🟡 Next,server/tests/profile_reset.test.js PASS
-Track A,AUTH-04,Frontend Auth Flow (Email OTP Modal + Profile Selector),⚪ Pending,Vitest UI Component Tests PASS
+Track A,AUTH-03,Profile Independent Reset Endpoint & Handlers,🟢 Completed,server/tests/profile_reset.test.js PASS
+Track A,AUTH-04,Frontend Auth Flow (Email OTP Modal + Profile Selector),🟡 Next,Vitest UI Component Tests PASS
 Track B,DATA-01,Automated Phonetic Transliteration Tooling (sanscript),⚪ Pending,Script check against seed-100.json
 Track B,DATA-02,seed-200.json Grapheme Splits & Lessons 15–20 Bundling,⚪ Pending,integrity.test.js zero-empty-boxes
 Track B,DATA-03,seed-300.json Grapheme Splits & Lessons 21–25 Bundling,⚪ Pending,integrity.test.js all words valid

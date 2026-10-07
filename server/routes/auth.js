@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const Account = require('../models/Account');
+const Progress = require('../models/Progress');
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -150,6 +151,33 @@ router.post('/profiles/switch', authMiddleware, async (req, res) => {
     });
   } catch (error) {
     console.error('Error in POST /profiles/switch:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// POST /profiles/:profileId/reset
+router.post('/profiles/:profileId/reset', authMiddleware, async (req, res) => {
+  try {
+    const { profileId } = req.params;
+
+    if (!req.account || !req.account.profiles) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
+
+    const profile = req.account.profiles.find(p => p.profileId === profileId);
+    if (!profile) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
+
+    await Progress.deleteMany({ userId: profileId });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Profile progress reset successfully',
+      profileId
+    });
+  } catch (error) {
+    console.error('Error in POST /profiles/:profileId/reset:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });

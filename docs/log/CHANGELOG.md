@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.07.003] - 2026-10-07
+### Added
+- **Task AUTH-03: Profile Independent Reset Endpoint & Handlers (GREEN PHASE):**
+  - **Plan Documentation**: Created `docs/plans/AUTH-03-profile-reset-green-phase.md` (mirrored in `.gemini/plans/`) detailing route specification, multi-tenant isolation, Progress wipe mechanics, and verification criteria.
+  - **Profile Reset Endpoint (`POST /api/auth/profiles/:profileId/reset`)**: Implemented protected route in `server/routes/auth.js` applying `authMiddleware`, verifying profile ownership within `req.account.profiles`, and returning `404 Not Found` if the profile is invalid or belongs to another account.
+  - **Isolated Progress Purge**: Integrated `Progress.deleteMany({ userId: profileId })` to completely wipe spaced repetition and attempt logs exclusively for the target learner, preserving sibling profiles and alien account records intact.
+  - **TDD Green State & Zero Regression**: Verified 100% green pass on `tests/profile_reset.test.js` (5/5 tests), full server test suite (10/10 suites, 49 tests), and full client test suite (11/11 suites, 34 tests).
+
 ## [2026.10.07.002] - 2026-10-07
 ### Added
 - **Task AUTH-02: Profile Management & Switching (GREEN PHASE):**

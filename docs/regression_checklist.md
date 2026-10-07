@@ -255,3 +255,4 @@
 - [x] **TDD Verification:** 100% green state for updated `integrity.test.js` covering the new L1-21 boundaries verified.
 
 ## 🟢 Core Infrastructure
+- [x] **Profile Independent Reset Endpoint (AUTH-03):** Verified `POST /api/auth/profiles/:profileId/reset` purges progress records strictly for the target profile without cross-profile or cross-account leakage.

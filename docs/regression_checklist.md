@@ -43,6 +43,9 @@
 
 ## 🟢 Core Infrastructure
 - [x] Monorepo scaffolding verified
+- [x] Single-command dev runner (`npm run dev`) via root `concurrently` (Task DEV-01)
+- [x] Idempotent auto-seeding on backend boot (`seedDatabaseIfNeeded`) (Task DEV-01)
+- [x] Standalone dictionary seeder CLI execution (`npm run seed` / `node seeder.js`) (Task DEV-01)
 - [x] Docker-compose structure valid
 - [x] MongoDB/Express/React connectivity placeholders established
 - [x] Vite development server starts without PostCSS errors (Tailwind v4 fix)

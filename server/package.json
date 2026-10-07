@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "node server.js",
     "test": "jest",
     "start": "node server.js",
     "seed": "node seeder.js",

@@ -18,6 +18,10 @@ router.post('/request-otp', async (req, res) => {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
+    console.log('\n========================================');
+    console.log(`[AUTH DEV] Generated OTP for ${normalizedEmail}: ${otp}`);
+    console.log('========================================\n');
+
     await Account.findOneAndUpdate(
       { email: normalizedEmail },
       {
@@ -29,10 +33,11 @@ router.post('/request-otp', async (req, res) => {
       { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
     );
 
-    const responsePayload = { message: 'OTP sent successfully' };
-    if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
-      responsePayload.otp = otp;
-    }
+    const responsePayload = {
+      success: true,
+      message: 'OTP sent successfully',
+      ...(process.env.NODE_ENV !== 'production' && { devOtp: otp, otp })
+    };
 
     return res.status(200).json(responsePayload);
   } catch (error) {

@@ -75,21 +75,43 @@ export const AuthProvider = ({ children }) => {
     setIsAuthModalOpen(false);
   };
 
+  const parseJsonResponse = async (res, method, url) => {
+    const contentType = res.headers && typeof res.headers.get === 'function'
+      ? res.headers.get('content-type')
+      : (res.headers ? res.headers['content-type'] : 'application/json');
+
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = typeof res.text === 'function' ? await res.text() : '';
+      console.error(`[AuthContext] ${method} ${url} failed with non-JSON response (${res.status}):`, text.slice(0, 150));
+      throw new Error(`Server returned non-JSON response (${res.status}) on ${method} ${url}: ${text.slice(0, 80)}`);
+    }
+
+    const data = await res.json();
+    if (!res.ok) {
+      console.error(`[AuthContext] ${method} ${url} failed with status ${res.status}:`, data);
+      throw new Error(data.error || data.message || `Request failed (${res.status}) on ${method} ${url}`);
+    }
+    return data;
+  };
+
   const requestOtp = async (email) => {
+    const url = '/api/auth/request-otp';
+    const method = 'POST';
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/request-otp', {
-        method: 'POST',
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
       });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to send OTP');
+      const data = await parseJsonResponse(res, method, url);
+      if (data.devOtp) {
+        console.log(`%c[AUTH DEV] Your OTP is: ${data.devOtp}`, 'color: #10b981; font-weight: bold; font-size: 14px;');
       }
       return data;
     } catch (err) {
+      console.error(`[AuthContext] requestOtp error (${method} ${url}):`, err.message);
       setError(err.message);
       throw err;
     } finally {
@@ -98,18 +120,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   const verifyOtp = async (email, otp) => {
+    const url = '/api/auth/verify-otp';
+    const method = 'POST';
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })
       });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to verify OTP');
-      }
+      const data = await parseJsonResponse(res, method, url);
 
       setToken(data.token);
       saveToken(data.token);
@@ -126,6 +147,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthModalOpen(false);
       return data;
     } catch (err) {
+      console.error(`[AuthContext] verifyOtp error (${method} ${url}):`, err.message);
       setError(err.message);
       throw err;
     } finally {
@@ -135,15 +157,18 @@ export const AuthProvider = ({ children }) => {
 
   const fetchProfiles = async () => {
     if (!token) return;
+    const url = '/api/auth/profiles';
+    const method = 'GET';
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/profiles', {
+      const res = await fetch(url, {
+        method,
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      const data = await res.json();
-      if (res.ok && data.profiles) {
+      const data = await parseJsonResponse(res, method, url);
+      if (data.profiles) {
         setAccount(prev => {
           const updated = prev ? { ...prev, profiles: data.profiles } : { profiles: data.profiles };
           saveAccount(updated);
@@ -152,7 +177,7 @@ export const AuthProvider = ({ children }) => {
       }
       return data;
     } catch (err) {
-      console.error('Error fetching profiles:', err);
+      console.error(`[AuthContext] fetchProfiles error (${method} ${url}):`, err.message);
     } finally {
       setLoading(false);
     }
@@ -160,21 +185,20 @@ export const AuthProvider = ({ children }) => {
 
   const createProfile = async (name, avatar = 'star') => {
     if (!token) return;
+    const url = '/api/auth/profiles';
+    const method = 'POST';
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/profiles', {
-        method: 'POST',
+      const res = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ name, avatar })
       });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to create profile');
-      }
+      const data = await parseJsonResponse(res, method, url);
 
       if (data.profiles) {
         setAccount(prev => {
@@ -189,6 +213,7 @@ export const AuthProvider = ({ children }) => {
       }
       return data;
     } catch (err) {
+      console.error(`[AuthContext] createProfile error (${method} ${url}):`, err.message);
       setError(err.message);
       throw err;
     } finally {
@@ -198,21 +223,20 @@ export const AuthProvider = ({ children }) => {
 
   const switchProfile = async (profileId) => {
     if (!token) return;
+    const url = '/api/auth/profiles/switch';
+    const method = 'POST';
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/auth/profiles/switch', {
-        method: 'POST',
+      const res = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ profileId })
       });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to switch profile');
-      }
+      const data = await parseJsonResponse(res, method, url);
 
       if (data.activeProfile) {
         setActiveProfile(data.activeProfile);
@@ -220,6 +244,7 @@ export const AuthProvider = ({ children }) => {
       }
       return data;
     } catch (err) {
+      console.error(`[AuthContext] switchProfile error (${method} ${url}):`, err.message);
       setError(err.message);
       throw err;
     } finally {
@@ -229,21 +254,21 @@ export const AuthProvider = ({ children }) => {
 
   const resetProfile = async (profileId) => {
     if (!token) return;
+    const url = `/api/auth/profiles/${profileId}/reset`;
+    const method = 'POST';
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/auth/profiles/${profileId}/reset`, {
-        method: 'POST',
+      const res = await fetch(url, {
+        method,
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to reset profile');
-      }
+      const data = await parseJsonResponse(res, method, url);
       return data;
     } catch (err) {
+      console.error(`[AuthContext] resetProfile error (${method} ${url}):`, err.message);
       setError(err.message);
       throw err;
     } finally {

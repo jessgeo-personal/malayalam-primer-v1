@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [DATA-02-GREEN] - 2026-10-08
+### Added & Changed
+- **Track B, Task DATA-02 (Green Phase - Cycle 2 Grapheme Splits & Lessons 15–20 Bundling)**:
+  - Curated and populated atomic grapheme splits (`requiredCharacters`) in `server/data/seed-200.json` for all 50 vocabulary items across Lessons 15 to 20 adhering strictly to `docs/word_splitting_protocol.md`.
+  - Enforced Zero-Empty-Boxes Rule across all plural suffixes (`-ുകൾ`, `-ങ്ങൾ`, `-മാർ`), locatives (`-ൽ`, `-ിൽ`, `-യിൽ`, `-ത്തിൽ`), and tense transformation roots (`പോ`, `വാ`, `കളി`, `ഓടു`, `വായിക്കു`).
+  - Set `isSuffix: true` for concept items and `isSuffix: false` for vocabulary/build items.
+  - Verified 100% green pass on `server/tests/integrity.test.js` (6/6 tests passing) and full server test suite (10/10 test suites, 56/56 tests passing).
+  - Verified 100% green pass on client test suite (13/13 test suites, 46/46 tests passing).
+  - Re-seeded MongoDB database via `node seeder.js` cleanly importing 466 words without validation or unique key errors.
+  - Updated `docs/EXECUTION_TRACKER.md` setting DATA-02 to 🟢 Completed.
+
+## [DATA-02-RED] - 2026-10-08
+### Added
+- **Track B, Task DATA-02 (Red Phase - Cycle 2 Grapheme Splits & Lessons 15–20 Bundling)**:
+  - Created plan documents at `docs/plans/DATA-02-seed-200-grapheme-splits-and-lesson-bundling.md` and `.gemini/plans/DATA-02-seed-200-grapheme-splits-and-lesson-bundling.md`.
+  - Added new test suite `DATA-02: Cycle 2 (Lessons 15-20) Data Integrity & Zero-Empty-Boxes` to `server/tests/integrity.test.js`.
+  - Asserted that all Cycle 2 vocabulary items have valid `lessonId` between 15 and 20 and strictly adhere to the Zero-Empty-Boxes rule on `requiredCharacters`.
+  - Confirmed expected Red Phase failure (`expect(Array.isArray(word.requiredCharacters)).toBe(true)` received `false`) without modifying `seed-200.json`.
+
 ## [DATA-01-GREEN] - 2026-10-08
 ### Added
 - **Track B, Task DATA-01 (Green Phase - Automated Transliteration Utility & Verification)**:

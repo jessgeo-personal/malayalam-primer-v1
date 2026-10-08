@@ -21,7 +21,8 @@
         "rule": "CASE 2: Works for chillu letters and clusters too!"
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s001",
@@ -41,6 +42,15 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -61,6 +71,15 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -81,6 +100,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -101,6 +128,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ല്ല",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -121,6 +156,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ല്ല",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -141,6 +184,13 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ല",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -161,6 +211,13 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ത",
+      "ല",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -181,6 +238,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ൂ",
+      "ച്ച",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -201,6 +266,13 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ന",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -225,7 +297,8 @@
         "rule": "It works for all words ending in 'am'!"
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s010",
@@ -245,6 +318,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -265,6 +345,14 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ന",
+      "ി",
+      "റ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -285,6 +373,14 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ു",
+      "ഖ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -305,6 +401,15 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ു",
+      "സ്ത",
+      "ക",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -325,6 +430,15 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ക",
+      "ാ",
+      "ശ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -345,6 +459,14 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ച",
+      "ി",
+      "ത്ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -365,6 +487,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ഴ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -385,6 +514,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "സ്ത്ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -405,6 +541,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -429,7 +572,8 @@
         "rule": "CASE 2: Use standard -കൾ for young children."
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s019",
@@ -449,6 +593,14 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -469,6 +621,16 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ഭ",
+      "ാ",
+      "ര",
+      "്യ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -489,6 +651,17 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "ാ",
+      "യ",
+      "ി",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -509,6 +682,16 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "ച്ച",
+      "ന",
+      "്",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -529,6 +712,17 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ാ",
+      "മ",
+      "ന",
+      "്",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -549,6 +743,15 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ു",
+      "ട്ട",
+      "ി",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -569,6 +772,18 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ൺ",
+      "ക",
+      "ു",
+      "ട്ട",
+      "ി",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -589,6 +804,17 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ൺ",
+      "ക",
+      "ു",
+      "ട്ട",
+      "ി",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -609,6 +835,14 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -645,7 +879,8 @@
         "rule": "RULE 4: Replace the hard 'T' (ട്) with -ട്ടിൽ (ttil)."
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s028",
@@ -665,6 +900,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ട",
+      "ല",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -685,6 +928,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -705,6 +956,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -725,6 +984,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ത്ത",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -745,6 +1012,16 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ു",
+      "സ്ത",
+      "ക",
+      "ത്ത",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -765,6 +1042,16 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ട്ട",
+      "ി",
+      "യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -785,6 +1072,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ല",
+      "യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -805,6 +1100,13 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "യ്യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -825,6 +1127,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ട",
+      "ല",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -838,7 +1148,8 @@
     "baseWord": "പെട്ടി",
     "morphedBase": "പെട്ടിയിൽ",
     "targetSuffix": "യിൽ",
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s037",
@@ -859,6 +1170,15 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -880,6 +1200,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -901,6 +1229,13 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -922,6 +1257,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -943,6 +1286,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ൂ",
+      "ച്ച",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -964,6 +1315,17 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ാ",
+      "മ",
+      "ന",
+      "്",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -985,6 +1347,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ു",
+      "ഖ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -1006,6 +1376,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -1027,6 +1405,16 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ട്ട",
+      "ി",
+      "യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -1038,7 +1426,8 @@
     "lessonId": 20,
     "lessonType": "concept",
     "isSummary": true,
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "tm001",
@@ -1058,6 +1447,11 @@
     "futureEnglish": "WILL GO",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ോ"
     ]
   },
   {
@@ -1078,6 +1472,11 @@
     "futureEnglish": "WILL COME",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ാ"
     ]
   },
   {
@@ -1098,6 +1497,12 @@
     "futureEnglish": "WILL PLAY",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ള",
+      "ി"
     ]
   },
   {
@@ -1118,6 +1523,12 @@
     "futureEnglish": "WILL RUN",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ഓ",
+      "ട",
+      "ു"
     ]
   },
   {
@@ -1138,6 +1549,15 @@
     "futureEnglish": "WILL READ",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ാ",
+      "യ",
+      "ി",
+      "ക്ക",
+      "ു"
     ]
   }
 ]

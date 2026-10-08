@@ -124,3 +124,31 @@ describe('Database Curriculum Integrity', () => {
     console.log("Cycle 1 Integrity Scan: OK");
   });
 });
+
+const seed200 = require('../data/seed-200.json');
+
+describe('DATA-02: Cycle 2 (Lessons 15-20) Data Integrity & Zero-Empty-Boxes', () => {
+  it('should ensure all Cycle 2 words have valid lessonId between 15 and 20', () => {
+    expect(seed200.length).toBeGreaterThan(0);
+    seed200.forEach((word) => {
+      expect(word.lessonId).toBeDefined();
+      expect(word.lessonId).toBeGreaterThanOrEqual(15);
+      expect(word.lessonId).toBeLessThanOrEqual(20);
+    });
+  });
+
+  it('should enforce the Zero-Empty-Boxes rule on requiredCharacters', () => {
+    seed200.forEach((word) => {
+      // Suffix items or non-assembly items may be handled per schema,
+      // but all vocabulary words for assembly must have valid splits
+      if (!word.isSuffix) {
+        expect(Array.isArray(word.requiredCharacters)).toBe(true);
+        expect(word.requiredCharacters.length).toBeGreaterThan(0);
+        word.requiredCharacters.forEach((char) => {
+          expect(typeof char).toBe('string');
+          expect(char.trim().length).toBeGreaterThan(0);
+        });
+      }
+    });
+  });
+});

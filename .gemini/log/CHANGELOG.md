@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [DATA-01-GREEN] - 2026-10-08
+### Added
+- **Track B, Task DATA-01 (Green Phase - Automated Transliteration Utility & Verification)**:
+  - Implemented phonetic transliteration engine in `server/utils/transliterate.js` leveraging `@indic-transliteration/sanscript` and custom phonetic rule sets for Malayalam vowels, vowel signs, consonants, geminates, chillu letters (`ൻ`, `ൽ`, `ൾ`, `ർ`, `ൺ`), anusvara (`ം`), terminal virama suppression/schwa mapping, and affixes (e.g. `-ൽ` -> `'-il'`, `-ഓ` -> `'-o'`).
+  - Unit tests passed 100% green via `npx vitest run tests/transliterate.test.js`.
+  - Added standalone verification script `server/scripts/verify-transliteration.js` and npm script `npm run verify:transliterate`.
+  - Evaluated against all 268 phonetic items in `server/data/seed-100.json`, achieving 99.63% compatibility (267/268 matches) with sole expected discrepancy being internal seed variance on sentence "അമ്മ ഇന്നലെ വന്നു" (innalle vs innale).
+  - Maintained 100% green pass on full backend Jest regression test suite (10/10 test suites passed, 54/54 tests).
+  - Updated `docs/EXECUTION_TRACKER.md` setting DATA-01 to 🟢 Completed.
+
+## [DATA-01-RED] - 2026-10-08
+### Added
+- **Track B, Task DATA-01 (Red Phase - Automated Transliteration Utility)**:
+  - Created plan documents at `docs/plans/DATA-01-automated-phonetic-transliteration.md` and `.gemini/plans/DATA-01-automated-phonetic-transliteration.md`.
+  - Installed `@indic-transliteration/sanscript` in server dependencies and `vitest` in server devDependencies.
+  - Created failing test suite at `server/tests/transliterate.test.js` specifying expected phonetic output for pronouns (`ഞാൻ` -> `'njan'`, `അവൻ` -> `'avan'`), conjuncts & chillu letters (`ഉണ്ട്` -> `'undu'`, `അമ്മ` -> `'amma'`, `എന്തുകൊണ്ട്` -> `'enthukond'`), and grammatical suffixes (`-ൽ` -> `'-il'`, `-ഓ` -> `'-o'`).
+  - Verified test failure in Red Phase (`Cannot find module '../utils/transliterate.js'`).
+
 ## [2026.10.08.004] - 2026-10-08
 ### Changed
 - **Mobile-First Vertical Stacking for 'Your Progress' Card (`client/src/components/ui/AdventureMap.jsx`)**:

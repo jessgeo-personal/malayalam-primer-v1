@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.09.001] - 2026-10-09
+### Added
+- **Prototype Lab Word Assembly Selector (`client/src/components/ui/PrototypeLab.jsx`)**:
+  - Added an interactive word selection workbench control to the Assembly Box (`ASSEMBLY_PRESETS`) with categorized groupings:
+    * Left-side mathras: പെട്ടി (`petti` - െ), വേണം (`venam` - േ), ചെറിയ (`cheriya` - െ)
+    * Surround mathras: പോയി (`poyi` - ോ), നോക്കി (`nokki` - ോ), ചോദിച്ചു (`chodichu` - ോ), കൊടുത്തു (`koduthu` - ൊ)
+    * Base conjuncts & core: അമ്മ (`amma`), കുട്ടി (`kutti`), സ്കൂൾ (`school`), ആന (`aana`)
+  - Dynamic re-mounting of `<LetterPicker />` keyed by selected `wordId`, enabling real-time visual inspection of left-side mathra displacement (െ, േ) and surround mathra right-wing slots (ൊ, ോ).
+  - Added unit tests in `client/src/tests/PrototypeLab.test.jsx` verifying word selector rendering and dynamic item switching.
+  - Added unit tests in `client/src/tests/LetterPicker.test.jsx` verifying correct droppable slot counts and visual reordering for left-side and surround mathras.
+
 ## [DATA-02-GREEN] - 2026-10-08
 ### Added & Changed
 - **Track B, Task DATA-02 (Green Phase - Cycle 2 Grapheme Splits & Lessons 15–20 Bundling)**:

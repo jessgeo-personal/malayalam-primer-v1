@@ -26,15 +26,103 @@ const PrototypeLab = () => {
     lessonType: "trace"
   };
 
-  // Mock data for Word Assembly Sandbox
-  const mockBuild = {
-    wordId: "lab-build-001",
-    malayalamText: "ആന",
-    englishTranslation: "Elephant",
-    phonetic: "Aana",
-    requiredCharacters: ["ആ", "ന"],
-    lessonType: "build"
-  };
+  // Preset test items for Assembly Workbench categorized by linguistic/mathra challenge
+  const ASSEMBLY_PRESETS = [
+    // Left-side mathras
+    {
+      wordId: "preset-petti",
+      malayalamText: "പെട്ടി",
+      englishTranslation: "Box",
+      phonetic: "petti",
+      requiredCharacters: ["പ", "െ", "ട്ട", "ി"],
+      category: "Left Mathra (െ)"
+    },
+    {
+      wordId: "preset-venam",
+      malayalamText: "വേണം",
+      englishTranslation: "Want",
+      phonetic: "venam",
+      requiredCharacters: ["വ", "േ", "ണ", "ം"],
+      category: "Left Mathra (േ)"
+    },
+    {
+      wordId: "preset-cheriya",
+      malayalamText: "ചെറിയ",
+      englishTranslation: "Small",
+      phonetic: "cheriya",
+      requiredCharacters: ["ച", "െ", "റ", "ി", "യ"],
+      category: "Left Mathra (െ)"
+    },
+    // Surround mathras
+    {
+      wordId: "preset-poyi",
+      malayalamText: "പോയി",
+      englishTranslation: "Went",
+      phonetic: "poyi",
+      requiredCharacters: ["പ", "ോ", "യ", "ി"],
+      category: "Surround Mathra (ോ)"
+    },
+    {
+      wordId: "preset-nokki",
+      malayalamText: "നോക്കി",
+      englishTranslation: "Looked",
+      phonetic: "nokki",
+      requiredCharacters: ["ന", "ോ", "ക്ക", "ി"],
+      category: "Surround Mathra (ോ)"
+    },
+    {
+      wordId: "preset-chodichu",
+      malayalamText: "ചോദിച്ചു",
+      englishTranslation: "Asked",
+      phonetic: "chodichu",
+      requiredCharacters: ["ച", "ോ", "ദ", "ി", "ച്ച", "ു"],
+      category: "Surround Mathra (ോ)"
+    },
+    {
+      wordId: "preset-koduthu",
+      malayalamText: "കൊടുത്തു",
+      englishTranslation: "Gave",
+      phonetic: "koduthu",
+      requiredCharacters: ["ക", "ൊ", "ട", "ു", "ത്ത", "ു"],
+      category: "Surround Mathra (ൊ)"
+    },
+    // Base conjuncts
+    {
+      wordId: "preset-amma",
+      malayalamText: "അമ്മ",
+      englishTranslation: "Mother",
+      phonetic: "amma",
+      requiredCharacters: ["അ", "മ്മ"],
+      category: "Base Conjunct"
+    },
+    {
+      wordId: "preset-kutti",
+      malayalamText: "കുട്ടി",
+      englishTranslation: "Child",
+      phonetic: "kutti",
+      requiredCharacters: ["ക", "ു", "ട്ട", "ി"],
+      category: "Base Conjunct"
+    },
+    {
+      wordId: "preset-school",
+      malayalamText: "സ്കൂൾ",
+      englishTranslation: "School",
+      phonetic: "school",
+      requiredCharacters: ["സ്ക", "ൂ", "ൾ"],
+      category: "Base Conjunct"
+    },
+    {
+      wordId: "preset-aana",
+      malayalamText: "ആന",
+      englishTranslation: "Elephant",
+      phonetic: "Aana",
+      requiredCharacters: ["ആ", "ന"],
+      category: "Basic"
+    }
+  ];
+
+  const [selectedBuildWordId, setSelectedBuildWordId] = useState(ASSEMBLY_PRESETS[0].wordId);
+  const selectedBuildWord = ASSEMBLY_PRESETS.find(w => w.wordId === selectedBuildWordId) || ASSEMBLY_PRESETS[0];
 
   // Mock data for Sentence Scrambler
   const mockScramble = {
@@ -122,9 +210,67 @@ const PrototypeLab = () => {
               </div>
             )}
             {activeTab === 'build' && (
-              <div className="w-full flex flex-col items-center">
-                 <LetterPicker word={mockBuild} onComplete={() => console.log('Lab Build Done')} />
-                 <p className="mt-8 text-slate-400 font-bold uppercase text-[10px]">Component: LetterPicker</p>
+              <div className="w-full flex flex-col items-center gap-6">
+                {/* 🎛️ Interactive Word Selector Workbench Header */}
+                <div className="w-full max-w-4xl bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-md border border-slate-200/80 flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      Assembly Workbench
+                    </span>
+                    <h3 className="text-base font-black text-slate-800 flex items-center gap-2">
+                      <span>🔤 Word & Mathra Audit</span>
+                      <span className="text-xs px-2.5 py-0.5 rounded-full bg-prime-action-dark/5 text-prime-action-dark font-bold">
+                        {selectedBuildWord.category}
+                      </span>
+                    </h3>
+                  </div>
+
+                  <div className="flex items-center gap-3 w-full md:w-auto">
+                    <label htmlFor="word-assembly-select" className="text-xs font-bold text-slate-500 whitespace-nowrap">
+                      Select Word:
+                    </label>
+                    <select
+                      id="word-assembly-select"
+                      aria-label="Select Word for Assembly Test"
+                      value={selectedBuildWordId}
+                      onChange={(e) => setSelectedBuildWordId(e.target.value)}
+                      className="bg-slate-50 border-2 border-slate-200 hover:border-slate-300 text-slate-900 text-sm font-bold rounded-2xl px-4 py-2.5 focus:outline-none focus:border-prime-action-dark transition-all cursor-pointer shadow-sm w-full md:w-auto"
+                    >
+                      <optgroup label="Left-Side Mathras (െ, േ)">
+                        {ASSEMBLY_PRESETS.filter(p => p.category.startsWith('Left')).map(preset => (
+                          <option key={preset.wordId} value={preset.wordId}>
+                            {preset.malayalamText} ({preset.englishTranslation})
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="Surround Mathras (ൊ, ോ)">
+                        {ASSEMBLY_PRESETS.filter(p => p.category.startsWith('Surround')).map(preset => (
+                          <option key={preset.wordId} value={preset.wordId}>
+                            {preset.malayalamText} ({preset.englishTranslation})
+                          </option>
+                        ))}
+                      </optgroup>
+                      <optgroup label="Base Conjuncts & Others">
+                        {ASSEMBLY_PRESETS.filter(p => !p.category.startsWith('Left') && !p.category.startsWith('Surround')).map(preset => (
+                          <option key={preset.wordId} value={preset.wordId}>
+                            {preset.malayalamText} ({preset.englishTranslation})
+                          </option>
+                        ))}
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Mounted LetterPicker - Re-mounted via key on wordId change */}
+                <div className="w-full flex justify-center" key={selectedBuildWord.wordId}>
+                  <LetterPicker 
+                    word={selectedBuildWord} 
+                    onComplete={() => console.log('Lab Build Done:', selectedBuildWord.malayalamText)} 
+                  />
+                </div>
+                <p className="mt-2 text-slate-400 font-bold uppercase text-[10px]">
+                  Component: LetterPicker | Target: {selectedBuildWord.malayalamText} [{selectedBuildWord.requiredCharacters.join(' + ')}]
+                </p>
               </div>
             )}
           </div>

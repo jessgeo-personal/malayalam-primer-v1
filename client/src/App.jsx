@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useProgress, useAuth, AuthProvider } from './context';
 import AuthContext from './context/AuthContext';
 import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine, SentenceScrambler } from './components/games';
@@ -46,6 +46,18 @@ const AppContent = () => {
     openAuthModal,
     logout
   } = useAuth();
+
+  const activeView = showAudit ? 'audit' : showLab ? 'lab' : sessionMode;
+  const activeLesson = activeLessonId || currentLesson;
+  const currentAct = currentItem?.act || currentItem?.lessonType || null;
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+    const mainContainer = document.querySelector('main') || document.documentElement;
+    if (mainContainer) mainContainer.scrollTop = 0;
+  }, [activeView, activeLesson, currentAct]);
 
   if (error) {
     return (
@@ -161,54 +173,11 @@ const AppContent = () => {
           <div className="flex flex-col gap-10">
             {showProfiles && isAuthenticated && (
               <div className="animate-pop">
-                <ProfileSelector />
+                <ProfileSelector onClose={() => setShowProfiles(false)} />
               </div>
             )}
-            
-            {/* 2. Learning Plan Bento Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pop">
-              {/* Active Cycle Progress */}
-              <div className="md:col-span-2 card-bento-teal min-h-[220px]">
-                <div>
-                  <span className="text-white/70 font-bold uppercase text-xs tracking-widest">Your Progress</span>
-                  <h3 className="text-white text-3xl font-black mt-1">Cycle {currentCycle} Mastery</h3>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-hero text-white">{cycleProgress}</span>
-                  <span className="text-3xl font-black text-white/50">%</span>
-                </div>
-                <div className="w-full bg-white/20 h-3 rounded-full overflow-hidden">
-                  <div className="bg-white h-full transition-all duration-1000 rounded-full" style={{ width: `${cycleProgress}%` }}></div>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-6">
-                {/* Stat Box 1 */}
-                <div className="card-bento-surface flex-1">
-                   <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Lessons</span>
-                   <div className="text-4xl font-extrabold text-prime-dark-text mt-1">{lessonHistory.length}</div>
-                   <p className="text-slate-500 text-xs font-medium mt-1">Completed</p>
-                </div>
-                {/* Stat Box 2 */}
-                <div className="card-bento-surface flex-1">
-                   <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Points</span>
-                   <div className="text-4xl font-extrabold text-prime-dark-text mt-1">{score}</div>
-                   <p className="text-slate-500 text-xs font-medium mt-1">Total Score</p>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Mastery Badge Strip */}
-            <div className="animate-pop" style={{ animationDelay: '0.1s' }}>
-              <h2 className="text-xl font-bold text-prime-dark-text mb-4 ml-2">My Letters</h2>
-              <MasteryStrip characters={masteredCharacters} />
-            </div>
-
-            {/* 4. Active Module Course Deck (Adventure Map) */}
-            <div className="animate-pop" style={{ animationDelay: '0.2s' }}>
-              <h2 className="text-xl font-bold text-prime-dark-text mb-4 ml-2">Lessons</h2>
-              <AdventureMap />
-            </div>
+            {/* 1-5. Unified Adventure Map Bento Sections */}
+            <AdventureMap characters={masteredCharacters} />
           </div>
         ) : sessionStatus === 'complete' ? (
           <div className="w-full max-w-2xl mx-auto card-bento-surface p-12 text-center animate-pop relative overflow-hidden">

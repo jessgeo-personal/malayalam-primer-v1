@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node server.js",
-    "test": "jest",
+    "test": "jest --runInBand",
     "start": "node server.js",
     "seed": "node seeder.js",
     "reset": "node reset-progress.js"

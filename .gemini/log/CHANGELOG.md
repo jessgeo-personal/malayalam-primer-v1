@@ -2,6 +2,70 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.08.003] - 2026-10-08
+### Changed
+- **Emerald Green Theme for 'Your Progress' Hero Card (`client/src/components/ui/AdventureMap.jsx`)**:
+  - Replaced container styling with rich emerald green palette (`bg-emerald-600 rounded-3xl p-6 sm:p-8 text-white shadow-lg border border-emerald-500`).
+  - Header Row: Set title to bold white uppercase (`text-white font-black text-sm uppercase tracking-[0.2em]`), cycle badge to mint (`text-emerald-100 font-semibold`), and divider to `border-b border-emerald-500/50 pb-4 mb-6`.
+  - Column 1 (Left): High-contrast dark emerald pill for Level (`bg-emerald-800/60 text-white border border-emerald-400/40 font-bold px-3 py-1 rounded-full text-xs`), cycle title in `text-2xl font-black text-white`, and guidance box in `bg-emerald-700/50 border border-emerald-400/30 text-white rounded-2xl p-4 text-xs font-medium leading-relaxed`.
+  - Column 2 (Center - 'NEXT UP'): Crisp white island card (`bg-white text-slate-900 rounded-2xl p-5 shadow-md border border-emerald-100`) with emerald badge (`bg-emerald-600 text-white px-2 py-0.5 rounded-full`), bold title (`text-slate-900 font-black text-base sm:text-lg mt-1`), and dark action pill (`bg-[#1A1E26] hover:bg-slate-800 text-white font-bold rounded-xl`).
+  - Column 3 (Right - Stacked Stats): Matching emerald cards (`bg-emerald-700/40 border border-emerald-400/30 rounded-2xl p-4 text-white`) with light mint labels (`text-emerald-100 text-xs font-bold uppercase tracking-wider`) and white values (`text-2xl font-black text-white mt-1`).
+  - Progress Bar: Dark emerald track (`bg-emerald-950/40 border border-emerald-400/30 h-4 rounded-full overflow-hidden p-0.5`) with vibrant amber fill (`bg-amber-400 h-full rounded-full transition-all duration-700`), mint label, and white percentage text.
+
+## [2026.10.08.002] - 2026-10-08
+### Changed
+- **High-Contrast Dark Color Scheme for 'Your Progress' Card (`client/src/components/ui/AdventureMap.jsx`)**:
+  - Inverted outer hero card container to obsidian/charcoal theme (`bg-[#1A1E26] text-[#FFFDF6] border border-slate-700/60`).
+  - Styled header and typography: High-contrast emerald badge (`text-emerald-400`), cream cycle title (`text-[#FFFDF6]`), muted slate labels (`text-slate-300`, `text-slate-400`).
+  - Upgraded guidance box: Light amber/cream typography with translucent background (`text-amber-200/90 bg-amber-500/10 border border-amber-400/20`).
+  - High-contrast level badge: Translucent pill with crisp white text (`bg-white/10 text-white border border-white/20`).
+  - Enhanced internal cards:
+    * 'NEXT UP' card: Dark translucent container (`bg-white/10 border border-white/15 text-white`) with high-contrast tactile action button (`bg-white hover:bg-slate-100 text-[#1A1E26]`).
+    * Column 3 Stat Cards ('LESSONS COMPLETED', 'TOTAL POINTS'): Matching translucent containers (`bg-white/10 border border-white/15 text-white`) with clear slate labels (`text-slate-300`) and glowing white values (`text-white`).
+    * Full-Width Progress Bar: High-contrast translucent track (`bg-white/20 border border-white/10`) with vibrant emerald fill (`bg-emerald-400`) and pure white percentage label (`text-white`).
+
+## [2026.10.08.001] - 2026-10-08
+### Added & Changed
+- **Task UI-01: AdventureMap Bento Structure & Section Layout Refactor:**
+  - **3-Column Hero Progress Card (`client/src/components/ui/AdventureMap.jsx`)**:
+    - Transformed upper hero container into a responsive 3-column Neo-Bento grid (`grid-cols-1 md:grid-cols-3`):
+      * **Col 1 (Left)**: Active Cycle metadata (`Cycle {activeCycle}: {cycleName}`), Learner Level badge, and replay guidance note (`⭐ Tap any completed train bogie below to replay and earn 3 stars!`).
+      * **Col 2 (Center)**: 'NEXT UP' card featuring active target lesson indicator, lesson number/title, and prominent context-aware CTA pill (`🚀 Start Lesson X` or `▶ Resume Lesson X`).
+      * **Col 3 (Right)**: Stacked stat cards for `📚 LESSONS COMPLETED` (`{completed} / {total}`) and `⭐ TOTAL POINTS` (`{points} pts`).
+    - Added full-width (`w-full`) Cycle progress bar spanning the bottom of the hero card with percentage display.
+  - **Eliminated Redundancies**:
+    - Removed redundant learning plan cards, duplicate stats rows, and standalone `<h2>Lessons</h2>` header from `App.jsx`.
+  - **Strict Vertical Page Hierarchy**:
+    - Enforced the 5-step vertical section progression:
+      1. **Your Progress** (Hero with embedded Next Up, Stacked Stats, and Full-Width Progress Bar)
+      2. **Practice** (Daily Review / SRS revision card)
+      3. **Adventure Map** (Malayalam Express Engine and Lesson Bogeys)
+      4. **Fluency Master** (Milestone Badges & Cycle Streaks)
+      5. **My Letters** (Mastery Strip / Learned Graphemes Shelf at the bottom)
+  - **TDD Green State & Zero Regression**:
+    - Backend: 10/10 test suites (54/54 tests) passing.
+    - Frontend: 13/13 test suites (46/46 tests) passing.
+
+## [2026.10.07.005] - 2026-10-07
+### Added
+- **Task AUTH-05: Auth & Navigation UX Polish (GREEN PHASE):**
+  - **Plan Documentation**: Created `docs/plans/AUTH-05-auth-and-navigation-ux-polish.md` (mirrored in `.gemini/plans/`) detailing onboarding name customization, profile dismissability, global scroll guarding, and context-aware adventure map CTAs.
+  - **First Learner Onboarding (`POST /api/auth/verify-otp` & `PUT /api/auth/profiles/:profileId`)**:
+    - Backend detects freshly created accounts or single-profile accounts with default name `'Learner 1'` and 0 progress, returning `isNewAccount: true`.
+    - Implemented protected `PUT /api/auth/profiles/:profileId` validating name input, updating profile name within account, and enforcing account ownership boundaries (returning 404 for alien profiles).
+    - `AuthContext.jsx` provides `updateProfileName` syncing state and local storage.
+    - `AuthModal.jsx` introduces Step 3 ("Learner Onboarding") asking "What is your learner's name?" with placeholders ('Aarav', 'Diya') and a "Save & Start" CTA.
+  - **Profile Selector Dismissability (`client/src/components/ui/ProfileSelector.jsx`)**:
+    - Added styled "Cancel" button beside "Add Learner" and card header close button invoking `onClose` callback to dismiss the selector in `App.jsx`.
+  - **Global Scroll Guard (`client/src/App.jsx`)**:
+    - Added `useEffect` hook listening to `[activeView, activeLesson, currentAct]` executing instant top scroll on both window and main container elements across view/lesson/act transitions.
+  - **Smart Hero CTAs (`client/src/components/ui/AdventureMap.jsx`)**:
+    - Context-aware Hero card displaying `▶ Resume Lesson {currentLesson}` when lesson is active/paused, and `🚀 Start Lesson {currentLesson}` when starting fresh or completing previous lessons.
+    - Included secondary motivation prompt: `"⭐ Want to improve your score? Tap any completed bogie on the train map below to replay for 3 stars!"`.
+  - **TDD Green State & Zero Regression**:
+    - Backend: 10/10 test suites (54/54 tests) passing in `server`.
+    - Frontend: 13/13 test suites (45/45 tests) passing in `client`.
+
 ## [2026.10.07.004] - 2026-10-07
 ### Added
 - **Task AUTH-04: Frontend Auth Flow (GREEN PHASE):**

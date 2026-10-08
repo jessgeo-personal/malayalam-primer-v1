@@ -53,6 +53,11 @@
 - [x] Profile management endpoints (`GET /api/auth/profiles`, `POST /api/auth/profiles`) (Task AUTH-02)
 - [x] Hard limit of 3 profiles per account enforced with 400 validation (Task AUTH-02)
 - [x] Active profile switching endpoint (`POST /api/auth/profiles/switch`) (Task AUTH-02)
+- [x] First learner onboarding (`PUT /api/auth/profiles/:profileId` endpoint + Frontend name prompt on `isNewAccount`) (Task AUTH-05)
+- [x] Cancel/Close button on ProfileSelector invoking `onClose` callback (Task AUTH-05)
+- [x] Global scroll-to-top on view and lesson changes in App.jsx (Task AUTH-05)
+- [x] Context-aware Hero CTAs in AdventureMap (Resume, Start Next with lesson number, Improve score instructions) (Task AUTH-05)
+- [x] Neo-Bento 3-column Hero Card and 5-section vertical page order (Hero, Practice, Adventure Map, Fluency Master, My Letters) (Task UI-01)
 - [x] Docker-compose structure valid
 - [x] MongoDB/Express/React connectivity placeholders established
 - [x] Vite development server starts without PostCSS errors (Tailwind v4 fix)

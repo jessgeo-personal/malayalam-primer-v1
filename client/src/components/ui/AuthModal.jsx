@@ -2,13 +2,23 @@ import React, { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 
 const AuthModal = () => {
-  const { isAuthModalOpen, closeAuthModal, requestOtp, verifyOtp, loading, error } = useAuth();
-  const [step, setStep] = useState(1); // 1: Email, 2: OTP
+  const { isAuthModalOpen, closeAuthModal, requestOtp, verifyOtp, updateProfileName, activeProfile, account, loading, error } = useAuth();
+  const [step, setStep] = useState(1); // 1: Email, 2: OTP, 3: Onboarding
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
+  const [learnerName, setLearnerName] = useState('');
   const [localError, setLocalError] = useState(null);
 
   if (!isAuthModalOpen) return null;
+
+  const handleClose = () => {
+    setStep(1);
+    setEmail('');
+    setOtp('');
+    setLearnerName('');
+    setLocalError(null);
+    closeAuthModal();
+  };
 
   const handleSendOtp = async (e) => {
     e?.preventDefault();
@@ -33,13 +43,31 @@ const AuthModal = () => {
     }
     setLocalError(null);
     try {
-      await verifyOtp(email.trim(), otp.trim());
-      // On success, AuthContext closes the modal
-      setStep(1);
-      setEmail('');
-      setOtp('');
+      const result = await verifyOtp(email.trim(), otp.trim());
+      if (result && result.isNewAccount) {
+        setStep(3);
+        setLocalError(null);
+        return;
+      }
+      handleClose();
     } catch (err) {
       setLocalError(err.message || 'Invalid OTP code');
+    }
+  };
+
+  const handleSaveLearnerName = async (e) => {
+    e?.preventDefault();
+    if (!learnerName.trim()) {
+      setLocalError("Please enter your learner's name");
+      return;
+    }
+    setLocalError(null);
+    try {
+      const firstProfileId = activeProfile?.profileId || account?.profiles?.[0]?.profileId || 'p1';
+      await updateProfileName(firstProfileId, learnerName.trim());
+      handleClose();
+    } catch (err) {
+      setLocalError(err.message || 'Failed to save learner name');
     }
   };
 
@@ -54,7 +82,7 @@ const AuthModal = () => {
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-fade-in"
-      onClick={closeAuthModal}
+      onClick={handleClose}
     >
       <div 
         className="w-full max-w-md bg-[#FFFDF6] border-2 border-stone-200/80 rounded-3xl p-6 sm:p-8 shadow-2xl relative animate-pop"
@@ -62,7 +90,7 @@ const AuthModal = () => {
       >
         {/* Close Button */}
         <button 
-          onClick={closeAuthModal}
+          onClick={handleClose}
           className="absolute top-5 right-5 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center font-bold text-lg transition-colors cursor-pointer"
           aria-label="Close"
         >
@@ -75,12 +103,14 @@ const AuthModal = () => {
             Parent Access
           </span>
           <h2 className="text-2xl font-black text-[#1A1E26] tracking-tight">
-            {step === 1 ? 'Parent Account Login' : 'Enter Verification Code'}
+            {step === 1 ? 'Parent Account Login' : step === 2 ? 'Enter Verification Code' : 'Learner Onboarding'}
           </h2>
           <p className="text-xs text-stone-500 mt-1">
             {step === 1 
               ? 'Receive a secure 6-digit code to access and sync learner profiles.' 
-              : `A 6-digit code was sent to ${email}`}
+              : step === 2
+              ? `A 6-digit code was sent to ${email}`
+              : 'Set up your learner profile to begin.'}
           </p>
         </div>
 
@@ -156,6 +186,36 @@ const AuthModal = () => {
               className="text-xs font-bold text-stone-500 hover:text-stone-800 text-center transition-colors pt-1 cursor-pointer"
             >
               ← Use a different email
+            </button>
+          </form>
+        )}
+
+        {/* Step 3: Learner Onboarding Form */}
+        {step === 3 && (
+          <form onSubmit={handleSaveLearnerName} className="flex flex-col gap-4">
+            <div>
+              <label className="block text-[11px] font-black uppercase tracking-wider text-stone-600 mb-1.5">
+                What is your learner's name?
+              </label>
+              <input 
+                type="text"
+                data-testid="onboarding-learner-name-input"
+                value={learnerName}
+                onChange={(e) => setLearnerName(e.target.value)}
+                placeholder="e.g., Aarav, Diya"
+                className="w-full px-4 py-3 rounded-2xl bg-white border border-stone-300 text-[#1A1E26] font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-[#1A1E26] shadow-sm transition-all"
+                autoFocus
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              data-testid="onboarding-save-start-btn"
+              disabled={loading || !learnerName.trim()}
+              className="w-full mt-2 py-3.5 px-6 rounded-2xl bg-[#1A1E26] hover:bg-[#2A303C] text-white font-black text-sm tracking-wide shadow-md transition-all active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+            >
+              {loading ? 'Saving...' : 'Save & Start'}
             </button>
           </form>
         )}

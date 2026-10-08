@@ -144,7 +144,9 @@ export const AuthProvider = ({ children }) => {
         saveActiveProfileId(initialProfile.profileId);
       }
 
-      setIsAuthModalOpen(false);
+      if (!data.isNewAccount) {
+        setIsAuthModalOpen(false);
+      }
       return data;
     } catch (err) {
       console.error(`[AuthContext] verifyOtp error (${method} ${url}):`, err.message);
@@ -276,6 +278,51 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateProfileName = async (profileId, newName) => {
+    if (!token) return;
+    const url = `/api/auth/profiles/${profileId}`;
+    const method = 'PUT';
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ name: newName })
+      });
+      const data = await parseJsonResponse(res, method, url);
+
+      if (data.profile) {
+        setAccount(prev => {
+          if (!prev || !prev.profiles) return prev;
+          const updatedProfiles = prev.profiles.map(p =>
+            p.profileId === profileId ? { ...p, name: data.profile.name } : p
+          );
+          const updated = { ...prev, profiles: updatedProfiles };
+          saveAccount(updated);
+          return updated;
+        });
+
+        setActiveProfile(prev => {
+          if (prev && prev.profileId === profileId) {
+            return { ...prev, name: data.profile.name };
+          }
+          return prev;
+        });
+      }
+      return data;
+    } catch (err) {
+      console.error(`[AuthContext] updateProfileName error (${method} ${url}):`, err.message);
+      setError(err.message);
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const logout = () => {
     setToken(null);
     setAccount(null);
@@ -301,6 +348,7 @@ export const AuthProvider = ({ children }) => {
     fetchProfiles,
     createProfile,
     switchProfile,
+    updateProfileName,
     resetProfile,
     logout
   };
@@ -330,6 +378,7 @@ export const useAuth = () => {
       fetchProfiles: async () => {},
       createProfile: async () => {},
       switchProfile: async () => {},
+      updateProfileName: async () => {},
       resetProfile: async () => {},
       logout: () => {}
     };

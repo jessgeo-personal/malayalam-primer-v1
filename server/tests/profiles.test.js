@@ -172,4 +172,74 @@ describe('Profile Management & Switching Integration', () => {
     expect(res.body.activeProfile).toHaveProperty('profileId', 'p1');
     expect(res.body.activeProfile).toHaveProperty('name', 'Learner 1');
   });
+
+  test('9. PUT /api/auth/profiles/:profileId updates profile name successfully (AUTH-05)', async () => {
+    const res = await request(app)
+      .put('/api/auth/profiles/p1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Aarav' });
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty('success', true);
+    expect(res.body).toHaveProperty('profile');
+    expect(res.body.profile).toMatchObject({
+      profileId: 'p1',
+      name: 'Aarav'
+    });
+
+    // Verify persistence via GET /api/auth/profiles
+    const checkRes = await request(app)
+      .get('/api/auth/profiles')
+      .set('Authorization', `Bearer ${token}`);
+    expect(checkRes.status).toBe(200);
+    expect(checkRes.body.profiles[0].name).toBe('Aarav');
+  });
+
+  test('10. PUT /api/auth/profiles/:profileId returns 404 for alien profile or non-existent profile (AUTH-05)', async () => {
+    // Non-existent profile
+    const resNonExistent = await request(app)
+      .put('/api/auth/profiles/unknown_profile_id')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Diya' });
+    expect(resNonExistent.status).toBe(404);
+    expect(resNonExistent.body).toHaveProperty('error', 'Profile not found');
+
+    // Alien profile from another account
+    const alienSetup = await createTestAccountAndToken('alien_parent@example.com');
+    const resAlien = await request(app)
+      .put('/api/auth/profiles/p1')
+      .set('Authorization', `Bearer ${alienSetup.token}`)
+      .send({ name: 'Hacked Name' });
+    // This updates alien account's own p1, but if we query with token 1 against a profile id that only alien account has:
+    // Create p_alien_2 under alienSetup
+    alienSetup.account.profiles.push({ profileId: 'p_alien_99', name: 'Alien 99', avatar: 'star' });
+    await alienSetup.account.save();
+
+    const resAlienAccess = await request(app)
+      .put('/api/auth/profiles/p_alien_99')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Unauthorized Change' });
+    expect(resAlienAccess.status).toBe(404);
+    expect(resAlienAccess.body).toHaveProperty('error', 'Profile not found');
+
+    await Account.deleteMany({ email: 'alien_parent@example.com' });
+  });
+
+  test('11. PUT /api/auth/profiles/:profileId returns 400 for empty or invalid name (AUTH-05)', async () => {
+    // Missing name
+    const resMissing = await request(app)
+      .put('/api/auth/profiles/p1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({});
+    expect(resMissing.status).toBe(400);
+    expect(resMissing.body).toHaveProperty('error');
+
+    // Blank name
+    const resBlank = await request(app)
+      .put('/api/auth/profiles/p1')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: '   ' });
+    expect(resBlank.status).toBe(400);
+    expect(resBlank.body).toHaveProperty('error');
+  });
 });

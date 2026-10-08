@@ -280,6 +280,7 @@ export const ProgressProvider = ({ children }) => {
       userId,
       switchUser,
       activeLessonId,
+      activeLesson: activeLessonId,
       sessionItems,
       currentItem,
       masteredCharacters,

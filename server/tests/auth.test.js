@@ -27,7 +27,11 @@ describe('Auth Endpoints Integration (Email + OTP)', () => {
       try {
         const Account = mongoose.models.Account;
         if (Account) {
-          await Account.deleteMany({ email: { $in: ['parent@example.com', 'replay@example.com'] } });
+          await Account.deleteMany({ email: { $in: ['parent@example.com', 'replay@example.com', 'new_parent@example.com', 'existing_parent@example.com'] } });
+        }
+        const Progress = mongoose.models.Progress;
+        if (Progress) {
+          await Progress.deleteMany({ userId: 'p1' });
         }
       } catch (err) {
         // Ignore cleanup errors
@@ -40,7 +44,11 @@ describe('Auth Endpoints Integration (Email + OTP)', () => {
     try {
       const Account = mongoose.models.Account;
       if (Account) {
-        await Account.deleteMany({ email: { $in: ['parent@example.com', 'replay@example.com'] } });
+        await Account.deleteMany({ email: { $in: ['parent@example.com', 'replay@example.com', 'new_parent@example.com', 'existing_parent@example.com'] } });
+      }
+      const Progress = mongoose.models.Progress;
+      if (Progress) {
+        await Progress.deleteMany({ userId: 'p1' });
       }
     } catch (err) {
       // Model not registered yet
@@ -151,5 +159,52 @@ describe('Auth Endpoints Integration (Email + OTP)', () => {
       .post('/api/auth/verify-otp')
       .send({ email, otp });
     expect(secondVerify.status).toBe(401);
+  });
+
+  test('7. POST /api/auth/verify-otp returns isNewAccount: true for a fresh account with default profile and 0 progress (AUTH-05)', async () => {
+    const email = 'new_parent@example.com';
+    const reqRes = await request(app)
+      .post('/api/auth/request-otp')
+      .send({ email });
+    const otp = reqRes.body.otp;
+
+    const verifyRes = await request(app)
+      .post('/api/auth/verify-otp')
+      .send({ email, otp });
+
+    expect(verifyRes.status).toBe(200);
+    expect(verifyRes.body).toHaveProperty('isNewAccount', true);
+
+    const Account = mongoose.models.Account;
+    if (Account) await Account.deleteMany({ email });
+  });
+
+  test('8. POST /api/auth/verify-otp returns isNewAccount: false if profile has progress (AUTH-05)', async () => {
+    const email = 'existing_parent@example.com';
+    const reqRes = await request(app)
+      .post('/api/auth/request-otp')
+      .send({ email });
+    const otp = reqRes.body.otp;
+
+    // Simulate existing progress for p1
+    const Progress = mongoose.models.Progress || require('../models/Progress');
+    await Progress.create({
+      userId: 'p1',
+      itemId: 'm1',
+      itemType: 'letter',
+      srsStage: 1,
+      nextReviewDate: new Date()
+    });
+
+    const verifyRes = await request(app)
+      .post('/api/auth/verify-otp')
+      .send({ email, otp });
+
+    expect(verifyRes.status).toBe(200);
+    expect(verifyRes.body).toHaveProperty('isNewAccount', false);
+
+    const Account = mongoose.models.Account;
+    if (Account) await Account.deleteMany({ email });
+    await Progress.deleteMany({ userId: 'p1' });
   });
 });

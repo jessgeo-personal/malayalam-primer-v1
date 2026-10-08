@@ -3,7 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 
 const AVATARS = ['star', 'rocket', 'sun', 'flower'];
 
-const ProfileSelector = () => {
+const ProfileSelector = ({ onClose }) => {
   const { account, activeProfile, switchProfile, createProfile, resetProfile, loading } = useAuth();
   const [newProfileName, setNewProfileName] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState('rocket');
@@ -67,6 +67,17 @@ const ProfileSelector = () => {
             {profiles.length} / 3 profiles registered for {account.email}
           </p>
         </div>
+        {onClose && (
+          <button
+            type="button"
+            data-testid="close-profile-selector-x-btn"
+            onClick={onClose}
+            className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center font-bold text-sm transition-colors cursor-pointer"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        )}
       </div>
 
       {actionError && (
@@ -143,8 +154,19 @@ const ProfileSelector = () => {
             disabled={isCeilingReached || loading}
             className="w-full sm:w-auto px-6 py-2.5 rounded-2xl bg-[#1A1E26] hover:bg-[#2A303C] text-white font-black text-xs uppercase tracking-wider shadow-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
           >
-            {isCeilingReached ? 'Limit Reached' : 'Add Profile'}
+            {isCeilingReached ? 'Limit Reached' : 'Add Learner'}
           </button>
+
+          {onClose && (
+            <button
+              type="button"
+              data-testid="cancel-profile-selector-btn"
+              onClick={onClose}
+              className="w-full sm:w-auto px-6 py-2.5 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-black text-xs uppercase tracking-wider border border-stone-300 shadow-sm transition-all cursor-pointer"
+            >
+              Cancel
+            </button>
+          )}
         </form>
       </div>
     </div>

@@ -79,8 +79,18 @@ router.post('/verify-otp', async (req, res) => {
       { expiresIn: '30d' }
     );
 
+    // Check if account was freshly created or has only 1 profile with default name 'Learner 1' and zero progress
+    let isNewAccount = false;
+    if (account.profiles && account.profiles.length === 1 && account.profiles[0].name === 'Learner 1') {
+      const progressCount = await Progress.countDocuments({ userId: account.profiles[0].profileId });
+      if (progressCount === 0) {
+        isNewAccount = true;
+      }
+    }
+
     return res.status(200).json({
       token,
+      isNewAccount,
       account: {
         email: account.email,
         profiles: account.profiles
@@ -134,6 +144,38 @@ router.post('/profiles', authMiddleware, async (req, res) => {
     });
   } catch (error) {
     console.error('Error in POST /profiles:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// PUT /profiles/:profileId
+router.put('/profiles/:profileId', authMiddleware, async (req, res) => {
+  try {
+    const { profileId } = req.params;
+    const { name } = req.body;
+
+    if (!name || typeof name !== 'string' || !name.trim()) {
+      return res.status(400).json({ error: 'Profile name is required' });
+    }
+
+    if (!req.account || !req.account.profiles) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
+
+    const profile = req.account.profiles.find(p => p.profileId === profileId);
+    if (!profile) {
+      return res.status(404).json({ error: 'Profile not found' });
+    }
+
+    profile.name = name.trim();
+    await req.account.save();
+
+    return res.status(200).json({
+      success: true,
+      profile
+    });
+  } catch (error) {
+    console.error('Error in PUT /profiles/:profileId:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });

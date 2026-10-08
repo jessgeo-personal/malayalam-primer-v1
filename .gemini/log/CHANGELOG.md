@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.08.004] - 2026-10-08
+### Changed
+- **Mobile-First Vertical Stacking for 'Your Progress' Card (`client/src/components/ui/AdventureMap.jsx`)**:
+  - Configured upper grid container to mobile-first single column with tablet/desktop expansion (`grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 items-stretch`), allowing major blocks to take 100% width on phone screens (< md).
+  - Enforced strict vertical stacking for Column 3 Stat Cards (`flex flex-col gap-3 sm:gap-4 justify-between h-full`) ensuring 'LESSONS COMPLETED' sits directly above 'TOTAL POINTS' across all viewports.
+  - Scaled container padding responsive hierarchy (`p-4 sm:p-6 md:p-8`) and text sizes (`text-xl sm:text-2xl` for cycle header, `text-sm sm:text-base md:text-lg` for lesson title) to eliminate mobile clipping and overflow.
+  - Verified exact top-to-bottom mobile order: 1. Cycle & Level Information, 2. 'NEXT UP' Card, 3. 'LESSONS COMPLETED' Card, 4. 'TOTAL POINTS' Card, 5. Full-Width Progress Bar.
+
 ## [2026.10.08.003] - 2026-10-08
 ### Changed
 - **Emerald Green Theme for 'Your Progress' Hero Card (`client/src/components/ui/AdventureMap.jsx`)**:

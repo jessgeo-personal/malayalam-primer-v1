@@ -105,36 +105,36 @@ const AdventureMap = ({ characters }) => {
       {/* 1. Your Progress Card (Hero with embedded Next Up, Stacked Stats, and Full-Width Progress Bar) */}
       <div 
         data-testid="your-progress-card" 
-        className="rounded-3xl p-6 sm:p-8 bg-emerald-600 text-white shadow-lg border border-emerald-500 flex flex-col relative overflow-hidden"
+        className="rounded-3xl p-4 sm:p-6 md:p-8 bg-emerald-600 text-white shadow-lg border border-emerald-500 flex flex-col relative overflow-hidden"
       >
-        <div className="flex items-center justify-between border-b border-emerald-500/50 pb-4 mb-6">
+        <div className="flex items-center justify-between border-b border-emerald-500/50 pb-4 mb-4 sm:mb-6">
           <span className="text-white font-black text-sm uppercase tracking-[0.2em]">Your Progress</span>
           <span className="text-emerald-100 font-semibold text-xs sm:text-sm">Cycle {currentCycle} of 4</span>
         </div>
 
-        {/* Upper portion: 3-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-          {/* Column 1 (Left): Cycle Name, Learner Level badge, helper note */}
-          <div className="flex flex-col justify-between gap-4 p-5 rounded-2xl bg-emerald-700/30 border border-emerald-400/20">
+        {/* Upper portion: Mobile-first 1-column stacking (< md) and 3-column layout (>= md) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 items-stretch">
+          {/* 1. Cycle & Level Information (Col 1) */}
+          <div className="flex flex-col justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-emerald-700/30 border border-emerald-400/20">
             <div className="flex flex-col gap-2">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-800/60 text-white border border-emerald-400/40 font-bold rounded-full text-xs w-fit">
                 <span>⭐ LEVEL {learnerLevel}</span>
               </div>
-              <h3 className="text-2xl font-black text-white tracking-tight">
+              <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                 Cycle {currentCycle}: {currentCycleData.name}
               </h3>
-              <p className="text-emerald-100 font-medium text-sm">
+              <p className="text-emerald-100 font-medium text-xs sm:text-sm">
                 Active mastery phase for core structural vocabulary.
               </p>
             </div>
 
-            <div className="bg-emerald-700/50 border border-emerald-400/30 text-white rounded-2xl p-4 text-xs font-medium leading-relaxed">
+            <div className="bg-emerald-700/50 border border-emerald-400/30 text-white rounded-2xl p-3 sm:p-4 text-xs font-medium leading-relaxed">
               ⭐ Tap any completed train bogie below to replay and earn 3 stars!
             </div>
           </div>
 
-          {/* Column 2 (Center): 'NEXT UP' card containing target lesson title and dynamic CTA */}
-          <div className="bg-white text-slate-900 rounded-2xl p-5 shadow-md flex flex-col justify-between border border-emerald-100 relative overflow-hidden">
+          {/* 2. 'NEXT UP' Card (Col 2) */}
+          <div className="bg-white text-slate-900 rounded-2xl p-4 sm:p-5 shadow-md flex flex-col justify-between border border-emerald-100 relative overflow-hidden">
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="bg-emerald-600 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-full tracking-wider">
@@ -142,7 +142,7 @@ const AdventureMap = ({ characters }) => {
                 </span>
                 <span className="text-[11px] font-bold text-slate-400">Active Target</span>
               </div>
-              <h4 className="text-slate-900 font-black text-base sm:text-lg mt-1">
+              <h4 className="text-slate-900 font-black text-sm sm:text-base md:text-lg mt-1">
                 Lesson {currentLesson}
               </h4>
               <p className="text-xs text-slate-500">
@@ -159,8 +159,8 @@ const AdventureMap = ({ characters }) => {
             </button>
           </div>
 
-          {/* Column 3 (Right): Stack of 2 compact stat cards */}
-          <div className="flex flex-col gap-3 justify-between">
+          {/* 3. Stats Container: Stacks 3. 'LESSONS COMPLETED' above 4. 'TOTAL POINTS' on all screen sizes */}
+          <div className="flex flex-col gap-3 sm:gap-4 justify-between h-full">
             {/* Stat Card 1: LESSONS COMPLETED */}
             <div className="flex-1 bg-emerald-700/40 border border-emerald-400/30 rounded-2xl p-4 text-white flex flex-col justify-center">
               <span className="text-emerald-100 text-xs font-bold uppercase tracking-wider">
@@ -185,8 +185,8 @@ const AdventureMap = ({ characters }) => {
           </div>
         </div>
 
-        {/* Bottom of the Card: Place cycle progress bar spanning 100% width across the bottom */}
-        <div className="w-full pt-4 border-t border-emerald-500/50 flex flex-col gap-2 mt-6">
+        {/* 5. Full-Width Progress Bar (Bottom) */}
+        <div className="w-full pt-4 border-t border-emerald-500/50 flex flex-col gap-2 mt-4 sm:mt-6">
           <div className="flex justify-between items-center">
             <span className="text-emerald-100 font-bold text-xs uppercase tracking-wider">
               Cycle {currentCycle} Mastery

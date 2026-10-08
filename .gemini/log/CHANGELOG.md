@@ -2,6 +2,49 @@
 
 All notable changes to this project will be documented in this file.
 
+## [AUDIO-01-GREEN] - 2026-10-09
+### Added & Changed
+- **Track C, Task AUDIO-01 (Green Phase - Bounded Audio Pipeline & Fallback Engine)**:
+  - Implemented consolidated audio playback service in `client/src/services/audioEngine.js`:
+    * `getAudioUrlForWord(wordItem)`: Deterministically resolves static audio asset path `/audio/words/${wordItem.wordId}.mp3`.
+    * `playWordSound(wordItem)`: Primary path instantiates HTML5 `Audio(url)` with event handlers (`ended`, `error`), seamlessly falling back to `window.speechSynthesis` on 404, missing file, or decode rejection.
+    * Fallback engine guards against non-browser environments and safely invokes Malayalam speech synthesis (`ml-IN`) without throwing unhandled exceptions.
+    * Backwards compatibility preserved with `AudioEngine` class, `playPhoneticSound`, and bridging in `client/src/utils/audioEngine.js`.
+  - Created directory structure `client/public/audio/words/` with `.gitkeep` for pre-generated audio assets.
+  - Verified 100% green pass on `client/src/tests/audioEngine.test.js` (2/2 tests pass).
+  - Verified 100% green pass on full client regression suite (14/14 test suites, 51/51 tests pass).
+  - Verified 100% green pass on full server regression suite (10/10 test suites, 59/59 tests pass).
+  - Marked AUDIO-01 as 🟢 Completed in `docs/EXECUTION_TRACKER.md`.
+
+## [AUDIO-01-RED] - 2026-10-09
+### Added
+- **Track C, Task AUDIO-01 (Red Phase - Bounded Audio Pipeline & Fallback Engine)**:
+  - Created plan documents at `docs/plans/AUDIO-01-bounded-audio-asset-pipeline.md` and `.gemini/plans/AUDIO-01-bounded-audio-asset-pipeline.md`.
+  - Added unit test suite `client/src/tests/audioEngine.test.js` specifying `getAudioUrlForWord(word)` static asset path resolution (`/audio/words/${wordId}.mp3`) and safe speech synthesis fallback via `playWordSound(word)`.
+  - Confirmed RED phase failure in Vitest.
+
+## [DATA-03-GREEN] - 2026-10-09
+### Added & Changed
+- **Track B, Task DATA-03 (Green Phase - Cycle 3 Grapheme Splits & Lessons 21–25 Bundling)**:
+  - Tightened `server/tests/integrity.test.js` to enforce that each Cycle 3 lesson (21 through 25) contains a viable pedagogical bundle of at least 8 items.
+  - Curated and balanced all 100 Cycle 3 vocabulary items in `server/data/seed-300.json` into 5 balanced 20-word curriculum bundles aligned with `ProductBrief-TechnicalArchitecture-v1.md`:
+    * **Lesson 21 (Directional & Spatial Foundations)**: 20 words (`അകത്ത്`, `നേരെ`, `വലത്ത്`, `ഇടത്ത്`, `മുന്നിൽ`, `പിന്നിൽ`, `ചുറ്റും`, `പുറമേ`, `കാൽ`, `തല`, `കാട്`, `കടൽ`, `പുഴ`, `മല`, `കല്ല്`, `കൊണ്ടുപോയി`, `കൊണ്ടുവന്നു`, `ചാടി`, `കളിച്ചു`, `അടച്ചു`).
+    * **Lesson 22 (Temporal Anchors & Physical Attributes)**: 20 words (`അടുത്ത`, `കഴിഞ്ഞ`, `ആദ്യം`, `അവസാനം`, `സാധാരണയായി`, `കാത്തിരുന്നു`, `സൂര്യൻ`, `ചന്ദ്രൻ`, `നക്ഷത്രം`, `ചിലർ`, `തുറന്നു`, `പാടി`, `പഠിച്ചു`, `പഠിപ്പിച്ചു`, `ചൂട്`, `തണുപ്പ്`, `രൂപ`, `വില`, `ഭാരം`, `നിറം`).
+    * **Lesson 23 (Relational Postpositions & Human Environment)**: 20 words (`ഒപ്പം`, `പകരം`, `ഭാര്യ`, `ഭർത്താവ്`, `മാമൻ`, `അമ്മായി`, `സഹായിച്ചു`, `കണ്ണ്`, `കൈ`, `വായ`, `മുഖം`, `മുടി`, `പല്ല്`, `വസ്ത്രം`, `കടലാസ്`, `പേന`, `പെട്ടി`, `താക്കോൽ`, `പൂട്ട്`, `തോന്നി`).
+    * **Lesson 24 (Active Predicates & Universal Grounding)**: 20 words (`എഴുതുന്നു`, `വായിക്കുന്നു`, `കേൾക്കുന്നു`, `നൽകുന്നു`, `അറിയുന്നു`, `വിശ്വസിക്കുന്നു`, `മറക്കുന്നു`, `ഓർക്കുന്നു`, `കാണിക്കുന്നു`, `അയക്കുന്നു`, `ഉണ്ടാക്കുന്നു`, `മാറ്റുന്നു`, `നിർത്തുന്നു`, `വാങ്ങിച്ചു`, `വിറ്റു`, `അയച്ചു`, `ആകാശം`, `ഭൂമി`, `കഠിനമായ`, `മൃദുവായ`).
+    * **Lesson 25 (Narrative Connectors & Core Descriptors)**: 20 words (`അതായത്`, `എങ്കിൽ`, `ആയാലും`, `പ്രത്യേകിച്ച്`, `പോലും`, `എല്ലാവരും`, `ആരും`, `ഒന്നും`, `പലതും`, `സ്വന്തം`, `മറ്റ്`, `കറുത്ത`, `വെളുത്ത`, `ചുവന്ന`, `പച്ച`, `നീല`, `മഞ്ഞ`, `നീളമുള്ള`, `വൃത്തിയുള്ള`, `വൃത്തികെട്ട`).
+  - Enforced atomic grapheme splitting protocol (`docs/word_splitting_protocol.md`) on all 100 words with zero empty boxes, correct detached vowel modifiers, and fixed `w291` (`നൽകുന്നു` -> `["ന", "ൽ", "ക", "ു", "ന്ന", "ു"]`).
+  - Re-seeded database via `node seeder.js` importing all 466 words across Cycles 1-4 cleanly without schema or duplicate key errors.
+  - Verified 100% green test passes across both `server` (10/10 test suites, 59/59 tests) and `client` (13/13 test suites, 49/49 tests).
+  - Marked DATA-03 as 🟢 Completed in `docs/EXECUTION_TRACKER.md`.
+
+## [DATA-03-RED] - 2026-10-09
+### Added
+- **Track B, Task DATA-03 (Red Phase - Cycle 3 Grapheme Splits & Lessons 21–25 Bundling)**:
+  - Created plan documents at `docs/plans/DATA-03-seed-300-grapheme-splits-and-lesson-bundling.md` and `.gemini/plans/DATA-03-seed-300-grapheme-splits-and-lesson-bundling.md`.
+  - Added test suite `DATA-03: Cycle 3 (Lessons 21-25) Data Integrity & Zero-Empty-Boxes` to `server/tests/integrity.test.js`.
+  - Defined curriculum checks asserting that all Cycle 3 vocabulary items in `seed-300.json` have valid `lessonId` (21–25) and populated non-empty `requiredCharacters` arrays satisfying the Zero-Empty-Boxes rule.
+
 ## [2026.10.09.001] - 2026-10-09
 ### Added
 - **Prototype Lab Word Assembly Selector (`client/src/components/ui/PrototypeLab.jsx`)**:

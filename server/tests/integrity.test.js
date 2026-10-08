@@ -152,3 +152,39 @@ describe('DATA-02: Cycle 2 (Lessons 15-20) Data Integrity & Zero-Empty-Boxes', (
     });
   });
 });
+
+const seed300 = require('../data/seed-300.json');
+
+describe('DATA-03: Cycle 3 (Lessons 21-25) Data Integrity & Zero-Empty-Boxes', () => {
+  it('should ensure all Cycle 3 words have valid lessonId between 21 and 25', () => {
+    expect(seed300.length).toBeGreaterThan(0);
+    seed300.forEach((word) => {
+      expect(word.lessonId).toBeDefined();
+      expect(word.lessonId).toBeGreaterThanOrEqual(21);
+      expect(word.lessonId).toBeLessThanOrEqual(25);
+    });
+  });
+
+  it('should ensure each Cycle 3 lesson (21-25) has at least 8 items', () => {
+    const cycle3Lessons = [21, 22, 23, 24, 25];
+    cycle3Lessons.forEach((lessonId) => {
+      const itemsInLesson = seed300.filter((word) => word.lessonId === lessonId);
+      expect(itemsInLesson.length).toBeGreaterThanOrEqual(8);
+    });
+  });
+
+  it('should enforce the Zero-Empty-Boxes rule on requiredCharacters', () => {
+    seed300.forEach((word) => {
+      if (!word.isSuffix) {
+        expect(Array.isArray(word.requiredCharacters)).toBe(true);
+        expect(word.requiredCharacters.length).toBeGreaterThan(0);
+        word.requiredCharacters.forEach((char) => {
+          expect(typeof char).toBe('string');
+          expect(char.trim().length).toBeGreaterThan(0);
+        });
+      }
+    });
+  });
+});
+
+

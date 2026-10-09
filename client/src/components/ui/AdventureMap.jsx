@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useProgress } from '../../context';
 import MasteryStrip from './MasteryStrip';
 import { getApiUrl } from '../../utils/api';
+import { audioEngine } from '../../utils/audioEngine';
 
 const AdventureMap = ({ characters, onSelectLesson, onStartRevision }) => {
   const { 
@@ -391,6 +392,14 @@ const AdventureMap = ({ characters, onSelectLesson, onStartRevision }) => {
                     <div className="text-sm font-black text-prime-dark-text tracking-tight uppercase">{item.englishTranslation}</div>
                     <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{item.lessonType}</div>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => audioEngine.playWord(item)}
+                    className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-xs hover:scale-105 active:scale-95 text-prime-dark-text cursor-pointer border border-slate-100 shrink-0"
+                    title="Play Sound"
+                  >
+                    🔊
+                  </button>
                 </div>
               ))}
             </div>

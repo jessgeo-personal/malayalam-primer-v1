@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.09.011] - 2026-10-09
+### Fixed & Optimized
+- **Audio Latency Elimination & PWA Icon Placeholders**:
+  - **Instant Speech Fallback (`HAS_STATIC_AUDIO_ASSETS`)**:
+    * Added `export const HAS_STATIC_AUDIO_ASSETS = false;` in `client/src/services/audioEngine.js` (re-exported in `utils/audioEngine.js`).
+    * Bypasses the 1-2s network roundtrip for non-existent `/audio/words/*.mp3` assets, dispatching directly to SpeechSynthesis for instant pronunciation playback upon speaker tap.
+    * Can be toggled to `true` whenever Track C pre-recorded audio assets are populated.
+  - **Valid PWA Icon Placeholders**:
+    * Created valid PNG assets `client/public/pwa-192x192.png` and `client/public/pwa-512x512.png` generated with theme color `#863BFF`.
+    * Updated `client/vite.config.js` `includeAssets` and `manifest.icons` to include `favicon.svg`, eliminating 404 download errors in the browser console.
+  - **Test Suite & Verification**:
+    * Updated `client/src/tests/audioEngine.test.js` verifying that `Audio` instantiation is bypassed when static assets are disabled, and falls back cleanly when enabled.
+    * Verified 100% green tests: 64/64 in `client` (15 suites) and 73/73 in `server` (11 suites).
+    * Verified production build generates clean PWA assets with 9 precache entries.
+
+## [2026.10.09.010] - 2026-10-09
+### Fixed & Hardened
+- **AudioEngine Async Voice Loading & SpeechSynthesis Fallback**:
+  - **Asynchronous Voice Population (`client/src/services/audioEngine.js`)**:
+    * Implemented `initVoices()` with `voiceschanged` event listener handling asynchronous browser voice initialization.
+    * Added `getMalayalamVoice()` dynamically resolving `ml-IN` / `ml*` voice.
+    * Implemented `speakText(text)` clearing any hung queue with `speechSynthesis.cancel()`, configuring rate 0.85 and Malayalam voice mapping.
+  - **Robust Fallback Playback Pipeline (`playWord`)**:
+    * Cleanly catches 404s/network errors on missing static `/audio/words/${wordId}.mp3` files and transitions directly to `SpeechSynthesis`.
+    * Supports both word objects (`{ wordId, malayalamText }`) and raw Malayalam strings seamlessly.
+  - **Component Audits & UI Polish**:
+    * Audited and ensured all speaker button click handlers in `AdventureMap.jsx`, `ConceptScreen.jsx`, `LetterPicker.jsx`, `TracingCanvas.jsx`, and `SoundMatcher.jsx` pass valid Malayalam strings/objects.
+    * Added audible pronunciation speaker button to the target vocabulary preview modal in `AdventureMap.jsx`.
+  - **Test Suite Updates**:
+    * Expanded `client/src/tests/audioEngine.test.js` to 6 tests validating async voice loading, Malayalam voice resolution, TTS speech synthesis parameters, and fallback behavior.
+    * Maintained 100% green test suite: 63/63 in `client` (15 suites) and 73/73 in `server` (11 suites).
+
 ## [2026.10.09.009] - 2026-10-09
 ### Fixed & Hardened
 - **Duplicate `/api/api` Prefix Elimination & Resilient URL Normalizer**:

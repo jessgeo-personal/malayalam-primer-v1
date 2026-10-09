@@ -58,6 +58,11 @@
 - [x] Global scroll-to-top on view and lesson changes in App.jsx (Task AUTH-05)
 - [x] Context-aware Hero CTAs in AdventureMap (Resume, Start Next with lesson number, Improve score instructions) (Task AUTH-05)
 - [x] Neo-Bento 3-column Hero Card and 5-section vertical page order (Hero, Practice, Adventure Map, Fluency Master, My Letters) (Task UI-01)
+- [x] DigitalOcean App Platform PaaS spec (`.do/app.yaml`) defining `api` web service and `web` static site (Task OPS-01)
+- [x] Resend email service integration (`emailService.js`) with responsive HTML template and test simulation guard (Task OPS-01)
+- [x] Automated deployment specification & email health gate test suite (`server/tests/ops.test.js`) (Task OPS-01)
+- [x] Deprecation and removal of legacy PM2 ecosystem and Nginx reverse proxy configs (Task OPS-01)
+- [x] Automated live deployment smoke test runner (`server/scripts/smoke-test.js` & `npm run test:smoke`) with 4-gate verification (Health, Seeding/Curriculum, Static SPA catchall, Auth/Email) (Task OPS-02)
 - [x] Docker-compose structure valid
 - [x] MongoDB/Express/React connectivity placeholders established
 - [x] Vite development server starts without PostCSS errors (Tailwind v4 fix)

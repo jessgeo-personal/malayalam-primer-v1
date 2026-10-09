@@ -75,7 +75,7 @@ describe('Auth Endpoints Integration (Email + OTP)', () => {
       .send({ email: 'parent@example.com' });
 
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('message', 'OTP sent successfully');
+    expect(response.body).toHaveProperty('message', 'OTP sent to email');
     expect(response.body).toHaveProperty('otp');
     expect(typeof response.body.otp).toBe('string');
     expect(response.body.otp).toMatch(/^\d{6}$/);

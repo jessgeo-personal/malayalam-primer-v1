@@ -68,6 +68,22 @@ router.get('/session/lesson', async (req, res) => {
 });
 
 /**
+ * GET /api/game/lesson/:lessonId
+ * Game lesson endpoint alias supporting act parameter and lessonId route param.
+ */
+router.get('/game/lesson/:lessonId', async (req, res) => {
+  try {
+    const { act, userId, completed } = req.query;
+    const lessonId = parseInt(req.params.lessonId) || 1;
+    const completedIds = completed ? completed.split(',') : [];
+    const bundle = await srsEngine.generateLessonPayload(userId, lessonId, completedIds);
+    res.json(bundle);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
  * POST /api/session/lesson/complete
  * Records lesson completion and stars.
  */

@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const Account = require('../models/Account');
 const Progress = require('../models/Progress');
+const emailService = require('../services/emailService');
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -33,9 +34,15 @@ router.post('/request-otp', async (req, res) => {
       { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true }
     );
 
+    const emailResult = await emailService.sendOTP(normalizedEmail, otp);
+    if (!emailResult || !emailResult.success) {
+      console.error('[AUTH] Failed to send OTP email:', emailResult?.error);
+      return res.status(500).json({ error: 'Failed to send verification code. Please try again later.' });
+    }
+
     const responsePayload = {
       success: true,
-      message: 'OTP sent successfully',
+      message: 'OTP sent to email',
       ...(process.env.NODE_ENV !== 'production' && { devOtp: otp, otp })
     };
 

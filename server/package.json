@@ -9,7 +9,8 @@
     "start": "node server.js",
     "seed": "node seeder.js",
     "reset": "node reset-progress.js",
-    "verify:transliterate": "node scripts/verify-transliteration.js"
+    "verify:transliterate": "node scripts/verify-transliteration.js",
+    "test:smoke": "node scripts/smoke-test.js"
   },
   "keywords": [],
   "author": "",
@@ -21,10 +22,12 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "mongoose": "^9.6.2"
+    "mongoose": "^9.6.2",
+    "resend": "^6.32.1"
   },
   "devDependencies": {
     "jest": "^30.4.2",
+    "js-yaml": "^5.4.3",
     "supertest": "^7.2.2",
     "vitest": "^5.0.3"
   },

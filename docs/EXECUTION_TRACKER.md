@@ -8,4 +8,5 @@ Track B,DATA-01,Automated Phonetic Transliteration Tooling (sanscript),🟢 Comp
 Track B,DATA-02,seed-200.json Grapheme Splits & Lessons 15–20 Bundling,🟢 Completed,integrity.test.js zero-empty-boxes PASS
 Track B,DATA-03,seed-300.json Grapheme Splits & Lessons 21–25 Bundling,🟢 Completed,integrity.test.js all words valid
 Track C,AUDIO-01,Bounded Audio Pre-generation Asset Pipeline (300 Words),🟢 Completed,Clean fallback in audioEngine.js PASS
-Track D,OPS-01,"DigitalOcean Setup: PM2 Ecosystem, Nginx Config & Certbot",⚪ Pending,Live URL check on remote MongoDB
+Track D,OPS-01,"DigitalOcean App Platform Spec (.do/app.yaml) & Resend OTP Delivery",🟢 Completed,server/tests/ops.test.js PASS
+Track D,OPS-02,"DigitalOcean Live Deployment & Automated Smoke Test",🟡 In-Progress,"server/scripts/smoke-test.js PASS"

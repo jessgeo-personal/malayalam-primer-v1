@@ -2,6 +2,71 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.09.004] - 2026-10-09
+### Changed & Added
+- **Track D, Task OPS-02 (Production Smoke Testing Suite & Deployment Verification)**:
+  - **Automated Smoke Test Runner (`server/scripts/smoke-test.js`)**:
+    * Created standalone, zero-dependency Node 18+ smoke test script using native `fetch`.
+    * Supports configurable target base URL via CLI argument, `TARGET_URL` environment variable, or default `http://localhost:5000`.
+    * Implemented 4 sequential production verification gates:
+      1. Gate 1 (Health Check): Asserts HTTP 200 and `{ status: 'ok' }` on `/api/health`.
+      2. Gate 2 (Database Seeding & Curriculum): Asserts HTTP 200 and non-empty lesson array on `/api/game/lesson/1?act=1` (with fallback to `/api/session/lesson?lessonId=1`).
+      3. Gate 3 (Static Web SPA): Asserts HTTP 200 and `text/html` on root `/` and catchall SPA route `/non-existent-route`.
+      4. Gate 4 (Auth & Email Delivery): Asserts HTTP 200 or graceful HTTP 500 without unhandled gateway crashes (502/503) on `POST /api/auth/request-otp`.
+    * Formats color-coded progress indicators (`✔` green, `✖` red) with deterministic process exit codes (0 for pass, 1 for failure).
+  - **Server Support & SPA Fallback**:
+    * Added route alias `GET /api/game/lesson/:lessonId` in `server/routes/api.js`.
+    * Added static file serving and SPA fallback in `server/server.js` for non-API GET routes to ensure standalone and dev server parity.
+  - **NPM Script & Test Suite**:
+    * Added `"test:smoke": "node scripts/smoke-test.js"` script in `server/package.json`.
+    * Extended `server/tests/ops.test.js` to run automated in-process smoke verification.
+    * 100% green test suites across server (11 suites, 71 tests passing) and client (14 suites, 51 tests passing).
+
+## [2026.10.09.003] - 2026-10-09
+### Changed & Added
+- **Track D, Task OPS-01 (DigitalOcean App Platform PaaS & Resend Email Integration)**:
+  - **DigitalOcean App Platform Spec (`.do/app.yaml`)**:
+    * Created declarative PaaS specification featuring dual-component topology: backend Web Service (`api`) and frontend Static Site (`web`).
+    * Backend `api`: node engine running `server/server.js`, routed at `/api`, configured with `basic-xxs` instance slug, health check probe at `/api/health`, and secret environment mappings (`MONGO_URI`, `JWT_SECRET`, `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `NODE_ENV`, `CLIENT_URL`).
+    * Frontend `web`: build command `npm run build`, output directory `dist`, root route `/`, SPA catchall routing to `index.html`, and dynamic `VITE_API_URL` build binding (`${api.PUBLIC_URL}`).
+  - **Resend Email Service (`server/services/emailService.js`)**:
+    * Integrated official `resend` SDK for parent authentication OTP delivery.
+    * Implemented responsive, mobile-first HTML email template with emerald `#059669` accent, monospace letter-spaced 6-digit access code, and 10-minute expiry warning.
+    * Added CI/Test environment guard (`NODE_ENV === 'test'` or missing `RESEND_API_KEY`) to safely simulate delivery without outbound network calls.
+  - **Auth Endpoint Enhancement (`server/routes/auth.js`)**:
+    * Updated `POST /api/auth/request-otp` to invoke `sendOTP` after database persistence.
+    * Returns `{ success: true, message: 'OTP sent to email' }` with graceful HTTP 500 error handling on email delivery failure.
+  - **IaaS Cleanup**:
+    * Deprecated and removed legacy Droplet configuration files (`ecosystem.config.js` and `nginx/malayalam-prime.conf`).
+  - **Verification & Testing**:
+    * Refactored `server/tests/ops.test.js` to assert `.do/app.yaml` syntax, service topology, email simulation, and auth delivery integration.
+    * Full backend suite green (11/11 suites, 68/68 tests passing).
+    * Full frontend suite green (14/14 suites, 51/51 tests passing).
+
+## [OPS-01-GREEN] - 2026-10-09
+### Added & Verified
+- **Track D, Task OPS-01 (Green Phase - Production Deployment Configuration)**:
+  - Created root `ecosystem.config.js` for PM2 cluster management (`malayalam-api`, script `./server/server.js`, `instances: 'max'`, cluster mode, auto-restart, 500M max memory restart, production & development env configs).
+  - Created `nginx/malayalam-prime.conf` production reverse proxy virtual host template:
+    * Upstream pool `malayalam_backend` load balancing to `127.0.0.1:5000` with HTTP keepalive.
+    * Reverse proxy `/api` routing with WebSocket upgrade headers, real IP forwarding, 60s timeouts.
+    * SPA client routing fallback via `try_files $uri $uri/ /index.html` targeting `/var/www/malayalam-prime/client/dist`.
+    * Certbot ACME HTTP-01 challenge support at `/.well-known/acme-challenge/`.
+    * 30-day static asset cache headers for audio/fonts/images.
+    * Hardened security headers (`X-Frame-Options`, `X-XSS-Protection`, `X-Content-Type-Options`, `Referrer-Policy`).
+  - Exported Express `app` from `server/server.js` guarded with `require.main === module` for clean supertest integration and process lifecycle isolation.
+  - Verified 100% green pass on `server/tests/ops.test.js` (3/3 tests pass).
+  - Verified 100% green pass on full server regression test suite (11/11 test suites, 62/62 tests pass).
+  - Verified 100% green pass on full client regression test suite (14/14 test suites, 51/51 tests pass).
+  - Marked OPS-01 as 🟢 Completed in `docs/EXECUTION_TRACKER.md`.
+
+## [OPS-01-RED] - 2026-10-09
+### Added
+- **Track D, Task OPS-01 (Red Phase - Production Deployment Configuration)**:
+  - Created plan documents at `docs/plans/OPS-01-production-deployment-setup.md` and `.gemini/plans/OPS-01-production-deployment-setup.md`.
+  - Added deployment configuration and sanity test suite in `server/tests/ops.test.js`.
+  - Verified RED phase test failure expecting missing root `ecosystem.config.js` and `nginx/malayalam-prime.conf`.
+
 ## [2026.10.08.004] - 2026-10-08
 ### Changed
 - **Mobile-First Vertical Stacking for 'Your Progress' Card (`client/src/components/ui/AdventureMap.jsx`)**:

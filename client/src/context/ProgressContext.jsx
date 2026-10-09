@@ -3,6 +3,8 @@ import { useAuth } from './AuthContext';
 
 const ProgressContext = createContext();
 
+const API_BASE = import.meta.env?.VITE_API_URL || '';
+
 export const useProgress = () => useContext(ProgressContext);
 
 export const ProgressProvider = ({ children }) => {
@@ -45,7 +47,7 @@ export const ProgressProvider = ({ children }) => {
 
   const fetchStats = async (id = userId) => {
     try {
-      const response = await fetch(`/api/progress/stats?userId=${id}`);
+      const response = await fetch(`${API_BASE}/api/progress/stats?userId=${id}`);
       if (!response.ok) throw new Error('Failed to fetch stats');
       const data = await response.json();
       setMasteredCharacters(data.masteredCharacters || []);
@@ -85,7 +87,7 @@ export const ProgressProvider = ({ children }) => {
     setCompletedItems(new Set());
     setItemFailCounts({});
     try {
-      const response = await fetch(`/api/session/revision?userId=${userId}`);
+      const response = await fetch(`${API_BASE}/api/session/revision?userId=${userId}`);
       if (!response.ok) throw new Error('Failed to fetch revision items');
       const data = await response.json();
       
@@ -113,7 +115,7 @@ export const ProgressProvider = ({ children }) => {
     setCompletedItems(new Set());
     setItemFailCounts({});
     try {
-      const response = await fetch(`/api/session/lesson?userId=${userId}&lessonId=${lessonId}`);
+      const response = await fetch(`${API_BASE}/api/session/lesson?userId=${userId}&lessonId=${lessonId}`);
       if (!response.ok) throw new Error('Failed to fetch lesson');
       const data = await response.json();
       setSessionItems(data);
@@ -166,7 +168,7 @@ export const ProgressProvider = ({ children }) => {
     }
 
     try {
-      const response = await fetch('/api/progress/update', {
+      const response = await fetch(`${API_BASE}/api/progress/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -195,7 +197,7 @@ export const ProgressProvider = ({ children }) => {
             if (isCorrect) currentCompleted.add(currentItem.itemId);
             const completedParam = Array.from(currentCompleted).join(',');
 
-            const nextChunkRes = await fetch(`/api/session/lesson?userId=${userId}&lessonId=${activeLessonId}&completed=${completedParam}`);
+            const nextChunkRes = await fetch(`${API_BASE}/api/session/lesson?userId=${userId}&lessonId=${activeLessonId}&completed=${completedParam}`);
             if (nextChunkRes.ok) {
                 const nextItems = await nextChunkRes.json();
                 if (nextItems && nextItems.length > 0) {
@@ -220,7 +222,7 @@ export const ProgressProvider = ({ children }) => {
     setLoading(true);
     try {
       if (mode === 'revision') {
-        await fetch('/api/session/revision/complete', {
+        await fetch(`${API_BASE}/api/session/revision/complete`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId })
@@ -231,7 +233,7 @@ export const ProgressProvider = ({ children }) => {
         // Star Mapping: 0 initial errors=3*, 1 error=2*, 2 errors=1*, 3+ errors=0*
         const stars = Math.max(0, 3 - errors);
         setLastStars(stars);
-        await fetch('/api/session/lesson/complete', {
+        await fetch(`${API_BASE}/api/session/lesson/complete`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ userId, lessonId: activeLessonId, stars })
@@ -252,7 +254,7 @@ export const ProgressProvider = ({ children }) => {
     
     setLoading(true);
     try {
-      const response = await fetch('/api/progress/reset', {
+      const response = await fetch(`${API_BASE}/api/progress/reset`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId })

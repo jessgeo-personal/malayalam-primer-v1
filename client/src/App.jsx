@@ -29,6 +29,7 @@ const AppContent = () => {
     lastStars,
     needsRevision,
     startRevision,
+    startLesson,
     currentLesson,
     lessonHistory,
     currentCycle,
@@ -42,10 +43,45 @@ const AppContent = () => {
 
   const {
     isAuthenticated,
+    isAuthModalOpen,
     activeProfile,
     openAuthModal,
     logout
   } = useAuth();
+
+  const [pendingLessonId, setPendingLessonId] = useState(null);
+  const [pendingAction, setPendingAction] = useState(null);
+
+  const handleSelectLesson = (lessonId) => {
+    if (!isAuthenticated) {
+      setPendingLessonId(lessonId);
+      openAuthModal();
+      return;
+    }
+    startLesson(lessonId);
+  };
+
+  const handleStartReview = () => {
+    if (!isAuthenticated) {
+      setPendingAction('review');
+      openAuthModal();
+      return;
+    }
+    startRevision();
+  };
+
+  useEffect(() => {
+    if (isAuthenticated && !isAuthModalOpen) {
+      if (pendingLessonId != null) {
+        const targetLesson = pendingLessonId;
+        setPendingLessonId(null);
+        startLesson(targetLesson);
+      } else if (pendingAction === 'review') {
+        setPendingAction(null);
+        startRevision();
+      }
+    }
+  }, [isAuthenticated, isAuthModalOpen, pendingLessonId, pendingAction, startLesson, startRevision]);
 
   const activeView = showAudit ? 'audit' : showLab ? 'lab' : sessionMode;
   const activeLesson = activeLessonId || currentLesson;
@@ -177,7 +213,11 @@ const AppContent = () => {
               </div>
             )}
             {/* 1-5. Unified Adventure Map Bento Sections */}
-            <AdventureMap characters={masteredCharacters} />
+            <AdventureMap 
+              characters={masteredCharacters} 
+              onSelectLesson={handleSelectLesson}
+              onStartRevision={handleStartReview}
+            />
           </div>
         ) : sessionStatus === 'complete' ? (
           <div className="w-full max-w-2xl mx-auto card-bento-surface p-12 text-center animate-pop relative overflow-hidden">

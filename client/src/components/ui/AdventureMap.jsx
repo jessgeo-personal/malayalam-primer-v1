@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useProgress } from '../../context';
 import MasteryStrip from './MasteryStrip';
 
-const AdventureMap = ({ characters }) => {
+const AdventureMap = ({ characters, onSelectLesson, onStartRevision }) => {
   const { 
     userId,
     needsRevision, 
@@ -21,6 +21,9 @@ const AdventureMap = ({ characters }) => {
     setSessionMode,
     setSessionStatus
   } = useProgress();
+
+  const handleLessonLaunch = onSelectLesson || startLesson;
+  const handleRevisionLaunch = onStartRevision || startRevision;
 
   const [previewLesson, setPreviewLesson] = useState(null);
   const [previewData, setPreviewData] = useState([]);
@@ -53,7 +56,7 @@ const AdventureMap = ({ characters }) => {
       setSessionMode('lesson');
       setSessionStatus('active');
     } else {
-      startLesson(currentLesson);
+      handleLessonLaunch(currentLesson);
     }
   };
 
@@ -211,7 +214,7 @@ const AdventureMap = ({ characters }) => {
           <p className="text-xs font-medium opacity-80 mt-1">Review what you've learned today.</p>
         </div>
         <button
-          onClick={startRevision}
+          onClick={handleRevisionLaunch}
           disabled={!needsRevision}
           className={`btn-pill ${needsRevision ? 'bg-prime-coral-pink hover:scale-[1.02]' : 'bg-prime-action-dark border border-white/20 opacity-40 cursor-not-allowed'}`}
         >
@@ -265,7 +268,7 @@ const AdventureMap = ({ characters }) => {
                         </button>
                       )}
                       <button
-                        onClick={() => nodeStatus !== 'locked' && startLesson(lessonId)}
+                        onClick={() => nodeStatus !== 'locked' && handleLessonLaunch(lessonId)}
                         disabled={nodeStatus === 'locked'}
                         className={`w-16 h-16 rounded-2xl flex items-center justify-center text-xl font-black shadow-lg transition-all relative
                           ${nodeStatus === 'completed' ? 'bg-white text-prime-teal-green' : 
@@ -390,7 +393,7 @@ const AdventureMap = ({ characters }) => {
                 </div>
               ))}
             </div>
-            <button onClick={() => { startLesson(previewLesson); setPreviewLesson(null); }} className="btn-pill bg-prime-action-dark w-full justify-center py-4 text-base cursor-pointer">
+            <button onClick={() => { handleLessonLaunch(previewLesson); setPreviewLesson(null); }} className="btn-pill bg-prime-action-dark w-full justify-center py-4 text-base cursor-pointer">
               START LESSON
             </button>
           </div>

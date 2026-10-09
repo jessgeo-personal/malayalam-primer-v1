@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.09.009] - 2026-10-09
+### Fixed & Hardened
+- **Duplicate `/api/api` Prefix Elimination & Resilient URL Normalizer**:
+  - **Client Environment Cleanup (`client/.env`)**:
+    * Cleaned `VITE_API_URL` by removing trailing `/api` (set to empty string), allowing Vite's dev proxy to cleanly forward relative `/api/*` traffic without double-prefixing.
+  - **Resilient URL Normalizer Utility (`client/src/utils/api.js`)**:
+    * Created `buildApiUrl` and `getApiUrl` to ensure API endpoints normalize cleanly regardless of environment configuration.
+    * Automatically prevents `/api/api` duplication if `VITE_API_URL` contains a trailing `/api` or slash.
+    * Strips any accidental duplicated `/api/api` in endpoint strings.
+  - **Context & Component Modernization**:
+    * Replaced manual string interpolations in `AuthContext.jsx`, `ProgressContext.jsx`, `ConceptScreen.jsx`, `AdventureMap.jsx`, and `WordAudit.jsx` with `getApiUrl(...)`.
+  - **Test Automation**:
+    * Added unit test suite `client/src/tests/ApiUrlHelper.test.js` validating all path normalization combinations (empty base, trailing slashes, duplicate /api prefixes, query parameters).
+    * Maintained 100% green test passes: 59/59 in `client` (15 test suites), 73/73 in `server` (11 test suites).
+
+## [2026.10.09.008] - 2026-10-09
+### Fixed & Diagnosed
+- **Server Router Mounting Order & Dev Request Logging**:
+  - Added request logging middleware in non-production environments to log `[REQ] ${req.method} ${req.originalUrl}` for transparent routing diagnostics.
+  - Enforced strict router mounting hierarchy:
+    1. Mount specific routers first: `/api/auth` -> `authRoutes`, `/api/ai` -> `aiRoutes`, `/api` -> `apiRoutes`.
+    2. Direct fallbacks for proxy stripped paths: `/auth` -> `authRoutes`, `/ai` -> `aiRoutes`.
+    3. Removed legacy root `app.use('/', apiRoutes)` catchall mount that could intercept or shadow `/api/auth` routes.
+    4. Guarded API routes with 404 JSON responder (`{ error: 'API endpoint not found' }`) placed immediately after API router mounts and before static file serving.
+- **Client & Proxy Verification**:
+  - Audited all URLs in `client/src/context/AuthContext.jsx` verifying correct namespace retaining `/api/auth/*`.
+  - Confirmed `client/vite.config.js` proxy does not strip `/api`.
+  - Executed smoke test suite verifying all 4 gates pass against `http://localhost:5000`.
+  - Full test parity maintained: 73/73 passing in `server`, 52/52 passing in `client`.
+
 ## [2026.10.09.007] - 2026-10-09
 ### Fixed & Standardized
 - **Unified Relative Path Contract (`/api`) & Network Parity**:

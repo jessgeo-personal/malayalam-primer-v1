@@ -124,9 +124,11 @@ describe('Track D: Production Deployment & Verification Gates (OPS-01 / OPS-02)'
     });
 
     it('should respond with 200 OK on fallback routes when /api prefix is stripped upstream', async () => {
-      const resHealth = await request(app).get('/health');
-      expect(resHealth.status).toBe(200);
-      expect(resHealth.body.status).toBe('ok');
+      const resAuth = await request(app)
+        .post('/auth/request-otp')
+        .send({ email: 'parent.paas@example.com' });
+      expect(resAuth.status).toBe(200);
+      expect(resAuth.body.success).toBe(true);
     });
 
     it('should return JSON 404 and never HTML for unknown /api and /auth routes', async () => {

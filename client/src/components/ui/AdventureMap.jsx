@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useProgress } from '../../context';
 import MasteryStrip from './MasteryStrip';
+import { getApiUrl } from '../../utils/api';
 
 const AdventureMap = ({ characters, onSelectLesson, onStartRevision }) => {
   const { 
@@ -67,7 +68,7 @@ const AdventureMap = ({ characters, onSelectLesson, onStartRevision }) => {
         const counts = {};
         const cyclesToFetch = [1, 2, 3, 4];
         for (const cid of cyclesToFetch) {
-          const response = await fetch(`/api/session/cycle/lessons?cycleId=${cid}`);
+          const response = await fetch(getApiUrl(`/api/session/cycle/lessons?cycleId=${cid}`));
           if (response.ok) {
             const data = await response.json();
             counts[cid] = { start: data.startLessonId, end: data.endLessonId };
@@ -85,7 +86,7 @@ const AdventureMap = ({ characters, onSelectLesson, onStartRevision }) => {
     setPreviewLoading(true);
     setPreviewLesson(lessonId);
     try {
-      const response = await fetch(`/api/session/lesson/preview?userId=${userId}&lessonId=${lessonId}`);
+      const response = await fetch(getApiUrl(`/api/session/lesson/preview?userId=${userId}&lessonId=${lessonId}`));
       if (!response.ok) throw new Error('Failed to fetch preview');
       const data = await response.json();
       setPreviewData(data);

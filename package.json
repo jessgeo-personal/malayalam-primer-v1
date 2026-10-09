@@ -4,6 +4,7 @@
   "private": true,
   "description": "Adaptive, gamified Malayalam literacy application",
   "scripts": {
+    "start": "node server/server.js",
     "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
     "seed": "npm --prefix server run seed",
     "test": "npm --prefix server test && npm --prefix client test -- --run"

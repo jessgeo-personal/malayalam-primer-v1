@@ -306,4 +306,118 @@ describe('Frontend Auth Flow Integration (AUTH-04)', () => {
 
     confirmSpy.mockRestore();
   });
+
+  it('g) Clicking a lesson while unauthenticated opens AuthModal, preserves lesson ID, and auto-starts upon authentication & onboarding', async () => {
+    // Render full App wrapped in AuthProvider and ProgressProvider
+    const AppModule = (await import('../App')).default;
+    const { ProgressProvider } = await import('../context/ProgressContext');
+
+    render(
+      <AuthProvider>
+        <ProgressProvider>
+          <AppModule />
+        </ProgressProvider>
+      </AuthProvider>
+    );
+
+    // Initial state: unauthenticated, on AdventureMap
+    await waitFor(() => {
+      expect(screen.getByTestId('hero-lesson-cta-btn')).toBeInTheDocument();
+    });
+
+    // 1. Click Hero Lesson Start button (starts lesson 1) while unauthenticated
+    const heroBtn = screen.getByTestId('hero-lesson-cta-btn');
+    fireEvent.click(heroBtn);
+
+    // Verify AuthModal is opened and displays parent login
+    await waitFor(() => {
+      expect(screen.getByText(/Parent Account Login/i)).toBeInTheDocument();
+      expect(screen.getByTestId('auth-email-input')).toBeInTheDocument();
+    });
+
+    // 2. Step 1: Submit email for a new learner account
+    fireEvent.change(screen.getByTestId('auth-email-input'), { target: { value: 'newparent@example.com' } });
+    fireEvent.click(screen.getByTestId('auth-send-otp-btn'));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('auth-otp-input')).toBeInTheDocument();
+    });
+
+    // Intercept fetch specifically for the rest of this test flow
+    const originalFetch = global.fetch;
+    global.fetch = vi.fn(async (url, options = {}) => {
+      const urlStr = typeof url === 'string' ? url : url.toString();
+      const method = options.method || 'GET';
+      const body = options.body ? JSON.parse(options.body) : {};
+
+      if (urlStr.includes('/api/auth/verify-otp') && method === 'POST') {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            token: 'jwt_auto_launch_123',
+            isNewAccount: true,
+            account: {
+              email: body.email,
+              profiles: [
+                { profileId: 'p1', name: 'Learner 1', avatar: 'star', isDefault: true }
+              ]
+            }
+          })
+        };
+      }
+
+      if (urlStr.includes('/api/auth/profiles/p1') && method === 'PUT') {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            success: true,
+            profile: { profileId: 'p1', name: body.name, avatar: 'star', isDefault: true },
+            profiles: [{ profileId: 'p1', name: body.name, avatar: 'star', isDefault: true }]
+          })
+        };
+      }
+
+      if (urlStr.includes('/api/session/lesson')) {
+        return {
+          ok: true,
+          status: 200,
+          json: async () => [
+            { itemId: 't001', lessonType: 'trace', malayalamText: 'അ', prompt: 'Trace the letter' }
+          ]
+        };
+      }
+
+      return originalFetch(url, options);
+    });
+
+    // 3. Step 2: Submit OTP
+    fireEvent.change(screen.getByTestId('auth-otp-input'), { target: { value: '654321' } });
+    fireEvent.click(screen.getByTestId('auth-verify-otp-btn'));
+
+    // Verify Step 3: Learner Onboarding screen is visible
+    await waitFor(() => {
+      expect(screen.getByText(/Learner Onboarding/i)).toBeInTheDocument();
+      expect(screen.getByTestId('onboarding-learner-name-input')).toBeInTheDocument();
+    });
+
+    // 4. Step 3: Enter learner name and submit Save & Start
+    fireEvent.change(screen.getByTestId('onboarding-learner-name-input'), { target: { value: 'Aarav' } });
+    fireEvent.click(screen.getByTestId('onboarding-save-start-btn'));
+
+    // 5. Verify AuthModal closes and pending lesson 1 is auto-launched
+    await waitFor(() => {
+      expect(screen.queryByText(/Parent Account Login/i)).not.toBeInTheDocument();
+      expect(screen.queryByText(/Learner Onboarding/i)).not.toBeInTheDocument();
+    });
+
+    // Verify session lesson was fetched for lesson 1 and game screen loaded
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('/api/session/lesson')
+      );
+    });
+  });
 });
+

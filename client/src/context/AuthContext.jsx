@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getApiUrl } from '../utils/api';
 
 const AuthContext = createContext(null);
 
@@ -95,7 +96,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const requestOtp = async (email) => {
-    const url = '/api/auth/request-otp';
+    const url = getApiUrl('/api/auth/request-otp');
     const method = 'POST';
     setLoading(true);
     setError(null);
@@ -120,7 +121,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const verifyOtp = async (email, otp) => {
-    const url = '/api/auth/verify-otp';
+    const url = getApiUrl('/api/auth/verify-otp');
     const method = 'POST';
     setLoading(true);
     setError(null);
@@ -159,7 +160,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchProfiles = async () => {
     if (!token) return;
-    const url = '/api/auth/profiles';
+    const url = getApiUrl('/api/auth/profiles');
     const method = 'GET';
     setLoading(true);
     try {
@@ -187,7 +188,7 @@ export const AuthProvider = ({ children }) => {
 
   const createProfile = async (name, avatar = 'star') => {
     if (!token) return;
-    const url = '/api/auth/profiles';
+    const url = getApiUrl('/api/auth/profiles');
     const method = 'POST';
     setLoading(true);
     setError(null);
@@ -225,7 +226,7 @@ export const AuthProvider = ({ children }) => {
 
   const switchProfile = async (profileId) => {
     if (!token) return;
-    const url = '/api/auth/profiles/switch';
+    const url = getApiUrl('/api/auth/profiles/switch');
     const method = 'POST';
     setLoading(true);
     setError(null);
@@ -256,7 +257,7 @@ export const AuthProvider = ({ children }) => {
 
   const resetProfile = async (profileId) => {
     if (!token) return;
-    const url = `/api/auth/profiles/${profileId}/reset`;
+    const url = getApiUrl(`/api/auth/profiles/${profileId}/reset`);
     const method = 'POST';
     setLoading(true);
     setError(null);
@@ -280,7 +281,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfileName = async (profileId, newName) => {
     if (!token) return;
-    const url = `/api/auth/profiles/${profileId}`;
+    const url = getApiUrl(`/api/auth/profiles/${profileId}`);
     const method = 'PUT';
     setLoading(true);
     setError(null);

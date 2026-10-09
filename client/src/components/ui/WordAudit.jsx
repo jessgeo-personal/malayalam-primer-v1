@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getApiUrl } from '../../utils/api';
 
 export default function WordAudit() {
   const [words, setWords] = useState([]);
@@ -7,7 +8,7 @@ export default function WordAudit() {
   const [activeTab, setActiveTab] = useState('words'); // 'words' | 'alphabets' | 'grammar'
 
   useEffect(() => {
-    fetch('/api/words/audit')
+    fetch(getApiUrl('/api/words/audit'))
       .then(res => res.json())
       .then(data => {
         setWords(data);

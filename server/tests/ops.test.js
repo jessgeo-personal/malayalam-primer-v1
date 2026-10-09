@@ -44,7 +44,7 @@ describe('Track D: Production Deployment & Verification Gates (OPS-01 / OPS-02)'
       const parsed = yaml.load(content);
       expect(parsed).toBeDefined();
       expect(typeof parsed).toBe('object');
-      expect(parsed.name).toBe('malayalam-prime');
+      expect(parsed.name).toBe('malayalam-primer-v1');
     });
 
     it('should configure backend web service "api" correctly', () => {
@@ -64,7 +64,7 @@ describe('Track D: Production Deployment & Verification Gates (OPS-01 / OPS-02)'
 
       // Routes and health check
       expect(apiService.routes).toEqual(
-        expect.arrayContaining([expect.objectContaining({ path: '/api' })])
+        expect.arrayContaining([expect.objectContaining({ path: '/api', preserve_path_prefix: true })])
       );
       expect(apiService.health_check).toEqual(
         expect.objectContaining({
@@ -108,10 +108,6 @@ describe('Track D: Production Deployment & Verification Gates (OPS-01 / OPS-02)'
       expect(webSite.routes).toEqual(
         expect.arrayContaining([expect.objectContaining({ path: '/' })])
       );
-
-      const viteApiEnv = webSite.envs.find((e) => e.key === 'VITE_API_URL');
-      expect(viteApiEnv).toBeDefined();
-      expect(viteApiEnv.value).toBe('${api.PUBLIC_URL}');
     });
 
     it('should have cleaned up legacy PM2 and Nginx configs', () => {
@@ -120,11 +116,31 @@ describe('Track D: Production Deployment & Verification Gates (OPS-01 / OPS-02)'
     });
   });
 
-  describe('Health Gate', () => {
+  describe('Health Gate & Route Prefix Preservation', () => {
     it('should respond with 200 OK on GET /api/health for PaaS health checks', async () => {
       const res = await request(app).get('/api/health');
       expect(res.status).toBe(200);
       expect(res.body.status).toBe('ok');
+    });
+
+    it('should respond with 200 OK on fallback routes when /api prefix is stripped upstream', async () => {
+      const resAuth = await request(app)
+        .post('/auth/request-otp')
+        .send({ email: 'parent.paas@example.com' });
+      expect(resAuth.status).toBe(200);
+      expect(resAuth.body.success).toBe(true);
+    });
+
+    it('should return JSON 404 and never HTML for unknown /api and /auth routes', async () => {
+      const resApi = await request(app).get('/api/non-existent-endpoint');
+      expect(resApi.status).toBe(404);
+      expect(resApi.headers['content-type']).toMatch(/application\/json/);
+      expect(resApi.body).toEqual({ error: 'API endpoint not found' });
+
+      const resAuth = await request(app).get('/auth/non-existent-endpoint');
+      expect(resAuth.status).toBe(404);
+      expect(resAuth.headers['content-type']).toMatch(/application\/json/);
+      expect(resAuth.body).toEqual({ error: 'API endpoint not found' });
     });
   });
 

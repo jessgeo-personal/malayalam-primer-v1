@@ -2,6 +2,69 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.09.009] - 2026-10-09
+### Fixed & Hardened
+- **Duplicate `/api/api` Prefix Elimination & Resilient URL Normalizer**:
+  - **Client Environment Cleanup (`client/.env`)**:
+    * Cleaned `VITE_API_URL` by removing trailing `/api` (set to empty string), allowing Vite's dev proxy to cleanly forward relative `/api/*` traffic without double-prefixing.
+  - **Resilient URL Normalizer Utility (`client/src/utils/api.js`)**:
+    * Created `buildApiUrl` and `getApiUrl` to ensure API endpoints normalize cleanly regardless of environment configuration.
+    * Automatically prevents `/api/api` duplication if `VITE_API_URL` contains a trailing `/api` or slash.
+    * Strips any accidental duplicated `/api/api` in endpoint strings.
+  - **Context & Component Modernization**:
+    * Replaced manual string interpolations in `AuthContext.jsx`, `ProgressContext.jsx`, `ConceptScreen.jsx`, `AdventureMap.jsx`, and `WordAudit.jsx` with `getApiUrl(...)`.
+  - **Test Automation**:
+    * Added unit test suite `client/src/tests/ApiUrlHelper.test.js` validating all path normalization combinations (empty base, trailing slashes, duplicate /api prefixes, query parameters).
+    * Maintained 100% green test passes: 59/59 in `client` (15 test suites), 73/73 in `server` (11 test suites).
+
+## [2026.10.09.008] - 2026-10-09
+### Fixed & Diagnosed
+- **Server Router Mounting Order & Dev Request Logging**:
+  - Added request logging middleware in non-production environments to log `[REQ] ${req.method} ${req.originalUrl}` for transparent routing diagnostics.
+  - Enforced strict router mounting hierarchy:
+    1. Mount specific routers first: `/api/auth` -> `authRoutes`, `/api/ai` -> `aiRoutes`, `/api` -> `apiRoutes`.
+    2. Direct fallbacks for proxy stripped paths: `/auth` -> `authRoutes`, `/ai` -> `aiRoutes`.
+    3. Removed legacy root `app.use('/', apiRoutes)` catchall mount that could intercept or shadow `/api/auth` routes.
+    4. Guarded API routes with 404 JSON responder (`{ error: 'API endpoint not found' }`) placed immediately after API router mounts and before static file serving.
+- **Client & Proxy Verification**:
+  - Audited all URLs in `client/src/context/AuthContext.jsx` verifying correct namespace retaining `/api/auth/*`.
+  - Confirmed `client/vite.config.js` proxy does not strip `/api`.
+  - Executed smoke test suite verifying all 4 gates pass against `http://localhost:5000`.
+  - Full test parity maintained: 73/73 passing in `server`, 52/52 passing in `client`.
+
+## [2026.10.09.007] - 2026-10-09
+### Fixed & Standardized
+- **Unified Relative Path Contract (`/api`) & Network Parity**:
+  - **Vite Local Proxy (`client/vite.config.js`)**:
+    * Locked `server.proxy['/api']` target explicitly to IPv4 `http://127.0.0.1:5000` (eliminating Windows localhost/IPv6 ECONNRESET drops).
+    * Added `timeout: 10000`, `changeOrigin: true`, and `secure: false`.
+  - **Standardized Client Relative API Calls**:
+    * Updated `client/src/context/AuthContext.jsx` and `client/src/context/ProgressContext.jsx` with standard `const API_BASE = import.meta.env?.VITE_API_URL || '';`.
+    * All endpoints call `${API_BASE}/api/...`, falling back to clean relative `/api/...` calls by default.
+  - **Express Server Host Interface (`server/server.js`)**:
+    * Bound `app.listen` explicitly to `'0.0.0.0'` on `PORT` for robust network routing across Docker, Synology, and DO PaaS containers.
+  - **Canonical DigitalOcean App Spec (`.do/app.yaml`)**:
+    * Declared canonical specification for `malayalam-primer-v1` with GitHub repo `jessgeo-personal/malayalam-primer-v1`.
+    * Edge-routes `/api` to the backend web service with `preserve_path_prefix: true`.
+    * Removed fragile `VITE_API_URL: ${api.PUBLIC_URL}` client build injection; static site cleanly uses same-origin relative `/api/*` edge routing.
+  - **Test Suite Updates**:
+    * Updated `server/tests/ops.test.js` to assert the canonical `.do/app.yaml` topology.
+    * 100% green tests verified: 73/73 passing in `server`, 52/52 passing in `client`.
+
+## [2026.10.09.006] - 2026-10-09
+### Fixed & Added
+- **Production API Route Prefix Preservation & Strict JSON Guard**:
+  - Updated `.do/app.yaml` service `api` routes with `preserve_path_prefix: true` to prevent upstream proxy path stripping.
+  - In `server/server.js`, mounted routers under both `/api` and fallback root paths (`/api/auth` & `/auth`, `/api/ai` & `/ai`, `/api` & `/`) so requests resolve regardless of proxy prefix stripping.
+  - Added strict JSON 404 guard (`{ error: 'API endpoint not found' }`) for non-existent `/api`, `/auth`, and `/ai` routes, ensuring Express never inadvertently returns `index.html` for API calls.
+  - Added regression test suite in `server/tests/ops.test.js` validating route preservation, route fallback handling, and JSON 404 guard.
+- **Client Lesson & Practice Auth Gate with Auto-Resume**:
+  - In `client/src/App.jsx`, gated all lesson launches (`handleSelectLesson`) and practice launches (`handleStartReview`) behind parent authentication.
+  - If unauthenticated, records `pendingLessonId` or `pendingAction` and opens `AuthModal`.
+  - Added reactive auto-resume `useEffect` watching `[isAuthenticated, isAuthModalOpen, pendingLessonId, pendingAction]`. Upon successful OTP authentication and onboarding completion (when modal closes), automatically resumes and launches the pending lesson with the newly created/active learner profile.
+  - Updated `client/src/components/ui/AdventureMap.jsx` to route train bogie clicks, hero CTA clicks, preview modal start buttons, and daily revision through the auth gate handlers.
+  - Added unit test in `client/src/tests/AuthFlow.test.jsx` verifying unauthenticated lesson click interception, modal display, onboarding completion, and seamless auto-launch.
+
 ## [2026.10.09.005] - 2026-10-09
 ### Fixed & Configured
 - **DigitalOcean App Platform Start Command & Process Types (Exit Code 190 Fix)**:

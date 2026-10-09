@@ -26,16 +26,37 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Dev request logger to diagnose incoming URLs:
+if (process.env.NODE_ENV !== 'production') {
+  app.use((req, res, next) => {
+    console.log(`[REQ] ${req.method} ${req.originalUrl}`);
+    next();
+  });
+}
+
+// 1. Mount specific routers first:
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api', apiRoutes);
+
+// 2. Direct fallbacks if proxy strips /api:
+app.use('/auth', authRoutes);
+app.use('/ai', aiRoutes);
+
+// 3. API 404 Guard (MUST be after all API routers):
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/ai')) {
+    return res.status(404).json({ error: 'API endpoint not found' });
+  }
+  next();
+});
 
 // Static site serving and SPA catchall fallback for non-API routes
 const clientDistPath = path.join(__dirname, '../client/dist');
 app.use(express.static(clientDistPath));
 
 app.use((req, res, next) => {
-  if (req.method === 'GET' && !req.path.startsWith('/api')) {
+  if (req.method === 'GET') {
     const indexPath = path.join(clientDistPath, 'index.html');
     if (fs.existsSync(indexPath)) {
       return res.sendFile(indexPath);
@@ -55,7 +76,7 @@ if (require.main === module) {
     .then(async () => {
       console.log('Connected to MongoDB');
       await seedDatabaseIfNeeded();
-      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+      app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
     })
     .catch(err => console.error('MongoDB connection error:', err));
 }

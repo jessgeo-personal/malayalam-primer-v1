@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.09.005] - 2026-10-09
+### Fixed & Configured
+- **DigitalOcean App Platform Start Command & Process Types (Exit Code 190 Fix)**:
+  - Added `"start": "node server/server.js"` script to root `package.json`.
+  - Confirmed `"start": "node server.js"` in `server/package.json` and updated `"main"` entrypoint from `index.js` to `server.js`.
+  - Created `server/Procfile` with `web: node server.js` to explicitly declare default web process type for Cloud Native Buildpacks.
+  - Created root `Procfile` with `web: node server/server.js` for root-level buildpack detection parity.
+
 ## [2026.10.09.004] - 2026-10-09
 ### Changed & Added
 - **Track D, Task OPS-02 (Production Smoke Testing Suite & Deployment Verification)**:

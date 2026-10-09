@@ -26,8 +26,9 @@ describe('PrototypeLab Screen', () => {
   it('renders correctly and shows the default tab (Time Zones)', () => {
     render(<PrototypeLab />);
     expect(screen.getByText(/Prototype Lab/i)).toBeInTheDocument();
-    expect(screen.getByText(/Drag the tile to/i)).toBeInTheDocument(); // Inside TimeMachineZones
-  });
+    expect(screen.getByText(/Tap the words in the right order/i)).toBeInTheDocument();
+    });
+
 
   it('switches between experimental and sandbox tabs', () => {
     render(<PrototypeLab />);
@@ -43,5 +44,26 @@ describe('PrototypeLab Screen', () => {
     // Switch to Assembly Sandbox
     fireEvent.click(screen.getByText(/ASSEMBLY BOX/i));
     expect(screen.getByTestId('mock-build')).toBeInTheDocument();
+    expect(screen.getByText(/Assembly Sandbox: പെട്ടി/i)).toBeInTheDocument();
+  });
+
+  it('allows selecting different words in the Assembly Sandbox workbench', () => {
+    render(<PrototypeLab />);
+    
+    // Switch to Assembly Box
+    fireEvent.click(screen.getByText(/ASSEMBLY BOX/i));
+
+    // Verify word selector is rendered
+    const select = screen.getByLabelText(/Select Word for Assembly Test/i);
+    expect(select).toBeInTheDocument();
+    expect(screen.getByText(/Assembly Sandbox: പെട്ടി/i)).toBeInTheDocument();
+
+    // Select a surround mathra word
+    fireEvent.change(select, { target: { value: 'preset-poyi' } });
+    expect(screen.getByText(/Assembly Sandbox: പോയി/i)).toBeInTheDocument();
+
+    // Select a base conjunct word
+    fireEvent.change(select, { target: { value: 'preset-amma' } });
+    expect(screen.getByText(/Assembly Sandbox: അമ്മ/i)).toBeInTheDocument();
   });
 });

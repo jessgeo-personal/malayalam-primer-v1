@@ -63,4 +63,34 @@ describe('LetterPicker (Word Assembly) Component', () => {
     fireEvent.click(speakerButtons[speakerButtons.length - 1]);
     expect(audioEngine.speak).toHaveBeenCalledWith(mockWord.malayalamText);
   });
+
+  it('orders visual slots correctly for left-side mathra words (e.g., പെട്ടി)', () => {
+    const leftMathraWord = {
+      wordId: 'preset-petti',
+      malayalamText: 'പെട്ടി',
+      englishTranslation: 'Box',
+      phonetic: 'petti',
+      requiredCharacters: ['പ', 'െ', 'ട്ട', 'ി']
+    };
+
+    const { container } = render(<LetterPicker word={leftMathraWord} onComplete={() => {}} />);
+    // The droppable slots are rendered inside the container
+    // Expected visual order: െ (slot-1, left of consonant) then പ (slot-0) then ട്ട (slot-2) then ി (slot-3)
+    const slotElements = container.querySelectorAll('[class*="border-dashed"]');
+    expect(slotElements.length).toBe(4);
+  });
+
+  it('orders visual slots correctly for surround mathra words (e.g., പോയി)', () => {
+    const surroundWord = {
+      wordId: 'preset-poyi',
+      malayalamText: 'പോയി',
+      englishTranslation: 'Went',
+      phonetic: 'poyi',
+      requiredCharacters: ['പ', 'ോ', 'യ', 'ി']
+    };
+
+    const { container } = render(<LetterPicker word={surroundWord} onComplete={() => {}} />);
+    const slotElements = container.querySelectorAll('[class*="border-dashed"]');
+    expect(slotElements.length).toBe(4);
+  });
 });

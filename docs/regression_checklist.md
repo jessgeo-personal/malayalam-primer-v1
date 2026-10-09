@@ -1,0 +1,269 @@
+# Unified Regression Test Checklist
+
+## 🛠️ Phase 1: The "Foundation" (Milestone 1.3)
+- [x] **Intro Screens Retrofit:** All 9 Cycle 1 lessons now start with an instructional Concept Screen verified (Pedagogical Alignment).
+- [x] **Interactive Summaries:** Concept screens dynamically fetch and display lesson vocabulary with audio buttons verified (Functional Adherence).
+- [x] **Summary UI Grid:** "Soft Premium Neo-Bento" grid layout for lesson previews verified (Visual Consistency).
+- [x] **Cycle Consistency:** Milestone 1.3 intro screens share the same component architecture as Cycle 2 grammar screens verified (Architectural Integrity).
+- [x] **TDD Validation:** 100% green state for new ConceptScreen summary variant tests verified.
+- [x] **Aspirated Consonant Integration:** 8 new Trace/Match lessons for (ഭ, ഠ, ധ, ഖ) verified (Pedagogical Depth).
+- [x] **Visual Correction Feedback:** Word Assembly now displays correct spelling/phonetics on mistakes verified (Functional Adherence).
+- [x] **Achchan Simplification:** "അച്ഛൻ" standardized to "അച്ചൻ" across all 300 words and tiles verified (Consistency).
+- [x] **SRS Revision Safety:** `concept` items are strictly excluded from Daily Revision payloads verified (Accuracy).
+- [x] **Data Expansion:** Cycle 2 expanded to ensure every lesson (10-14) contains at least 10 words verified (Volume Constraint).
+- [x] **ConceptScreen Component:** Automated UI animation built to visually explain rules before gameplay verified (Visual Consistency).
+- [x] **Game Loop Integration:** App.jsx routes `concept` items correctly to the new instructional screen verified (Functional Adherence).
+- [x] **Concept Payload Routing:** Backend accurately sorts `lessonType: 'concept'` items to the very front of the lesson bundle verified (Accuracy).
+
+## 🛠️ Phase 2: The Grammar Factory (Milestones 2.1 - 2.3)
+- [x] **Full Data Normalization:** Database purged and re-ingested with strictly non-overlapping Cycle/Lesson boundaries verified (Accuracy).
+- [x] **Curriculum Integrity Test:** Automated test verifies lesson ranges per cycle to prevent future desync verified (TDD Mandate).
+- [x] **Map Contrast Fix:** Locked nodes in Adventure Map use high-contrast styling (grayscale/semi-white) for visibility verified (Visual Consistency).
+- [x] **Lesson Routing Fix:** Adventure Map correctly identifies lesson ranges per cycle, preventing cross-cycle duplication verified (Functional Adherence).
+- [x] **Suffix Snapper Component:** Drag-and-drop magnetic snap mechanics for suffixes verified (Functional Adherence).
+- [x] **Guided Tutorial:** In-game tutorial hand appears on first encounter of a concept verified (Pedagogical Alignment).
+- [x] **Schema Expansion:** Word model supports `baseWord`, `targetSuffix`, `distractorSuffixes`, and `examples` verified (Accuracy).
+- [x] **ShowTutorial Logic:** Backend accurately calculates `showTutorial` flag based on user progress verified (Accuracy).
+- [x] **Seed Data (seed-200.json):** Cycle 2 plural and location grammar lessons verified (Resource Audit).
+- [x] **TDD Validation:** 100% green state for new suffix and tense unit tests (backend & client) verified.
+- [x] **Time Machine Integration:** Interactive drag-and-drop game for Past, Present, and Future verb tenses verified (Milestone 2.3).
+- [x] **Phonetic Sandhi Blocks:** Intuitive suffix tiles (ലിൽ, ത്തിൽ, ട്ടിൽ) replace single-character vowel markers for easier reading verified (Pedagogical Accuracy).
+- [x] **Multi-Step Concepts:** Concept screens support sequenced rule breakdowns with specific "Why" explanations verified (Pedagogical Alignment).
+- [x] **Global Gamification Overhaul:** Micro-joy system (Confetti/Stars) for first correct, redemptions, and hard words verified (UX Engagement).
+- [x] **Advanced Session Summary:** Correct/Wrong counts and Mastery status thresholds (3-star mastered, 0-star incomplete) verified (Functional Adherence).
+- [x] **Prototype Lab:** Permanent isolated environment for UI experiments and user testing verified (Architectural Integrity).
+- [x] **Enhanced Dictionary Audit:** Grammar-specific tab for auditing base words, morphed forms, and suffixes verified (Resource Audit).
+
+## 📐 Phase 19: Mathra UI Support & UI Refinements
+- [x] **Surround Mathra Splitting:** 2-part mathras (ൊ, ോ, ൌ) visually split upon placement, with the right-side part dynamically injected after the consonant verified (Pedagogical Accuracy).
+- [x] **Visual Reordering:** Left-side mathras (െ, േ, ൈ) automatically shift their drop-slots to the left of the base consonant in the UI verified (Visual Consistency).
+- [x] **Feedback Contrast Fix:** Failure overlay in Word Assembly uses a dark #1A1E26 background and high-contrast card for 100% legibility verified (Accessibility).
+- [x] **Expanded Tracing Width:** Tracing canvas width increased by ~35% and resolution updated to 1400x800 to accommodate long Malayalam letters verified (Tablet UX).
+- [x] **Phonetic Data Mandate:** Word splitting protocol updated to require phonetic order in database, supported by UI-layer visual reordering verified (Architectural Integrity).
+
+## 🟢 Core Infrastructure
+- [x] Monorepo scaffolding verified
+- [x] Single-command dev runner (`npm run dev`) via root `concurrently` (Task DEV-01)
+- [x] Idempotent auto-seeding on backend boot (`seedDatabaseIfNeeded`) (Task DEV-01)
+- [x] Standalone dictionary seeder CLI execution (`npm run seed` / `node seeder.js`) (Task DEV-01)
+- [x] Email + OTP authentication endpoints (`/api/auth/request-otp`, `/api/auth/verify-otp`) (Task AUTH-01)
+- [x] Account Mongoose model with default profile and OTP expiry mechanics (Task AUTH-01)
+- [x] Replay attack protection with immediate OTP nullification upon verification (Task AUTH-01)
+- [x] JWT Bearer authentication middleware (`server/middleware/auth.js`) (Task AUTH-02)
+- [x] Profile management endpoints (`GET /api/auth/profiles`, `POST /api/auth/profiles`) (Task AUTH-02)
+- [x] Hard limit of 3 profiles per account enforced with 400 validation (Task AUTH-02)
+- [x] Active profile switching endpoint (`POST /api/auth/profiles/switch`) (Task AUTH-02)
+- [x] First learner onboarding (`PUT /api/auth/profiles/:profileId` endpoint + Frontend name prompt on `isNewAccount`) (Task AUTH-05)
+- [x] Cancel/Close button on ProfileSelector invoking `onClose` callback (Task AUTH-05)
+- [x] Global scroll-to-top on view and lesson changes in App.jsx (Task AUTH-05)
+- [x] Context-aware Hero CTAs in AdventureMap (Resume, Start Next with lesson number, Improve score instructions) (Task AUTH-05)
+- [x] Neo-Bento 3-column Hero Card and 5-section vertical page order (Hero, Practice, Adventure Map, Fluency Master, My Letters) (Task UI-01)
+- [x] DigitalOcean App Platform PaaS spec (`.do/app.yaml`) defining `api` web service and `web` static site (Task OPS-01)
+- [x] Resend email service integration (`emailService.js`) with responsive HTML template and test simulation guard (Task OPS-01)
+- [x] Automated deployment specification & email health gate test suite (`server/tests/ops.test.js`) (Task OPS-01)
+- [x] Deprecation and removal of legacy PM2 ecosystem and Nginx reverse proxy configs (Task OPS-01)
+- [x] Automated live deployment smoke test runner (`server/scripts/smoke-test.js` & `npm run test:smoke`) with 4-gate verification (Health, Seeding/Curriculum, Static SPA catchall, Auth/Email) (Task OPS-02)
+- [x] Docker-compose structure valid
+- [x] MongoDB/Express/React connectivity placeholders established
+- [x] Vite development server starts without PostCSS errors (Tailwind v4 fix)
+- [x] SRS Engine logic verified (Accuracy)
+- [x] Backend API routes for next word and progress update verified (Functional Adherence)
+- [x] Letter Picker component renders and handles drag-and-drop state (Visual Consistency)
+- [x] Spaced Repetition persistence in MongoDB verified (Accuracy)
+- [x] Global 'Restart Session' functionality verified (Functional Adherence)
+- [x] Pedagogical feedback loop (Success/Fail/Correction) verified (Functional Adherence)
+- [x] Alphabet tracing canvas verified with touch/mouse events (Visual Consistency)
+- [x] Phonetic audio playback (TTS placeholder) verified (Functional Adherence)
+- [x] Pedagogical prerequisite system (Trace before Build) verified (Accuracy)
+- [x] Visual phonetics on tracing canvas verified (Visual Consistency)
+- [x] Mastery Strip UI displaying learned letters at TOP verified (Visual Consistency)
+- [x] Global score tracking and gamification (Stars/Points) verified (Functional Adherence)
+- [x] SoundMatcher (Listen & Pick) mini-game verified (Pedagogical Alignment)
+- [x] DND-Kit Touch sensors and closestCenter collision verified (Tablet UX)
+- [x] Drop zone active highlighting on hover verified (Visual Consistency)
+- [x] Prerequisite Trace -> Match -> Build sequence verified (Accuracy)
+
+## 🔵 Phase 2: Session Management & Adventure Map
+- [x] **3-Tier SRS:** Independent tracking of Letter, Word, and Sentence progress verified (Accuracy).
+- [x] **Graduation Logic:** Mastered letters used correctly in word-building are removed from isolated revision verified (Accuracy).
+- [x] **Daily Revision:** Mandatory revision block correctly identifies items needing review verified (Functional Adherence).
+- [x] **Empty Revision Handling:** If no items need review, revision is auto-completed verified (Process Faultlines).
+- [x] **Adventure Map UI:** Visual path with interactive Lesson nodes verified (Visual Consistency).
+- [x] **Lesson Star System:** 1-3 stars awarded based on session accuracy verified (Gamification Adherence).
+- [x] **Session Summary:** Reward screen for Revision (Prize) and Lessons (Stars) verified (Visual Consistency).
+- [x] **Concurrent Access:** Lessons and Revision are simultaneously clickable on the map verified (UX Flow).
+- [x] **Backend API:** Lesson history and current lesson progress persistence verified (Accuracy).
+
+## 🚂 Phase 3: Train UI & Audio Tiles
+- [x] **Malayalam Express UI:** Adventure Map reskinned as a train with Engine (Revision) and Bogeys (Lessons) verified (Visual Consistency).
+- [x] **Info Popup ('i'):** Lesson preview modal correctly displays content before starting verified (Functional Adherence).
+- [x] **Audio Tiles:** Individual letter tiles in Word Building now have functional "🔊" buttons verified (UX Enhancement).
+- [x] **Replayability:** Completed lesson bogeys are clickable and allow star improvement verified (Functional Adherence).
+- [x] **Dictionary Audit:** Current dictionary supports 23 lessons (~118 items) verified (Resource Audit).
+
+## 💎 Phase 4: Professional UI Refinement
+- [x] **Compact Layout:** Global font and element sizes reduced by ~50% for tablet optimization verified (Visual Consistency).
+- [x] **Tracing Fix:** Canvas ghost letter guide rendered correctly using valid CSS font shorthand verified (Functional Adherence).
+- [x] **Professional Palette:** Muted sky blue background and refined 3D button colors verified (Visual Consistency).
+- [x] **Enhanced Map:** Scaled-down railway nodes showing 15+ bogeys on one screen verified (Visual Consistency).
+- [x] **Repositioned Hints:** "Start Drawing" hint moved to bottom of canvas to avoid obstructing characters verified (UX Enhancement).
+
+## 🏙️ Phase 5: Cyber-Pop UI Rebuild (UI Charter)
+- [x] **Dark Mode Base:** Slate-900 background and high-contrast text verified (Charter Adherence).
+- [x] **Neon Accents:** Violet primary and Emerald success palette verified (Charter Adherence).
+- [x] **Arcade Button System:** .btn-arcade classes with 4px tactile shadows and pop animations verified (UX Enhancement).
+- [x] **Tracing Matrix Fix:** Ghost letter guide scaled and rendered correctly on a larger slate-900 canvas verified (Functional Adherence).
+- [x] **HUD Header:** Rotated, arcade-style score HUD and HUD-style badge shelf verified (Visual Consistency).
+- [x] **Map Grid:** Neon grid background and 20+ scaled node visibility verified (Visual Consistency).
+- [x] **Contrast Compliance:** All text elements meet WCAG AA standards as per Charter verified (Accessibility).
+- [x] **Tailwind v4 Alignment:** Legacy tailwind.config.js removed and @theme directive used in index.css verified (Technical Debt).
+- [x] **CSS Compilation:** Build succeeds without 'unknown utility' errors using @reference verified (Process Faultlines).
+
+## 🍱 Phase 7: Soft Premium "Neo-Bento" UI
+- [x] **Warm Canvas Backdrop**: Creamy #FFFDF6 background and high-contrast obsidian text verified.
+- [x] **Neo-Bento Layout**: Card-stack dashboard with Hero slot and Bento Grid stats verified.
+- [x] **Premium Dark Pills**: All primary actions migrated to bg-prime-action-dark capsules verified.
+- [x] **Dynamic Course Deck**: Adventure Map refactored into stacked cycle cards with alternating accents verified.
+- [x] **High-Res Tracing Hub**: Large, hyper-rounded tracing canvas with calibrated ghost guide verified.
+- [x] **Floating Nav Dock**: Floating dark navigation dock implemented at screen bottom verified.
+- [x] **Stability Fix**: Adventure Map JSX syntax error (missing closing tags/export) resolved and verified.
+- [x] **Accessibility (WCAG AA)**: Contrast ratios audited for Obsidian text on Pastel backgrounds verified.
+
+## 🗣️ Phase 8: Simple Language & High-Contrast Visuals
+- [x] **Terminology Simplification**: All technical/cyber-pop jargon (Sync, Grapheme, Deploys) replaced with simple terms (Practice, Letter, Lessons) verified.
+- [x] **Visual Clarity**: Drop zone borders darkened to Slate-400 for better visibility against white/light backgrounds verified.
+- [x] **Tracing Accessibility**: Ghost letter guide darkened to Slate-300 (#cbd5e1) for clearer target recognition verified.
+- [x] **Navigation Fix**: Settings button replaced with a functional "Restart Session" (🔄) button with confirmation safety verified.
+- [x] **Encouraging Feedback**: Game feedback banners updated to use learner-friendly language ("Correct!", "Try Again!") verified.
+
+## 🧠 Phase 9: Micro-Loop Refactor & HUD
+- [x] **Batch Acquisition Logic**: generateLessonPayload groups Tracing before Matching/Building verified.
+- [x] **Recall Challenge**: Matching and Building tasks are randomized after tracing verified.
+- [x] **Exit Strategy**: EXIT button moved to top-left verified.
+- [x] **Progress HUD**: "My Progress" strip implemented in top-right verified.
+- [x] **TDD Green State**: npm test in /server and /client 100% green verified.
+
+## 🗺️ Phase 10: Pedagogical Data Integrity (The Great Split)
+- [x] **Explicit Lesson ID Schema**: Word model updated with lessonId and sequence verified.
+- [x] **Curated Payload Engine**: generateLessonPayload fetches strictly by lessonId verified.
+- [x] **Cycle 1 Grapheme Splits**: requiredCharacters populated for w001-w050 using split protocol verified.
+- [x] **Dynamic Adventure Map**: Lesson nodes calculated based on database lessonId counts verified.
+- [x] **Zero-Empty-Boxes Rule**: All Cycle 1 build games verified to have non-empty character arrays.
+
+## 🔄 Phase 11: HUD Sync & Curriculum Consolidation
+- [x] **Phonetic Restoration**: Phonetic English labels restored in "Build" game verified.
+- [x] **Real-time HUD Update**: "My Progress" strip updates immediately after correct trace verified.
+- [x] **Cycle 1 Consolidation**: Curriculum reduced from 14 fragments to 9 high-density lessons verified.
+- [x] **Missing Graphemes Added**: Traces for ൽ, ൂ, സ, ഷ, ഭ added to complete Cycle 1 dependencies verified.
+
+## 👥 Phase 12: Multi-User Isolation
+- [x] **User Switcher UI**: Dropdown in top-right corner allows switching between 3 learners verified.
+- [x] **State Persistence**: Selected user persists across page refreshes via localStorage verified.
+- [x] **Data Isolation**: Progress, score, and mastered letters are strictly independent per userId verified.
+- [x] **Session Safety**: Switching users mid-lesson correctly resets the session and returns to the map verified.
+- [x] **Dynamic Previews**: Lesson info popups show data relevant to the currently active user verified.
+
+## 📱 Phase 13: Tablet-First Layout & HUD Sync
+- [x] **Side-by-Side Tracing**: Drawing pad (left) and control panel (right) layout implemented verified (No-Scroll UX).
+- [x] **Interactive Controls**: Phonetic sound display and larger speaker replay button verified.
+- [x] **HUD Clarity**: Active Lesson bubble now includes specific lesson ID verified.
+- [x] **Progress Awareness**: Placeholder added for empty "My Progress" state verified.
+- [x] **Vertical Button Stack**: CLEAR and DONE buttons positioned for easy thumb-access on right side verified.
+
+## 🧭 Phase 14: Nav Dock Relocation
+- [x] **Unobstructed Gameplay**: Global navigation dock is conditionally hidden during active lessons verified.
+- [x] **Consolidated Header Controls**: Home, Restart, and Status controls relocated into the game card header verified.
+- [x] **Consistent Exit UX**: EXIT and Home actions consolidated into a clean dark-capsule grouping verified.
+- [x] **Conditional Rendering Tests**: Vitest component tests verify dock visibility across different modes verified.
+
+## 🎧 Phase 15: Sound Match Ergonomics
+- [x] **Feedback Button Relocation**: CONTINUE/RETRY button moved to the top header of the results box verified.
+- [x] **Compact Layout**: Results box reduced in height to ensure all content fits "above the fold" on tablets verified.
+- [x] **TDD Validation**: New SoundMatcher.test.jsx unit tests verify interaction and button labels verified.
+
+## 🧩 Phase 16: Word Assembly Ergonomics & DND
+- [x] **Side-by-Side Layout**: Assembly area (left) and Reference info (right) layout implemented verified.
+- [x] **Pointer-Only Snapping**: `pointerWithin` collision detection prevents accidental snaps verified.
+- [x] **Draggable Placed Tiles**: Tiles inside boxes remain draggable for correction verified.
+- [x] **Return to Pool**: Dragging tiles out of boxes returns them to the pool verified.
+
+## 📊 Phase 17: Progress Tracking Integrity
+- [x] **Idempotent Lesson Completion**: Replaying a lesson no longer increments `currentLesson` beyond the next available one verified.
+- [x] **Accurate Stats Display**: "Lessons Completed" dashboard stat now correctly reflects `lessonHistory.length` verified.
+- [x] **Smoother Mastery Curve**: "Cycle Mastery" calculation now includes all items (trace, match, build) in the cycle verified.
+- [x] **Unit Testing**: Added specific tests for safe `currentLesson` incrementing and cycle progress calculation verified.
+
+## 🚀 Phase 18: Progression Accuracy & Thresholds
+- [x] **Bounded Scoring**: Total score strictly tied to lesson stars (1*=100, 2*=200, 3*=300). Replaying Lesson 1 cannot exceed 300 pts verified.
+- [x] **Reinforcement Queue**: Incorrect answers are automatically appended to the end of the session, forcing student to face them again verified.
+- [x] **Passing Threshold (75%)**: User must earn at least 1 star (no more than 2 initial mistakes) to unlock the next lesson verified.
+- [x] **Safe Lesson Pointers**: replaying Lesson 1 correctly updates Lesson 1 stats and DOES NOT unlock Lesson 3 verified.
+- [x] **TDD Verification**: All backend and client tests passed 100% green verified.
+
+## 🖋️ Phase 22: Global Width Expansion
+- [x] **Global App Width**: Application container expanded to `max-w-[1600px]` in `App.jsx` verified.
+- [x] **Game Box Expansion**: Central game card widened to `max-w-[1400px]`, providing 40-50% more interactive space verified.
+- [x] **Word Assembly Natural Flow**: Reverted forced scroll; long words now fit on a single row naturally without scrollbars verified.
+- [x] **Tracing Sidebar Breathing Room**: Widen sidebar to `md:w-96` to prevent example word truncation verified.
+
+## 🖋️ Phase 23: Progress Tracking Fix
+- [x] **Correct Item Categorization**: `srsEngine.js` now correctly labels traces as `itemType: 'letter'`, enabling correct filtering verified.
+- [x] **Unified Character Mapping**: API now maps internal trace IDs (t001, etc.) to actual Malayalam characters for UI display verified.
+- [x] **Data Migration**: Existing progress records migrated from `word` to `letter` type where appropriate verified.
+- [x] **HUD/Mastery Strip Sync**: Mastery strip now correctly reflects learned characters from Cycle 1 verified.
+
+## 🖋️ Phase 24: Cycle Progression Fix
+- [x] **Dynamic Cycle Advancement**: `POST /api/session/lesson/complete` now correctly calculates and updates `user.currentCycle` when the next lesson belongs to a new cycle verified.
+- [x] **Cycle Card Unlocking**: Verified that completing Lesson 9 now triggers a move to Cycle 2 on the Adventure Map verified.
+
+## 🖋️ Phase 25: Auto-Heal Progression
+- [x] **Retroactive Cycle Sync**: `GET /api/progress/stats` now includes a self-healing check that automatically bumps `currentCycle` if the user's `currentLesson` belongs to a future cycle verified.
+- [x] **Data Persistence**: Confirmed that the auto-heal logic saves the corrected cycle back to the database instantly on app load verified.
+
+
+
+
+
+## 🎨 Phase 4: Consumer-Grade UI Overhaul
+- [x] **Game Background:** Vibrant, fixed-pattern sky background implemented verified (Visual Consistency).
+- [x] **3D Buttons:** Chunky .btn-3d classes with physical press animations verified (UX Enhancement).
+- [x] **Polished Map:** Railway/Train Map with high-quality gradients and wheels verified (Visual Consistency).
+- [x] **Component Redesign:** Games (Trace, Match, Pick) use high-contrast, rounded card layouts verified (Visual Consistency).
+- [x] **Badge Shelf:** Mastery Strip redesigned as a physical badge shelf with pop-in animations verified (Gamification Adherence).
+- [x] **Audio Engine Safety:** Added checks for speechSynthesis to prevent test/headless environment crashes verified (Process Faultlines).
+
+## 🛠️ Phase 2: The \"Grammar Factory\" (Active Milestone)
+- [x] **3-Act Lesson Structure:** All Lessons 1-3 now utilize 'Hard Gate' concept screens to enforce the Alphabets -> Words -> Sentences sequence verified (Pedagogical Alignment).
+- [x] **Gate Chaining Integrity:** Act 2 Concepts correctly require all Act 1 Matches; Act 3 Concepts correctly require all Act 2 Builds verified (TDD Compliance).
+- [x] **Scrambler Tap UI:** Sentence builder refactored to singular high-performance 'Tap' mechanic verified (Tablet-First UX).
+
+## 🛠️ Phase 3: Flow & Sequencing
+- [x] **Lesson 1 Act Sequencing:** Sequential delivery of Act 1 -> Act 2 -> Act 3 verified. Concepts no longer loop infinitely via 'completed' session tracking.
+- [x] **True Lesson Replays:** Replaying a mastered lesson now delivers full content in correct Act order verified.
+- [x] **Act Summary Accuracy:** Context screens correctly fetch and display section-specific vocabulary verified.
+- [x] **Backend Robustness:** SRS Engine refactored to handle session-based chunking and replay detection verified.
+
+## 🛠️ Phase 4: UI Refinement & Fail-Out Safety
+- [x] **Sentence Scrambler Auto-Check:** Automatic validation when all words are placed verified (UX Efficiency).
+- [x] **High-Contrast Feedback Overlay:** Solid green/obsidian feedback screens with readable correction text verified (Accessibility).
+- [x] **Infinite Loop Prevention:** 3-attempt fail-out threshold implemented in `ProgressContext.jsx` verified (Stability).
+- [x] **Dictionary Correctness:** 'nta' label and 'Chechi' word-splits corrected in seed data verified (Accuracy).
+## 🛠️ Phase 5: Cycle 1 High-Density Expansion (Milestones 5.1 - 5.3)
+- [x] **Lesson 8 Refinement:** Consolidated 'nga' fragments into the full 'ങ്ങ' (nnga) conjunct for pedagogical consistency verified.
+- [x] **Grammatical Accuracy (L8):** Corrected 'Santhosham undu' to 'Santhosham aanu' and 'Athu nallathu' to 'Athu nallathaanu' verified.
+- [x] **Lesson 9 Implementation:** Added 'Which?' (ഏത്) lesson with 7 adjectives (Big, Small, colors) and 5 scramble sentences verified.
+- [x] **Lesson 10 Implementation:** Added 'How Many?' (എത്ര) lesson with numbers (1, 2, 3, 10) and quantifiers (All, Many, Few) verified.
+- [x] **Cycle 1 Completion:** Verified that all 10 lessons in Cycle 1 are fully functional, gated correctly, and contain no orphaned characters verified.
+- [x] **TDD Validation:** 100% green state for backend integrity tests and frontend component tests verified.
+
+## 🛠️ Phase 6: Curriculum Bridge & Idiomatic Refactor
+- [x] **Idiomatic Sentence Refactor (L7):** Replaced unnatural transliterations in Lesson 7 with native-sounding Malayalam phrasing verified.
+- [x] **Cycle 1 Bridge Expansion (L11-14):** Appended 4 high-density vocabulary lessons (Nature, Objects, Action Roots, Past Tense) to bridge into Cycle 2 grammar verified.
+- [x] **Global ID Uniqueness:** Re-indexed bridge vocabulary with `wb/tb/mb/ssb` prefixes to ensure 100% collision safety across seed files verified.
+- [x] **Curriculum Shift (Cycle 2/3):** Shifted Cycle 2 (L15-20) and Cycle 3 (L21+) lesson IDs to maintain sequential integrity verified.
+- [x] **Purge Orphaned Data:** Removed legacy/incorrectly placed Cycle 2-4 items from `seed-100.json` to ensure clean boundaries verified.
+- [x] **TDD Verification:** 100% green state for updated `integrity.test.js` covering the new L1-21 boundaries verified.
+
+## 🟢 Core Infrastructure
+- [x] **Profile Independent Reset Endpoint (AUTH-03):** Verified `POST /api/auth/profiles/:profileId/reset` purges progress records strictly for the target profile without cross-profile or cross-account leakage.
+- [x] **Frontend Auth Flow & Profile Selector (AUTH-04):** Verified dedicated `AuthContext`, two-step `AuthModal` (Email OTP), 3-profile limit enforcement, profile switching, and confirmed resets.

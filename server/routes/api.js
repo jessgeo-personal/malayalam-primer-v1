@@ -5,6 +5,17 @@ const Progress = require('../models/Progress');
 const User = require('../models/User');
 const srsEngine = require('../services/srsEngine');
 
+const mongoose = require('mongoose');
+
+/**
+ * GET /api/health
+ * Diagnostic health check endpoint.
+ */
+router.get('/health', (req, res) => {
+  const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
+  res.json({ status: 'ok', database: dbStatus, timestamp: new Date() });
+});
+
 /**
  * GET /api/session/cycle/lessons
  * Returns the start and end lesson IDs for a cycle.
@@ -47,8 +58,25 @@ router.get('/session/revision', async (req, res) => {
  */
 router.get('/session/lesson', async (req, res) => {
   try {
-    const { userId, lessonId } = req.query;
-    const bundle = await srsEngine.generateLessonPayload(userId, parseInt(lessonId) || 1);
+    const { userId, lessonId, completed } = req.query;
+    const completedIds = completed ? completed.split(',') : [];
+    const bundle = await srsEngine.generateLessonPayload(userId, parseInt(lessonId) || 1, completedIds);
+    res.json(bundle);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/game/lesson/:lessonId
+ * Game lesson endpoint alias supporting act parameter and lessonId route param.
+ */
+router.get('/game/lesson/:lessonId', async (req, res) => {
+  try {
+    const { act, userId, completed } = req.query;
+    const lessonId = parseInt(req.params.lessonId) || 1;
+    const completedIds = completed ? completed.split(',') : [];
+    const bundle = await srsEngine.generateLessonPayload(userId, lessonId, completedIds);
     res.json(bundle);
   } catch (error) {
     res.status(500).json({ error: error.message });

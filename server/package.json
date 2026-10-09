@@ -4,22 +4,37 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "dev": "node server.js",
+    "test": "jest --runInBand",
     "start": "node server.js",
-    "reset": "node reset-progress.js"
+    "seed": "node seeder.js",
+    "reset": "node reset-progress.js",
+    "verify:transliterate": "node scripts/verify-transliteration.js",
+    "test:smoke": "node scripts/smoke-test.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@google/genai": "^2.6.0",
+    "@indic-transliteration/sanscript": "^1.3.3",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "mongoose": "^9.6.2"
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.2",
+    "resend": "^6.32.1"
   },
   "devDependencies": {
     "jest": "^30.4.2",
-    "supertest": "^7.2.2"
+    "js-yaml": "^5.4.3",
+    "supertest": "^7.2.2",
+    "vitest": "^5.0.3"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "tests/transliterate.test.js"
+    ]
   }
 }

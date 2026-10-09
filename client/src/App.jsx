@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import { useProgress } from './context';
+import React, { useState, useEffect, useContext } from 'react';
+import { useProgress, useAuth, AuthProvider } from './context';
+import AuthContext from './context/AuthContext';
 import { LetterPicker, TracingCanvas, SoundMatcher, SuffixSnapper, ConceptScreen, TimeMachine, SentenceScrambler } from './components/games';
 import WordAudit from './components/ui/WordAudit';
 import { MasteryStrip, AdventureMap, PrototypeLab, CelebrationManager } from './components/ui';
+import AuthModal from './components/ui/AuthModal';
+import ProfileSelector from './components/ui/ProfileSelector';
 import { APP_VERSION } from './config/version';
 import './App.css';
 
-const App = () => {
+const AppContent = () => {
   const [showAudit, setShowAudit] = useState(false);
   const [showLab, setShowLab] = useState(false);
+  const [showProfiles, setShowProfiles] = useState(false);
   const { 
     userId,
     switchUser,
@@ -36,6 +40,25 @@ const App = () => {
     sessionStats
   } = useProgress();
 
+  const {
+    isAuthenticated,
+    activeProfile,
+    openAuthModal,
+    logout
+  } = useAuth();
+
+  const activeView = showAudit ? 'audit' : showLab ? 'lab' : sessionMode;
+  const activeLesson = activeLessonId || currentLesson;
+  const currentAct = currentItem?.act || currentItem?.lessonType || null;
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+    const mainContainer = document.querySelector('main') || document.documentElement;
+    if (mainContainer) mainContainer.scrollTop = 0;
+  }, [activeView, activeLesson, currentAct]);
+
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-prime-warm-base p-8 text-center">
@@ -56,6 +79,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-prime-canvas text-prime-dark-text flex flex-col font-sans">
       <CelebrationManager />
+      <AuthModal />
       
       {/* 1. Hero Header Slot (Split Canvas) */}
       {sessionMode === 'map' && (
@@ -82,22 +106,54 @@ const App = () => {
                 {showAudit ? 'EXIT AUDIT' : 'AUDIT DICTIONARY'}
               </button>
 
-              {/* User Selection Dropdown */}
-              <div className="flex flex-col items-end">
-                <span className="text-[9px] font-black text-white/60 uppercase tracking-widest mb-1">Active Profile</span>
-                <select 
-                  value={userId} 
-                  onChange={(e) => switchUser(e.target.value)}
-                  className="bg-white/20 hover:bg-white/30 text-white font-bold text-sm py-2 px-4 rounded-2xl border border-white/40 shadow-inner outline-none cursor-pointer transition-all appearance-none text-center min-w-[140px]"
-                >
-                  <option value="Learner 1" className="text-prime-dark-text">Learner 1</option>
-                  <option value="Learner 2" className="text-prime-dark-text">Learner 2</option>
-                  <option value="Learner 3" className="text-prime-dark-text">Learner 3</option>
-                </select>
-              </div>
+              {/* User Selection & Auth Header Slot */}
+              <div className="flex items-center gap-3">
+                {isAuthenticated ? (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setShowProfiles(!showProfiles)}
+                      className="flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold text-xs py-2 px-3.5 rounded-2xl border border-white/40 shadow-inner transition-all cursor-pointer"
+                      title="Manage Learner Profiles"
+                    >
+                      <span className="text-base">
+                        {activeProfile?.avatar === 'rocket' ? '🚀' : activeProfile?.avatar === 'sun' ? '☀️' : '⭐'}
+                      </span>
+                      <span>{activeProfile?.name || userId}</span>
+                      <span className="text-[10px] text-white/70">▾</span>
+                    </button>
+                    <button
+                      onClick={logout}
+                      className="px-2.5 py-1.5 rounded-xl bg-black/20 hover:bg-black/30 text-white/80 text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                      title="Log out"
+                    >
+                      Exit
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <select 
+                      value={userId} 
+                      onChange={(e) => switchUser(e.target.value)}
+                      className="bg-white/20 hover:bg-white/30 text-white font-bold text-xs py-2 px-3 rounded-2xl border border-white/40 shadow-inner outline-none cursor-pointer transition-all appearance-none text-center min-w-[100px]"
+                    >
+                      <option value="Learner 1" className="text-prime-dark-text">Learner 1</option>
+                      <option value="Learner 2" className="text-prime-dark-text">Learner 2</option>
+                      <option value="Learner 3" className="text-prime-dark-text">Learner 3</option>
+                    </select>
+                    <button
+                      onClick={openAuthModal}
+                      data-testid="login-trigger"
+                      className="bg-white/20 hover:bg-white/30 text-white font-black text-xs py-2 px-3.5 rounded-2xl border border-white/40 shadow-inner tracking-wider uppercase transition-all cursor-pointer flex items-center gap-1.5"
+                    >
+                      <span>🔐</span>
+                      <span>Login</span>
+                    </button>
+                  </div>
+                )}
 
-              <div className="w-16 h-16 bg-white/30 rounded-3xl backdrop-blur-md border border-white/40 flex items-center justify-center text-4xl shadow-inner">
-                {userId === 'Learner 1' ? '👦' : userId === 'Learner 2' ? '👧' : '🧒'}
+                <div className="w-16 h-16 bg-white/30 rounded-3xl backdrop-blur-md border border-white/40 flex items-center justify-center text-4xl shadow-inner">
+                  {activeProfile?.avatar === 'rocket' ? '🚀' : activeProfile?.avatar === 'sun' ? '☀️' : userId === 'Learner 2' ? '👧' : '👦'}
+                </div>
               </div>
             </div>
           </div>
@@ -115,51 +171,13 @@ const App = () => {
           </div>
         ) : sessionMode === 'map' ? (
           <div className="flex flex-col gap-10">
-            
-            {/* 2. Learning Plan Bento Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pop">
-              {/* Active Cycle Progress */}
-              <div className="md:col-span-2 card-bento-teal min-h-[220px]">
-                <div>
-                  <span className="text-white/70 font-bold uppercase text-xs tracking-widest">Your Progress</span>
-                  <h3 className="text-white text-3xl font-black mt-1">Cycle {currentCycle} Mastery</h3>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-hero text-white">{cycleProgress}</span>
-                  <span className="text-3xl font-black text-white/50">%</span>
-                </div>
-                <div className="w-full bg-white/20 h-3 rounded-full overflow-hidden">
-                  <div className="bg-white h-full transition-all duration-1000 rounded-full" style={{ width: `${cycleProgress}%` }}></div>
-                </div>
+            {showProfiles && isAuthenticated && (
+              <div className="animate-pop">
+                <ProfileSelector onClose={() => setShowProfiles(false)} />
               </div>
-
-              <div className="flex flex-col gap-6">
-                {/* Stat Box 1 */}
-                <div className="card-bento-surface flex-1">
-                   <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Lessons</span>
-                   <div className="text-4xl font-extrabold text-prime-dark-text mt-1">{lessonHistory.length}</div>
-                   <p className="text-slate-500 text-xs font-medium mt-1">Completed</p>
-                </div>
-                {/* Stat Box 2 */}
-                <div className="card-bento-surface flex-1">
-                   <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Points</span>
-                   <div className="text-4xl font-extrabold text-prime-dark-text mt-1">{score}</div>
-                   <p className="text-slate-500 text-xs font-medium mt-1">Total Score</p>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Mastery Badge Strip */}
-            <div className="animate-pop" style={{ animationDelay: '0.1s' }}>
-              <h2 className="text-xl font-bold text-prime-dark-text mb-4 ml-2">My Letters</h2>
-              <MasteryStrip characters={masteredCharacters} />
-            </div>
-
-            {/* 4. Active Module Course Deck (Adventure Map) */}
-            <div className="animate-pop" style={{ animationDelay: '0.2s' }}>
-              <h2 className="text-xl font-bold text-prime-dark-text mb-4 ml-2">Lessons</h2>
-              <AdventureMap />
-            </div>
+            )}
+            {/* 1-5. Unified Adventure Map Bento Sections */}
+            <AdventureMap characters={masteredCharacters} />
           </div>
         ) : sessionStatus === 'complete' ? (
           <div className="w-full max-w-2xl mx-auto card-bento-surface p-12 text-center animate-pop relative overflow-hidden">
@@ -342,6 +360,18 @@ const App = () => {
       </footer>
     </div>
   );
-}
+};
+
+const App = () => {
+  const existingAuth = useContext(AuthContext);
+  if (!existingAuth) {
+    return (
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    );
+  }
+  return <AppContent />;
+};
 
 export default App;

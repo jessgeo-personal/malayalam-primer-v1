@@ -34,12 +34,13 @@ export default defineConfig({
     setupFiles: './src/tests/setup.js',
   },
   server: {
-    port: 3000,
+    port: 5173,
     host: true, // Listen on all local IPs
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
+        secure: false
       }
     }
   }

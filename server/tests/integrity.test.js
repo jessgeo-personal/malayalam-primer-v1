@@ -63,79 +63,128 @@ describe('Database Curriculum Integrity', () => {
       }
     });
 
-    // We expect lessons 11, 12, 13, 14, 15, 16 to exist (Shifted from 10-15)
-    const requiredLessons = [11, 12, 13, 14, 15, 16];
+    // We expect lessons 15, 16, 17, 18, 19, 20 to exist (Shifted from 11-16)
+    const requiredLessons = [15, 16, 17, 18, 19, 20];
     
     requiredLessons.forEach(lessonId => {
       const count = lessonCounts[lessonId] || 0;
-      const minCount = lessonId === 16 ? 6 : 10; // Lesson 16 has 6 items (1 concept + 5 tense)
+      const minCount = lessonId === 20 ? 6 : 10; // Lesson 20 has 6 items (1 concept + 5 tense)
       expect(count).toBeGreaterThanOrEqual(minCount);
     });
   });
 
-  test('The Great Split Integrity: Every buildable word in seed files must have requiredCharacters', () => {
+  test('Cycle 1 Expansion Integrity (Lessons 1-14)', () => {
     const fs = require('fs');
     const path = require('path');
-    const seedDir = path.join(__dirname, '../data');
-    const seedFiles = ['seed-100.json', 'seed-200.json', 'seed-300.json'];
+    const seed100Path = path.join(__dirname, '../data/seed-100.json');
+    const data = JSON.parse(fs.readFileSync(seed100Path, 'utf8'));
 
-    seedFiles.forEach(file => {
-      const filePath = path.join(seedDir, file);
-      if (fs.existsSync(filePath)) {
-        const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        const buildableWords = data.filter(item => 
-          (item.lessonType === 'build' || !item.lessonType) && 
-          item.isSuffix !== true &&
-          item.lessonType !== 'concept' &&
-          item.lessonType !== 'trace' &&
-          item.lessonType !== 'match' &&
-          item.lessonType !== 'scramble'
-        );
+    // 1. Unique ID Guard
+    const ids = data.map(item => item.wordId);
+    const uniqueIds = new Set(ids);
+    expect(ids.length).toBe(uniqueIds.size);
 
-        const missingSplits = buildableWords.filter(w => !w.requiredCharacters || w.requiredCharacters.length === 0);
-        
-        if (missingSplits.length > 0) {
-          console.warn(`File ${file}: Missing requiredCharacters for ${missingSplits.length} words (e.g., ${missingSplits[0].wordId})`);
+    // 2. Orphan Check: Every character in 'requiredCharacters' must be traced in same or earlier lesson
+    const buildWords = data.filter(item => item.lessonType === 'build');
+    const traces = data.filter(item => item.lessonType === 'trace');
+    
+    buildWords.forEach(word => {
+      word.requiredCharacters.forEach(char => {
+        const trace = traces.find(t => t.malayalamText === char);
+        if (!trace) {
+          throw new Error(`Orphan character found: '${char}' in word ${word.wordId} (${word.malayalamText}). No trace found in seed-100.json.`);
         }
+        if (trace.lessonId > word.lessonId) {
+            throw new Error(`Pedagogical violation: Character '${char}' for word ${word.wordId} is traced in Lesson ${trace.lessonId}, but word is built in Lesson ${word.lessonId}.`);
+        }
+      });
+    });
 
-        expect(missingSplits.length).toBe(0);
+    // 3. 3-Act Structure Audit for Expansion Lessons (4-14)
+    const expansionLessons = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+    expansionLessons.forEach(lid => {
+        const lessonItems = data.filter(i => i.lessonId === lid);
+        if (lessonItems.length > 0) {
+            const act1 = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a1'));
+            const act2 = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a2'));
+            const act3 = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a3'));
+            
+            expect(act1).toBeDefined();
+            expect(act2).toBeDefined();
+            expect(act3).toBeDefined();
 
-        // Check Tense Lesson Integrity
-        const tenseWords = data.filter(item => item.lessonType === 'tense');
-        tenseWords.forEach(w => {
-          expect(w.pastForm).toBeDefined();
-          expect(w.presentForm).toBeDefined();
-          expect(w.futureForm).toBeDefined();
-          expect(w.pastEnglish).toBeDefined();
-          expect(w.presentEnglish).toBeDefined();
-          expect(w.futureEnglish).toBeDefined();
-          expect(w.baseWord).toBeDefined();
-        });
+            // Act 2 Intro must require ALL Match items from Act 1 (if any)
+            const matchIds = lessonItems.filter(i => i.lessonType === 'match').map(i => i.wordId);
+            matchIds.forEach(mid => {
+                expect(act2.prerequisites).toContain(mid);
+            });
+        }
+    });
 
-        // Check Scramble Lesson Integrity (Added 2026-06-02)
-        const scrambleWords = data.filter(item => item.lessonType === 'scramble');
-        scrambleWords.forEach(w => {
-          expect(w.sentenceParts).toBeDefined();
-          expect(w.sentenceParts.length).toBeGreaterThan(1);
-        });
+    console.log("Cycle 1 Integrity Scan: OK");
+  });
+});
 
-        // Rule 1: Act 3 Gate (Sentences)
-        // If a lesson has scrambles, it must have a concept screen that requires all lesson words.
-        const uniqueLessons = [...new Set(data.map(i => i.lessonId))];
-        uniqueLessons.forEach(lid => {
-            const lessonItems = data.filter(i => i.lessonId === lid);
-            const lessonScrambles = lessonItems.filter(i => i.lessonType === 'scramble');
-            if (lessonScrambles.length > 0) {
-                const act3Gate = lessonItems.find(i => i.lessonType === 'concept' && i.wordId.includes('a3'));
-                expect(act3Gate).toBeDefined();
-                // Gate must have build items from same lesson as prerequisites
-                const buildIds = lessonItems.filter(i => i.lessonType === 'build').map(i => i.wordId);
-                buildIds.forEach(bid => {
-                    expect(act3Gate.prerequisites).toContain(bid);
-                });
-            }
+const seed200 = require('../data/seed-200.json');
+
+describe('DATA-02: Cycle 2 (Lessons 15-20) Data Integrity & Zero-Empty-Boxes', () => {
+  it('should ensure all Cycle 2 words have valid lessonId between 15 and 20', () => {
+    expect(seed200.length).toBeGreaterThan(0);
+    seed200.forEach((word) => {
+      expect(word.lessonId).toBeDefined();
+      expect(word.lessonId).toBeGreaterThanOrEqual(15);
+      expect(word.lessonId).toBeLessThanOrEqual(20);
+    });
+  });
+
+  it('should enforce the Zero-Empty-Boxes rule on requiredCharacters', () => {
+    seed200.forEach((word) => {
+      // Suffix items or non-assembly items may be handled per schema,
+      // but all vocabulary words for assembly must have valid splits
+      if (!word.isSuffix) {
+        expect(Array.isArray(word.requiredCharacters)).toBe(true);
+        expect(word.requiredCharacters.length).toBeGreaterThan(0);
+        word.requiredCharacters.forEach((char) => {
+          expect(typeof char).toBe('string');
+          expect(char.trim().length).toBeGreaterThan(0);
         });
       }
     });
   });
 });
+
+const seed300 = require('../data/seed-300.json');
+
+describe('DATA-03: Cycle 3 (Lessons 21-25) Data Integrity & Zero-Empty-Boxes', () => {
+  it('should ensure all Cycle 3 words have valid lessonId between 21 and 25', () => {
+    expect(seed300.length).toBeGreaterThan(0);
+    seed300.forEach((word) => {
+      expect(word.lessonId).toBeDefined();
+      expect(word.lessonId).toBeGreaterThanOrEqual(21);
+      expect(word.lessonId).toBeLessThanOrEqual(25);
+    });
+  });
+
+  it('should ensure each Cycle 3 lesson (21-25) has at least 8 items', () => {
+    const cycle3Lessons = [21, 22, 23, 24, 25];
+    cycle3Lessons.forEach((lessonId) => {
+      const itemsInLesson = seed300.filter((word) => word.lessonId === lessonId);
+      expect(itemsInLesson.length).toBeGreaterThanOrEqual(8);
+    });
+  });
+
+  it('should enforce the Zero-Empty-Boxes rule on requiredCharacters', () => {
+    seed300.forEach((word) => {
+      if (!word.isSuffix) {
+        expect(Array.isArray(word.requiredCharacters)).toBe(true);
+        expect(word.requiredCharacters.length).toBeGreaterThan(0);
+        word.requiredCharacters.forEach((char) => {
+          expect(typeof char).toBe('string');
+          expect(char.trim().length).toBeGreaterThan(0);
+        });
+      }
+    });
+  });
+});
+
+

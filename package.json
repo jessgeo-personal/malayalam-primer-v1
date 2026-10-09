@@ -1,0 +1,14 @@
+{
+  "name": "malayalam-prime",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Adaptive, gamified Malayalam literacy application",
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "seed": "npm --prefix server run seed",
+    "test": "npm --prefix server test && npm --prefix client test -- --run"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

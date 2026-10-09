@@ -1,12 +1,18 @@
 version: '3.8'
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:4.4
     container_name: malayalam_db
     ports:
       - "27017:27017"
     volumes:
-      - ./data/db:/data/db
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     restart: unless-stopped
 
   backend:
@@ -14,18 +20,24 @@ services:
     container_name: malayalam_api
     ports:
       - "5000:5000"
+    env_file: .env
     environment:
       - MONGO_URI=mongodb://mongodb:27017/malayalam_decode
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
     restart: unless-stopped
 
   frontend:
     build: ./client
     container_name: malayalam_web
     ports:
-      - "3000:80" # Nginx serves the built Vite app
+      - "${WEB_PORT:-3080}:80" # Nginx serves built app on port 3080 by default (change via WEB_PORT in .env)
     depends_on:
       - backend
     restart: unless-stopped
+
+volumes:
+  mongodb_data:
+
+

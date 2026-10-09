@@ -5,7 +5,7 @@
     "englishTranslation": "To say there is more than one, we add endings. Use -ുകൾ (ukal) for words ending in a 'U' sound or a chillu letter.",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "concept",
     "examples": [
       {
@@ -21,7 +21,8 @@
         "rule": "CASE 2: Works for chillu letters and clusters too!"
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s001",
@@ -30,7 +31,7 @@
     "phonetic": "veedukal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "വീട്",
     "morphedBase": "വീട",
@@ -41,6 +42,15 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -50,7 +60,7 @@
     "phonetic": "kaadukal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "കാട്",
     "morphedBase": "കാട",
@@ -61,6 +71,15 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -70,7 +89,7 @@
     "phonetic": "aadukal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "ആട്",
     "morphedBase": "ആട",
@@ -81,6 +100,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -90,7 +117,7 @@
     "phonetic": "pallukal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "പല്ല്",
     "morphedBase": "പല്ല",
@@ -101,6 +128,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ല്ല",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -110,7 +145,7 @@
     "phonetic": "kallukal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "കല്ല്",
     "morphedBase": "കല്ല",
@@ -121,6 +156,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ല്ല",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -130,7 +173,7 @@
     "phonetic": "valakal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "വല",
     "morphedBase": "വല",
@@ -141,6 +184,13 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ല",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -150,7 +200,7 @@
     "phonetic": "thalakal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "തല",
     "morphedBase": "തല",
@@ -161,6 +211,13 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ത",
+      "ല",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -170,7 +227,7 @@
     "phonetic": "poochakal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "പൂച്ച",
     "morphedBase": "പൂച്ച",
@@ -181,6 +238,14 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ൂ",
+      "ച്ച",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -190,7 +255,7 @@
     "phonetic": "aanakal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 11,
+    "lessonId": 15,
     "lessonType": "suffix",
     "baseWord": "ആന",
     "morphedBase": "ആന",
@@ -201,6 +266,13 @@
     ],
     "prerequisites": [
       "c010"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ന",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -209,7 +281,7 @@
     "englishTranslation": "When a word ends in a circle (ം), we have a special rule!",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "concept",
     "examples": [
       {
@@ -225,7 +297,8 @@
         "rule": "It works for all words ending in 'am'!"
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s010",
@@ -234,7 +307,7 @@
     "phonetic": "marangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "മരം",
     "morphedBase": "മര",
@@ -245,6 +318,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -254,7 +334,7 @@
     "phonetic": "nirangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "നിറം",
     "morphedBase": "നിറ",
@@ -265,6 +345,14 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ന",
+      "ി",
+      "റ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -274,7 +362,7 @@
     "phonetic": "mukhangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "മുഖം",
     "morphedBase": "മുഖ",
@@ -285,6 +373,14 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ു",
+      "ഖ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -294,7 +390,7 @@
     "phonetic": "pusthakangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "പുസ്തകം",
     "morphedBase": "പുസ്തക",
@@ -305,6 +401,15 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ു",
+      "സ്ത",
+      "ക",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -314,7 +419,7 @@
     "phonetic": "aakaashangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "ആകാശം",
     "morphedBase": "ആകാശ",
@@ -325,6 +430,15 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ക",
+      "ാ",
+      "ശ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -334,7 +448,7 @@
     "phonetic": "chithrangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "ചിത്രം",
     "morphedBase": "ചിത്ര",
@@ -345,6 +459,14 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ച",
+      "ി",
+      "ത്ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -354,7 +476,7 @@
     "phonetic": "pazhangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "പഴം",
     "morphedBase": "പഴ",
@@ -365,6 +487,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ഴ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -374,7 +503,7 @@
     "phonetic": "vasthrangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "വസ്ത്രം",
     "morphedBase": "വസ്ത്ര",
@@ -385,6 +514,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "സ്ത്ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -394,7 +530,7 @@
     "phonetic": "marangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 12,
+    "lessonId": 16,
     "lessonType": "suffix",
     "baseWord": "മരം",
     "morphedBase": "മര",
@@ -405,6 +541,13 @@
     ],
     "prerequisites": [
       "c011"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -413,7 +556,7 @@
     "englishTranslation": "For people and respectful titles, we don't use 'kal'. We use -മാർ (maar).",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "concept",
     "examples": [
       {
@@ -429,7 +572,8 @@
         "rule": "CASE 2: Use standard -കൾ for young children."
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s019",
@@ -438,7 +582,7 @@
     "phonetic": "ammamaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "അമ്മ",
     "morphedBase": "അമ്മ",
@@ -449,6 +593,14 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -458,7 +610,7 @@
     "phonetic": "bhaaryamaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "ഭാര്യ",
     "morphedBase": "ഭാര്യ",
@@ -469,6 +621,16 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ഭ",
+      "ാ",
+      "ര",
+      "്യ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -478,7 +640,7 @@
     "phonetic": "ammaayimaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "അമ്മായി",
     "morphedBase": "അമ്മായി",
@@ -489,6 +651,17 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "ാ",
+      "യ",
+      "ി",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -498,7 +671,7 @@
     "phonetic": "achanmaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "അച്ചൻ",
     "morphedBase": "അച്ചൻ",
@@ -509,6 +682,16 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "ച്ച",
+      "ന",
+      "്",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -518,7 +701,7 @@
     "phonetic": "maamanmaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "മാമൻ",
     "morphedBase": "മാമൻ",
@@ -529,6 +712,17 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ാ",
+      "മ",
+      "ന",
+      "്",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -538,7 +732,7 @@
     "phonetic": "kuttikal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "കുട്ടി",
     "morphedBase": "കുട്ടി",
@@ -549,6 +743,15 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ു",
+      "ട്ട",
+      "ി",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -558,7 +761,7 @@
     "phonetic": "penkuttikal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "പെൺകുട്ടി",
     "morphedBase": "പെൺകുട്ടി",
@@ -569,6 +772,18 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ൺ",
+      "ക",
+      "ു",
+      "ട്ട",
+      "ി",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -578,7 +793,7 @@
     "phonetic": "aankuttikal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "ആൺകുട്ടി",
     "morphedBase": "ആൺകുട്ടി",
@@ -589,6 +804,17 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ആ",
+      "ൺ",
+      "ക",
+      "ു",
+      "ട്ട",
+      "ി",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -598,7 +824,7 @@
     "phonetic": "ammamaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 13,
+    "lessonId": 17,
     "lessonType": "suffix",
     "baseWord": "അമ്മ",
     "morphedBase": "അമ്മ",
@@ -609,6 +835,14 @@
     ],
     "prerequisites": [
       "c012"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -617,7 +851,7 @@
     "englishTranslation": "To say where something is, we add different endings. Watch how the base word changes!",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "concept",
     "examples": [
       {
@@ -645,7 +879,8 @@
         "rule": "RULE 4: Replace the hard 'T' (ട്) with -ട്ടിൽ (ttil)."
       }
     ],
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s028",
@@ -654,7 +889,7 @@
     "phonetic": "kadalil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "കടൽ",
     "morphedBase": "കട",
@@ -665,6 +900,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ട",
+      "ല",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -674,7 +917,7 @@
     "phonetic": "kaattil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "കാട്",
     "morphedBase": "കാ",
@@ -685,6 +928,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -694,7 +945,7 @@
     "phonetic": "veettil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "വീട്",
     "morphedBase": "വീ",
@@ -705,6 +956,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -714,7 +973,7 @@
     "phonetic": "marathil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "മരം",
     "morphedBase": "മര",
@@ -725,6 +984,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ത്ത",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -734,7 +1001,7 @@
     "phonetic": "pusthakathil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "പുസ്തകം",
     "morphedBase": "പുസ്തക",
@@ -745,6 +1012,16 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ു",
+      "സ്ത",
+      "ക",
+      "ത്ത",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -754,7 +1031,7 @@
     "phonetic": "pettiyil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "പെട്ടി",
     "morphedBase": "പെട്ടി",
@@ -765,6 +1042,16 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ട്ട",
+      "ി",
+      "യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -774,7 +1061,7 @@
     "phonetic": "valayil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "വല",
     "morphedBase": "വല",
@@ -785,6 +1072,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ല",
+      "യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -794,7 +1089,7 @@
     "phonetic": "kayyil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "കൈ",
     "morphedBase": "കയ്",
@@ -805,6 +1100,13 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "യ്യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -814,7 +1116,7 @@
     "phonetic": "kadalil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 14,
+    "lessonId": 18,
     "lessonType": "suffix",
     "baseWord": "കടൽ",
     "morphedBase": "കട",
@@ -825,6 +1127,14 @@
     ],
     "prerequisites": [
       "c013"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ട",
+      "ല",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -833,12 +1143,13 @@
     "englishTranslation": "For some words, we use -യിൽ (yil) to say 'at' or 'on'. Again, this is for location, not plural!",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "concept",
     "baseWord": "പെട്ടി",
     "morphedBase": "പെട്ടിയിൽ",
     "targetSuffix": "യിൽ",
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "s037",
@@ -847,7 +1158,7 @@
     "phonetic": "veedukal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "വീട്",
     "morphedBase": "വീട",
@@ -859,6 +1170,15 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട",
+      "ു",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -868,7 +1188,7 @@
     "phonetic": "ammamaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "അമ്മ",
     "morphedBase": "അമ്മ",
@@ -880,6 +1200,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "അ",
+      "മ്മ",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -889,7 +1217,7 @@
     "phonetic": "marangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "മരം",
     "morphedBase": "മര",
@@ -901,6 +1229,13 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ര",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -910,7 +1245,7 @@
     "phonetic": "kaattil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "കാട്",
     "morphedBase": "കാ",
@@ -922,6 +1257,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ാ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -931,7 +1274,7 @@
     "phonetic": "poochakal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "പൂച്ച",
     "morphedBase": "പൂച്ച",
@@ -943,6 +1286,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ൂ",
+      "ച്ച",
+      "ക",
+      "ൾ"
     ]
   },
   {
@@ -952,7 +1303,7 @@
     "phonetic": "maamanmaar",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "മാമൻ",
     "morphedBase": "മാമൻ",
@@ -964,6 +1315,17 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ാ",
+      "മ",
+      "ന",
+      "്",
+      "മ",
+      "ാ",
+      "ർ"
     ]
   },
   {
@@ -973,7 +1335,7 @@
     "phonetic": "mukhangal",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "മുഖം",
     "morphedBase": "മുഖ",
@@ -985,6 +1347,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "മ",
+      "ു",
+      "ഖ",
+      "ങ്ങ",
+      "ൾ"
     ]
   },
   {
@@ -994,7 +1364,7 @@
     "phonetic": "veettil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "വീട്",
     "morphedBase": "വീ",
@@ -1006,6 +1376,14 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ീ",
+      "ട്ട",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -1015,7 +1393,7 @@
     "phonetic": "pettiyil",
     "bucketId": 1,
     "unlockCycle": 2,
-    "lessonId": 15,
+    "lessonId": 19,
     "lessonType": "suffix",
     "baseWord": "പെട്ടി",
     "morphedBase": "പെട്ടി",
@@ -1027,6 +1405,16 @@
     ],
     "prerequisites": [
       "c014"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "െ",
+      "ട്ട",
+      "ി",
+      "യ",
+      "ി",
+      "ൽ"
     ]
   },
   {
@@ -1035,10 +1423,11 @@
     "englishTranslation": "Learn how verbs change based on Yesterday (Past), Today (Present), and Tomorrow (Future).",
     "bucketId": 3,
     "unlockCycle": 2,
-    "lessonId": 16,
+    "lessonId": 20,
     "lessonType": "concept",
     "isSummary": true,
-    "prerequisites": []
+    "prerequisites": [],
+    "isSuffix": true
   },
   {
     "wordId": "tm001",
@@ -1047,7 +1436,7 @@
     "phonetic": "po",
     "bucketId": 3,
     "unlockCycle": 2,
-    "lessonId": 16,
+    "lessonId": 20,
     "lessonType": "tense",
     "baseWord": "പോ",
     "pastForm": "പോയി",
@@ -1058,6 +1447,11 @@
     "futureEnglish": "WILL GO",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "പ",
+      "ോ"
     ]
   },
   {
@@ -1067,7 +1461,7 @@
     "phonetic": "va",
     "bucketId": 3,
     "unlockCycle": 2,
-    "lessonId": 16,
+    "lessonId": 20,
     "lessonType": "tense",
     "baseWord": "വാ",
     "pastForm": "വന്നു",
@@ -1078,6 +1472,11 @@
     "futureEnglish": "WILL COME",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ാ"
     ]
   },
   {
@@ -1087,7 +1486,7 @@
     "phonetic": "kali",
     "bucketId": 3,
     "unlockCycle": 2,
-    "lessonId": 16,
+    "lessonId": 20,
     "lessonType": "tense",
     "baseWord": "കളി",
     "pastForm": "കളിച്ചു",
@@ -1098,6 +1497,12 @@
     "futureEnglish": "WILL PLAY",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ക",
+      "ള",
+      "ി"
     ]
   },
   {
@@ -1107,7 +1512,7 @@
     "phonetic": "odu",
     "bucketId": 3,
     "unlockCycle": 2,
-    "lessonId": 16,
+    "lessonId": 20,
     "lessonType": "tense",
     "baseWord": "ഓടു",
     "pastForm": "ഓടി",
@@ -1118,6 +1523,12 @@
     "futureEnglish": "WILL RUN",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "ഓ",
+      "ട",
+      "ു"
     ]
   },
   {
@@ -1127,7 +1538,7 @@
     "phonetic": "vaayikku",
     "bucketId": 3,
     "unlockCycle": 2,
-    "lessonId": 16,
+    "lessonId": 20,
     "lessonType": "tense",
     "baseWord": "വായിക്കു",
     "pastForm": "വായിച്ചു",
@@ -1138,6 +1549,15 @@
     "futureEnglish": "WILL READ",
     "prerequisites": [
       "c015"
+    ],
+    "isSuffix": false,
+    "requiredCharacters": [
+      "വ",
+      "ാ",
+      "യ",
+      "ി",
+      "ക്ക",
+      "ു"
     ]
   }
 ]

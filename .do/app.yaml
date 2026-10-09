@@ -1,0 +1,41 @@
+name: malayalam-prime
+region: blr
+
+services:
+  - name: api
+    source_dir: server
+    run_command: npm start
+    http_port: 5000
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    routes:
+      - path: /api
+    health_check:
+      http_path: /api/health
+      initial_delay_seconds: 15
+      period_seconds: 10
+    envs:
+      - key: MONGO_URI
+        type: SECRET
+      - key: JWT_SECRET
+        type: SECRET
+      - key: RESEND_API_KEY
+        type: SECRET
+      - key: RESEND_FROM_EMAIL
+        value: onboarding@resend.dev
+      - key: NODE_ENV
+        value: production
+      - key: CLIENT_URL
+        value: ${APP_URL}
+
+static_sites:
+  - name: web
+    source_dir: client
+    build_command: npm run build
+    output_dir: dist
+    routes:
+      - path: /
+    catchall_document: index.html
+    envs:
+      - key: VITE_API_URL
+        value: ${api.PUBLIC_URL}

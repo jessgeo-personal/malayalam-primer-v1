@@ -31,3 +31,67 @@ describe('Seed Data Integrity', () => {
     });
   });
 });
+
+describe('seedDatabaseIfNeeded', () => {
+  const { seedDatabaseIfNeeded } = require('../seeder');
+
+  let consoleLogSpy;
+
+  beforeEach(() => {
+    consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleLogSpy.mockRestore();
+  });
+
+  test('should skip seeding if dictionary is already populated', async () => {
+    const mockWord = {
+      countDocuments: jest.fn().mockResolvedValue(400),
+      deleteMany: jest.fn().mockResolvedValue({}),
+      insertMany: jest.fn().mockResolvedValue([]),
+    };
+
+    const result = await seedDatabaseIfNeeded(mockWord);
+
+    expect(mockWord.countDocuments).toHaveBeenCalled();
+    expect(mockWord.deleteMany).not.toHaveBeenCalled();
+    expect(mockWord.insertMany).not.toHaveBeenCalled();
+    expect(result).toEqual({ seeded: false, count: 400 });
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('[AutoSeed] Dictionary up to date, skipping seed'));
+  });
+
+  test('should seed dictionary if count is 0', async () => {
+    const mockWord = {
+      countDocuments: jest.fn().mockResolvedValue(0),
+      deleteMany: jest.fn().mockResolvedValue({}),
+      insertMany: jest.fn().mockResolvedValue([]),
+    };
+
+    const result = await seedDatabaseIfNeeded(mockWord);
+
+    expect(mockWord.countDocuments).toHaveBeenCalled();
+    expect(mockWord.deleteMany).toHaveBeenCalledWith({});
+    expect(mockWord.insertMany).toHaveBeenCalled();
+    expect(result.seeded).toBe(true);
+    expect(result.count).toBeGreaterThan(0);
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('[AutoSeed] Dictionary populated successfully'));
+  });
+
+  test('should seed dictionary if count is less than Cycle 1 count in seed-100.json', async () => {
+    const mockWord = {
+      countDocuments: jest.fn().mockResolvedValue(5),
+      deleteMany: jest.fn().mockResolvedValue({}),
+      insertMany: jest.fn().mockResolvedValue([]),
+    };
+
+    const result = await seedDatabaseIfNeeded(mockWord);
+
+    expect(mockWord.countDocuments).toHaveBeenCalled();
+    expect(mockWord.deleteMany).toHaveBeenCalledWith({});
+    expect(mockWord.insertMany).toHaveBeenCalled();
+    expect(result.seeded).toBe(true);
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('[AutoSeed] Dictionary populated successfully'));
+  });
+});
+

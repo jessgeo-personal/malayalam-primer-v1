@@ -18,7 +18,7 @@ import { audioEngine } from '../../utils/audioEngine';
  */
 
 // Mathras that visually appear to the left of the consonant
-const LEFT_MATHRAS = ['െ', 'േ', 'ൈ'];
+const LEFT_MATHRAS = ['െ', 'േ', 'ൈ', '്ര'];
 // Mathras that visually surround the consonant (left and right parts)
 const SURROUND_MATHRAS = ['ൊ', 'ോ', 'ൌ'];
 
@@ -272,7 +272,7 @@ export default function LetterPicker({ word, onComplete }) {
                 );
 
                 // 2. Surround Mathra Logic:
-                // If this is a consonant slot (originalIndex), check if the NEXT logical character is a Surround Mathra.
+                // If this is a consonant slot (originalIndex), check if the NEXT actual character placed is a Surround Mathra.
                 const nextCharIndex = slotInfo.originalIndex + 1;
                 const nextCharObj = slots[nextCharIndex];
                 

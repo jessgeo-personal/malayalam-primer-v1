@@ -1,5 +1,6 @@
 const Progress = require('../models/Progress');
 const Word = require('../models/Word');
+const User = require('../models/User');
 
 /**
  * SRS Engine for Malayalam Prime
@@ -89,30 +90,48 @@ async function generateRevisionPayload(userId) {
  * 2. Filters items based on prerequisites (Prereqs must have correctCount > 0).
  * 3. Returns a slice of unlocked items to maintain "Bundle" cognitive load.
  */
-async function generateLessonPayload(userId, lessonId) {
+async function generateLessonPayload(userId, lessonId, completedIds = []) {
   const words = await Word.find({ lessonId: parseInt(lessonId) }).sort({ sequence: 1 });
   
   if (!words || words.length === 0) return [];
 
   // Get all user progress for this lesson's potential dependencies
-  const userProgress = await Progress.find({ userId });
+  const rawProgress = await Progress.find({ userId });
+  const userProgress = Array.isArray(rawProgress) ? rawProgress : [];
+  
+  // Prereqs STILL rely on database correctCount > 0 (for cross-lesson dependencies)
   const masteredIds = new Set(
-    userProgress.filter(p => p.correctCount > 0).map(p => p.itemId)
+    userProgress.filter(p => p && p.correctCount > 0).map(p => p.itemId)
   );
+
+  // Detect Replay: Has the user completed this lesson before?
+  const user = await User.findOne({ userId });
+  const isReplay = user && user.lessonHistory && user.lessonHistory.some(h => h.lessonId === parseInt(lessonId));
+  const completedSet = new Set(completedIds);
 
   const payload = [];
   for (const w of words) {
-    // PREREQUISITE CHECK: 
-    // An item is "Available" if all its prerequisites are in masteredIds.
+    // 1. PREREQUISITE CHECK: 
+    // An item is "Available" if all its prerequisites are met.
+    // In Replay mode: Prereqs must be met IN THE CURRENT SESSION (completedSet).
+    // In Normal mode: Prereqs can be met by history (masteredIds) OR current session.
     const arePrereqsMet = !w.prerequisites || w.prerequisites.length === 0 || 
-                         w.prerequisites.every(preId => masteredIds.has(preId));
+                         w.prerequisites.every(preId => 
+                            isReplay ? completedSet.has(preId) : (masteredIds.has(preId) || completedSet.has(preId))
+                         );
 
     if (!arePrereqsMet) continue; // Skip gated items
 
+    // 2. SESSION CHUNKING & REPLAY LOGIC:
     const itype = w.lessonType === 'trace' ? 'letter' : 'word';
     const progress = userProgress.find(p => p.itemId === w.wordId && p.itemType === itype);
     
-    if (progress && progress.correctCount > 0 && w.lessonType !== 'concept') continue;
+    // Rule A: Skip if item was completed in the CURRENT session (always skip to prevent loops).
+    if (completedSet.has(w.wordId)) continue;
+
+    // Rule B: Skip if item was mastered in PREVIOUS sessions, but ONLY if it's NOT a replay.
+    // If it's a replay, we want to see everything again in sequence.
+    if (!isReplay && progress && progress.correctCount > 0) continue;
 
     const item = {
       ...w.toObject(),
@@ -137,14 +156,19 @@ async function generateLessonPayload(userId, lessonId) {
     payload.push(item);
   }
 
-  // --- STRICT CONCEPT GATING (Fix for Stacking) ---
+  // --- STRICT CONCEPT GATING ---
+  // The first uncompleted concept screen acts as the 'gate' for the current chunk.
   const concepts = payload.filter(p => p.lessonType === 'concept');
   const firstConcept = concepts.length > 0 ? [concepts[0]] : [];
   
   const nonConcepts = payload.filter(p => p.lessonType !== 'concept');
+  
+  // Pedagogical Grouping: Trace items (Alphabets) before others (Words/Sentences)
+  const traces = nonConcepts.filter(p => p.lessonType === 'trace');
+  const others = nonConcepts.filter(p => p.lessonType !== 'trace');
 
   // Return the first concept (if any) and the next gameplay items
-  return [...firstConcept, ...nonConcepts.slice(0, 8)];
+  return [...firstConcept, ...traces, ...others].slice(0, 9);
 }
 
 /**

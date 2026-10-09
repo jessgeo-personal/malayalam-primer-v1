@@ -34,24 +34,30 @@ describe('SentenceScrambler Component (Tap Variant)', () => {
     fireEvent.click(screen.getByText('അമ്മ'));
     fireEvent.click(screen.getByText('ആണ്'));
     
-    const checkBtn = screen.getByText(/Check Answer/i);
-    fireEvent.click(checkBtn);
+    // Overlay should appear automatically
+    expect(screen.getByText(/Perfect!/i)).toBeInTheDocument();
     
-    expect(screen.getByText(/Correct!/i)).toBeInTheDocument();
+    // Click Continue
+    fireEvent.click(screen.getByText(/CONTINUE/i));
     
-    // Wait for the timeout
-    await vi.waitFor(() => expect(onComplete).toHaveBeenCalledWith(true, expect.any(Number)), { timeout: 2000 });
+    expect(onComplete).toHaveBeenCalledWith(true, expect.any(Number));
   });
 
-  it('shows error tip on wrong order', () => {
-    render(<SentenceScrambler word={mockWord} onComplete={vi.fn()} />);
+  it('shows correction on wrong order', () => {
+    const onComplete = vi.fn();
+    render(<SentenceScrambler word={mockWord} onComplete={onComplete} />);
     
-    // Tap in wrong order
+    // Tap all words in WRONG order to trigger auto-check
     fireEvent.click(screen.getByText('ആണ്'));
-    const checkBtn = screen.getByText(/Check Answer/i);
-    fireEvent.click(checkBtn);
+    fireEvent.click(screen.getByText('അമ്മ'));
+    fireEvent.click(screen.getByText('ഇത്'));
     
     expect(screen.getByText(/Try Again!/i)).toBeInTheDocument();
-    expect(screen.getByText(/TIP: Put "ആണ്" at the end!/i)).toBeInTheDocument();
+    expect(screen.getByText(/Correct sentence:/i)).toBeInTheDocument();
+    expect(screen.getByText(mockWord.sentenceParts.join(' '))).toBeInTheDocument();
+
+    // Click Retry
+    fireEvent.click(screen.getByText(/RETRY/i));
+    expect(onComplete).toHaveBeenCalledWith(false, expect.any(Number));
   });
 });

@@ -1,5 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import TracingCanvas from '../components/games/TracingCanvas';
 import { audioEngine } from '../services/audioEngine';
 
@@ -10,24 +10,31 @@ vi.mock('../services/audioEngine', () => ({
   },
 }));
 
-// Mock HTMLCanvasElement.prototype.getContext
-HTMLCanvasElement.prototype.getContext = vi.fn(() => ({
-  clearRect: vi.fn(),
-  fillText: vi.fn(),
-  beginPath: vi.fn(),
-  moveTo: vi.fn(),
-  lineTo: vi.fn(),
-  stroke: vi.fn(),
-  closePath: vi.fn(),
-  lineCap: 'round',
-  lineJoin: 'round',
-  strokeStyle: '#000',
-  lineWidth: 1,
-  font: '',
-  textAlign: '',
-  textBaseline: '',
-  fillStyle: '',
-}));
+let mockContext;
+let resizeObserverCallback = null;
+let observedElements = [];
+let observerDisconnected = false;
+
+// Mock ResizeObserver
+class MockResizeObserver {
+  constructor(callback) {
+    resizeObserverCallback = callback;
+    this.callback = callback;
+    observerDisconnected = false;
+  }
+  observe(target) {
+    observedElements.push(target);
+  }
+  unobserve(target) {
+    observedElements = observedElements.filter((el) => el !== target);
+  }
+  disconnect() {
+    observerDisconnected = true;
+    observedElements = [];
+  }
+}
+
+global.ResizeObserver = MockResizeObserver;
 
 describe('TracingCanvas', () => {
   const mockWord = {
@@ -40,6 +47,45 @@ describe('TracingCanvas', () => {
       { malayalamText: 'അമ്മ', englishTranslation: 'Mother' }
     ]
   };
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    observedElements = [];
+    resizeObserverCallback = null;
+    observerDisconnected = false;
+
+    mockContext = {
+      clearRect: vi.fn(),
+      fillText: vi.fn(),
+      beginPath: vi.fn(),
+      moveTo: vi.fn(),
+      lineTo: vi.fn(),
+      stroke: vi.fn(),
+      closePath: vi.fn(),
+      setTransform: vi.fn(),
+      save: vi.fn(),
+      restore: vi.fn(),
+      measureText: vi.fn((text) => ({ width: 100 })),
+      lineCap: 'round',
+      lineJoin: 'round',
+      strokeStyle: '#000',
+      lineWidth: 1,
+      font: '',
+      textAlign: '',
+      textBaseline: '',
+      fillStyle: '',
+    };
+
+    HTMLCanvasElement.prototype.getContext = vi.fn(() => mockContext);
+    HTMLCanvasElement.prototype.getBoundingClientRect = vi.fn(() => ({
+      left: 0,
+      top: 0,
+      width: 500,
+      height: 300,
+      right: 500,
+      bottom: 300,
+    }));
+  });
 
   it('renders the drawing pad and instructions', () => {
     render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
@@ -68,5 +114,168 @@ describe('TracingCanvas', () => {
     const wordNoExamples = { ...mockWord, exampleWords: [] };
     render(<TracingCanvas word={wordNoExamples} onComplete={() => {}} />);
     expect(screen.queryByText(/Words with this letter/i)).not.toBeInTheDocument();
+  });
+
+  it('attaches ResizeObserver to container and updates canvas dimensions with DPR on resize', () => {
+    window.devicePixelRatio = 2;
+    const { container } = render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+    
+    expect(observedElements.length).toBeGreaterThan(0);
+    const canvas = container.querySelector('canvas');
+
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 600, height: 400 },
+        },
+      ]);
+    });
+
+    expect(canvas.width).toBe(1200); // 600 * 2
+    expect(canvas.height).toBe(800); // 400 * 2
+    expect(canvas.style.width).toBe('600px');
+    expect(canvas.style.height).toBe('400px');
+    expect(mockContext.setTransform).toHaveBeenCalledWith(2, 0, 0, 2, 0, 0);
+  });
+
+  it('renders ghost letter with isotropic font scaling and Slate-400 color', () => {
+    window.devicePixelRatio = 1;
+    render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 500, height: 300 },
+        },
+      ]);
+    });
+
+    expect(mockContext.measureText).toHaveBeenCalledWith('അ');
+    expect(mockContext.fillStyle).toBe('#94a3b8');
+    expect(mockContext.textAlign).toBe('center');
+    expect(mockContext.textBaseline).toBe('middle');
+    // Centered at width / 2, height / 2 => (250, 150)
+    expect(mockContext.fillText).toHaveBeenCalledWith('അ', 250, 150);
+  });
+
+  it('records normalized strokes and redraws them accurately on resize', () => {
+    window.devicePixelRatio = 1;
+    const { container } = render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+    const canvas = container.querySelector('canvas');
+
+    // First resize to 500x300
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 500, height: 300 },
+        },
+      ]);
+    });
+
+    // Simulate stroke
+    fireEvent.mouseDown(canvas, { clientX: 100, clientY: 60 });
+    fireEvent.mouseMove(canvas, { clientX: 200, clientY: 120 });
+    fireEvent.mouseUp(canvas);
+
+    expect(screen.queryByText(/Trace the line/i)).not.toBeInTheDocument();
+
+    // Reset mocks to inspect redraw
+    mockContext.lineTo.mockClear();
+    mockContext.moveTo.mockClear();
+
+    // Resize to 1000x600 (scaled 2x)
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 1000, height: 600 },
+        },
+      ]);
+    });
+
+    // Normalized points were (100/500 = 0.2, 60/300 = 0.2) and (200/500 = 0.4, 120/300 = 0.4)
+    // Redrawn at 1000x600 should moveTo(200, 120) and lineTo(400, 240)
+    expect(mockContext.moveTo).toHaveBeenCalledWith(200, 120);
+    expect(mockContext.lineTo).toHaveBeenCalledWith(400, 240);
+  });
+
+  it('handles zero or invalid dimensions gracefully without error', () => {
+    const { container } = render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+    const canvas = container.querySelector('canvas');
+
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 0, height: 0 },
+        },
+      ]);
+    });
+
+    expect(canvas.width).not.toBe(0);
+  });
+
+  it('clears strokes on CLEAR button click and re-disables DONE button', () => {
+    const onCompleteMock = vi.fn();
+    const { container } = render(<TracingCanvas word={mockWord} onComplete={onCompleteMock} />);
+    const canvas = container.querySelector('canvas');
+
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 500, height: 300 },
+        },
+      ]);
+    });
+
+    const doneButton = screen.getByRole('button', { name: /DONE/i });
+    expect(doneButton).toBeDisabled();
+
+    // Draw stroke
+    fireEvent.mouseDown(canvas, { clientX: 100, clientY: 60 });
+    fireEvent.mouseMove(canvas, { clientX: 200, clientY: 120 });
+    fireEvent.mouseUp(canvas);
+
+    expect(doneButton).not.toBeDisabled();
+
+    // Click CLEAR
+    const clearButton = screen.getByRole('button', { name: /CLEAR/i });
+    fireEvent.click(clearButton);
+
+    expect(doneButton).toBeDisabled();
+    expect(screen.getByText(/Trace the line/i)).toBeInTheDocument();
+  });
+
+  it('triggers onComplete when DONE button is clicked after drawing', () => {
+    const onCompleteMock = vi.fn();
+    const { container } = render(<TracingCanvas word={mockWord} onComplete={onCompleteMock} />);
+    const canvas = container.querySelector('canvas');
+
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 500, height: 300 },
+        },
+      ]);
+    });
+
+    fireEvent.mouseDown(canvas, { clientX: 100, clientY: 60 });
+    fireEvent.mouseUp(canvas);
+
+    const doneButton = screen.getByRole('button', { name: /DONE/i });
+    fireEvent.click(doneButton);
+
+    expect(onCompleteMock).toHaveBeenCalledWith(true, 5000);
+  });
+
+  it('disconnects ResizeObserver on unmount', () => {
+    const { unmount } = render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+    unmount();
+    expect(observerDisconnected).toBe(true);
   });
 });

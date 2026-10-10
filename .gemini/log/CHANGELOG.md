@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.10.016] - 2026-10-10
+### Added & Hardened (UI-02: Dynamic Canvas Synchronization & Isotropic Tracing Calibration)
+- **Responsive Buffer Synchronization (`ResizeObserver`)**:
+  - Wrapped `<canvas>` in a responsive container with `ref={containerRef}` (`min-h-[300px]`, flex-centered).
+  - Attached `ResizeObserver` to synchronize `canvas.width` and `canvas.height` with `entry.contentRect` multiplied by `window.devicePixelRatio`.
+  - Added clean observer disconnect on unmount and character change.
+- **Isotropic Ghost Letter Fitting**:
+  - Re-projected letter rendering with `ctx.setTransform(dpr, 0, 0, dpr, 0, 0)` and dynamic bounding-box scaling (`availWidth = 0.82 * width`, `availHeight = 0.68 * height`).
+  - Implemented dynamic isotropic font fitting using `ctx.measureText(character)` with Malayalam font family (`"Noto Sans Malayalam", "Manjari", sans-serif`) to prevent squishing of wide conjuncts (e.g. "ഞ്ഞ").
+  - Formatted ghost guide with `#94a3b8` (Slate-400) centered text.
+- **Normalized Stroke Recording & Distortion-Free Scaling**:
+  - Normalized touch and mouse paths to relative $[0, 1]$ coordinates: `x = (clientX - rect.left) / width`, `y = (clientY - rect.top) / height`.
+  - Redrawn strokes on resize by mapping back to current pixel dimensions: `(point.x * width, point.y * height)`.
+  - Set drawing line caps and joins to `'round'` with tablet-calibrated responsive line width.
+- **Verification & Zero-Regression Testing**:
+  - Expanded `client/src/tests/TracingCanvas.test.jsx` from 4 to 11 tests verifying ResizeObserver triggers, isotropic letter metrics, stroke redraw, CLEAR button reset, and DONE button completion.
+  - Full client test suite green (15 test files, 83/83 tests passing).
+
 ## [2026.10.10.015] - 2026-10-10
 ### Added & Hardened (AUDIO-03: Codepoint Normalization, Resilient Fallback, & Batch Audio Assets)
 - **Codepoint Normalization**:

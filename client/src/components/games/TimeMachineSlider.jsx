@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 
 const TimeMachineSlider = ({ mockAction }) => {
   const [sliderValue, setSliderValue] = useState(0); // -1: Past, 0: Present, 1: Future

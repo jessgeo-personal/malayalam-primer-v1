@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { getApiUrl } from '../../utils/api';
+import { audioEngine } from '../../services/audioEngine';
 
 export default function WordAudit() {
   const [words, setWords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('words'); // 'words' | 'alphabets' | 'grammar'
+
+  // Pronunciation Tuning Studio Modal State
+  const [tuningItem, setTuningItem] = useState(null);
+  const [tuningText, setTuningText] = useState('');
+  const [tuningPhonetic, setTuningPhonetic] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(false);
+  const [commitLoading, setCommitLoading] = useState(false);
+  const [tuningMessage, setTuningMessage] = useState(null);
 
   useEffect(() => {
     fetch(getApiUrl('/api/words/audit'))
@@ -19,6 +28,91 @@ export default function WordAudit() {
         setLoading(false);
       });
   }, []);
+
+  const handlePlayWord = (wordId, fallbackText = '') => {
+    audioEngine.playWord(wordId, fallbackText);
+  };
+
+  const handleOpenTweakModal = (item) => {
+    setTuningItem(item);
+    setTuningText(item.malayalamText || '');
+    setTuningPhonetic(item.phonetic || '');
+    setTuningMessage(null);
+  };
+
+  const handleCloseTweakModal = () => {
+    setTuningItem(null);
+    setTuningMessage(null);
+    setPreviewLoading(false);
+    setCommitLoading(false);
+  };
+
+  const handlePreviewSound = () => {
+    if (!tuningText.trim()) return;
+    setPreviewLoading(true);
+    setTuningMessage(null);
+
+    const previewUrl = getApiUrl(`/api/audio/preview?text=${encodeURIComponent(tuningText.trim())}&tl=ml`);
+    const audio = new Audio(previewUrl);
+
+    audio.onended = () => {
+      setPreviewLoading(false);
+    };
+    audio.onerror = () => {
+      setPreviewLoading(false);
+      setTuningMessage({ type: 'error', text: 'Preview playback failed. Check backend TTS connectivity.' });
+    };
+
+    audio.play().catch(err => {
+      setPreviewLoading(false);
+      setTuningMessage({ type: 'error', text: `Playback prevented: ${err.message}` });
+    });
+  };
+
+  const handleCommitAudio = async () => {
+    if (!tuningItem || !tuningText.trim()) return;
+    setCommitLoading(true);
+    setTuningMessage(null);
+
+    const isLetter = tuningItem.lessonType === 'trace' || tuningItem.lessonType === 'match';
+    const payload = {
+      id: tuningItem.wordId,
+      type: isLetter ? 'letter' : 'word',
+      text: tuningText.trim(),
+      phonetic: tuningPhonetic.trim()
+    };
+
+    try {
+      const res = await fetch(getApiUrl('/api/audio/commit'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to commit audio');
+      }
+
+      // Update local words state with updated text / phonetic
+      setWords(prev => prev.map(w => {
+        if (w.wordId === tuningItem.wordId) {
+          return {
+            ...w,
+            malayalamText: tuningText.trim(),
+            phonetic: tuningPhonetic.trim()
+          };
+        }
+        return w;
+      }));
+
+      setTuningMessage({ type: 'success', text: 'Static audio generated & saved successfully!' });
+    } catch (err) {
+      setTuningMessage({ type: 'error', text: err.message });
+    } finally {
+      setCommitLoading(false);
+    }
+  };
 
   if (loading) return <div className="p-12 text-center font-black animate-pulse">LOADING DICTIONARY AUDIT...</div>;
   if (error) return <div className="p-12 text-center text-prime-error font-black">ERROR: {error}</div>;
@@ -95,7 +189,7 @@ export default function WordAudit() {
   const errorCount = words.reduce((sum, w) => checkValidity(w, words).valid ? sum : sum + 1, 0);
 
   return (
-    <div className="flex flex-col gap-8 p-8 max-w-[1550px] mx-auto bg-white rounded-[40px] shadow-2xl my-12 border-[16px] border-prime-warm-base animate-pop overflow-hidden">
+    <div className="flex flex-col gap-8 p-8 max-w-[1550px] mx-auto bg-white rounded-[40px] shadow-2xl my-12 border-[16px] border-prime-warm-base animate-pop overflow-hidden relative">
       {/* 1. Header Section */}
       <div className="flex justify-between items-start border-b border-slate-100 pb-8">
         <div>
@@ -147,6 +241,7 @@ export default function WordAudit() {
                 <th className="py-4 px-2">Split Parts</th>
                 <th className="py-4 px-2">Join Preview</th>
                 <th className="py-4 px-2 text-right">Status</th>
+                <th className="py-4 px-2 text-center">Audio Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
@@ -159,6 +254,7 @@ export default function WordAudit() {
                     <td className="py-4 px-2">
                       <div className="text-2xl font-black text-prime-dark-text">{word.malayalamText}</div>
                       <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{word.englishTranslation}</div>
+                      {word.phonetic && <div className="text-[9px] font-bold text-prime-teal-green uppercase">{word.phonetic}</div>}
                     </td>
                     <td className="py-4 px-2">
                       <div className="flex flex-wrap gap-1">
@@ -188,6 +284,26 @@ export default function WordAudit() {
                         </div>
                       )}
                     </td>
+                    <td className="py-4 px-2 text-center">
+                      <div className="flex items-center justify-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handlePlayWord(word.wordId, word.malayalamText)}
+                          className="w-8 h-8 rounded-full bg-prime-warm-base hover:bg-prime-action-dark hover:text-white flex items-center justify-center text-sm shadow-sm transition-all"
+                          title="Play Audio"
+                          aria-label={`Play Audio ${word.wordId}`}
+                        >
+                          🔊
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenTweakModal(word)}
+                          className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider bg-slate-100 hover:bg-prime-teal-green hover:text-white text-slate-600 rounded-lg transition-all"
+                        >
+                          Tweak Sound
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                 );
               })}
@@ -205,6 +321,7 @@ export default function WordAudit() {
                 <th className="py-4 px-2">Base / Rule</th>
                 <th className="py-4 px-2">Suffix / Parts</th>
                 <th className="py-4 px-2 text-right">Result</th>
+                <th className="py-4 px-2 text-center">Audio</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
@@ -249,6 +366,16 @@ export default function WordAudit() {
                   <td className="py-4 px-2 text-right font-black text-2xl text-prime-action-dark">
                     {item.malayalamText}
                   </td>
+                  <td className="py-4 px-2 text-center">
+                    <button
+                      type="button"
+                      onClick={() => handlePlayWord(item.wordId, item.malayalamText)}
+                      className="w-8 h-8 rounded-full bg-prime-warm-base hover:bg-prime-action-dark hover:text-white flex items-center justify-center text-sm shadow-sm transition-all"
+                      title="Play Audio"
+                    >
+                      🔊
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -265,6 +392,7 @@ export default function WordAudit() {
                 <th className="py-4 px-2">Character / Unit</th>
                 <th className="py-4 px-2">Phonetic Sound</th>
                 <th className="py-4 px-2 text-right">Preview</th>
+                <th className="py-4 px-2 text-center">Audio Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
@@ -288,12 +416,133 @@ export default function WordAudit() {
                       {lesson.malayalamText}
                     </div>
                   </td>
+                  <td className="py-4 px-2 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => audioEngine.playLetter(lesson.malayalamText)}
+                        className="w-8 h-8 rounded-full bg-prime-warm-base hover:bg-prime-action-dark hover:text-white flex items-center justify-center text-sm shadow-sm transition-all"
+                        title="Play Audio"
+                      >
+                        🔊
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenTweakModal(lesson)}
+                        className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider bg-slate-100 hover:bg-prime-teal-green hover:text-white text-slate-600 rounded-lg transition-all"
+                      >
+                        Tweak Sound
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
       </div>
+
+      {/* 4. Tune Pronunciation Studio Modal */}
+      {tuningItem && (
+        <div className="fixed inset-0 z-50 bg-prime-action-dark/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white rounded-[32px] p-8 max-w-lg w-full shadow-2xl border-4 border-prime-warm-base relative animate-pop">
+            <button
+              type="button"
+              onClick={handleCloseTweakModal}
+              className="absolute top-6 right-6 text-slate-400 hover:text-prime-dark-text text-xl font-black cursor-pointer"
+            >
+              ✕
+            </button>
+
+            <div className="mb-6">
+              <span className="text-[10px] font-black uppercase tracking-widest text-prime-teal-green">
+                TTS Curation Studio
+              </span>
+              <h3 className="text-2xl font-black text-prime-dark-text italic uppercase">
+                Tune Pronunciation
+              </h3>
+              <p className="text-xs text-slate-400 mt-1 font-mono">
+                ID: {tuningItem.wordId} | Type: {tuningItem.lessonType}
+              </p>
+            </div>
+
+            {/* Current Item Overview */}
+            <div className="p-4 bg-prime-canvas rounded-2xl border border-slate-100 mb-6 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Original Text</span>
+                <div className="text-3xl font-black text-prime-dark-text mt-1">{tuningItem.malayalamText}</div>
+                <div className="text-xs font-bold text-prime-coral-pink mt-0.5 uppercase tracking-wide">
+                  {tuningItem.phonetic || '(No Phonetic)'}
+                </div>
+              </div>
+              <div className="text-right">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">English</span>
+                <div className="text-sm font-black text-slate-700 mt-1">{tuningItem.englishTranslation}</div>
+              </div>
+            </div>
+
+            {/* Input Controls */}
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="text-[11px] font-black uppercase tracking-wider text-slate-600 block mb-1">
+                  TTS Spoken Malayalam String
+                </label>
+                <input
+                  type="text"
+                  value={tuningText}
+                  onChange={(e) => setTuningText(e.target.value)}
+                  placeholder="Enter Malayalam text or phonetic override"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-lg font-bold text-prime-dark-text focus:outline-none focus:border-prime-teal-green"
+                />
+                <span className="text-[9px] text-slate-400 mt-1 block">
+                  You can modify spellings slightly to improve TTS phonetic accuracy.
+                </span>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-black uppercase tracking-wider text-slate-600 block mb-1">
+                  Phonetic Representation (English)
+                </label>
+                <input
+                  type="text"
+                  value={tuningPhonetic}
+                  onChange={(e) => setTuningPhonetic(e.target.value)}
+                  placeholder="e.g. amma"
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-bold text-prime-dark-text focus:outline-none focus:border-prime-teal-green"
+                />
+              </div>
+            </div>
+
+            {/* Status Messages */}
+            {tuningMessage && (
+              <div className={`p-3 rounded-xl text-xs font-bold mb-6 ${tuningMessage.type === 'success' ? 'bg-prime-teal-green/10 text-prime-teal-green border border-prime-teal-green/20' : 'bg-prime-error/10 text-prime-error border border-prime-error/20'}`}>
+                {tuningMessage.text}
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={handlePreviewSound}
+                disabled={previewLoading || !tuningText.trim()}
+                className="flex-1 py-3 px-4 rounded-xl font-black text-xs uppercase tracking-wider bg-slate-100 hover:bg-slate-200 text-prime-dark-text flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              >
+                {previewLoading ? 'Playing...' : '🔊 Preview Sound'}
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCommitAudio}
+                disabled={commitLoading || !tuningText.trim()}
+                className="flex-1 py-3 px-4 rounded-xl font-black text-xs uppercase tracking-wider bg-prime-action-dark hover:bg-prime-dark-text text-white flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-md"
+              >
+                {commitLoading ? 'Saving...' : '💾 Save & Replace Audio'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

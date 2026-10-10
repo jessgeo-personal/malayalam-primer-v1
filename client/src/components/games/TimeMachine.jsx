@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDraggable, useDroppable, DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 
 const DraggableTile = ({ id, text, disabled }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ 

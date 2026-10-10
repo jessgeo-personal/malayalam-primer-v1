@@ -10,6 +10,7 @@
     "seed": "node seeder.js",
     "reset": "node reset-progress.js",
     "verify:transliterate": "node scripts/verify-transliteration.js",
+    "audio:generate": "node scripts/generate-audio.js",
     "test:smoke": "node scripts/smoke-test.js"
   },
   "keywords": [],

@@ -11,9 +11,11 @@ vi.mock('../context', () => ({
 }));
 
 // Mock audioEngine
-vi.mock('../utils/audioEngine', () => ({
+vi.mock('../services/audioEngine', () => ({
   audioEngine: {
-    speak: vi.fn()
+    speak: vi.fn(),
+    playLetter: vi.fn(),
+    playWord: vi.fn()
   }
 }));
 
@@ -90,13 +92,13 @@ describe('ConceptScreen Component', () => {
   });
 
   it('triggers audio when summary item speaker is clicked', async () => {
-    const { audioEngine } = await import('../utils/audioEngine');
+    const { audioEngine } = await import('../services/audioEngine');
     render(<ConceptScreen word={mockSummaryWord} onComplete={vi.fn()} />);
     
     await waitFor(() => {
       const speakers = screen.getAllByText('🔊');
       speakers[0].click();
-      expect(audioEngine.speak).toHaveBeenCalledWith('അ');
+      expect(audioEngine.playLetter).toHaveBeenCalledWith('അ');
     });
   });
 });

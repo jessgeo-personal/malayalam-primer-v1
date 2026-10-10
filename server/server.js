@@ -20,6 +20,7 @@ const fs = require('fs');
 
 const authRoutes = require('./routes/auth');
 const aiRoutes = require('./routes/ai');
+const audioRoutes = require('./routes/audio');
 const apiRoutes = require('./routes/api');
 
 const app = express();
@@ -37,15 +38,17 @@ if (process.env.NODE_ENV !== 'production') {
 // 1. Mount specific routers first:
 app.use('/api/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/audio', audioRoutes);
 app.use('/api', apiRoutes);
 
 // 2. Direct fallbacks if proxy strips /api:
 app.use('/auth', authRoutes);
 app.use('/ai', aiRoutes);
+app.use('/audio', audioRoutes);
 
 // 3. API 404 Guard (MUST be after all API routers):
 app.use((req, res, next) => {
-  if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/ai')) {
+  if (req.path.startsWith('/api') || req.path.startsWith('/auth') || req.path.startsWith('/ai') || req.path.startsWith('/audio')) {
     return res.status(404).json({ error: 'API endpoint not found' });
   }
   next();

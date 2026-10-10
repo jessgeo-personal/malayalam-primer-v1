@@ -1,8 +1,191 @@
 /**
  * Audio Engine for Malayalam Prime
- * Manages static audio assets (/audio/words/${wordId}.mp3)
- * with robust, non-crashing fallback to browser SpeechSynthesis.
+ * Strictly relies on HTML5 Audio() playback of pre-generated static audio files
+ * (/audio/words/{id}.mp3 and /audio/letters/{codepoint}.mp3)
+ * with transparent, resilient dynamic fallback to backend TTS (/api/audio/preview).
  */
+
+import { getApiUrl } from '../utils/api';
+
+/**
+ * Converts a Malayalam character or conjunct to a safe, deterministic ASCII filename
+ * using hexadecimal Unicode code points (e.g. 'ത' -> 'letter_0d24.mp3').
+ * @param {string} char - Malayalam character or conjunct
+ * @returns {string} Codepoint filename
+ */
+export function getLetterAudioFilename(char) {
+  if (!char) return 'unknown.mp3';
+  const hex = Array.from(char)
+    .map((c) => c.codePointAt(0).toString(16).padStart(4, '0'))
+    .join('_');
+  return `letter_${hex}.mp3`;
+}
+
+export class AudioEngine {
+  constructor() {
+    this.currentAudio = null;
+    this.isMuted = false;
+  }
+
+  async playWord(wordOrId, fallbackText = '') {
+    if (this.isMuted) return false;
+
+    let wordId = '';
+    let fallback = fallbackText;
+
+    if (wordOrId && typeof wordOrId === 'object') {
+      wordId = wordOrId.wordId || wordOrId.id || '';
+      fallback = wordOrId.malayalamText || wordOrId.text || wordOrId.word || fallbackText;
+    } else if (typeof wordOrId === 'string') {
+      wordId = wordOrId;
+    }
+
+    if (!wordId && !fallback) return false;
+
+    // 1. Attempt static audio asset
+    if (wordId) {
+      const staticUrl = `/audio/words/${wordId}.mp3`;
+      const played = await this.playUrl(staticUrl);
+      if (played) return true;
+    }
+
+    // 2. Resilient dynamic fallback to backend TTS
+    if (fallback) {
+      const saveAsParam = wordId ? `&saveAs=${encodeURIComponent(`words/${wordId}.mp3`)}` : '';
+      const fallbackUrl = getApiUrl(`/api/audio/preview?text=${encodeURIComponent(fallback)}&tl=ml${saveAsParam}`);
+      return this.playUrl(fallbackUrl);
+    }
+
+    return false;
+  }
+
+  async playLetter(letterOrChar) {
+    if (this.isMuted) return false;
+
+    const rawChar = (letterOrChar && typeof letterOrChar === 'object')
+      ? (letterOrChar.character || letterOrChar.letter || letterOrChar.char || letterOrChar.malayalamText || letterOrChar.wordId || letterOrChar.id)
+      : letterOrChar;
+
+    if (!rawChar) return false;
+
+    const filename = getLetterAudioFilename(rawChar);
+    const staticUrl = `/audio/letters/${filename}`;
+
+    // 1. Attempt static codepoint audio asset
+    const played = await this.playUrl(staticUrl);
+    if (played) return true;
+
+    // 2. Resilient dynamic fallback to backend TTS preview
+    const fallbackUrl = getApiUrl(`/api/audio/preview?text=${encodeURIComponent(rawChar)}&tl=ml&saveAs=${encodeURIComponent(`letters/${filename}`)}`);
+    return this.playUrl(fallbackUrl);
+  }
+
+  playUrl(url) {
+    if (this.isMuted || !url) return Promise.resolve(false);
+
+    if (this.currentAudio) {
+      try {
+        this.currentAudio.pause();
+      } catch (e) {
+        // Ignore abort pause error
+      }
+      this.currentAudio = null;
+    }
+
+    return new Promise((resolve) => {
+      const AudioConstructor = (typeof window !== 'undefined' && window.Audio) || (typeof Audio !== 'undefined' ? Audio : null);
+      if (!AudioConstructor) {
+        console.warn('[AudioEngine] HTML5 Audio constructor not available in environment.');
+        return resolve(false);
+      }
+
+      let audio;
+      try {
+        audio = new AudioConstructor(url);
+        this.currentAudio = audio;
+
+        const cleanup = () => {
+          if (this.currentAudio === audio) {
+            this.currentAudio = null;
+          }
+          if (audio) {
+            audio.onended = null;
+            audio.onerror = null;
+          }
+        };
+
+        audio.onended = () => {
+          cleanup();
+          resolve(true);
+        };
+
+        audio.onerror = () => {
+          cleanup();
+          // Silently resolve false on 404 / unsupported source so dynamic fallback can engage
+          resolve(false);
+        };
+
+        const playPromise = audio.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch((err) => {
+            cleanup();
+            // Silence NotSupportedError and AbortError from noisy console logging
+            if (err && err.name !== 'NotSupportedError' && err.name !== 'AbortError') {
+              console.warn(`[AudioEngine] Playback prevented for ${url}:`, err.message || err);
+            }
+            resolve(false);
+          });
+        }
+      } catch (err) {
+        if (this.currentAudio === audio) {
+          this.currentAudio = null;
+        }
+        resolve(false);
+      }
+    });
+  }
+
+  stop() {
+    if (this.currentAudio) {
+      try {
+        this.currentAudio.pause();
+      } catch (e) {
+        // Ignore
+      }
+      this.currentAudio = null;
+    }
+  }
+
+  speak(target, fallbackText = '') {
+    if (!target) return Promise.resolve(false);
+    if (typeof target === 'object') {
+      if (target.wordId) {
+        return this.playWord(target.wordId, target.malayalamText || fallbackText);
+      }
+      if (target.character || target.letter || target.char) {
+        return this.playLetter(target.character || target.letter || target.char);
+      }
+      if (target.malayalamText) {
+        return this.playLetter(target.malayalamText);
+      }
+    }
+    return this.playLetter(target);
+  }
+
+  playSound(filename) {
+    return this.playUrl(`/audio/${filename}`);
+  }
+
+  setMuted(muted) {
+    this.isMuted = !!muted;
+    if (this.isMuted) {
+      this.stop();
+    }
+  }
+}
+
+export const audioEngine = new AudioEngine();
+export default audioEngine;
 
 /**
  * Returns the expected static audio asset URL for a word item.
@@ -17,175 +200,20 @@ export function getAudioUrlForWord(wordItem) {
 }
 
 /**
- * Fallback to browser SpeechSynthesis
- * @param {string} text - Native Malayalam text
- * @returns {Promise<void>}
+ * Standalone function for playing word audio
+ * @param {Object|string} wordItem - Object with wordId or string ID
+ * @param {string} [fallbackText=''] - Native Malayalam text fallback
+ * @returns {Promise<boolean>}
  */
-function fallbackSpeechSynthesis(text) {
-  return new Promise((resolve) => {
-    if (typeof window === 'undefined' || !window.speechSynthesis) {
-      resolve();
-      return;
-    }
-
-    try {
-      window.speechSynthesis.cancel();
-      const UtteranceClass = typeof window.SpeechSynthesisUtterance !== 'undefined'
-        ? window.SpeechSynthesisUtterance
-        : (typeof SpeechSynthesisUtterance !== 'undefined' ? SpeechSynthesisUtterance : null);
-
-      if (!UtteranceClass) {
-        resolve();
-        return;
-      }
-
-      const utterance = new UtteranceClass(text);
-      utterance.lang = 'ml-IN';
-      utterance.rate = 0.8;
-
-      if (typeof window.speechSynthesis.getVoices === 'function') {
-        const voices = window.speechSynthesis.getVoices() || [];
-        const mlVoice = voices.find(v => v.lang && v.lang.includes('ml')) ||
-                        voices.find(v => v.lang && v.lang.includes('hi')) ||
-                        voices[0];
-        if (mlVoice) utterance.voice = mlVoice;
-      }
-
-      utterance.onend = () => resolve();
-      utterance.onerror = () => resolve();
-
-      window.speechSynthesis.speak(utterance);
-
-      // Failsafe timeout in case onend never triggers in headless/mocked environments
-      setTimeout(() => resolve(), 1000);
-    } catch (err) {
-      console.warn('Speech synthesis playback fallback failed:', err);
-      resolve();
-    }
-  });
+export function playWordSound(wordItem, fallbackText = '') {
+  return audioEngine.playWord(wordItem, fallbackText);
 }
 
 /**
- * Plays the audio for a word, prioritizing the static pre-generated audio asset
- * and falling back gracefully to speech synthesis if missing or playback fails.
- * @param {Object} wordItem - Object with wordId and malayalamText
- * @returns {Promise<void>}
+ * Standalone helper to play letter sound or raw Malayalam string
+ * @param {string|Object} text - Native Malayalam character or object
+ * @returns {Promise<boolean>}
  */
-export async function playWordSound(wordItem) {
-  if (typeof window === 'undefined') {
-    return;
-  }
-
-  if (!wordItem) {
-    return;
-  }
-
-  const audioUrl = getAudioUrlForWord(wordItem);
-  const malayalamText = wordItem.malayalamText || '';
-
-  if (!audioUrl || typeof window.Audio === 'undefined') {
-    await fallbackSpeechSynthesis(malayalamText);
-    return;
-  }
-
-  try {
-    await new Promise((resolve, reject) => {
-      let resolved = false;
-      const audio = new window.Audio(audioUrl);
-
-      const cleanup = () => {
-        resolved = true;
-      };
-
-      if (typeof audio.addEventListener === 'function') {
-        audio.addEventListener('ended', () => {
-          if (!resolved) {
-            cleanup();
-            resolve();
-          }
-        }, { once: true });
-
-        audio.addEventListener('error', (err) => {
-          if (!resolved) {
-            cleanup();
-            reject(err);
-          }
-        }, { once: true });
-      }
-
-      const playPromise = audio.play();
-      if (playPromise && typeof playPromise.then === 'function') {
-        playPromise
-          .then(() => {
-            // Some browsers resolve immediately on playback start; wait for ended listener
-            // or timeout safely
-            setTimeout(() => {
-              if (!resolved) {
-                cleanup();
-                resolve();
-              }
-            }, 1500);
-          })
-          .catch((err) => {
-            if (!resolved) {
-              cleanup();
-              reject(err);
-            }
-          });
-      }
-    });
-  } catch (err) {
-    // Static asset failed or not found - seamless fallback
-    await fallbackSpeechSynthesis(malayalamText);
-  }
+export function playPhoneticSound(text) {
+  return audioEngine.playLetter(text);
 }
-
-/**
- * Helper to play phonetic sound or raw Malayalam string
- * @param {string} text - Native Malayalam character or text
- * @returns {Promise<void>}
- */
-export async function playPhoneticSound(text) {
-  if (!text) return;
-  await fallbackSpeechSynthesis(text);
-}
-
-/**
- * AudioEngine class for backwards compatibility with existing UI components
- */
-export class AudioEngine {
-  constructor() {
-    this.isMuted = false;
-  }
-
-  loadVoice() {
-    // Handled dynamically in fallbackSpeechSynthesis
-  }
-
-  speak(text) {
-    if (this.isMuted) return;
-    fallbackSpeechSynthesis(text);
-  }
-
-  playSound(filename) {
-    if (this.isMuted || typeof window === 'undefined' || typeof window.Audio === 'undefined') return;
-    try {
-      const audio = new window.Audio(`/audio/${filename}`);
-      audio.play().catch(err => console.log('Audio playback prevented:', err));
-    } catch (e) {
-      console.warn('Audio playback failed:', e);
-    }
-  }
-
-  playWord(wordItem) {
-    if (this.isMuted) return Promise.resolve();
-    return playWordSound(wordItem);
-  }
-
-  setMuted(muted) {
-    this.isMuted = muted;
-  }
-}
-
-export const audioEngine = new AudioEngine();
-export default audioEngine;

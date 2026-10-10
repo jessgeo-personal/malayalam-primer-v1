@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 import { useProgress } from '../../context';
 import { getApiUrl } from '../../utils/api';
 
@@ -86,7 +86,7 @@ export default function ConceptScreen({ word, onComplete }) {
                   <div className="text-[10px] font-black text-prime-teal-green bg-prime-teal-green/10 px-2 py-0.5 rounded-md uppercase tracking-tighter mb-1">{item.phonetic}</div>
                   <div className="text-sm font-medium text-slate-500">{item.englishTranslation}</div>
                   <button 
-                    onClick={() => audioEngine.speak(item.malayalamText)}
+                    onClick={() => audioEngine.playLetter(item.malayalamText)}
                     className="mt-2 w-10 h-10 bg-prime-warm-base rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-transform shadow-sm"
                   >
                     🔊

@@ -35,28 +35,41 @@ export default function TracingCanvas({ word, onComplete }) {
     // Clear canvas
     ctx.clearRect(0, 0, width, height);
 
-    // Isotropic Ghost Letter Fitting
-    const availWidth = width * 0.82;   // 18% horizontal padding
-    const availHeight = height * 0.68; // 32% vertical padding
+    // Isotropic Ghost Letter Fitting with Headroom Calibration
+    const availWidth = width * 0.74;   // 26% horizontal margin
+    const availHeight = height * 0.52;  // 48% vertical margin (ample headroom top & bottom)
 
     if (character) {
-      // Baseline test size
       const testFontSize = 100;
       ctx.font = `bold ${testFontSize}px "Noto Sans Malayalam", "Manjari", sans-serif`;
       const metrics = ctx.measureText(character);
-      const charWidth = metrics?.width || 1;
-      const charHeight = testFontSize * 0.85; // approximate glyph ascent/descent box
+
+      const charWidth = metrics.width || testFontSize;
+
+      // Use actualBoundingBox if supported by browser/canvas, otherwise fall back to conservative 1.25 ratio
+      const ascent = metrics.actualBoundingBoxAscent || (testFontSize * 0.95);
+      const descent = metrics.actualBoundingBoxDescent || (testFontSize * 0.30);
+      const charHeight = (ascent + descent) || (testFontSize * 1.25);
 
       const scaleX = availWidth / charWidth;
       const scaleY = availHeight / charHeight;
       const uniformScale = Math.min(scaleX, scaleY);
-      const finalFontSize = Math.floor(testFontSize * uniformScale);
+      const finalFontSize = Math.max(16, Math.floor(testFontSize * uniformScale));
 
       ctx.font = `bold ${finalFontSize}px "Noto Sans Malayalam", "Manjari", sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = '#94a3b8'; // Slate-400 ghost outline/fill
-      ctx.fillText(character, width / 2, height / 2);
+      ctx.fillStyle = '#94a3b8'; // Slate-400 ghost outline
+
+      // True optical center adjustment: offset by ink balance if actual metrics exist
+      const finalMetrics = ctx.measureText(character);
+      const finalAscent = finalMetrics.actualBoundingBoxAscent || (finalFontSize * 0.5);
+      const finalDescent = finalMetrics.actualBoundingBoxDescent || (finalFontSize * 0.2);
+      const verticalOffset = (finalAscent - finalDescent) / 2;
+
+      // Render precisely centered with zero top clipping
+      const renderY = (height / 2) + (verticalOffset * 0.3);
+      ctx.fillText(character, width / 2, renderY);
     }
 
     // Redraw normalized recorded strokes

@@ -268,4 +268,6 @@
 - [x] **Profile Independent Reset Endpoint (AUTH-03):** Verified `POST /api/auth/profiles/:profileId/reset` purges progress records strictly for the target profile without cross-profile or cross-account leakage.
 - [x] **Frontend Auth Flow & Profile Selector (AUTH-04):** Verified dedicated `AuthContext`, two-step `AuthModal` (Email OTP), 3-profile limit enforcement, profile switching, and confirmed resets.
 - [x] **Dynamic Canvas Synchronization & Isotropic Tracing Calibration (UI-02):** Verified `ResizeObserver` responsive container coupling with DPR buffer sizing, isotropic ghost letter fitting via `measureText`, and normalized $[0, 1]$ stroke path preservation on screen resize.
+- [x] **Browser Tab Identity Polish & Tracing Canvas Headroom Calibration (UI-03):** Verified `<title>Malayalam Primer v1.0</title>` in `client/index.html`, calibrated headroom margins (0.74 width, 0.52 height), actual bounding box ink metrics with 0.95/0.30 fallbacks, and optical center offset `renderY` eliminating top-edge glyph clipping.
+
 

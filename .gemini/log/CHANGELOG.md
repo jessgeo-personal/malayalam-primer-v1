@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.10.017] - 2026-10-10
+### Added & Hardened (UI-03: Browser Tab Identity Polish & Tracing Canvas Headroom Calibration)
+- **Browser Tab Identity Polish (`client/index.html`)**:
+  - Replaced default title `<title>client</title>` with `<title>Malayalam Primer v1.0</title>`.
+  - Added meta tags for `description` and `application-name` aligning with the PWA specification.
+- **Tracing Canvas Headroom Calibration (`TracingCanvas.jsx`)**:
+  - Scaled down glyph bounds to `availWidth = width * 0.74` (26% margin) and `availHeight = height * 0.52` (48% vertical margin) providing generous headroom for ascenders and floating mathras.
+  - Implemented true vertical ink span measurement using `actualBoundingBoxAscent` and `actualBoundingBoxDescent` with safe proportional fallbacks (0.95 ascent, 0.30 descent).
+  - Calculated optical vertical center adjustment `verticalOffset = (finalAscent - finalDescent) / 2` and rendered at `renderY = (height / 2) + (verticalOffset * 0.3)`, preventing top-edge clipping of tall characters like ു, ൂ, ണ്ണ, and ന്ന.
+- **Testing & Verification**:
+  - Updated `client/src/tests/TracingCanvas.test.jsx` with tests asserting headroom safety bounds and optical center offset.
+  - Verified 100% green test results across all 15 test suites in `client` (84/84 tests passing).
+
 ## [2026.10.10.016] - 2026-10-10
 ### Added & Hardened (UI-02: Dynamic Canvas Synchronization & Isotropic Tracing Calibration)
 - **Responsive Buffer Synchronization (`ResizeObserver`)**:

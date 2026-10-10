@@ -139,7 +139,7 @@ describe('TracingCanvas', () => {
     expect(mockContext.setTransform).toHaveBeenCalledWith(2, 0, 0, 2, 0, 0);
   });
 
-  it('renders ghost letter with isotropic font scaling and Slate-400 color', () => {
+  it('renders ghost letter with calibrated headroom bounds and optical center adjustment', () => {
     window.devicePixelRatio = 1;
     render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
 
@@ -156,8 +156,38 @@ describe('TracingCanvas', () => {
     expect(mockContext.fillStyle).toBe('#94a3b8');
     expect(mockContext.textAlign).toBe('center');
     expect(mockContext.textBaseline).toBe('middle');
-    // Centered at width / 2, height / 2 => (250, 150)
-    expect(mockContext.fillText).toHaveBeenCalledWith('അ', 250, 150);
+    // Horizontal center at 250 (width / 2), vertical center adjusted with headroom offset (> 150)
+    const fillTextArgs = mockContext.fillText.mock.calls[0];
+    expect(fillTextArgs[0]).toBe('അ');
+    expect(fillTextArgs[1]).toBe(250);
+    expect(fillTextArgs[2]).toBeCloseTo(155.58, 1);
+  });
+
+  it('correctly uses actualBoundingBox metrics for vertical headroom when available', () => {
+    window.devicePixelRatio = 1;
+    mockContext.measureText = vi.fn(() => ({
+      width: 120,
+      actualBoundingBoxAscent: 90,
+      actualBoundingBoxDescent: 30,
+    }));
+
+    render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+
+    act(() => {
+      resizeObserverCallback([
+        {
+          target: observedElements[0],
+          contentRect: { width: 500, height: 300 },
+        },
+      ]);
+    });
+
+    expect(mockContext.fillText).toHaveBeenCalled();
+    const [char, x, y] = mockContext.fillText.mock.calls[0];
+    expect(char).toBe('അ');
+    expect(x).toBe(250);
+    // verticalOffset = (90 - 30) / 2 = 30; renderY = 150 + 30 * 0.3 = 159
+    expect(y).toBeCloseTo(159, 1);
   });
 
   it('records normalized strokes and redraws them accurately on resize', () => {

@@ -4,7 +4,7 @@ import React from 'react';
 import { SoundMatcher } from '../components/games';
 
 // Mock audio engine
-vi.mock('../../utils/audioEngine', () => ({
+vi.mock('../services/audioEngine', () => ({
   audioEngine: {
     speak: vi.fn(),
   },

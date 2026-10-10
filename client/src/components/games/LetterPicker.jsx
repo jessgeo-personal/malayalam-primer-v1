@@ -9,7 +9,7 @@ import {
   useSensors,
   pointerWithin
 } from '@dnd-kit/core';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 
 /**
  * Word Assembly Mini-game (LetterPicker)
@@ -49,7 +49,7 @@ function DraggableLetter({ id, char, isPlaced = false, isSurroundLeftOnly = fals
   const playSound = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    audioEngine.speak(char);
+    audioEngine.playLetter(char);
   };
 
   // Determine what to display based on state
@@ -77,6 +77,7 @@ function DraggableLetter({ id, char, isPlaced = false, isSurroundLeftOnly = fals
       
       {!isPlaced && (
         <button
+          onClick={playSound}
           onPointerDown={playSound}
           onMouseDown={playSound}
           className="absolute -top-2 -right-2 w-7 h-7 bg-prime-warm-base text-prime-action-dark border border-white/20 rounded-full flex items-center justify-center text-[10px] shadow-lg hover:scale-110 active:scale-90 transition-transform pointer-events-auto z-20"
@@ -352,7 +353,7 @@ export default function LetterPicker({ word, onComplete }) {
              </div>
 
              <button 
-              onClick={() => audioEngine.speak(word.malayalamText)}
+              onClick={() => audioEngine.playWord(word.wordId, word.malayalamText)}
               className="w-16 h-16 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-2xl shadow-lg hover:scale-110 active:scale-95 transition-transform border border-slate-100"
               title="Play Word Sound"
              >

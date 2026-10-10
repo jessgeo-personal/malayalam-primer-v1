@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 
 // Mock audioEngine
-vi.mock('../../utils/audioEngine', () => ({
+vi.mock('../services/audioEngine', () => ({
   audioEngine: {
     speak: vi.fn(),
   },

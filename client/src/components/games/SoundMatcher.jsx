@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 
 /**
  * SoundMatcher Mini-game

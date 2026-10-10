@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import TracingCanvas from '../components/games/TracingCanvas';
-import { audioEngine } from '../utils/audioEngine';
+import { audioEngine } from '../services/audioEngine';
 
 // Mock audioEngine
-vi.mock('../utils/audioEngine', () => ({
+vi.mock('../services/audioEngine', () => ({
   audioEngine: {
     speak: vi.fn(),
   },

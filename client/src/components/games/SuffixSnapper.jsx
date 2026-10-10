@@ -9,7 +9,7 @@ import {
   useSensors,
   pointerWithin
 } from '@dnd-kit/core';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 
 /**
  * Suffix Snapper Mini-game

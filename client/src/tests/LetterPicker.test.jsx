@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import React from 'react';
 import LetterPicker from '../components/games/LetterPicker';
-import { audioEngine } from '../utils/audioEngine';
+import { audioEngine } from '../services/audioEngine';
 
 // Mock dnd-kit since it's hard to test drag and drop in jsdom
 vi.mock('@dnd-kit/core', () => ({
@@ -17,9 +17,11 @@ vi.mock('@dnd-kit/core', () => ({
 }));
 
 // Mock audioEngine
-vi.mock('../utils/audioEngine', () => ({
+vi.mock('../services/audioEngine', () => ({
   audioEngine: {
     speak: vi.fn(),
+    playWord: vi.fn(),
+    playLetter: vi.fn(),
   },
 }));
 
@@ -59,9 +61,13 @@ describe('LetterPicker (Word Assembly) Component', () => {
     render(<LetterPicker word={mockWord} onComplete={() => {}} />);
     // There are speaker buttons on tiles too, so we need to find the one in the right panel
     const speakerButtons = screen.getAllByText('🔊');
-    // Last one should be our new one in the right column
+    // First tile speaker button should trigger playLetter
+    fireEvent.click(speakerButtons[0]);
+    expect(mockWord.requiredCharacters).toContain(audioEngine.playLetter.mock.calls[0][0]);
+
+    // Last one should be our word speaker in the right column
     fireEvent.click(speakerButtons[speakerButtons.length - 1]);
-    expect(audioEngine.speak).toHaveBeenCalledWith(mockWord.malayalamText);
+    expect(audioEngine.playWord).toHaveBeenCalledWith(mockWord.wordId, mockWord.malayalamText);
   });
 
   it('orders visual slots correctly for left-side mathra words (e.g., പെട്ടി)', () => {

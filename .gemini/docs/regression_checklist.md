@@ -22,6 +22,18 @@
 - [x] Lesson & Practice Auth Gate: Unauthenticated users clicking a lesson or review are prompted with `AuthModal`.
 - [x] Auto-Resume: Automatically resumes and launches the pending lesson after successful authentication and learner onboarding.
 
+## Audio Engine & Static Curation Pipeline (AUDIO-02 & AUDIO-03)
+- [x] Engine Deduplication: Redundant `client/src/utils/audioEngine.js` removed, standardized on `client/src/services/audioEngine.js`.
+- [x] HTML5 Audio Player: Promise-based HTML5 `Audio()` playback for static files (`/audio/words/{id}.mp3` and `/audio/letters/{safeId}.mp3`), eliminating Web Speech API fragility, GC drops, and queue locks.
+- [x] Backend Audio Curation Service (`server/services/audioService.js`): Zero-key Google Translate TTS buffer fetcher and static asset file writer.
+- [x] Audio Curation Routes (`server/routes/audio.js`): `GET /api/audio/preview` (streaming MP3 buffer) and `POST /api/audio/commit` (saving MP3 & updating MongoDB Word document).
+- [x] Seed Batch Audio Generator (`server/scripts/generate-audio.js`): Batch generator for words and letters across `seed-100.json`, `seed-200.json`, and `seed-300.json` with sequential 150ms throttling.
+- [x] Codepoint Normalization (`getLetterAudioFilename`): Letter files named with ASCII Unicode hex codepoints (e.g. `letter_0d24.mp3`), preventing URL encoding/decoding filename mismatches.
+- [x] Resilient Dynamic Fallback: Automatic fallback from missing static files to `/api/audio/preview` with silent error handling and immediate audio instance cleanup.
+- [x] Lazy-Caching in Backend Preview: `/api/audio/preview` supports `saveAs` parameter and automatic single-letter asset caching on the fly.
+- [x] Batch Generation Completed: 418 word MP3s and 79 letter MP3s generated and verified in `client/public/audio/`.
+- [x] WordAudit Studio: 🔊 button and "Tweak Sound" curation drawer/modal for previewing and committing custom pronunciations.
+
 ## Test Suite Parity
-- [x] Backend Suite (`server`): 11 test suites, 73 tests passing (100% green).
-- [x] Frontend Suite (`client`): 15 test suites, 70 tests passing (100% green).
+- [x] Backend Suite (`server`): 12 test suites, 85 tests passing (100% green).
+- [x] Frontend Suite (`client`): 15 test suites, 76 tests passing (100% green).

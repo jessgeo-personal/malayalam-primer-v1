@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.10.015] - 2026-10-10
+### Added & Hardened (AUDIO-03: Codepoint Normalization, Resilient Fallback, & Batch Audio Assets)
+- **Codepoint Normalization**:
+  - Implemented `getLetterAudioFilename(char)` converting Malayalam characters to hex Unicode code points (e.g., `letter_0d24.mp3`), preventing URI encoding / filesystem mismatch (`NotSupportedError`).
+- **Resilient Dynamic Fallback**:
+  - Enhanced `audioEngine.playLetter` and `playWord` to catch missing static files and immediately fall back to `/api/audio/preview?text=...&tl=ml`.
+  - Added `NotSupportedError` silence shield in `playUrl` preventing loud unhandled browser aborts.
+- **Backend Lazy-Caching**:
+  - Updated `/api/audio/preview` to optionally lazy-cache fetched audio directly to disk under `client/public/audio/`.
+- **Batch Asset Generation**:
+  - Updated `server/scripts/generate-audio.js` with Unicode codepoint naming and executed `npm run audio:generate` to produce static MP3 assets for all words and characters.
+
+## [2026.10.10.014] - 2026-10-10
+### Added & Refactored (AUDIO-02: Static Audio Pipeline, TTS Curation Studio, & Engine Deduplication)
+- **Engine Deduplication**:
+  - Removed duplicate `client/src/utils/audioEngine.js`.
+  - Standardized all client imports and test mocks on `client/src/services/audioEngine.js`.
+- **HTML5 Audio Engine**:
+  - Refactored `client/src/services/audioEngine.js` to rely on HTML5 `Audio()` static asset playback (`/audio/words/{id}.mp3` and `/audio/letters/{safeId}.mp3`).
+  - Added clean promise-based resolution on `onended` and error handling on `onerror`.
+- **Backend Audio Curation Service & Routes**:
+  - Created `server/services/audioService.js` for fetching Google Translate TTS buffers and writing to disk.
+  - Created `server/routes/audio.js` with `GET /api/audio/preview` and `POST /api/audio/commit`.
+  - Registered `/api/audio` routes in `server/server.js`.
+- **Static Generation Script**:
+  - Added `server/scripts/generate-audio.js` and `npm run audio:generate` in `server/package.json`.
+- **WordAudit Pronunciation Curation Studio**:
+  - Added 🔊 Play button and inline "Tweak Sound" curation drawer/modal with audio preview and commit actions.
+
 ## [2026.10.10.013] - 2026-10-10
 ### Fixed & Hardened
 - **Asynchronous Cancel-Safe SpeechSynthesis Dispatch (`audioEngine`)**:

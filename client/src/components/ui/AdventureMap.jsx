@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useProgress } from '../../context';
 import MasteryStrip from './MasteryStrip';
 import { getApiUrl } from '../../utils/api';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 
 const AdventureMap = ({ characters, onSelectLesson, onStartRevision }) => {
   const { 

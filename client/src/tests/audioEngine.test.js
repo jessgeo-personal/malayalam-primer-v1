@@ -1,10 +1,50 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AudioEngine, audioEngine, playWordSound, getAudioUrlForWord } from '../services/audioEngine.js';
+import {
+  AudioEngine,
+  audioEngine,
+  playWordSound,
+  playPhoneticSound,
+  getAudioUrlForWord,
+  getLetterAudioFilename
+} from '../services/audioEngine.js';
 
-describe('AUDIO-01: Bounded Audio Pipeline & Fallback Engine', () => {
+describe('AUDIO-03: Codepoint Normalization, Dynamic Fallback & Audio Engine', () => {
+  let mockAudioInstances = [];
+
+  class MockAudio {
+    constructor(url) {
+      this.url = url;
+      this.play = vi.fn().mockReturnValue(Promise.resolve());
+      this.pause = vi.fn();
+      this.onended = null;
+      this.onerror = null;
+      mockAudioInstances.push(this);
+    }
+  }
+
   beforeEach(() => {
     vi.restoreAllMocks();
-    delete window.__currentSpeechUtterance;
+    mockAudioInstances = [];
+    window.Audio = MockAudio;
+  });
+
+  describe('getLetterAudioFilename Utility', () => {
+    it('generates valid ASCII hex codepoint filenames for single characters', () => {
+      expect(getLetterAudioFilename('ത')).toBe('letter_0d24.mp3');
+      expect(getLetterAudioFilename('അ')).toBe('letter_0d05.mp3');
+      expect(getLetterAudioFilename('ാ')).toBe('letter_0d3e.mp3');
+    });
+
+    it('generates valid ASCII hex codepoint filenames for conjuncts', () => {
+      // 'മ്മ' consists of 'മ' (0d2e), '്' (0d4d), 'മ' (0d2e)
+      expect(getLetterAudioFilename('മ്മ')).toBe('letter_0d2e_0d4d_0d2e.mp3');
+    });
+
+    it('returns unknown.mp3 for empty or null input', () => {
+      expect(getLetterAudioFilename('')).toBe('unknown.mp3');
+      expect(getLetterAudioFilename(null)).toBe('unknown.mp3');
+      expect(getLetterAudioFilename(undefined)).toBe('unknown.mp3');
+    });
   });
 
   it('should resolve correct static asset path for a word item', () => {
@@ -13,326 +53,208 @@ describe('AUDIO-01: Bounded Audio Pipeline & Fallback Engine', () => {
     expect(url).toBe('/audio/words/w001.mp3');
   });
 
-  it('should immediately speak via SpeechSynthesis without instantiating Audio when HAS_STATIC_AUDIO_ASSETS is false', async () => {
-    const speakMock = vi.fn();
-    window.speechSynthesis = {
-      speak: speakMock,
-      cancel: vi.fn(),
-      getVoices: vi.fn().mockReturnValue([])
-    };
+  it('playWord creates an HTML5 Audio instance pointing to /audio/words/{id}.mp3 and resolves true onended', async () => {
+    const engine = new AudioEngine();
+    const playPromise = engine.playWord('w001');
 
-    const audioConstructorMock = vi.fn();
-    window.Audio = audioConstructorMock;
+    expect(mockAudioInstances.length).toBe(1);
+    const audio = mockAudioInstances[0];
+    expect(audio.url).toBe('/audio/words/w001.mp3');
+    expect(audio.play).toHaveBeenCalled();
 
-    const word = { wordId: 'w999', malayalamText: 'അമ്മ' };
-    await expect(playWordSound(word)).resolves.not.toThrow();
+    // Trigger onended
+    audio.onended();
 
-    // Verify window.Audio was never called (0 network latency)
-    expect(audioConstructorMock).not.toHaveBeenCalled();
-    expect(speakMock).toHaveBeenCalled();
+    const result = await playPromise;
+    expect(result).toBe(true);
+    expect(engine.currentAudio).toBeNull();
   });
 
-  it('should attempt static audio and fall back cleanly to speech synthesis if static audio is enabled but unavailable', async () => {
-    const speakMock = vi.fn();
-    window.speechSynthesis = {
-      speak: speakMock,
-      cancel: vi.fn(),
-      getVoices: vi.fn().mockReturnValue([])
-    };
+  it('playWord handles word object with wordId and fallbackText', async () => {
+    const engine = new AudioEngine();
+    const playPromise = engine.playWord({ wordId: 'w042', malayalamText: 'അമ്മ' });
 
-    // Mock Audio failure
-    const audioInstanceMock = {
-      play: vi.fn().mockRejectedValue(new Error('Asset not found')),
-      addEventListener: vi.fn((event, cb) => {
-        if (event === 'error') cb(new Error('Asset not found'));
-      })
-    };
-    window.Audio = vi.fn().mockImplementation(() => audioInstanceMock);
+    expect(mockAudioInstances.length).toBe(1);
+    const audio = mockAudioInstances[0];
+    expect(audio.url).toBe('/audio/words/w042.mp3');
+    
+    audio.onended();
 
-    const testEngine = new AudioEngine();
-    testEngine.hasStaticAudioAssets = true;
-
-    const word = { wordId: 'w999', malayalamText: 'അമ്മ' };
-    await expect(testEngine.playWord(word)).resolves.not.toThrow();
-    expect(window.Audio).toHaveBeenCalledWith('/audio/words/w999.mp3');
-    expect(speakMock).toHaveBeenCalled();
+    const result = await playPromise;
+    expect(result).toBe(true);
   });
 
-  describe('AudioEngine Class Features', () => {
-    it('initializes voices and updates them when voiceschanged fires', () => {
-      const mockVoices1 = [{ name: 'English Voice', lang: 'en-US' }];
-      const mockVoices2 = [
-        { name: 'English Voice', lang: 'en-US' },
-        { name: 'Malayalam Voice', lang: 'ml-IN' }
-      ];
+  it('playLetter creates an HTML5 Audio instance with codepoint normalized path and resolves true onended', async () => {
+    const engine = new AudioEngine();
+    const playPromise = engine.playLetter('അ');
 
-      let voicesChangedCb = null;
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue(mockVoices1),
-        onvoiceschanged: null,
-        addEventListener: vi.fn((event, cb) => {
-          if (event === 'voiceschanged') voicesChangedCb = cb;
-        }),
-        speak: vi.fn(),
-        cancel: vi.fn()
-      };
+    const expectedUrl = `/audio/letters/letter_0d05.mp3`;
+    expect(mockAudioInstances.length).toBe(1);
+    const audio = mockAudioInstances[0];
+    expect(audio.url).toBe(expectedUrl);
+    expect(audio.play).toHaveBeenCalled();
 
-      const engine = new AudioEngine();
-      expect(engine.voices).toEqual(mockVoices1);
-      expect(engine.getMalayalamVoice()).toBeNull();
+    audio.onended();
 
-      // Trigger voiceschanged event
-      window.speechSynthesis.getVoices = vi.fn().mockReturnValue(mockVoices2);
-      if (voicesChangedCb) {
-        voicesChangedCb();
-      } else if (window.speechSynthesis.onvoiceschanged) {
-        window.speechSynthesis.onvoiceschanged();
+    const result = await playPromise;
+    expect(result).toBe(true);
+  });
+
+  it('playLetter automatically falls back to /api/audio/preview when static asset fails', async () => {
+    const engine = new AudioEngine();
+    const playPromise = engine.playLetter('ത');
+
+    // 1st attempt: static asset
+    expect(mockAudioInstances.length).toBe(1);
+    expect(mockAudioInstances[0].url).toBe('/audio/letters/letter_0d24.mp3');
+
+    // Simulate 404 or unsupported format on static asset
+    mockAudioInstances[0].onerror();
+
+    // Give microtask tick to trigger fallback
+    await Promise.resolve();
+
+    // 2nd attempt: dynamic fallback
+    expect(mockAudioInstances.length).toBe(2);
+    expect(mockAudioInstances[1].url).toContain('/api/audio/preview?text=%E0%B4%A4&tl=ml');
+    expect(mockAudioInstances[1].url).toContain('saveAs=letters%2Fletter_0d24.mp3');
+
+    // Simulate successful playback on fallback
+    mockAudioInstances[1].onended();
+
+    const result = await playPromise;
+    expect(result).toBe(true);
+  });
+
+  it('playWord automatically falls back to /api/audio/preview when static asset fails and fallbackText is provided', async () => {
+    const engine = new AudioEngine();
+    const playPromise = engine.playWord('w001', 'അമ്മ');
+
+    // 1st attempt: static asset
+    expect(mockAudioInstances.length).toBe(1);
+    expect(mockAudioInstances[0].url).toBe('/audio/words/w001.mp3');
+
+    // Simulate static asset failure
+    mockAudioInstances[0].onerror();
+    await Promise.resolve();
+
+    // 2nd attempt: dynamic fallback
+    expect(mockAudioInstances.length).toBe(2);
+    expect(mockAudioInstances[1].url).toContain('/api/audio/preview?text=%E0%B4%85%E0%B4%AE%E0%B5%8D%E0%B4%AE&tl=ml');
+    expect(mockAudioInstances[1].url).toContain('saveAs=words%2Fw001.mp3');
+
+    mockAudioInstances[1].onended();
+
+    const result = await playPromise;
+    expect(result).toBe(true);
+  });
+
+  it('playWord resolves false cleanly when onerror fires and no fallback is available', async () => {
+    const engine = new AudioEngine();
+    const playPromise = engine.playWord('missing_id');
+
+    expect(mockAudioInstances.length).toBe(1);
+    const audio = mockAudioInstances[0];
+    expect(audio.url).toBe('/audio/words/missing_id.mp3');
+
+    audio.onerror();
+
+    const result = await playPromise;
+    expect(result).toBe(false);
+    expect(engine.currentAudio).toBeNull();
+  });
+
+  it('playWord silences NotSupportedError on playback catch without throwing', async () => {
+    const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const engine = new AudioEngine();
+
+    // Override play to reject with NotSupportedError
+    const originalMock = MockAudio;
+    window.Audio = class NotSupportedAudio extends originalMock {
+      constructor(url) {
+        super(url);
+        const err = new Error('Failed to load because no supported source was found');
+        err.name = 'NotSupportedError';
+        this.play = vi.fn().mockRejectedValue(err);
       }
+    };
 
-      expect(engine.voices).toEqual(mockVoices2);
-      const mlVoice = engine.getMalayalamVoice();
-      expect(mlVoice).not.toBeNull();
-      expect(mlVoice.lang).toBe('ml-IN');
-    });
+    const result = await engine.playWord('w001');
 
-    it('speakText dispatches immediately with ml-IN rate 0.85 when idle without cancel penalty', () => {
-      const speakMock = vi.fn();
-      const cancelMock = vi.fn();
-      const mockMlVoice = { name: 'Malayalam Female', lang: 'ml-IN' };
+    expect(result).toBe(false);
+    expect(engine.currentAudio).toBeNull();
+    // NotSupportedError is silenced
+    expect(warnSpy).not.toHaveBeenCalled();
+  });
 
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue([mockMlVoice]),
-        speak: speakMock,
-        cancel: cancelMock,
-        speaking: false,
-        pending: false
-      };
+  it('interrupts previously playing audio when a new sound is played', async () => {
+    const engine = new AudioEngine();
+    
+    // Start first audio
+    const firstPromise = engine.playWord('w001');
+    expect(mockAudioInstances.length).toBe(1);
+    const firstAudio = mockAudioInstances[0];
 
-      const engine = new AudioEngine();
-      engine.speakText('മലയാളം');
+    // Start second audio before first finishes
+    const secondPromise = engine.playWord('w002');
+    expect(mockAudioInstances.length).toBe(2);
+    const secondAudio = mockAudioInstances[1];
 
-      expect(cancelMock).not.toHaveBeenCalled();
-      expect(speakMock).toHaveBeenCalled();
-      const calledUtterance = speakMock.mock.calls[0][0];
-      expect(calledUtterance.text).toBe('മലയാളം');
-      expect(calledUtterance.lang).toBe('ml-IN');
-      expect(calledUtterance.rate).toBe(0.85);
-      expect(calledUtterance.voice).toEqual(mockMlVoice);
-    });
+    // First audio should have been paused
+    expect(firstAudio.pause).toHaveBeenCalled();
+    expect(secondAudio.play).toHaveBeenCalled();
 
-    it('speakText cancels and waits 50ms before dispatching when browser is actively speaking', () => {
-      vi.useFakeTimers();
-      try {
-        const speakMock = vi.fn();
-        const cancelMock = vi.fn();
-        const mockMlVoice = { name: 'Malayalam Female', lang: 'ml-IN' };
+    secondAudio.onended();
+    const result2 = await secondPromise;
+    expect(result2).toBe(true);
+  });
 
-        window.speechSynthesis = {
-          getVoices: vi.fn().mockReturnValue([mockMlVoice]),
-          speak: speakMock,
-          cancel: cancelMock,
-          speaking: true,
-          pending: false
-        };
+  it('stop() pauses current audio and clears reference', () => {
+    const engine = new AudioEngine();
+    engine.playWord('w001');
 
-        const engine = new AudioEngine();
-        engine.speakText('മലയാളം');
+    expect(mockAudioInstances.length).toBe(1);
+    const audio = mockAudioInstances[0];
+    expect(engine.currentAudio).toBe(audio);
 
-        expect(cancelMock).toHaveBeenCalled();
-        expect(speakMock).not.toHaveBeenCalled();
+    engine.stop();
 
-        vi.advanceTimersByTime(50);
-        expect(speakMock).toHaveBeenCalled();
-        const calledUtterance = speakMock.mock.calls[0][0];
-        expect(calledUtterance.text).toBe('മലയാളം');
-      } finally {
-        vi.useRealTimers();
-      }
-    });
+    expect(audio.pause).toHaveBeenCalled();
+    expect(engine.currentAudio).toBeNull();
+  });
 
-    it('speakText cancels pending dispatch timeout on rapid successive calls', () => {
-      vi.useFakeTimers();
-      try {
-        const speakMock = vi.fn();
-        const cancelMock = vi.fn();
+  it('setMuted(true) prevents playback and immediately resolves false', async () => {
+    const engine = new AudioEngine();
+    engine.setMuted(true);
 
-        window.speechSynthesis = {
-          getVoices: vi.fn().mockReturnValue([]),
-          speak: speakMock,
-          cancel: cancelMock,
-          speaking: true,
-          pending: false
-        };
+    const result = await engine.playWord('w001');
+    expect(result).toBe(false);
+    expect(mockAudioInstances.length).toBe(0);
+  });
 
-        const engine = new AudioEngine();
-        engine.speakText('ആദ്യ');
-        expect(cancelMock).toHaveBeenCalledTimes(1);
+  it('speak alias delegates to playWord for wordId or playLetter for characters', async () => {
+    const engine = new AudioEngine();
+    const playWordSpy = vi.spyOn(engine, 'playWord').mockResolvedValue(true);
+    const playLetterSpy = vi.spyOn(engine, 'playLetter').mockResolvedValue(true);
 
-        // Advance 20ms (before 50ms timeout) and call again
-        vi.advanceTimersByTime(20);
-        expect(speakMock).not.toHaveBeenCalled();
+    await engine.speak({ wordId: 'w005', malayalamText: 'അവൻ' });
+    expect(playWordSpy).toHaveBeenCalledWith('w005', 'അവൻ');
 
-        engine.speakText('രണ്ടാമത്തെ');
-        expect(cancelMock).toHaveBeenCalledTimes(2);
+    await engine.speak('ക');
+    expect(playLetterSpy).toHaveBeenCalledWith('ക');
 
-        // Advance 50ms: only the second word should have been dispatched
-        vi.advanceTimersByTime(50);
-        expect(speakMock).toHaveBeenCalledTimes(1);
-        expect(speakMock.mock.calls[0][0].text).toBe('രണ്ടാമത്തെ');
-      } finally {
-        vi.useRealTimers();
-      }
-    });
+    await engine.speak({ malayalamText: 'ന' });
+    expect(playLetterSpy).toHaveBeenCalledWith('ന');
+  });
 
-    it('suppresses console warning on standard interrupted and canceled errors but logs other errors', () => {
-      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-      let capturedUtterance = null;
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue([]),
-        speak: vi.fn((u) => { capturedUtterance = u; }),
-        cancel: vi.fn(),
-        speaking: false,
-        paused: false
-      };
+  it('helper functions playWordSound and playPhoneticSound work with default instance', async () => {
+    const wordSpy = vi.spyOn(audioEngine, 'playWord').mockResolvedValue(true);
+    const letterSpy = vi.spyOn(audioEngine, 'playLetter').mockResolvedValue(true);
 
-      const engine = new AudioEngine();
-      engine.speakText('മല');
-      expect(capturedUtterance).not.toBeNull();
+    await playWordSound({ wordId: 'w100', malayalamText: 'പൂച്ച' });
+    expect(wordSpy).toHaveBeenCalledWith({ wordId: 'w100', malayalamText: 'പൂച്ച' }, '');
 
-      // Trigger 'interrupted' - should not warn
-      capturedUtterance.onerror({ error: 'interrupted' });
-      expect(warnSpy).not.toHaveBeenCalled();
-
-      // Trigger 'canceled' - should not warn
-      engine.speakText('നഗരം');
-      capturedUtterance.onerror({ error: 'canceled' });
-      expect(warnSpy).not.toHaveBeenCalled();
-
-      // Trigger genuine error - should warn
-      engine.speakText('ഗ്രാമം');
-      capturedUtterance.onerror({ error: 'audio-busy' });
-      expect(warnSpy).toHaveBeenCalledWith('[AudioEngine TTS Error]', 'audio-busy');
-
-      warnSpy.mockRestore();
-    });
-
-    it('playWord handles raw string input directly via speakText', async () => {
-      const speakMock = vi.fn();
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue([]),
-        speak: speakMock,
-        cancel: vi.fn()
-      };
-
-      const engine = new AudioEngine();
-      await engine.playWord('അമ്മ');
-
-      expect(speakMock).toHaveBeenCalled();
-      expect(speakMock.mock.calls[0][0].text).toBe('അമ്മ');
-    });
-
-    it('speak alias delegates to playWord handling both strings and objects', async () => {
-      const speakMock = vi.fn();
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue([]),
-        speak: speakMock,
-        cancel: vi.fn()
-      };
-
-      const engine = new AudioEngine();
-      const playWordSpy = vi.spyOn(engine, 'playWord');
-
-      await engine.speak('ആന');
-      expect(playWordSpy).toHaveBeenCalledWith('ആന', '');
-
-      const wordObj = { wordId: 'w10', malayalamText: 'പൂച്ച' };
-      await engine.speak(wordObj);
-      expect(playWordSpy).toHaveBeenCalledWith(wordObj, '');
-    });
-
-    it('unsticks paused queue via window.speechSynthesis.resume()', () => {
-      const resumeMock = vi.fn();
-      const speakMock = vi.fn();
-
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue([]),
-        speak: speakMock,
-        cancel: vi.fn(),
-        resume: resumeMock,
-        paused: true,
-        speaking: false
-      };
-
-      const engine = new AudioEngine();
-      engine.speakText('വാഴ');
-
-      expect(resumeMock).toHaveBeenCalled();
-      expect(speakMock).toHaveBeenCalled();
-    });
-
-    it('retains strong reference on activeUtterance and window.__currentSpeechUtterance to prevent GC, then clears on onend/onerror', () => {
-      let capturedUtterance = null;
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue([]),
-        speak: vi.fn((u) => { capturedUtterance = u; }),
-        cancel: vi.fn(),
-        paused: false,
-        speaking: false
-      };
-
-      const engine = new AudioEngine();
-      expect(engine.activeUtterance).toBeNull();
-      expect(window.__currentSpeechUtterance).toBeUndefined();
-
-      engine.speakText('പൂന്തോട്ടം');
-      expect(engine.activeUtterance).not.toBeNull();
-      expect(window.__currentSpeechUtterance).toBe(engine.activeUtterance);
-      expect(engine.activeUtterance.text).toBe('പൂന്തോട്ടം');
-
-      // Trigger onend -> references should clear
-      capturedUtterance.onend();
-      expect(engine.activeUtterance).toBeNull();
-      expect(window.__currentSpeechUtterance).toBeNull();
-
-      // Trigger speak again and test onerror -> references should clear
-      engine.speakText('കാട്');
-      expect(engine.activeUtterance).not.toBeNull();
-      expect(window.__currentSpeechUtterance).toBe(engine.activeUtterance);
-
-      capturedUtterance.onerror({ error: 'canceled' });
-      expect(engine.activeUtterance).toBeNull();
-      expect(window.__currentSpeechUtterance).toBeNull();
-    });
-
-    it('extracts text from diverse component data shapes (character, letter, char, text, word, malayalamText)', async () => {
-      const speakMock = vi.fn();
-      window.speechSynthesis = {
-        getVoices: vi.fn().mockReturnValue([]),
-        speak: speakMock,
-        cancel: vi.fn(),
-        paused: false,
-        speaking: false
-      };
-
-      const engine = new AudioEngine();
-
-      await engine.playWord({ character: 'അ' });
-      expect(speakMock.mock.calls.at(-1)[0].text).toBe('അ');
-
-      await engine.playWord({ letter: 'ന' });
-      expect(speakMock.mock.calls.at(-1)[0].text).toBe('ന');
-
-      await engine.playWord({ char: 'ക' });
-      expect(speakMock.mock.calls.at(-1)[0].text).toBe('ക');
-
-      await engine.playWord({ text: 'മാൻ' });
-      expect(speakMock.mock.calls.at(-1)[0].text).toBe('മാൻ');
-
-      await engine.playWord({ word: 'ആന' });
-      expect(speakMock.mock.calls.at(-1)[0].text).toBe('ആന');
-
-      await engine.playWord({ malayalamText: 'ഞാൻ' });
-      expect(speakMock.mock.calls.at(-1)[0].text).toBe('ഞാൻ');
-    });
+    await playPhoneticSound('ത');
+    expect(letterSpy).toHaveBeenCalledWith('ത');
   });
 });

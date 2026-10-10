@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { audioEngine } from '../../utils/audioEngine';
+import { audioEngine } from '../../services/audioEngine';
 
 /**
  * TracingCanvas Mini-game

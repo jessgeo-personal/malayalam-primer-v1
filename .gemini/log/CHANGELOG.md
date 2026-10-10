@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.10.013] - 2026-10-10
+### Fixed & Hardened
+- **Asynchronous Cancel-Safe SpeechSynthesis Dispatch (`audioEngine`)**:
+  - **Chromium IPC Cancel-Safe Queue**:
+    * Resolved Chromium `interrupted` error caused by synchronously calling `speechSynthesis.cancel()` immediately before `speechSynthesis.speak()`.
+    * If `window.speechSynthesis.speaking` or `window.speechSynthesis.pending` is active, invokes `cancel()` and defers utterance dispatch by 50ms (`setTimeout(dispatchSpeech, 50)`) to let browser IPC clear cleanly.
+    * If idle, dispatches immediately without incurring any cancel penalty or delay.
+    * Automatically cancels pending dispatch timeout on rapid successive speaker taps.
+  - **Graceful Error Handling**:
+    * Suppresses noisy console warnings on benign standard rapid-switching aborts (`interrupted` and `canceled`) in `utterance.onerror`.
+  - **Exact Module Parity**:
+    * Ensured byte-for-byte identical parity between `client/src/services/audioEngine.js` and `client/src/utils/audioEngine.js`.
+  - **Windows Test Runner Hardening**:
+    * Configured `fileParallelism: false` in `client/vite.config.js` and updated `test` script in `client/package.json` to prevent multi-worker jsdom memory exhaustion on Windows.
+  - **Test Suite Verification**:
+    * Expanded `client/src/tests/audioEngine.test.js` from 10 to 13 tests verifying idle immediate dispatch, busy cancel + 50ms deferral, rapid tap debouncing, and `onerror` suppression.
+    * 100% green test suite: 70/70 in `client` (15 test suites) and 73/73 in `server` (11 test suites).
+
+## [2026.10.09.012] - 2026-10-09
+### Fixed & Hardened
+- **SpeechSynthesis Garbage Collection Shield & Queue Unsticking**:
+  - **V8 Garbage Collection Shield (`activeUtterance`)**:
+    * Retained strong reference to `SpeechSynthesisUtterance` on `this.activeUtterance` and `window.__currentSpeechUtterance` during speech synthesis.
+    * Prevents Chromium V8 from reclaiming the utterance object before audio connects, eliminating silent audio aborts.
+    * Cleans up references cleanly upon `utterance.onend` and `utterance.onerror`.
+  - **Queue Lock Unsticking**:
+    * Added `window.speechSynthesis.cancel()` accompanied by `if (window.speechSynthesis.paused) window.speechSynthesis.resume()`.
+    * Clears paused/busy queue locks common in Chromium/Android tablets.
+  - **Multi-Shape Data Extraction (`playWord`)**:
+    * Expanded property resolution to gracefully extract text from any object shape: `malayalamText`, `character`, `letter`, `char`, `word`, `text`, or fallback.
+  - **Identical Implementation Parity**:
+    * Synced both `client/src/services/audioEngine.js` and `client/src/utils/audioEngine.js` with identical class implementation and exports.
+  - **Test Suite Updates**:
+    * Expanded `client/src/tests/audioEngine.test.js` to 10 tests verifying queue unsticking, GC reference retention, cleanup, and multi-shape extraction.
+    * 100% green tests verified: 67/67 in `client` (15 suites) and 73/73 in `server` (11 suites).
+
 ## [2026.10.09.011] - 2026-10-09
 ### Fixed & Optimized
 - **Audio Latency Elimination & PWA Icon Placeholders**:

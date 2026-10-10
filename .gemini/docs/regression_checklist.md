@@ -10,6 +10,7 @@
 - [x] Resilient API URL Builder (`getApiUrl`): Normalizes endpoints, prevents accidental `/api/api` prefix doubling across all client API consumers (`AuthContext`, `ProgressContext`, `ConceptScreen`, `AdventureMap`, `WordAudit`).
 - [x] Audio Engine & TTS Fallback Pipeline (`audioEngine`): Handles asynchronous voice population via `voiceschanged`, selects `ml-IN` voice with pedagogical rate 0.85, and seamlessly falls back from missing/404 static mp3 files to direct browser `SpeechSynthesis`.
 - [x] Zero-Latency Audio Toggle & PWA Icon Parity: `HAS_STATIC_AUDIO_ASSETS = false` eliminates 1-2s network roundtrip for instant pronunciation; `pwa-192x192.png` and `pwa-512x512.png` placeholders eliminate console 404 manifest errors.
+- [x] SpeechSynthesis GC Shield & Cancel-Safe Queue Resolution: Retains active utterance reference to prevent Chromium V8 garbage collection during speech, automatically unsticks paused queue via `cancel()` + `resume()`, avoids Chromium `interrupted` errors via cancel-safe 50ms deferred dispatch when busy and immediate dispatch when idle, suppresses benign `interrupted`/`canceled` warnings, and extracts text across all component data shapes (`character`, `letter`, `char`, `word`, `text`, `malayalamText`).
 - [x] Automated Deployment Smoke Test (`server/scripts/smoke-test.js`): All 4 gates passing.
 
 ## Authentication & Multi-Learner System
@@ -23,4 +24,4 @@
 
 ## Test Suite Parity
 - [x] Backend Suite (`server`): 11 test suites, 73 tests passing (100% green).
-- [x] Frontend Suite (`client`): 15 test suites, 64 tests passing (100% green).
+- [x] Frontend Suite (`client`): 15 test suites, 70 tests passing (100% green).

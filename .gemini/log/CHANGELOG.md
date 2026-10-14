@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.14.020] - 2026-10-14
+### Added & Hardened (UI-04: Mobile Portrait Tracing Hierarchy & Intra-Lesson Scroll Guard)
+- **Intra-Lesson Scroll-to-Top Guard (`client/src/App.jsx` & `client/src/components/games/TracingCanvas.jsx`)**:
+  - Extended scroll guard `useEffect` in `App.jsx` to depend on `currentIndex` alongside `[activeView, activeLesson, currentAct]`.
+  - Executed comprehensive instant scroll reset targeting `window.scrollTo`, `document.documentElement.scrollTo`, `document.body.scrollTo`, and `main.scrollTo` / `scrollTop = 0`.
+  - Invoked the identical multi-target scroll reset inside `TracingCanvas.jsx` `handleDone` before dispatching `onComplete(true, 5000)`.
+- **Portrait Viewport Re-ordering (`client/src/components/games/TracingCanvas.jsx`)**:
+  - Implemented responsive 5-row hierarchy for mobile portrait viewports (`< md`):
+    - **Row 1 & 2**: Top navigation pills (Home / Restart / Exit) and HUD (Active Lesson badge & learned letters progress strip), visible on mobile (`md:hidden`) with clean document flow.
+    - **Row 3**: "Trace the Letter" heading and centered interactive canvas container with calibrated headroom and optical centering.
+    - **Row 4**: Primary action buttons ("CLEAR" and "DONE ➜") placed directly adjacent below the canvas container with zero scrolling required.
+    - **Row 5**: Secondary reference panel (phonetic breakdown, 🔊 speaker replay button, and example words) positioned below the action buttons on mobile, and in the right panel (`w-full md:w-80`) on desktop (`>= md`).
+  - Adapted `App.jsx` game card container: uses `p-4 sm:p-8`, hides desktop absolute header on mobile during tracing mode (`hidden md:flex`), and sets `mt-0 md:mt-12`.
+- **Zero-Regression Verification**:
+  - Frontend Suite: 15/15 test files passing, 91/91 tests passing (including 14 tests in `TracingCanvas.test.jsx` and 3 tests in `App_NavDock.test.jsx`).
+  - Backend Suite: 12/12 test suites passing, 92/92 tests passing.
+
 ## [2026.10.13.019] - 2026-10-13
 ### Added & Hardened (AUTH-07: Unified JWT Secret Parity, Bearer Sanitization, & Token Auto-Refresh)
 - **Centralized Backend JWT Secret (`server/config/auth.js`)**:

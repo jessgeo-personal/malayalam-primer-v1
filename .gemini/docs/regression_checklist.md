@@ -41,6 +41,13 @@
 - [x] Batch Generation Completed: 418 word MP3s and 79 letter MP3s generated and verified in `client/public/audio/`.
 - [x] WordAudit Studio: 🔊 button and "Tweak Sound" curation drawer/modal for previewing and committing custom pronunciations.
 
+## UI & Mobile Portrait Calibration (UI-02, UI-03, & UI-04)
+- [x] Dynamic Canvas Synchronization (UI-02): `ResizeObserver` syncs canvas dimensions with DPR.
+- [x] Browser Tab Identity & Headroom Calibration (UI-03): Tab title `<title>Malayalam Primer v1.0</title>`, vertical headroom margins, and optical centering preventing glyph clipping.
+- [x] Mobile Portrait Tracing Hierarchy (UI-04): 5-row responsive layout positioning CLEAR and DONE buttons directly beneath canvas on mobile (`< md`), with reference content below.
+- [x] Intra-Lesson Scroll Guard (UI-04): Multi-target scroll reset (`window`, `documentElement`, `body`, `main`) on `currentIndex` change and in `TracingCanvas.jsx` `handleDone`.
+
 ## Test Suite Parity
 - [x] Backend Suite (`server`): 12 test suites, 92 tests passing (100% green).
-- [x] Frontend Suite (`client`): 15 test suites, 88 tests passing (100% green).
+- [x] Frontend Suite (`client`): 15 test suites, 91 tests passing (100% green).
+

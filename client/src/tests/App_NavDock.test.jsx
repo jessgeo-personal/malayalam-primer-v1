@@ -62,4 +62,38 @@ describe('App Navigation Dock Conditional Rendering', () => {
     const navs = screen.queryAllByRole('navigation');
     expect(navs.length).toBe(0);
   });
+
+  it('should trigger scroll-to-top guard when advancing currentIndex within a session', () => {
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
+
+    const mockProgress = {
+      userId: 'Learner 1',
+      sessionMode: 'lesson',
+      sessionStatus: 'active',
+      currentIndex: 0,
+      currentItem: { lessonType: 'trace', wordId: 'w001' },
+      masteredCharacters: [],
+      score: 0,
+      currentCycle: 1,
+      currentLesson: 1,
+      lessonHistory: [],
+    };
+
+    const spy = vi.spyOn(context, 'useProgress').mockReturnValue(mockProgress);
+    const { rerender } = render(<App />);
+
+    scrollToSpy.mockClear();
+
+    // Advance to next question (currentIndex = 1)
+    spy.mockReturnValue({
+      ...mockProgress,
+      currentIndex: 1,
+      currentItem: { lessonType: 'match', wordId: 'w002' },
+    });
+
+    rerender(<App />);
+
+    expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, left: 0, behavior: 'instant' });
+    scrollToSpy.mockRestore();
+  });
 });

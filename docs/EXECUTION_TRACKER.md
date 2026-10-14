@@ -15,4 +15,5 @@ Track C,AUDIO-03,"Audio Codepoint Normalization, Resilient Dynamic Fallback, & B
 Track D,OPS-01,"DigitalOcean App Platform Spec (.do/app.yaml) & Resend OTP Delivery",🟢 Completed,server/tests/ops.test.js PASS
 Track D,OPS-02,"DigitalOcean Live Deployment & Automated Smoke Test",🟡 In-Progress,"server/scripts/smoke-test.js PASS"
 Track E,UI-02,"Dynamic Canvas Synchronization & Isotropic Tracing Calibration",🟢 Completed,Vitest TracingCanvas.test.jsx (11/11) PASS
-Track E,UI-03,"Browser Tab Identity Polish & Tracing Canvas Headroom Calibration",🟢 Completed,Vitest TracingCanvas.test.jsx (12/12) & client suite (84/84) PASS
+Track E,UI-03,"Browser Tab Identity Polish & Tracing Canvas Headroom Calibration",🟢 Completed,Vitest TracingCanvas.test.jsx (12/12) & client suite (84/84) PASS
+Track E,UI-04,"Mobile Portrait Tracing Hierarchy & Intra-Lesson Scroll Guard",🟢 Completed,Vitest TracingCanvas (14/14) & client suite (91/91) PASS

@@ -280,7 +280,29 @@ describe('TracingCanvas', () => {
     expect(screen.getByText(/Trace the line/i)).toBeInTheDocument();
   });
 
-  it('triggers onComplete when DONE button is clicked after drawing', () => {
+  it('renders Clear and Done buttons immediately adjacent below the canvas container', () => {
+    const { container } = render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+    const canvas = container.querySelector('canvas');
+    const canvasContainer = canvas.parentElement;
+    const actionButtonsContainer = canvasContainer.nextElementSibling;
+
+    expect(actionButtonsContainer).toBeInTheDocument();
+    const clearButton = screen.getByRole('button', { name: /CLEAR/i });
+    const doneButton = screen.getByRole('button', { name: /DONE/i });
+    expect(actionButtonsContainer.contains(clearButton)).toBe(true);
+    expect(actionButtonsContainer.contains(doneButton)).toBe(true);
+  });
+
+  it('renders action buttons before secondary reference content in the DOM tree', () => {
+    render(<TracingCanvas word={mockWord} onComplete={() => {}} />);
+    const doneButton = screen.getByRole('button', { name: /DONE/i });
+    const phoneticsHeading = screen.getByText(/Phonetic/i);
+    // Primary action button precedes secondary reference content in DOM order
+    expect(Boolean(doneButton.compareDocumentPosition(phoneticsHeading) & Node.DOCUMENT_POSITION_FOLLOWING)).toBe(true);
+  });
+
+  it('triggers scroll reset and calls onComplete when DONE button is clicked after drawing', () => {
+    const scrollToSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     const onCompleteMock = vi.fn();
     const { container } = render(<TracingCanvas word={mockWord} onComplete={onCompleteMock} />);
     const canvas = container.querySelector('canvas');
@@ -300,7 +322,9 @@ describe('TracingCanvas', () => {
     const doneButton = screen.getByRole('button', { name: /DONE/i });
     fireEvent.click(doneButton);
 
+    expect(scrollToSpy).toHaveBeenCalledWith({ top: 0, left: 0, behavior: 'instant' });
     expect(onCompleteMock).toHaveBeenCalledWith(true, 5000);
+    scrollToSpy.mockRestore();
   });
 
   it('disconnects ResizeObserver on unmount', () => {

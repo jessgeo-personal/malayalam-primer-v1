@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { audioEngine } from '../../services/audioEngine';
+import { useProgress } from '../../context';
 
 /**
  * TracingCanvas Mini-game
@@ -226,23 +227,129 @@ export default function TracingCanvas({ word, onComplete }) {
     setIsDrawing(false);
   };
 
+  const progress = useProgress?.() || {};
+  const {
+    activeLessonId,
+    currentCycle,
+    masteredCharacters = [],
+    setSessionMode,
+    setSessionStatus,
+    resetSession,
+    sessionMode
+  } = progress;
+
+  const handleHome = () => {
+    if (setSessionMode && setSessionStatus) {
+      setSessionMode('map');
+      setSessionStatus('idle');
+    }
+  };
+
+  const handleRestart = () => {
+    if (window.confirm("Are you sure you want to restart? This will clear your current session progress.")) {
+      if (resetSession) resetSession();
+    }
+  };
+
+  const handleClear = () => {
+    drawGuide();
+  };
+
+  const handleDone = () => {
+    if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+    if (typeof document !== 'undefined') {
+      if (document.documentElement && typeof document.documentElement.scrollTo === 'function') {
+        document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+      if (document.body && typeof document.body.scrollTo === 'function') {
+        document.body.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+      const mainEl = document.querySelector('main');
+      if (mainEl) {
+        if (typeof mainEl.scrollTo === 'function') {
+          mainEl.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }
+        mainEl.scrollTop = 0;
+      }
+    }
+    if (onComplete) {
+      onComplete(true, 5000);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center gap-8 w-full max-w-6xl animate-pop">
-      <div className="text-center">
-        <h2 className="text-4xl font-black text-prime-dark-text tracking-tight uppercase italic mb-1">
-          Trace the Letter
-        </h2>
-        <p className="text-xl font-bold text-prime-coral-pink uppercase tracking-[0.4em] leading-none opacity-60">
-          {word?.englishTranslation || ''}
-        </p>
+    <div className="flex flex-col gap-4 w-full max-w-[1400px] mx-auto p-1 sm:p-4 animate-pop">
+      {/* Row 1 & Row 2: Top Nav & HUD (Mobile Portrait Viewports < md) */}
+      <div className="flex md:hidden flex-col gap-2 w-full">
+        <div className="flex items-center justify-between">
+          {/* Navigation Pills (Top Left) */}
+          <div className="flex items-center gap-2 bg-prime-action-dark px-3 py-1.5 rounded-2xl shadow-md border border-white/10">
+            <button 
+              type="button"
+              onClick={handleHome}
+              className="text-lg hover:scale-110 active:scale-95 transition-transform cursor-pointer"
+              title="Home"
+            >
+              🏠
+            </button>
+            <button 
+              type="button"
+              onClick={handleRestart}
+              className="text-lg hover:scale-110 active:scale-95 transition-transform cursor-pointer opacity-70 hover:opacity-100"
+              title="Restart Session"
+            >
+              🔄
+            </button>
+            <div className="h-4 w-px bg-white/20 mx-0.5"></div>
+            <button 
+              type="button"
+              onClick={handleHome}
+              className="text-[9px] font-black text-white/80 hover:text-white uppercase tracking-wider pl-1"
+            >
+              EXIT
+            </button>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between py-1">
+          {/* Active Lesson indicator */}
+          <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider text-white bg-prime-teal-green shadow-sm">
+            {sessionMode === 'revision' ? `Practice: C${currentCycle || 1}` : `Active Lesson: ${activeLessonId || 1}`}
+          </span>
+          {/* Progress Strip */}
+          <div className="flex items-center gap-1">
+            {masteredCharacters && masteredCharacters.length > 0 ? (
+              masteredCharacters.slice(-4).map((char, i) => (
+                <span key={i} className="w-5 h-5 bg-white border border-slate-200 rounded-md flex items-center justify-center text-[9px] font-black text-prime-teal-green shadow-sm">
+                  {char}
+                </span>
+              ))
+            ) : (
+              <span className="text-[9px] font-bold text-slate-400 italic">Tracing</span>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="flex flex-col md:flex-row items-stretch gap-8 w-full">
-        {/* Left Column: The Drawing Pad (Expanded) */}
-        <div className="flex-[3] relative bg-white rounded-[40px] shadow-2xl border-[16px] border-prime-warm-base overflow-hidden min-h-[450px] touch-none flex items-center justify-center">
+      {/* Main Content Area */}
+      <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start w-full">
+        {/* Drawing Column */}
+        <div className="w-full flex-1 flex flex-col gap-3">
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-xl sm:text-2xl font-black text-slate-800 tracking-tight uppercase italic">
+              Trace the Letter
+            </h2>
+            <span className="text-xs sm:text-sm font-bold text-prime-coral-pink uppercase tracking-widest opacity-80">
+              {word?.englishTranslation || ''}
+            </span>
+          </div>
+
+          {/* Canvas Box */}
           <div
             ref={containerRef}
-            className="relative w-full h-full min-h-[300px] flex items-center justify-center"
+            className="relative w-full h-[320px] sm:h-[400px] md:h-[450px] bg-white rounded-3xl overflow-hidden shadow-2xl border-4 border-prime-warm-base touch-none flex items-center justify-center"
           >
             <canvas
               ref={canvasRef}
@@ -258,24 +365,48 @@ export default function TracingCanvas({ word, onComplete }) {
             />
 
             {!hasStarted && (
-              <div className="absolute bottom-8 right-8 flex flex-col items-end pointer-events-none z-20">
-                <div className="bg-prime-action-dark/10 px-6 py-2 rounded-pill text-[10px] font-black text-prime-action-dark uppercase tracking-widest animate-pulse border border-prime-action-dark/20 backdrop-blur-sm shadow-sm">
+              <div className="absolute bottom-4 right-4 flex flex-col items-end pointer-events-none z-20">
+                <div className="bg-prime-action-dark/10 px-4 py-1.5 rounded-full text-[10px] font-black text-prime-action-dark uppercase tracking-widest animate-pulse border border-prime-action-dark/20 backdrop-blur-sm shadow-sm">
                   Trace the line
                 </div>
               </div>
             )}
           </div>
+
+          {/* Action Buttons: IMMEDIATELY BELOW CANVAS */}
+          <div className="flex items-center gap-3 w-full mt-2">
+            <button
+              type="button"
+              onClick={handleClear}
+              className="flex-1 py-3 px-4 rounded-2xl border-2 border-slate-300 font-bold text-slate-700 bg-white hover:bg-slate-50 active:scale-95 transition-all cursor-pointer text-sm tracking-wider uppercase"
+            >
+              CLEAR
+            </button>
+            <button
+              type="button"
+              disabled={!hasStarted}
+              onClick={handleDone}
+              className={`flex-1 py-3 px-4 rounded-2xl font-black transition-all text-sm tracking-wider uppercase ${
+                hasStarted
+                  ? 'bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white shadow-lg cursor-pointer'
+                  : 'bg-slate-200 text-slate-400 cursor-not-allowed opacity-60'
+              }`}
+            >
+              DONE ➜
+            </button>
+          </div>
         </div>
 
-        {/* Right Column: Controls & Phonetics (Narrowed) */}
-        <div className="w-full md:w-96 flex flex-col gap-6">
-          <div className="card-bento-surface flex flex-col items-center justify-center p-6 text-center bg-prime-warm-base/30">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Phonetic sound</span>
-            <div className="text-4xl font-black text-prime-dark-text italic mb-6">{word?.phonetic || ''}</div>
-            
+        {/* Secondary Reference Panel (Right side on desktop, Below buttons on mobile) */}
+        <div className="w-full md:w-80 flex flex-col gap-4 bg-prime-warm-base/20 md:bg-white p-4 rounded-2xl border border-prime-warm-base/50 md:border-slate-200 mt-2 md:mt-0 shadow-sm">
+          {/* Phonetic sound card */}
+          <div className="card-bento-surface flex flex-col items-center justify-center p-4 text-center bg-white/70">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Phonetic sound</span>
+            <div className="text-3xl font-black text-prime-dark-text italic mb-3">{word?.phonetic || ''}</div>
             <button 
+              type="button"
               onClick={() => audioEngine.speak(character)}
-              className="w-16 h-16 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-2xl shadow-lg hover:scale-110 active:scale-95 transition-transform border border-slate-100"
+              className="w-12 h-12 bg-white text-prime-action-dark rounded-full flex items-center justify-center text-xl shadow-md hover:scale-110 active:scale-95 transition-transform border border-slate-100 cursor-pointer"
               title="Play Sound"
             >
               🔊
@@ -284,18 +415,19 @@ export default function TracingCanvas({ word, onComplete }) {
 
           {/* Example Words Section */}
           {word?.exampleWords && word.exampleWords.length > 0 && (
-            <div className="card-bento-surface p-5 bg-prime-warm-base/20 border-prime-warm-base/50">
-              <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 text-center">Words with this letter</span>
-              <div className="flex flex-col gap-3">
+            <div className="card-bento-surface p-4 bg-white/70 border-prime-warm-base/40">
+              <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 text-center">Words with this letter</span>
+              <div className="flex flex-col gap-2">
                 {word.exampleWords.map((ex, idx) => (
-                  <div key={idx} className="flex items-center justify-between bg-white/50 p-2 rounded-2xl border border-white shadow-sm">
+                  <div key={idx} className="flex items-center justify-between bg-white/90 p-2 rounded-xl border border-slate-100 shadow-sm">
                     <div className="flex flex-col items-start overflow-hidden">
-                      <span className="text-xl font-bold text-prime-dark-text leading-tight">{ex.malayalamText}</span>
+                      <span className="text-lg font-bold text-prime-dark-text leading-tight">{ex.malayalamText}</span>
                       <span className="text-[10px] font-bold text-prime-coral-pink uppercase tracking-wider opacity-70 truncate w-full">{ex.englishTranslation}</span>
                     </div>
                     <button 
+                      type="button"
                       onClick={() => audioEngine.speak(ex.malayalamText)}
-                      className="w-10 h-10 min-w-[40px] bg-prime-action-dark text-white rounded-xl flex items-center justify-center text-sm shadow-md hover:scale-105 active:scale-95 transition-transform"
+                      className="w-9 h-9 min-w-[36px] bg-prime-action-dark text-white rounded-lg flex items-center justify-center text-xs shadow-sm hover:scale-105 active:scale-95 transition-transform cursor-pointer"
                     >
                       🔊
                     </button>
@@ -304,22 +436,6 @@ export default function TracingCanvas({ word, onComplete }) {
               </div>
             </div>
           )}
-
-          <div className="flex flex-col gap-4 mt-auto">
-            <button
-              onClick={drawGuide}
-              className="btn-pill bg-white border-2 border-slate-200 text-slate-400 justify-center py-4 text-sm font-black tracking-widest"
-            >
-              CLEAR
-            </button>
-            <button
-              disabled={!hasStarted}
-              onClick={() => onComplete && onComplete(true, 5000)}
-              className={`btn-pill justify-center py-5 text-xl font-black ${hasStarted ? 'bg-prime-teal-green shadow-xl' : 'bg-slate-100 text-slate-300 cursor-not-allowed opacity-50'}`}
-            >
-              DONE ➜
-            </button>
-          </div>
         </div>
       </div>
     </div>

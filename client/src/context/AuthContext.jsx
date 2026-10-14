@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getApiUrl } from '../utils/api';
+import { getApiUrl, getAuthHeaders, getAuthToken } from '../utils/api';
 
 const AuthContext = createContext(null);
 
-const getStoredToken = () => localStorage.getItem('mp_auth_token') || localStorage.getItem('auth_token') || null;
+const getStoredToken = () => getAuthToken();
 const getStoredProfileId = () => localStorage.getItem('mp_active_profile_id') || localStorage.getItem('active_profile_id') || null;
 const getStoredAccount = () => {
   try {
@@ -16,9 +16,17 @@ const getStoredAccount = () => {
 
 const saveToken = (tok) => {
   if (tok) {
-    localStorage.setItem('mp_auth_token', tok);
-    localStorage.setItem('auth_token', tok);
+    let clean = typeof tok === 'string' ? tok : String(tok);
+    if (clean.startsWith('"') && clean.endsWith('"')) {
+      clean = clean.slice(1, -1);
+    }
+    localStorage.setItem('mp_token', clean);
+    localStorage.setItem('token', clean);
+    localStorage.setItem('mp_auth_token', clean);
+    localStorage.setItem('auth_token', clean);
   } else {
+    localStorage.removeItem('mp_token');
+    localStorage.removeItem('token');
     localStorage.removeItem('mp_auth_token');
     localStorage.removeItem('auth_token');
   }
@@ -90,6 +98,12 @@ export const AuthProvider = ({ children }) => {
     const data = await res.json();
     if (!res.ok) {
       console.error(`[AuthContext] ${method} ${url} failed with status ${res.status}:`, data);
+      if (res.status === 401 && !url.includes('/request-otp') && !url.includes('/verify-otp')) {
+        // Stale or invalid credentials: clear stale state and prompt re-auth gracefully
+        saveToken(null);
+        setToken(null);
+        setIsAuthModalOpen(true);
+      }
       throw new Error(data.error || data.message || `Request failed (${res.status}) on ${method} ${url}`);
     }
     return data;
@@ -159,7 +173,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const fetchProfiles = async () => {
-    if (!token) return;
+    if (!token && !getAuthToken()) return;
     const url = getApiUrl('/api/auth/profiles');
     const method = 'GET';
     setLoading(true);
@@ -167,7 +181,7 @@ export const AuthProvider = ({ children }) => {
       const res = await fetch(url, {
         method,
         headers: {
-          Authorization: `Bearer ${token}`
+          ...getAuthHeaders()
         }
       });
       const data = await parseJsonResponse(res, method, url);
@@ -187,7 +201,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const createProfile = async (name, avatar = 'star') => {
-    if (!token) return;
+    if (!token && !getAuthToken()) return;
     const url = getApiUrl('/api/auth/profiles');
     const method = 'POST';
     setLoading(true);
@@ -197,7 +211,7 @@ export const AuthProvider = ({ children }) => {
         method,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          ...getAuthHeaders()
         },
         body: JSON.stringify({ name, avatar })
       });
@@ -225,7 +239,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const switchProfile = async (profileId) => {
-    if (!token) return;
+    if (!token && !getAuthToken()) return;
     const url = getApiUrl('/api/auth/profiles/switch');
     const method = 'POST';
     setLoading(true);
@@ -235,7 +249,7 @@ export const AuthProvider = ({ children }) => {
         method,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          ...getAuthHeaders()
         },
         body: JSON.stringify({ profileId })
       });
@@ -256,7 +270,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const resetProfile = async (profileId) => {
-    if (!token) return;
+    if (!token && !getAuthToken()) return;
     const url = getApiUrl(`/api/auth/profiles/${profileId}/reset`);
     const method = 'POST';
     setLoading(true);
@@ -265,7 +279,7 @@ export const AuthProvider = ({ children }) => {
       const res = await fetch(url, {
         method,
         headers: {
-          Authorization: `Bearer ${token}`
+          ...getAuthHeaders()
         }
       });
       const data = await parseJsonResponse(res, method, url);
@@ -280,7 +294,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateProfileName = async (profileId, newName) => {
-    if (!token) return;
+    if (!token && !getAuthToken()) {
+      openAuthModal();
+      return;
+    }
     const url = getApiUrl(`/api/auth/profiles/${profileId}`);
     const method = 'PUT';
     setLoading(true);
@@ -290,7 +307,7 @@ export const AuthProvider = ({ children }) => {
         method,
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+          ...getAuthHeaders()
         },
         body: JSON.stringify({ name: newName })
       });

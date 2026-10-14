@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2026.10.14.020] - 2026-10-14
+### Added & Hardened (UI-04: Mobile Portrait Tracing Hierarchy & Intra-Lesson Scroll Guard)
+- **Intra-Lesson Scroll-to-Top Guard (`client/src/App.jsx` & `client/src/components/games/TracingCanvas.jsx`)**:
+  - Extended scroll guard `useEffect` in `App.jsx` to depend on `currentIndex` alongside `[activeView, activeLesson, currentAct]`.
+  - Executed comprehensive instant scroll reset targeting `window.scrollTo`, `document.documentElement.scrollTo`, `document.body.scrollTo`, and `main.scrollTo` / `scrollTop = 0`.
+  - Invoked the identical multi-target scroll reset inside `TracingCanvas.jsx` `handleDone` before dispatching `onComplete(true, 5000)`.
+- **Portrait Viewport Re-ordering (`client/src/components/games/TracingCanvas.jsx`)**:
+  - Implemented responsive 5-row hierarchy for mobile portrait viewports (`< md`):
+    - **Row 1 & 2**: Top navigation pills (Home / Restart / Exit) and HUD (Active Lesson badge & learned letters progress strip), visible on mobile (`md:hidden`) with clean document flow.
+    - **Row 3**: "Trace the Letter" heading and centered interactive canvas container with calibrated headroom and optical centering.
+    - **Row 4**: Primary action buttons ("CLEAR" and "DONE ➜") placed directly adjacent below the canvas container with zero scrolling required.
+    - **Row 5**: Secondary reference panel (phonetic breakdown, 🔊 speaker replay button, and example words) positioned below the action buttons on mobile, and in the right panel (`w-full md:w-80`) on desktop (`>= md`).
+  - Adapted `App.jsx` game card container: uses `p-4 sm:p-8`, hides desktop absolute header on mobile during tracing mode (`hidden md:flex`), and sets `mt-0 md:mt-12`.
+- **Zero-Regression Verification**:
+  - Frontend Suite: 15/15 test files passing, 91/91 tests passing (including 14 tests in `TracingCanvas.test.jsx` and 3 tests in `App_NavDock.test.jsx`).
+  - Backend Suite: 12/12 test suites passing, 92/92 tests passing.
+
+## [2026.10.13.019] - 2026-10-13
+### Added & Hardened (AUTH-07: Unified JWT Secret Parity, Bearer Sanitization, & Token Auto-Refresh)
+- **Centralized Backend JWT Secret (`server/config/auth.js`)**:
+  - Created centralized `JWT_SECRET = process.env.JWT_SECRET || 'malayalam_prime_jwt_secure_secret_2026'`.
+  - Exported and reused consistently across `server/routes/auth.js` (`jwt.sign`) and `server/middleware/auth.js` (`jwt.verify`), eliminating signature mismatches when environment variables differ.
+- **Backend Bearer Token Sanitization (`server/middleware/auth.js`)**:
+  - Added quotation mark trimming (`token.startsWith('"') && token.endsWith('"')`) to sanitize stringified tokens passed in Authorization headers.
+  - Attached `authMiddleware.JWT_SECRET` for direct test verification.
+- **Client Storage Sanitization & Robust Token Access (`client/src/utils/api.js`)**:
+  - Implemented multi-key token discovery (`mp_token`, `token`, `mp_auth_token`, `auth_token`) in `getAuthToken()`.
+  - Added double-quote trimming on token read to handle any legacy stringified tokens.
+  - Provided `getAuthHeaders()` to reliably construct `{ Authorization: 'Bearer ...' }` headers.
+- **Client AuthContext Token Management & Auto-Refresh (`client/src/context/AuthContext.jsx`)**:
+  - `saveToken`: Saves unquoted raw strings across all storage keys, and removes all keys when token is null.
+  - `parseJsonResponse`: Detects HTTP 401, auto-clears stale stored tokens, and re-triggers `setIsAuthModalOpen(true)` for seamless re-authentication without UI lockup.
+  - Profile operations (`updateProfileName`, `fetchProfiles`, `createProfile`, `switchProfile`, `resetProfile`) now utilize centralized `getAuthHeaders()`.
+- **Zero-Regression Verification**:
+  - Backend Suite: 12 test suites, 92/92 tests passing (including quoted token & OTP verify-auth integration tests).
+  - Frontend Suite: 15 test suites, 88/88 tests passing (including ApiUrlHelper token sanitization tests).
+
+## [2026.10.13.018] - 2026-10-13
+### Added & Hardened (AUTH-06: Multi-Profile Progression Isolation, Safe Legacy Migration, & Profile Renaming)
+- **Safe Progression Lookup & Legacy Migration (`server/services/srsEngine.js` & `server/routes/api.js`)**:
+  - Implemented `getOrCreateUserProfile(userId, account)` in `srsEngine.js`.
+  - For primary profile (`p1`), seamlessly migrates existing legacy progress from `default_user` without resetting child progress.
+  - Initialized new profiles atomically with `User.findOneAndUpdate` using `$setOnInsert` and `returnDocument: 'after'` to eliminate E11000 duplicate key race conditions.
+  - Applied `getOrCreateUserProfile(userId)` across `GET /api/progress/stats`, `POST /api/session/lesson/complete`, and `POST /api/session/revision/complete`.
+  - Added `POST /api/user/log` route for profile heartbeat logging and persistence verification.
+- **Auto-Init on Profile Creation (`server/routes/auth.js`)**:
+  - In `POST /api/auth/profiles`, auto-initialized `User` document with `currentLesson: 1`, `currentCycle: 1`, and `lessonHistory: []`.
+  - In `POST /api/auth/profiles/:profileId/reset`, reset `User` progression document in addition to `Progress` collection.
+- **Frontend Progression Sync & Auth Token Header (`client/src/utils/api.js` & `client/src/context/ProgressContext.jsx`)**:
+  - Exported `getAuthToken`, `getAuthHeaders`, and `authFetch` in `api.js`, automatically attaching `Authorization: Bearer ${token}` from localStorage.
+  - Synchronized `userId` with `activeProfile.profileId` in `ProgressContext.jsx`, querying stats and session routes with auth tokens.
+  - Wired non-blocking activity ping to `POST /api/user/log` upon lesson completion.
+- **Inline Profile Renaming (`client/src/components/ui/ProfileSelector.jsx`)**:
+  - Added edit toggle button (✏️) on learner cards with stopPropagation protection.
+  - Rendered inline edit form with input (`profile-name-input-${profileId}`), "Save" (✓), and "Cancel" (✕) actions.
+  - Bound saving to `updateProfileName(profileId, name)` from `AuthContext` via `PUT /api/auth/profiles/:profileId`.
+  - Enabled renaming across all profiles, including "Learner 1".
+- **Zero-Regression Verification**:
+  - Backend: 12 test suites, 90/90 tests passing (100% green).
+  - Frontend: 15 test suites, 88/88 tests passing (100% green).
+
+
 ## [2026.10.10.017] - 2026-10-10
 ### Added & Hardened (UI-03: Browser Tab Identity Polish & Tracing Canvas Headroom Calibration)
 - **Browser Tab Identity Polish (`client/index.html`)**:

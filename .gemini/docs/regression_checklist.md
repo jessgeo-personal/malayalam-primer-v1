@@ -21,6 +21,13 @@
 - [x] First-time learner onboarding flow upon OTP verification.
 - [x] Lesson & Practice Auth Gate: Unauthenticated users clicking a lesson or review are prompted with `AuthModal`.
 - [x] Auto-Resume: Automatically resumes and launches the pending lesson after successful authentication and learner onboarding.
+- [x] Multi-Profile Progression Isolation (AUTH-06): Secondary profiles (`p2`, `p_...`) initialize safely with `$setOnInsert` and persist completed lessons without 500 errors or offline dropouts.
+- [x] Safe Legacy Migration (AUTH-06): Primary profile (`p1`) automatically inherits legacy progression from `default_user` without resetting child progress.
+- [x] Inline Profile Renaming (AUTH-06): Parents can rename any learner profile (including "Learner 1") directly within `ProfileSelector.jsx` with full stopPropagation protection and inline cancel/save actions.
+- [x] Bearer Token Sync & Activity Logging (AUTH-06): `authFetch` automatically injects Bearer token on client requests; `POST /api/user/log` records user activity and guarantees profile persistence.
+- [x] Unified JWT Secret Parity (AUTH-07): Centralized `server/config/auth.js` (`JWT_SECRET`) guarantees identical signing and verification secrets across routes, middleware, and tests.
+- [x] Bearer Token Sanitization (AUTH-07): Middleware and client-side helpers (`getAuthToken`) clean double-quotes (`"token"`) and unquote tokens from `localStorage` (`mp_token`, `token`, `mp_auth_token`).
+- [x] Graceful 401 Re-Auth (AUTH-07): Client `AuthContext` auto-clears expired tokens and cleanly re-opens `AuthModal` without breaking UI or throwing unhandled rejections.
 
 ## Audio Engine & Static Curation Pipeline (AUDIO-02 & AUDIO-03)
 - [x] Engine Deduplication: Redundant `client/src/utils/audioEngine.js` removed, standardized on `client/src/services/audioEngine.js`.
@@ -34,6 +41,13 @@
 - [x] Batch Generation Completed: 418 word MP3s and 79 letter MP3s generated and verified in `client/public/audio/`.
 - [x] WordAudit Studio: 🔊 button and "Tweak Sound" curation drawer/modal for previewing and committing custom pronunciations.
 
+## UI & Mobile Portrait Calibration (UI-02, UI-03, & UI-04)
+- [x] Dynamic Canvas Synchronization (UI-02): `ResizeObserver` syncs canvas dimensions with DPR.
+- [x] Browser Tab Identity & Headroom Calibration (UI-03): Tab title `<title>Malayalam Primer v1.0</title>`, vertical headroom margins, and optical centering preventing glyph clipping.
+- [x] Mobile Portrait Tracing Hierarchy (UI-04): 5-row responsive layout positioning CLEAR and DONE buttons directly beneath canvas on mobile (`< md`), with reference content below.
+- [x] Intra-Lesson Scroll Guard (UI-04): Multi-target scroll reset (`window`, `documentElement`, `body`, `main`) on `currentIndex` change and in `TracingCanvas.jsx` `handleDone`.
+
 ## Test Suite Parity
-- [x] Backend Suite (`server`): 12 test suites, 85 tests passing (100% green).
-- [x] Frontend Suite (`client`): 15 test suites, 76 tests passing (100% green).
+- [x] Backend Suite (`server`): 12 test suites, 92 tests passing (100% green).
+- [x] Frontend Suite (`client`): 15 test suites, 91 tests passing (100% green).
+

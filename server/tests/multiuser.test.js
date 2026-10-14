@@ -98,4 +98,102 @@ describe('Multi-User Data Isolation', () => {
     expect(stats1.body.score).toBe(100);
     expect(stats2.body.score).toBe(0);
   });
+
+  test('AUTH-06: getOrCreateUserProfile seamlessly migrates legacy default_user progress to primary profile p1', async () => {
+    // 1. Seed legacy user and progress under 'default_user'
+    await User.create({
+      userId: 'default_user',
+      currentLesson: 4,
+      currentCycle: 2,
+      currentLevel: 2,
+      lessonHistory: [
+        { lessonId: 1, stars: 3 },
+        { lessonId: 2, stars: 2 },
+        { lessonId: 3, stars: 3 }
+      ]
+    });
+
+    await Progress.create([
+      { userId: 'default_user', itemId: 'w001', itemType: 'word', encounters: 2, correctCount: 2, srsWeight: 2.0 },
+      { userId: 'default_user', itemId: 't001', itemType: 'letter', encounters: 1, correctCount: 1, srsWeight: 1.5 }
+    ]);
+
+    // 2. Query stats for p1 (primary profile)
+    const statsRes = await request(app).get('/api/progress/stats?userId=p1');
+    expect(statsRes.status).toBe(200);
+    expect(statsRes.body.currentLesson).toBe(4);
+    expect(statsRes.body.currentCycle).toBe(2);
+    expect(statsRes.body.score).toBe(800); // 3*100 + 2*100 + 3*100 = 800
+
+    // 3. Verify User document exists for p1 with legacy progress cloned
+    const p1User = await User.findOne({ userId: 'p1' });
+    expect(p1User).not.toBeNull();
+    expect(p1User.currentLesson).toBe(4);
+    expect(p1User.lessonHistory).toHaveLength(3);
+
+    // 4. Verify Progress items are associated with p1
+    const p1Progress = await Progress.find({ userId: 'p1' });
+    expect(p1Progress).toHaveLength(2);
+  });
+
+  test('AUTH-06: Profile 2 starts fresh at Lesson 1 and does NOT inherit default_user progress', async () => {
+    // 1. Ensure default_user has progress
+    await User.create({
+      userId: 'default_user',
+      currentLesson: 5,
+      currentCycle: 2,
+      lessonHistory: [{ lessonId: 1, stars: 3 }, { lessonId: 2, stars: 3 }]
+    });
+
+    // 2. Query stats for a secondary profile 'p_second_learner'
+    const statsRes = await request(app).get('/api/progress/stats?userId=p_second_learner');
+    expect(statsRes.status).toBe(200);
+    expect(statsRes.body.currentLesson).toBe(1);
+    expect(statsRes.body.score).toBe(0);
+    expect(statsRes.body.lessonHistory).toHaveLength(0);
+
+    const user2 = await User.findOne({ userId: 'p_second_learner' });
+    expect(user2).not.toBeNull();
+    expect(user2.currentLesson).toBe(1);
+  });
+
+  test('AUTH-06: Completing Lesson 1 on newly created Profile 2 persists without throwing 500', async () => {
+    const profileId2 = 'p_newly_created_child';
+
+    // Completing lesson 1 on a profile that has not yet been saved to User collection
+    const completeRes = await request(app)
+      .post('/api/session/lesson/complete')
+      .send({
+        userId: profileId2,
+        lessonId: 1,
+        stars: 3
+      });
+
+    expect(completeRes.status).toBe(200);
+    expect(completeRes.body.success).toBe(true);
+    expect(completeRes.body.currentLesson).toBe(2);
+
+    // Verify progress stats persistence
+    const statsRes = await request(app).get(`/api/progress/stats?userId=${profileId2}`);
+    expect(statsRes.status).toBe(200);
+    expect(statsRes.body.currentLesson).toBe(2);
+    expect(statsRes.body.score).toBe(300);
+    expect(statsRes.body.lessonHistory).toEqual([
+      expect.objectContaining({ lessonId: 1, stars: 3 })
+    ]);
+  });
+
+  test('AUTH-06: POST /api/user/log records user activity and returns user status', async () => {
+    const profileId = 'p_activity_test';
+
+    const logRes = await request(app)
+      .post('/api/user/log')
+      .send({ userId: profileId });
+
+    expect(logRes.status).toBe(200);
+    expect(logRes.body.success).toBe(true);
+    expect(logRes.body.userId).toBe(profileId);
+    expect(logRes.body.currentLesson).toBe(1);
+  });
 });
+

@@ -91,9 +91,22 @@ const AppContent = () => {
     if (typeof window !== 'undefined' && typeof window.scrollTo === 'function') {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
-    const mainContainer = document.querySelector('main') || document.documentElement;
-    if (mainContainer) mainContainer.scrollTop = 0;
-  }, [activeView, activeLesson, currentAct]);
+    if (typeof document !== 'undefined') {
+      if (document.documentElement && typeof document.documentElement.scrollTo === 'function') {
+        document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+      if (document.body && typeof document.body.scrollTo === 'function') {
+        document.body.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+      const mainEl = document.querySelector('main');
+      if (mainEl) {
+        if (typeof mainEl.scrollTo === 'function') {
+          mainEl.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }
+        mainEl.scrollTop = 0;
+      }
+    }
+  }, [activeView, activeLesson, currentAct, currentIndex]);
 
   if (error) {
     return (
@@ -281,9 +294,9 @@ const AppContent = () => {
             </button>
           </div>
         ) : (
-          <div className="w-full max-w-[1400px] mx-auto card-bento-surface p-8 min-h-[550px] flex flex-col items-center justify-center relative animate-pop shadow-2xl border-orange-100">
+          <div className="w-full max-w-[1400px] mx-auto card-bento-surface p-4 sm:p-8 min-h-[550px] flex flex-col items-center justify-center relative animate-pop shadow-2xl border-orange-100">
             {/* Header within game: Consolidated Controls */}
-            <div className="absolute top-8 left-8 right-8 flex justify-between items-center pointer-events-none">
+            <div className={`${currentItem?.lessonType === 'trace' ? 'hidden md:flex' : 'flex'} absolute top-8 left-8 right-8 justify-between items-center pointer-events-none`}>
               <div className="flex items-center gap-3 pointer-events-auto bg-prime-action-dark px-4 py-2 rounded-2xl shadow-lg border border-white/10 backdrop-blur-sm">
                 <button 
                   onClick={() => { setSessionMode('map'); setSessionStatus('idle'); }}
@@ -335,7 +348,7 @@ const AppContent = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-col items-center mt-12">
+            <div className={`w-full flex flex-col items-center ${currentItem?.lessonType === 'trace' ? 'mt-0 md:mt-12' : 'mt-12'}`}>
               {currentItem ? (
                 currentItem.lessonType === 'concept' ? (
                   <ConceptScreen key={`game-${currentIndex}`} word={currentItem} onComplete={updateProgress} />

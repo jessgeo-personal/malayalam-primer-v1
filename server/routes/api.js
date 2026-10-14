@@ -90,10 +90,11 @@ router.get('/game/lesson/:lessonId', async (req, res) => {
 router.post('/session/lesson/complete', async (req, res) => {
   try {
     const { userId, lessonId, stars } = req.body;
-    const user = await User.findOne({ userId });
+    const user = await srsEngine.getOrCreateUserProfile(userId);
     
     // Add to history if not already there, or update stars if higher
     const lid = parseInt(lessonId);
+    if (!user.lessonHistory) user.lessonHistory = [];
     const existing = user.lessonHistory.find(h => h.lessonId === lid);
     if (existing) {
       existing.stars = Math.max(existing.stars, stars);
@@ -129,6 +130,7 @@ router.post('/session/lesson/complete', async (req, res) => {
 router.post('/session/revision/complete', async (req, res) => {
   try {
     const { userId } = req.body;
+    await srsEngine.getOrCreateUserProfile(userId);
     await User.updateOne({ userId }, { $set: { lastRevisionDate: new Date() } });
     res.json({ success: true });
   } catch (error) {
@@ -253,7 +255,7 @@ router.post('/progress/update', async (req, res) => {
 
     // Calculate total score based on Lesson Stars
     const user = await User.findOne({ userId });
-    const score = user ? user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0) : 0;
+    const score = user && user.lessonHistory ? user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0) : 0;
     
     // For backwards compatibility/MasteryStrip: get letters (traces)
     const masteredTraces = await Progress.find({ 
@@ -289,15 +291,12 @@ router.get('/progress/stats', async (req, res) => {
   try {
     const { userId } = req.query;
     
-    // Ensure user exists
-    let user = await User.findOne({ userId });
-    if (!user) {
-      user = await User.create({ userId, currentLevel: 1 });
-    }
+    // Ensure user exists and migrate legacy progress if applicable
+    const user = await srsEngine.getOrCreateUserProfile(userId);
 
     // Calculate total score based on Lesson Stars (Max 300 per lesson)
     // 3 Stars = 300, 2 Stars = 200, 1 Star = 100
-    const score = user.lessonHistory.reduce((sum, lesson) => sum + (lesson.stars * 100), 0);
+    const score = (user.lessonHistory || []).reduce((sum, lesson) => sum + (lesson.stars * 100), 0);
 
     // AUTO-HEAL: Retroactively sync currentCycle if user advanced lessons but missed the cycle bump
     const nextLessonWord = await Word.findOne({ lessonId: user.currentLesson });
@@ -397,6 +396,28 @@ router.get('/words/audit', async (req, res) => {
 router.get('/user/progress', async (req, res) => {
   // Existing placeholder
   res.json({ message: "Use /api/words/next and /api/progress/update for Phase 1" });
+});
+
+/**
+ * POST /api/user/log
+ * Logs user activity and guarantees existence of the user profile.
+ */
+router.post('/user/log', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    if (!userId) {
+      return res.status(400).json({ error: 'userId is required' });
+    }
+    const user = await srsEngine.getOrCreateUserProfile(userId);
+    res.json({
+      success: true,
+      userId: user.userId,
+      currentLesson: user.currentLesson,
+      currentCycle: user.currentCycle
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = router;

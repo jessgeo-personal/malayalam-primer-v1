@@ -3,7 +3,9 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const Account = require('../models/Account');
 const Progress = require('../models/Progress');
+const User = require('../models/User');
 const emailService = require('../services/emailService');
+const { JWT_SECRET } = require('../config/auth');
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -82,7 +84,7 @@ router.post('/verify-otp', async (req, res) => {
 
     const token = jwt.sign(
       { accountId: account._id, email: account.email },
-      process.env.JWT_SECRET || 'dev_secret_jwt_key',
+      JWT_SECRET,
       { expiresIn: '30d' }
     );
 
@@ -144,6 +146,20 @@ router.post('/profiles', authMiddleware, async (req, res) => {
 
     req.account.profiles.push(newProfile);
     await req.account.save();
+
+    await User.findOneAndUpdate(
+      { userId: newProfile.profileId },
+      {
+        $setOnInsert: {
+          userId: newProfile.profileId,
+          currentLesson: 1,
+          currentCycle: 1,
+          currentLevel: 1,
+          lessonHistory: []
+        }
+      },
+      { upsert: true, returnDocument: 'after' }
+    );
 
     return res.status(201).json({
       profile: newProfile,
@@ -224,6 +240,17 @@ router.post('/profiles/:profileId/reset', authMiddleware, async (req, res) => {
     }
 
     await Progress.deleteMany({ userId: profileId });
+    await User.updateOne({ userId: profileId }, {
+      $set: {
+        currentLevel: 1,
+        lastRevisionDate: null,
+        currentCycle: 1,
+        currentLesson: 1,
+        lessonHistory: [],
+        unlockedCharacters: [],
+        unlockedWords: []
+      }
+    });
 
     return res.status(200).json({
       success: true,

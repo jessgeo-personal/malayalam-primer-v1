@@ -4,10 +4,13 @@ import { useAuth } from '../../context/AuthContext';
 const AVATARS = ['star', 'rocket', 'sun', 'flower'];
 
 const ProfileSelector = ({ onClose }) => {
-  const { account, activeProfile, switchProfile, createProfile, resetProfile, loading } = useAuth();
+  const { account, activeProfile, switchProfile, createProfile, resetProfile, updateProfileName, loading } = useAuth();
   const [newProfileName, setNewProfileName] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState('rocket');
   const [actionError, setActionError] = useState(null);
+  const [editingProfileId, setEditingProfileId] = useState(null);
+  const [editingName, setEditingName] = useState('');
+  const [isUpdatingName, setIsUpdatingName] = useState(false);
 
   const profiles = account?.profiles || [];
   const isCeilingReached = profiles.length >= 3;
@@ -19,6 +22,39 @@ const ProfileSelector = ({ onClose }) => {
       await switchProfile(profileId);
     } catch (err) {
       setActionError(err.message || 'Failed to switch profile');
+    }
+  };
+
+  const handleStartEdit = (e, profile) => {
+    e.stopPropagation();
+    setActionError(null);
+    setEditingProfileId(profile.profileId);
+    setEditingName(profile.name);
+  };
+
+  const handleCancelEdit = (e) => {
+    e?.stopPropagation();
+    setEditingProfileId(null);
+    setEditingName('');
+  };
+
+  const handleSaveEdit = async (e, profileId) => {
+    e?.stopPropagation();
+    e?.preventDefault();
+    if (!editingName.trim()) {
+      setActionError('Profile name cannot be empty');
+      return;
+    }
+    try {
+      setIsUpdatingName(true);
+      setActionError(null);
+      await updateProfileName(profileId, editingName.trim());
+      setEditingProfileId(null);
+      setEditingName('');
+    } catch (err) {
+      setActionError(err.message || 'Failed to update profile name');
+    } finally {
+      setIsUpdatingName(false);
     }
   };
 
@@ -113,8 +149,62 @@ const ProfileSelector = ({ onClose }) => {
               </div>
 
               <div>
-                <h4 className="font-black text-sm text-[#1A1E26] truncate">{p.name}</h4>
-                <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">
+                {editingProfileId === p.profileId ? (
+                  <form
+                    onSubmit={(e) => handleSaveEdit(e, p.profileId)}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex flex-col gap-2 my-1"
+                  >
+                    <input
+                      type="text"
+                      data-testid={`profile-name-input-${p.profileId}`}
+                      value={editingName}
+                      onChange={(e) => setEditingName(e.target.value)}
+                      disabled={isUpdatingName}
+                      autoFocus
+                      onKeyDown={(e) => {
+                        if (e.key === 'Escape') handleCancelEdit(e);
+                      }}
+                      className="w-full px-2.5 py-1 text-sm font-semibold rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#1A1E26] bg-white text-[#1A1E26]"
+                    />
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="submit"
+                        data-testid={`save-profile-name-${p.profileId}-btn`}
+                        disabled={isUpdatingName || !editingName.trim()}
+                        className="px-2.5 py-1 bg-[#1A1E26] hover:bg-[#2A303C] text-white text-xs font-bold rounded-lg transition-colors cursor-pointer disabled:opacity-40"
+                        title="Save Name"
+                      >
+                        ✓ Save
+                      </button>
+                      <button
+                        type="button"
+                        data-testid={`cancel-edit-profile-${p.profileId}-btn`}
+                        onClick={handleCancelEdit}
+                        disabled={isUpdatingName}
+                        className="px-2.5 py-1 bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                        title="Cancel"
+                      >
+                        ✕ Cancel
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="flex items-center justify-between gap-1">
+                    <h4 className="font-black text-sm text-[#1A1E26] truncate">{p.name}</h4>
+                    <button
+                      type="button"
+                      data-testid={`edit-profile-${p.profileId}-btn`}
+                      onClick={(e) => handleStartEdit(e, p)}
+                      className="text-stone-400 hover:text-stone-700 p-1 text-xs rounded transition-colors cursor-pointer"
+                      title="Edit Profile Name"
+                      aria-label="Edit Profile Name"
+                    >
+                      ✏️
+                    </button>
+                  </div>
+                )}
+                <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider block mt-0.5">
                   {p.isDefault ? 'Default Profile' : 'Learner'}
                 </span>
               </div>

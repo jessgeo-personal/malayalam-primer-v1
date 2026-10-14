@@ -3,7 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Account = require('../models/Account');
+const User = require('../models/User');
 const authRoutes = require('../routes/auth');
+const { JWT_SECRET } = require('../config/auth');
 
 const app = express();
 app.use(express.json());
@@ -20,7 +22,7 @@ describe('Profile Management & Switching Integration', () => {
     });
     const tok = jwt.sign(
       { accountId: acc._id, email: acc.email },
-      process.env.JWT_SECRET || 'dev_secret_jwt_key',
+      JWT_SECRET,
       { expiresIn: '30d' }
     );
     return { account: acc, token: tok };
@@ -242,4 +244,24 @@ describe('Profile Management & Switching Integration', () => {
     expect(resBlank.status).toBe(400);
     expect(resBlank.body).toHaveProperty('error');
   });
+
+  test('12. POST /api/auth/profiles auto-initializes User document with currentLesson 1 and empty lessonHistory (AUTH-06)', async () => {
+    const res = await request(app)
+      .post('/api/auth/profiles')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ name: 'Diya', avatar: 'rocket' });
+
+    expect(res.status).toBe(201);
+    expect(res.body).toHaveProperty('profile');
+    const newProfileId = res.body.profile.profileId;
+
+    // Verify User collection record exists and is initialized
+    const userDoc = await User.findOne({ userId: newProfileId });
+    expect(userDoc).not.toBeNull();
+    expect(userDoc.userId).toBe(newProfileId);
+    expect(userDoc.currentLesson).toBe(1);
+    expect(userDoc.currentLevel).toBe(1);
+    expect(userDoc.lessonHistory).toEqual([]);
+  });
 });
+

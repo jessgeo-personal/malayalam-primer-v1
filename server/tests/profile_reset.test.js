@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const Account = require('../models/Account');
 const Progress = require('../models/Progress');
 const authRoutes = require('../routes/auth');
+const { JWT_SECRET } = require('../config/auth');
 
 // Express application instance mounted with auth routes
 const app = express();
@@ -57,13 +58,13 @@ describe('Profile Independent Reset Endpoint & Handlers (AUTH-03)', () => {
 
     tokenA = jwt.sign(
       { accountId: accountA._id, email: accountA.email },
-      process.env.JWT_SECRET || 'dev_secret_jwt_key',
+      JWT_SECRET,
       { expiresIn: '30d' }
     );
 
     tokenB = jwt.sign(
       { accountId: accountB._id, email: accountB.email },
-      process.env.JWT_SECRET || 'dev_secret_jwt_key',
+      JWT_SECRET,
       { expiresIn: '30d' }
     );
 

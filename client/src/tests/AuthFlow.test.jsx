@@ -110,6 +110,24 @@ describe('Frontend Auth Flow Integration (AUTH-04)', () => {
         };
       }
 
+      if (urlStr.match(/\/api\/auth\/profiles\/([^/]+)$/) && method === 'PUT') {
+        const match = urlStr.match(/\/api\/auth\/profiles\/([^/]+)$/);
+        const profileId = match ? match[1] : 'p1';
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            success: true,
+            profile: {
+              profileId,
+              name: body.name || 'Renamed Learner',
+              avatar: 'star',
+              isDefault: profileId === 'p1'
+            }
+          })
+        };
+      }
+
       return {
         ok: true,
         status: 200,
@@ -414,10 +432,75 @@ describe('Frontend Auth Flow Integration (AUTH-04)', () => {
 
     // Verify session lesson was fetched for lesson 1 and game screen loaded
     await waitFor(() => {
+      expect(
+        global.fetch.mock.calls.some(c => typeof c[0] === 'string' && c[0].includes('/api/session/lesson'))
+      ).toBe(true);
+    });
+  });
+
+  it('AUTH-06: ProfileSelector allows inline renaming of Learner 1 and other profiles', async () => {
+    localStorage.setItem('mp_auth_token', 'mock_jwt_token_123');
+    localStorage.setItem('mp_account', JSON.stringify({
+      email: 'parent@example.com',
+      profiles: [
+        { profileId: 'p1', name: 'Learner 1', avatar: 'star', isDefault: true },
+        { profileId: 'p2', name: 'Learner 2', avatar: 'rocket', isDefault: false }
+      ]
+    }));
+
+    render(
+      <AuthProvider>
+        <AuthTestConsumer />
+      </AuthProvider>
+    );
+
+    // Verify initial profile name is shown
+    expect(screen.getByTestId('profile-card-p1')).toHaveTextContent('Learner 1');
+
+    // 1. Click edit button on Learner 1
+    const editBtnP1 = screen.getByTestId('edit-profile-p1-btn');
+    expect(editBtnP1).toBeInTheDocument();
+    fireEvent.click(editBtnP1);
+
+    // 2. Verify inline input and action buttons appear
+    const nameInput = screen.getByTestId('profile-name-input-p1');
+    expect(nameInput).toBeInTheDocument();
+    expect(nameInput.value).toBe('Learner 1');
+
+    const cancelBtn = screen.getByTestId('cancel-edit-profile-p1-btn');
+    const saveBtn = screen.getByTestId('save-profile-name-p1-btn');
+    expect(cancelBtn).toBeInTheDocument();
+    expect(saveBtn).toBeInTheDocument();
+
+    // 3. Test Cancel button dismisses edit mode without modifying
+    fireEvent.change(nameInput, { target: { value: 'Temporary Name' } });
+    fireEvent.click(cancelBtn);
+    expect(screen.queryByTestId('profile-name-input-p1')).not.toBeInTheDocument();
+    expect(screen.getByTestId('profile-card-p1')).toHaveTextContent('Learner 1');
+
+    // 4. Click Edit again, enter new name, and Save
+    fireEvent.click(screen.getByTestId('edit-profile-p1-btn'));
+    const nameInputAgain = screen.getByTestId('profile-name-input-p1');
+    fireEvent.change(nameInputAgain, { target: { value: 'Aarav' } });
+    fireEvent.click(screen.getByTestId('save-profile-name-p1-btn'));
+
+    // 5. Verify PUT /api/auth/profiles/p1 was called with { name: 'Aarav' }
+    await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        expect.stringContaining('/api/session/lesson')
+        expect.stringContaining('/api/auth/profiles/p1'),
+        expect.objectContaining({
+          method: 'PUT',
+          body: JSON.stringify({ name: 'Aarav' })
+        })
       );
+    });
+
+    // 6. Verify UI updates to 'Aarav' and edit input closes
+    await waitFor(() => {
+      expect(screen.queryByTestId('profile-name-input-p1')).not.toBeInTheDocument();
+      expect(screen.getByTestId('profile-card-p1')).toHaveTextContent('Aarav');
     });
   });
 });
+
 

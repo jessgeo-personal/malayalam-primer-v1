@@ -191,10 +191,75 @@ async function generateActPreview(userId, lessonId, conceptId) {
   }));
 }
 
+/**
+ * Safe progression lookup & legacy migration helper.
+ * If user does not exist, checks if primary profile can inherit legacy progress from 'default_user'.
+ * Otherwise initializes fresh profile with atomic $setOnInsert upsert.
+ */
+async function getOrCreateUserProfile(userId, account = null) {
+  const targetId = userId || 'default_user';
+
+  let user = await User.findOne({ userId: targetId });
+  if (user && (user.currentLesson > 1 || (user.lessonHistory && user.lessonHistory.length > 0))) {
+    return user;
+  }
+
+  // SAFE MIGRATION CHECK:
+  // If this is the primary profile (e.g. 'p1' or the account's first profile),
+  // check if legacy progress exists under 'default_user'.
+  const isPrimary = targetId === 'p1' || (account && account.profiles && account.profiles[0] && account.profiles[0].profileId === targetId);
+
+  if (isPrimary && targetId !== 'default_user') {
+    const legacyUser = await User.findOne({ userId: 'default_user' });
+    if (legacyUser && (legacyUser.currentLesson > 1 || (legacyUser.lessonHistory && legacyUser.lessonHistory.length > 0))) {
+      if (user) {
+        user.currentLesson = legacyUser.currentLesson;
+        user.currentCycle = legacyUser.currentCycle;
+        user.currentLevel = legacyUser.currentLevel || 1;
+        user.lessonHistory = legacyUser.lessonHistory || [];
+        await user.save();
+      } else {
+        user = await User.create({
+          userId: targetId,
+          currentLesson: legacyUser.currentLesson,
+          currentCycle: legacyUser.currentCycle,
+          currentLevel: legacyUser.currentLevel || 1,
+          lessonHistory: legacyUser.lessonHistory || []
+        });
+      }
+      // Also associate legacy Progress SRS logs if present
+      await Progress.updateMany({ userId: 'default_user' }, { $set: { userId: targetId } });
+      return user;
+    }
+  }
+
+  if (user) {
+    return user;
+  }
+
+  // Otherwise, safely initialize fresh profile at Lesson 1 with $setOnInsert safety
+  user = await User.findOneAndUpdate(
+    { userId: targetId },
+    {
+      $setOnInsert: {
+        userId: targetId,
+        currentLesson: 1,
+        currentCycle: 1,
+        currentLevel: 1,
+        lessonHistory: []
+      }
+    },
+    { upsert: true, returnDocument: 'after' }
+  );
+  return user;
+}
+
 module.exports = {
   calculateNewWeight,
   evaluateGraduation,
   generateRevisionPayload,
   generateLessonPayload,
-  generateActPreview
+  generateActPreview,
+  getOrCreateUserProfile
 };
+

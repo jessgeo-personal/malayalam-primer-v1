@@ -207,4 +207,53 @@ describe('Auth Endpoints Integration (Email + OTP)', () => {
     if (Account) await Account.deleteMany({ email });
     await Progress.deleteMany({ userId: 'p1' });
   });
+
+  test('9. POST /api/auth/verify-otp returns token that successfully authenticates against authMiddleware (AUTH-07)', async () => {
+    const email = 'parent@example.com';
+    const reqRes = await request(app)
+      .post('/api/auth/request-otp')
+      .send({ email });
+    const otp = reqRes.body.otp;
+
+    const verifyRes = await request(app)
+      .post('/api/auth/verify-otp')
+      .send({ email, otp });
+
+    expect(verifyRes.status).toBe(200);
+    const token = verifyRes.body.token;
+    expect(token).toBeDefined();
+
+    // Access protected route with Bearer token
+    const profileRes = await request(app)
+      .get('/api/auth/profiles')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(profileRes.status).toBe(200);
+    expect(profileRes.body).toHaveProperty('profiles');
+  });
+
+  test('10. authMiddleware successfully sanitizes and verifies Bearer token enclosed in surrounding quotes (AUTH-07)', async () => {
+    const email = 'parent@example.com';
+    const reqRes = await request(app)
+      .post('/api/auth/request-otp')
+      .send({ email });
+    const otp = reqRes.body.otp;
+
+    const verifyRes = await request(app)
+      .post('/api/auth/verify-otp')
+      .send({ email, otp });
+
+    expect(verifyRes.status).toBe(200);
+    const token = verifyRes.body.token;
+
+    // Send token enclosed in double-quotes as might occur from JSON.stringify
+    const quotedToken = `"${token}"`;
+    const profileRes = await request(app)
+      .get('/api/auth/profiles')
+      .set('Authorization', `Bearer ${quotedToken}`);
+
+    expect(profileRes.status).toBe(200);
+    expect(profileRes.body).toHaveProperty('profiles');
+  });
 });
+

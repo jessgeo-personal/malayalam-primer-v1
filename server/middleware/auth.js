@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Account = require('../models/Account');
+const { JWT_SECRET } = require('../config/auth');
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -8,14 +9,19 @@ const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ error: 'Authentication token required' });
     }
 
-    const token = authHeader.split(' ')[1];
+    let token = authHeader.split(' ')[1];
     if (!token) {
       return res.status(401).json({ error: 'Authentication token required' });
     }
 
+    // Strip any unintentional quotes from the Bearer token (e.g. from JSON.stringify)
+    if (token.startsWith('"') && token.endsWith('"')) {
+      token = token.slice(1, -1);
+    }
+
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET || 'dev_secret_jwt_key');
+      decoded = jwt.verify(token, JWT_SECRET);
     } catch (err) {
       return res.status(401).json({ error: 'Invalid or expired token' });
     }
@@ -33,4 +39,7 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
+authMiddleware.JWT_SECRET = JWT_SECRET;
+
 module.exports = authMiddleware;
+
